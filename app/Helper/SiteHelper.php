@@ -48,7 +48,9 @@ if (!function_exists('getDefaultUrl')) {
                 : url('auth/login');
         }
 
-        return url('/');
+        return (checkUrl() === 'admin')
+            ? url('/admin/log')
+            : url('/');
     }
 }
 

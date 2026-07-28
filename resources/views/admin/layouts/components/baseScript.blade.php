@@ -1,8 +1,7 @@
 {{-- Scripts --}}
-<script src="{{ asset('assets_admin/js/jquery-1.12.4.min.js') }}"></script>
-<script src="{{ asset('assets_admin/js/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('assets_admin/js/slick.min.js') }}"></script>
-<script src="{{ asset('assets_admin/js/common.js') }}"></script>
+<script src="/assets/js/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/common.js"></script>
 
 <script src="{{ asset('plugins/moment/js/moment.min.js') }}"></script>
 <script src="{{ asset('plugins/crypto-js/crypto-js.min.js') }}"></script>
@@ -20,15 +19,18 @@
 
 @if(auth('admin')->check())
     <script>
+        $(document).ready(function () {
+            // 최초 실행
+            loginTimer();
+
+            // 1초마다 갱신
+            timerInterval = setInterval(loginTimer, 1000);
+        });
+        
         const logout = () => {
             if (confirm('로그아웃 하시겠습니까?')) {
                 callAjax('{{ route('logout') }}', {});
             }
         }
-
-        $(document).on('change', '#li_page', function() {
-            $("#searchF input[name=li_page]").val($(this).val());
-            $('#searchF').submit();
-        });
     </script>
 @endif

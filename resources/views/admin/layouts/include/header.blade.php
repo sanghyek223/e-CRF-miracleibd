@@ -1,58 +1,39 @@
-<header id="header" class="js-header">
-    <div class="header-wrap inner-layer">
-        <h1 class="header-logo">
-            <a href="{{ route('main') }}"><img src="/assets/image/common/h1_logo.png"></a>
-        </h1>
+<header id="header">
+    <div class="util-wrap text-right inner-layer">
+        <p class="user-state">
+            [{{ thisUser()->hospitalName() }}] {{ thisUser()->name_kr }} 님 최근 방문일 : {{ thisUser()->login_at->locale('ko')->isoFormat('YYYY-MM-DD A hh:mm:ss') }}
+        </p>
 
-        <div class="util-menu-wrap">
-            <p class="user-info">
-                <b>접속계정 :</b> <span style="font-weight: bold; color: #6d6df2; margin-left: 5px;">{{ thisUser()->uid ?? '' }}</span>
-            </p>
+        <p>
+            로그인 유지시간: <span id="session-timer"></span>
+        </p>
 
-            <ul class="util-menu">
-                <li><a href="{{ env('APP_URL') }}" class="btn btn-util color-type17" target="_blank">{{ env('APP_NAME') }}</a></li>
-                <li><a href="javascript:logout();" class="btn btn-util color-type5">Logout</a></li>
-            </ul>
-        </div>
+        <ul class="util-menu">
+            <li class="on"><a href="javascript:loginExtension();" id="extend-session">연장</a></li>
+            <li><a href="javascript:logout();">로그아웃</a></li>
+        </ul>
     </div>
 
-    <nav id="gnb">
-        <div class="gnb-wrap inner-layer">
-            <ul class="gnb js-gnb">
+    <div class="header-wrap inner-layer">
+        <h1 class="header-logo">
+            <a href="{{ env('APP_URL') }}">
+                마이크로바이옴 레지스트리
+                <span>Microbiome Registry</span>
+            </a>
+        </h1>
+
+        <nav id="gnb">
+            <ul class="gnb-menu">
                 @foreach($menu['main'] as $key => $val)
-                    @if($val['dev'] && !isDev() /* 개발자메뉴 */)
-                        @continue
-                    @endif
-
-                    @if($val['continue'] /* 노출 안하는 메뉴 */)
-                        @continue
-                    @endif
-
-                    <li class="{{ ($main_key ?? '') == $key ? 'on' : '' }}">
-                        <a href="javascript:void(0);">{{ $val['name'] }}</a>
-
-                        @if(!empty($menu['sub'][$key]))
-                            <ul>
-                                @foreach($menu['sub'][$key] ?? [] as $sKey => $sVal)
-                                    @if($sVal['dev'] && !isDev() /* 개발자메뉴 */)
-                                        @continue
-                                    @endif
-
-                                    @if($sVal['continue'] /* 노출 안하는 메뉴 */)
-                                        @continue
-                                    @endif
-
-                                    <li>
-                                        <a href="{{ empty($sVal['route']) ? $sVal['url'] : route($sVal['route'], $sVal['param']) }}">{{ $sVal['name'] }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
+                    @if($val['continue']) @continue @endif
+                    @if($val['dev'] && !isDev()) @continue @endif
+                    <li @class(['on' => $key === ($main_key ?? '')])>
+                        <a href="{{ empty($val['url']) ? route($val['route'], $val['param']) : $val['url'] }}" @if($val['blank']) target="_blank" @endif>
+                            {{ $val['name'] }}
+                        </a>
                     </li>
                 @endforeach
             </ul>
-        </div>
-
-        <div class="gnb-bg js-gnb-bg"></div>
-    </nav>
+        </nav>
+    </div>
 </header>

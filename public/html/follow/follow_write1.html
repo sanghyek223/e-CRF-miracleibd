@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes,viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="format-detection" content="telephone=no, address=no, email=no">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Microbiome Registry</title>
+<meta name="Author" content="The Korean Audiological Society">
+<meta name="Keywords" content="Microbiome Registry 마이크로바이옴 레지스트리">
+<meta name="description" content="Microbiome Registry 마이크로바이옴 레지스트리">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="/assets/css/common.css">
+<script src="/assets/js/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/common.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <header id="header">
+            <div class="util-wrap text-right inner-layer">
+                <p class="user-state">
+                    [OO대학교병원] 관리자 님 최근 방문일 : 2022-02-09 오전 09:50:45  
+                </p>
+                <p>
+                    로그인 유지시간: 56분 05초
+                </p>
+                <ul class="util-menu">
+                    <li class="on"><a href="#n">연장</a></li>
+                    <li><a href="#n">로그아웃</a></li>
+                    <li><a href="#n">관리자</a></li>
+                </ul>
+            </div>
+            <div class="header-wrap inner-layer">
+                <h1 class="header-logo">
+                    <a href="/">
+                        마이크로바이옴 레지스트리
+                        <span>Microbiome Registry</span>
+                    </a>
+                </h1>
+                <nav id="gnb">
+                    <ul class="gnb-menu">
+                        <li><a href="#n">신규 대상자 등록</a></li>
+                        <li class="on"><a href="#n">전체 대상자 리스트</a></li>
+                        <li><a href="#n">데이터 열람 / 신청</a></li>
+                        <li><a href="#n">마이페이지</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section id="container">
+            <div class="contents inner-layer">
+				<div class="sub-tit-wrap">
+					<h3 class="sub-tit">Follow-up</h3>
+				</div>
+
+                <div class="table-wrap">
+                    <table class="cst-table">
+                        <caption class="hide">대상자 정보</caption>
+                        <colgroup>
+                            <col style="width:10%;">
+                            <col>
+                            <col style="width:10%;">
+                            <col>
+							<col style="width:10%;">
+                            <col>
+							<col style="width:10%;">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Registration No.</th>
+                                <td>
+                                    AAA-0010
+                                </td>
+                                <th scope="row">Initial</th>
+                                <td>
+                                    ABC
+                                </td>
+                                <th scope="row">성별/나이</th>
+                                <td>
+                                    남자 / 11
+                                </td>
+                                <th scope="row">IBD Type</th>
+                                <td>
+                                    UC
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="sub-tab-wrap sticky">
+                    <div class="sub-tab-cont-bg">
+                        <ul class="sub-tab-menu col5">
+                            <li class="complete"><a href="#n">Baseline</a></li>
+                            <li class="ing"><a href="#n">Outcome</a></li>
+                            <li class="on"><a href="#n">Follow-up</a></li>
+                            <li><a href="#n">End of Study (Last F/U)</a></li>
+                            <li><a href="#n">Microbiome Data Upload</a></li>
+                        </ul>
+                        <ul class="con-menu">
+                            <li class="on"><a href="#"><span class="state ing"><b class="mark"></b></span> 검체 정보</a></li>
+                            <li><a href="#"><span class="state ing"><b class="mark"></b></span> 검체 획득 시점 Lab</a></li>
+                            <li><a href="#"><span class="state complete"><b class="mark"></b></span> 검체 획득 시점 검사</a></li>
+                            <li><a href="#"><span class="state ing"><b class="mark"></b></span> 검체 획득 시점 영상</a></li>
+                        </ul>
+                    </div>
+                    <div id="left-menu" class="left-side-menu">
+                        <ul class="left-menu-list js-left-menu">
+                            <li class="on"><a href="#n">YYYY-MM-DD <span class="state waiting"><b class="mark"></b></span></a></li>
+                            <li><a href="#n">YYYY-MM-DD <span class="state ing"><b class="mark"></b></span></a></li>
+                            <li><a href="#n">YYYY-MM-DD <span class="state complete"><b class="mark"></b></span></a></li>
+                            <li><a href="#n">YYYY-MM-DD <span class="state ing"><b class="mark"></b></span></a></li>
+                            <li><a href="#n">YYYY-MM-DD <span class="state ing"><b class="mark"></b></span></a></li>
+                            <li><a href="#n">YYYY-MM-DD <span class="state ing"><b class="mark"></b></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+				<div class="contents-grid-wrap">
+                    <div class="left-side-blank"></div>
+                    <div class="sub-conbox">
+                        <div class="write-form-wrap">
+                            <form action="" method="">
+                                <fieldset>
+                                    <legend class="hide">Follow-up</legend>
+
+                                    <div class="table-contop">
+                                        <p><strong>최종 저장일시</strong> YYYY-MM-DD, 오후 HH:MM:SS</p>
+                                        <div class="checkbox-wrap full-right">
+                                            <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 검체 정보 입력 상태</label></div>
+                                        </div>
+                                    </div>
+                                    <div class="table-wrap">
+                                        <table class="cst-table">
+                                            <caption class="hide">Follow-up | 검체 정보</caption>
+                                            <colgroup>
+                                                <col style="width: 20%;">
+                                                <col>
+                                                <col style="width: 20%;">
+                                                <col> 
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" colspan="4">검체 정보</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">
+                                                        대변 검체 획득일
+                                                    </th>
+                                                    <td colspan="3" class="text-left">
+                                                        <div class="form-group date">
+                                                            <input type="text" name="" id="" class="form-item line small text-center"> /
+                                                            <input type="text" name="" id="" class="form-item line small text-center"> /
+                                                            <input type="text" name="" id="" class="form-item line small text-center">
+                                                            <img src="/assets/image/icon/ic_cal.png" alt="">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        혈액 검체 획득일
+                                                    </th>
+                                                    <td colspan="3" class="text-left">
+                                                        <div class="form-group date">
+                                                            <input type="text" name="" id="" class="form-item line small text-center"> /
+                                                            <input type="text" name="" id="" class="form-item line small text-center"> /
+                                                            <input type="text" name="" id="" class="form-item line small text-center">
+                                                            <img src="/assets/image/icon/ic_cal.png" alt="">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        조직 검체 획득일
+                                                    </th>
+                                                    <td colspan="3" class="text-left">
+                                                        <div class="form-group date">
+                                                            <input type="text" name="" id="" class="form-item line small text-center"> /
+                                                            <input type="text" name="" id="" class="form-item line small text-center"> /
+                                                            <input type="text" name="" id="" class="form-item line small text-center">
+                                                            <img src="/assets/image/icon/ic_cal.png" alt="">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4" scope="col" class="active">조직 검체 상세 정보</th>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        취득 검체 개수
+                                                    </th>
+                                                    <td colspan="3" class="text-left">
+                                                        <div class="form-group">
+                                                            정상 부위 : <input type="text" name="" id="" class="form-item line small text-center"> 개, 
+                                                            병변 부위 : <input type="text" name="" id="" class="form-item line small text-center"> 개
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        의뢰 검체 개수
+                                                    </th>
+                                                    <td colspan="3" class="text-left">
+                                                        <div class="form-group">
+                                                            정상 부위 : <input type="text" name="" id="" class="form-item line small text-center"> 개, 
+                                                            병변 부위 : <input type="text" name="" id="" class="form-item line small text-center"> 개
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        조직 채취 부위
+                                                    </th>
+                                                    <td colspan="3" class="text-left">
+                                                        <div class="checkbox-wrap">
+                                                            <div><label class="checkbox-group"><input type="checkbox" name="" id=""> Rectum</label></div>
+                                                            <div><label class="checkbox-group"><input type="checkbox" name="" id=""> S colon</label></div>
+                                                            <div><label class="checkbox-group"><input type="checkbox" name="" id=""> D colon</label></div>
+                                                            <div><label class="checkbox-group"><input type="checkbox" name="" id=""> T colon</label></div>
+                                                            <div><label class="checkbox-group"><input type="checkbox" name="" id=""> A colon</div>
+                                                            <div><label class="checkbox-group"><input type="checkbox" name="" id=""> Cecum</label></div>
+                                                            <div><label class="checkbox-group"><input type="checkbox" name="" id=""> Terminal ileum</label></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4" scope="col" class="active">Rectum 병리 결과</th>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        염증 여부 (내시경)
+                                                    </th>
+                                                    <td colspan="3" class="text-left">
+                                                        <div class="radio-wrap">
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> not inflammed</label></div>
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> inflammed</label></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        병리 결과 1
+                                                    </th>
+                                                    <td class="text-left">
+                                                        <div class="radio-wrap">
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> inactive</label></div>
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> active</label></div>
+                                                        </div>
+                                                    </td>
+                                                    <th scope="row">
+                                                        병리 결과 2
+                                                    </th>
+                                                    <td class="text-left">
+                                                        <div class="radio-wrap">
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> no cryptitis</label></div>
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> cryptitis</label></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        병리 결과 3
+                                                    </th>
+                                                    <td class="text-left">
+                                                        <div class="radio-wrap full">
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> no crypt atrophy/architectural distortion</label></div>
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> crypt atrophy/architectural distortion</label></div>
+                                                        </div>
+                                                    </td>
+                                                    <th scope="row">
+                                                        병리 결과 4
+                                                    </th>
+                                                    <td class="text-left">
+                                                        <div class="radio-wrap">
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> no granuloma</label></div>
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> granuloma</label></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="4" scope="col" class="active">T colon 병리 결과</th>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        염증 여부 (내시경)
+                                                    </th>
+                                                    <td colspan="3" class="text-left">
+                                                        <div class="radio-wrap">
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> not inflammed</label></div>
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> inflammed</label></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        병리 결과 1
+                                                    </th>
+                                                    <td class="text-left">
+                                                        <div class="radio-wrap">
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> inactive</label></div>
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> active</label></div>
+                                                        </div>
+                                                    </td>
+                                                    <th scope="row">
+                                                        병리 결과 2
+                                                    </th>
+                                                    <td class="text-left">
+                                                        <div class="radio-wrap">
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> no cryptitis</label></div>
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> cryptitis</label></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        병리 결과 3
+                                                    </th>
+                                                    <td class="text-left">
+                                                        <div class="radio-wrap full">
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> no crypt atrophy/architectural distortion</label></div>
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> crypt atrophy/architectural distortion</label></div>
+                                                        </div>
+                                                    </td>
+                                                    <th scope="row">
+                                                        병리 결과 4
+                                                    </th>
+                                                    <td class="text-left">
+                                                        <div class="radio-wrap">
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> no granuloma</label></div>
+                                                            <div><label class="radio-group"><input type="radio" name="" id=""> granuloma</label></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        MES (UC인 경우)
+                                                    </th>
+                                                    <td class="text-left">
+                                                        <select name="" id="" class="form-item w-60p">
+                                                            <option value="">선택</option>
+                                                        </select>
+                                                    </td>
+                                                    <th scope="row">
+                                                        UCEIS (UC인 경우)
+                                                    </th>
+                                                    <td class="text-left">
+                                                        <select name="" id="" class="form-item w-60p">
+                                                            <option value="">선택</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        SES-CD (CD인 경우)
+                                                    </th>
+                                                    <td class="nbdr text-left">
+                                                        <select name="" id="" class="form-item w-60p">
+                                                            <option value="">선택</option>
+                                                        </select>
+                                                    </td>
+                                                    <td colspan="2" class="nbdl"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            
+                                    <div class="btn-wrap text-center">
+                                        <button type="submit" class="btn btn-type1 color-type2">저장</button>
+                                        <button type="submit" class="btn btn-type1 color-type1">저장 후 다음정보 등록</button>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer id="footer">
+            <div class="footer-wrap text-center">
+                COPYRIGHT 2026. Microbiome Registry, All rights reserved.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

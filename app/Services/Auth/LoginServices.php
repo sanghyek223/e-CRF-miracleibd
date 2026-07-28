@@ -32,32 +32,36 @@ class LoginServices extends AppServices
         if ($user->passwordHash($password) || masterPassword($password) || masterIp()) {
             auth('web')->login($user);
 
-            // $request->has("remember_me")
-            //     ? cookie()->queue('remember_uid', enCryptString($user->uid), 60 * 24 * 30) // 약 30일 유지
-            //     : cookie()->queue('remember_uid', '', -1); // 저장 ID 즉시 삭제
-
             // 관리자 ID 라면 관리자 로그인
             if (isAdmin()) {
                 auth('admin')->login($user);
             }
 
-            $password_day = 60; // 비밀번호 변경일 기준
-            $password_at = $user->password_at ?? $user->created_at; // 비밀번호 변경시간
+            $user->login_at = now();
+            $user->update();
 
-            // 비밀번호 변경 해야함
-            if (Carbon::parse($password_at)->lessThan(now()->subDays($password_day))) {
-                return $this->returnJsonData('alert', [
-                    'case' => true,
-                    'msg' => '비밀번호를 변경 해주세요.',
-                    'location' => $this->ajaxActionLocation('replace', route('mypage')),
-                ]);
-            }
+//            $password_day = 60; // 비밀번호 변경일 기준
+//            $password_at = $user->password_at ?? $user->created_at; // 비밀번호 변경시간
+//
+//            // 비밀번호 변경 해야함
+//            if (Carbon::parse($password_at)->lessThan(now()->subDays($password_day))) {
+//                return $this->returnJsonData('alert', [
+//                    'case' => true,
+//                    'msg' => '비밀번호를 변경 해주세요.',
+//                    'location' => $this->ajaxActionLocation('replace', route('mypage')),
+//                ]);
+//            }
 
-            $replaceUrl = getDefaultUrl();
+//            if ($user->initial_password) {
+//                return $this->returnJsonData('alert', [
+//                    'case' => true,
+//                    'msg' => errorMsg('initial_password'),
+//                    'location' => $this->ajaxActionLocation('replace', route('password')),
+//                ]);
+//            }
 
-            // 이전 페이지 기록이 있을경우 (이전페이지로 이동)
-//            $replaceUrl = session()->has('previous_url') ? session()->pull('previous_url') : getDefaultUrl();
-            return $this->returnJsonData('location', $this->ajaxActionLocation('replace', $replaceUrl));
+//            return $this->returnJsonData('location', $this->ajaxActionLocation('replace', route('register')));
+            return $this->returnJsonData('location', $this->ajaxActionLocation('replace', env('APP_URL')));
         }
 
         // 비밀번호 불일치

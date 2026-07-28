@@ -16,7 +16,6 @@ class LoginController extends Controller
 
         view()->share([
             'main_key' => 'GUEST',
-            'sub_key' => 'S1',
         ]);
     }
 

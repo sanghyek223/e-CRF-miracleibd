@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/common.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.min.css') }}">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="/assets/css/common.css">
 
 {{-- base css --}}
 <link rel="stylesheet" href="{{ asset('css/spinner.css') }}">

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes,viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="format-detection" content="telephone=no, address=no, email=no">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Microbiome Registry</title>
+<meta name="Author" content="The Korean Audiological Society">
+<meta name="Keywords" content="Microbiome Registry 마이크로바이옴 레지스트리">
+<meta name="description" content="Microbiome Registry 마이크로바이옴 레지스트리">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="/assets/css/common.css">
+<script src="/assets/js/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/common.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <header id="header">
+            <div class="util-wrap text-right inner-layer">
+                <p class="user-state">
+                    [OO대학교병원] 관리자 님 최근 방문일 : 2022-02-09 오전 09:50:45  
+                </p>
+                <p>
+                    로그인 유지시간: 56분 05초
+                </p>
+                <ul class="util-menu">
+                    <li class="on"><a href="#n">연장</a></li>
+                    <li><a href="#n">로그아웃</a></li>
+                    <li><a href="#n">관리자</a></li>
+                </ul>
+            </div>
+            <div class="header-wrap inner-layer">
+                <h1 class="header-logo">
+                    <a href="/">
+                        마이크로바이옴 레지스트리
+                        <span>Microbiome Registry</span>
+                    </a>
+                </h1>
+                <nav id="gnb">
+                    <ul class="gnb-menu">
+                        <li class="on"><a href="#n">데이터 신청 / 승인 로그</a></li>
+                        <li><a href="#n">회원 관리</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section id="container">
+            <div class="contents inner-layer">
+                <div class="sub-tit-wrap">
+					<h3 class="sub-tit">데이터 신청 / 승인 로그</h3>
+				</div>
+
+                <div class="log-state-wrap">
+                    <div class="item type1">
+                        <p class="tit">전체 신청</p>
+                        <div class="count">1,100</div>
+                    </div>
+                    <div class="item type2">
+                        <p class="tit">승인 대기</p>
+                        <div class="count">100</div>
+                    </div>
+                    <div class="item type3">
+                        <p class="tit">승인 완료</p>
+                        <div class="count">900</div>
+                    </div>
+                    <div class="item type4">
+                        <p class="tit">반려</p>
+                        <div class="count">100</div>
+                    </div>
+                </div>
+
+                <div class="sch-wrap">
+                    <form action="" method="">
+                        <fieldset>
+                            <legend class="hide">데이터 신청/승인 로그 검색</legend>
+
+                            <div class="form-group date">
+                                <span class="text">신청일 :</span>
+                                <input type="text" name="" id="" class="form-item text-center">
+                                <img src="/assets/image/icon/ic_cal.png" alt="">
+                                <span>~</span>
+                                <input type="text" name="" id="" class="form-item text-center">
+                                <img src="/assets/image/icon/ic_cal.png" alt="">
+                            </div>
+
+                            <div class="form-group">
+                                <span class="text">신청 기관 :</span>
+                                <select name="" id="" class="form-item sch-cate">
+                                    <option value="">전체 기관</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <span class="text">제공 기관 :</span>
+                                <select name="" id="" class="form-item sch-cate">
+                                    <option value="" selected>전체 기관</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <span class="text">상태 :</span>
+                                <select name="" id="" class="form-item sch-cate state">
+                                    <option value="" selected>전체</option>
+                                    <option value="">승인대기</option>
+                                    <option value="">승인완료</option>
+                                    <option value="">반려</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="" id="" class="form-item text-center" placeholder="신청자명 검색">
+                            </div>
+                            <button type="submit" class="btn btn-sch">검색</button>
+                            <button type="submit" class="btn btn-reset"><img src="/assets/image/icon/ic_reset.png" alt=""> 검색초기화</button>
+                            
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div class="write-form-wrap mt-40">
+                    <form action="" method="">
+                        <fieldset>
+                            <div class="table-wrap">
+                                <table class="cst-table type-regist mypage-tbl">
+                                    <caption class="hide">목록</caption>
+                                    <colgroup>
+                                        <col style="width:6%">
+                                        <col style="width:10%">
+                                        <col style="width:10%">
+                                        <col style="width:8%">
+                                        <col style="width:8%">
+                                        <col style="width:16%;">
+                                        <col style="width:10%">
+                                        <col style="width:8%;">
+                                        <col>
+                                        <col style="width:8%;">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No.</th>
+                                            <th scope="col">신청 기관<br>(신청자)</th>
+                                            <th scope="col">제공 기관<br>(승인자)</th>
+                                            <th scope="col">신청일시</th>
+                                            <th scope="col">처리일시</th>
+                                            <th scope="col">데이터 범위<br>(다운로드 가능기간)</th>
+                                            <th scope="col">상태</th>
+                                            <th scope="col">다운로드 여부</th>
+                                            <th scope="col">반려 사유</th>
+                                            <th scope="col">상세</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                1
+                                            </td>
+                                            <td>
+                                                A기관 (김OO)
+                                            </td>
+                                            <td>
+                                                B기관 (최OO)
+                                            </td>
+                                            <td>
+                                                2026-01-01 <br>
+                                                1:11:11
+                                            </td>
+                                            <td>
+                                                2026-01-02 <br>
+                                                2:23:22
+                                            </td>
+                                            <td>
+                                                FASTQ <br>
+                                                (2026-01-03 ~ 2026-01-09)
+                                            </td>
+                                            <td>
+                                                <span class="state complete">승인 완료</span>
+                                            </td>
+                                            <td>
+                                                <strong class="text-skyblue">O</strong>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <div class="btn-wrap">
+                                                    <a href="#n" class="btn btn-small color-type5" title="보기">보기</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                2
+                                            </td>
+                                            <td>
+                                                A기관 (김OO)
+                                            </td>
+                                            <td>
+                                                E기관 (지OO)
+                                            </td>
+                                            <td>
+                                                2026-01-01 <br>
+                                                1:11:11
+                                            </td>
+                                            <td>
+                                                2026-01-02 <br>
+                                                2:23:22
+                                            </td>
+                                            <td>
+                                                FASTQ <br>
+                                                (2026-01-03 ~ 2026-01-09)
+                                            </td>
+                                            <td>
+                                                <span class="state complete">승인 완료</span>
+                                            </td>
+                                            <td>
+                                                <strong class="text-skyblue">O</strong>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <div class="btn-wrap">
+                                                    <a href="#n" class="btn btn-small color-type5" title="보기">보기</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                3
+                                            </td>
+                                            <td>
+                                                B기관 (최OO)
+                                            </td>
+                                            <td>
+                                                C기관
+                                            </td>
+                                            <td>
+                                                2026-01-02 <br>
+                                                2:22:22
+                                            </td>
+                                            <td>
+                                                
+                                            </td>
+                                            <td>
+                                                FASTQ + Raw Data
+                                            </td>
+                                            <td>
+                                                <span class="state ing">승인 대기</span>
+                                            </td>
+                                            <td>
+                                                -
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <div class="btn-wrap">
+                                                    <a href="#n" class="btn btn-small color-type5" title="보기">보기</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                4
+                                            </td>
+                                            <td>
+                                                C기관 (박OO)
+                                            </td>
+                                            <td>
+                                                D기관 (정OO)
+                                            </td>
+                                            <td>
+                                                2026-01-01 <br>
+                                                1:11:11
+                                            </td>
+                                            <td>
+                                                2026-01-02 <br>
+                                                2:23:22
+                                            </td>
+                                            <td>
+                                                FASTQ <br>
+                                                (2026-01-03 ~ 2026-01-09)
+                                            </td>
+                                            <td>
+                                                <span class="state complete">승인 완료</span>
+                                            </td>
+                                            <td>
+                                                <strong class="text-red">X</strong>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <div class="btn-wrap">
+                                                    <a href="#n" class="btn btn-small color-type5" title="보기">보기</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                5
+                                            </td>
+                                            <td>
+                                                D기관 (정OO)
+                                            </td>
+                                            <td>
+                                                A기관 (임OO)
+                                            </td>
+                                            <td>
+                                                2026-01-01 <br>
+                                                1:11:11
+                                            </td>
+                                            <td>
+                                                2026-01-02 <br>
+                                                2:23:22
+                                            </td>
+                                            <td>
+                                                FASTQ + Raw Data
+                                            </td>
+                                            <td>
+                                                <span class="state reject">반료</span>
+                                            </td>
+                                            <td>
+                                                -
+                                            </td>
+                                            <td>
+                                                구체적인 활용 목적 미흡
+                                            </td>
+                                            <td>
+                                                <div class="btn-wrap">
+                                                    <a href="#n" class="btn btn-small color-type5" title="보기">보기</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                6
+                                            </td>
+                                            <td>
+                                                H기관 (이OO)
+                                            </td>
+                                            <td>
+                                                H기관
+                                            </td>
+                                            <td>
+                                                2026-01-01 <br>
+                                                1:11:11
+                                            </td>
+                                            <td>
+                                                2026-01-02 <br>
+                                                2:23:22
+                                            </td>
+                                            <td>
+                                                FASTQ + Raw Data <br>
+                                                (2026-01-03 ~ 2026-01-09)
+                                            </td>
+                                            <td>
+                                                <span class="state complete">승인 완료</span>
+                                            </td>
+                                            <td>
+                                                <strong class="text-skyblue">O</strong>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <div class="btn-wrap">
+                                                    <a href="#n" class="btn btn-small color-type5" title="보기">보기</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="paging-wrap">
+                                <span class="count full-left"><b class="text-red">1</b> of 30</span>
+                                <ul class="paging">
+                                    <li class="first"><a href="#n"><img src="/assets/image/icon/ic_first.png" alt="처음"></a></li>
+                                    <li class="prev"><a href="#n"><img src="/assets/image/icon/ic_prev.png" alt="이전"></a></li>
+                                    <li class="num on"><a href="#n">1</a></li>
+                                    <li class="num"><a href="#n">2</a></li>
+                                    <li class="num"><a href="#n">3</a></li>
+                                    <li class="num"><a href="#n">4</a></li>
+                                    <li class="num"><a href="#n">5</a></li>
+                                    <li class="num"><a href="#n">6</a></li>
+                                    <li class="num"><a href="#n">7</a></li>
+                                    <li class="num"><a href="#n">8</a></li>
+                                    <li class="num"><a href="#n">9</a></li>
+                                    <li class="num"><a href="#n">10</a></li>
+                                    <li class="next"><a href="#n"><img src="/assets/image/icon/ic_next.png" alt="다음"></a></li>
+                                    <li class="last"><a href="#n"><img src="/assets/image/icon/ic_last.png" alt="마지막"></a></li>
+                                </ul>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <footer id="footer">
+            <div class="footer-wrap text-center">
+                COPYRIGHT 2026. Microbiome Registry, All rights reserved.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -5,18 +5,15 @@
 </head>
 <body>
 
-@include('layouts.include.header')
+<div class="wrap">
+    @include('layouts.include.header')
 
-<section id="container" @empty($main_key) class="main" @endempty>
-    @if(!empty($main_key))
-        @include('layouts.include.sub-visual')
-        @include('layouts.include.sub-menu-wrap')
-    @endif
+    <section id="container">
+        @yield('contents')
+    </section>
 
-    @yield('contents')
-</section>
-
-@include('layouts.include.footer')
+    @include('layouts.include.footer')
+</div>
 
 @include('components.spinner')
 

@@ -4,8 +4,8 @@ return [
     // ================= web menu =================
     'main' => [
         'M1' => [
-            'name' => 'Home',
-            'route' => 'main',
+            'name' => '신규 대상자 등록',
+            'route' => 'patient.upsert',
             'param' => [],
             'url' => null,
             'blank' => false,
@@ -13,62 +13,38 @@ return [
             'continue' => false,
         ],
 
-        'MYPAGE' => [
-            'name' => '마이페이지',
-            'route' => 'mypage',
-            'param' => [],
-            'url' => null,
-            'blank' => false,
-            'dev' => false,
-            'continue' => true,
-        ],
-
-        'GUEST' => [
-            'name' => 'Sign-up',
+        'M2' => [
+            'name' => '전체 대상자 리스트',
             'route' => null,
             'param' => [],
-            'url' => "javascript::alert('준비중');",
+            'url' => 'javascript:void(0)',
             'blank' => false,
             'dev' => false,
-            'continue' => true,
+            'continue' => false,
+        ],
+
+        'M3' => [
+            'name' => '데이터 열람 / 신청',
+            'route' => null,
+            'param' => [],
+            'url' => 'javascript:void(0)',
+            'blank' => false,
+            'dev' => false,
+            'continue' => false,
+        ],
+
+        'MYPAGE' => [
+            'name' => '마이페이지',
+            'route' => null,
+            'param' => [],
+            'url' => 'javascript:void(0)',
+            'blank' => false,
+            'dev' => false,
+            'continue' => false,
         ],
     ],
 
     'sub' => [
-        'M1' => [ // Home
-            'S1' => [
-                'name' => 'Home',
-                'route' => null,
-                'param' => [],
-                'url' => "javascript::alert('준비중');",
-                'blank' => false,
-                'dev' => false,
-                'continue' => false,
-            ],
-        ],
 
-        'GUEST' => [ // GUEST
-            'S1' => [
-                'name' => '로그인',
-                'route' => 'login',
-                'param' => [],
-                'url' => null,
-                'blank' => false,
-                'dev' => false,
-                'continue' => false,
-            ],
-        ],
-
-        'MYPAGE' => [ // 마이페이지
-            'S1' => [
-                'name' => '개인정보수정',
-                'route' => null,
-                'param' => [],
-                'url' => "javascript::alert('준비중');",
-                'blank' => false,
-                'dev' => false,
-                'continue' => false,
-            ],
-        ],
     ],
 ];

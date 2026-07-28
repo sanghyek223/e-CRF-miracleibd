@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes,viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="format-detection" content="telephone=no, address=no, email=no">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Microbiome Registry</title>
+<meta name="Author" content="The Korean Audiological Society">
+<meta name="Keywords" content="Microbiome Registry 마이크로바이옴 레지스트리">
+<meta name="description" content="Microbiome Registry 마이크로바이옴 레지스트리">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="/assets/css/common.css">
+<script src="/assets/js/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/common.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <header id="header">
+            <div class="util-wrap text-right inner-layer">
+                <p class="user-state">
+                    [OO대학교병원] 관리자 님 최근 방문일 : 2022-02-09 오전 09:50:45  
+                </p>
+                <p>
+                    로그인 유지시간: 56분 05초
+                </p>
+                <ul class="util-menu">
+                    <li class="on"><a href="#n">연장</a></li>
+                    <li><a href="#n">로그아웃</a></li>
+                    <li><a href="#n">관리자</a></li>
+                </ul>
+            </div>
+            <div class="header-wrap inner-layer">
+                <h1 class="header-logo">
+                    <a href="/">마이크로바이옴 레지스트리 <span>Microbiome Registry</span></a>
+                </h1>
+                <nav id="gnb">
+                    <ul class="gnb">
+                        <li class="on"><a href="#n">신규 대상자 등록</a></li>
+                        <li><a href="#n">전체 대상자 리스트</a></li>
+                        <li><a href="#n">Reporting</a></li>
+                        <li><a href="#n">Backup</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section id="container">
+            <div class="contents inner-layer">
+				<div class="depth2-tab-wrap">
+                    <ul class="depth2-tab-menu">
+                        <li class="on"><a href="#n">등록된 대상자 리스트</a></li>
+                        <li><a href="#n">희귀 난치성 질환별 리스트</a></li>
+                    </ul>
+                </div>
+
+                <div class="sch-wrap">
+                    <form action="" method="">
+                        <fieldset>
+                            <legend class="hide">Search</legend>
+                            <div class="form-group">
+                                <span class="text">기관 :</span>
+                                <select name="" id="" class="form-item sch-cate">
+                                    <option value="" selected>전체 기관</option>
+									<option value="">서울대병원</option> 
+									<option value="">서울아산병원</option> 
+									<option value="">건양대병원</option> 
+									<option value="">보라매병원</option> 
+									<option value="">인제대 부산백병원</option> 
+									<option value="">강북삼성병원</option> 
+									<option value="">분당서울대병원</option> 
+									<option value="">중앙대병원</option> 
+									<option value="">건국대병원</option> 
+									<option value="">제주대병원</option> 
+									<option value="">서울대 치과병원</option> 
+									<option value="">이대목동병원</option> 
+									<option value="">한양대 서울병원</option> 
+									<option value="">동국대 일산병원</option> 
+									<option value="">계명대 동산병원</option> 
+									<option value="">양산부산대병원</option> 
+									<option value="">충남대병원</option> 
+									<option value="">강남세브란스</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <span class="text">Sub-registry</span>
+                                <select name="" id="" class="form-item">
+                                    <option value="" selected>sub-registry 선택</option>
+                                    <option value="">Neuromuscular disease</option>
+                                    <option value="">NICU 환자</option>
+                                    <option value="">Airway</option>
+                                    <option value="">Metabolic disorder</option>
+                                    <option value="">Catheterization</option>
+                                    <option value="">Retinoblastoma</option>
+                                    <option value="">Cardiovascular</option>
+                                    <option value="">Moyamoya disease</option>
+                                    <option value="">Neurotransmission</option>
+                                    <option value="">Tubeless surgery</option>
+                                    <option value="">Not applicable</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <span class="text">등록번호 :</span>
+                                <input type="text" name="" id="" class="form-item">
+                            </div>
+                            <div class="form-group date">
+                                <span class="text">등록일자 :</span>
+                                <input type="text" name="" id="" class="form-item">
+                                <img src="/assets/image/icon/ic_cal.png" alt="">
+                                <span>~</span>
+                                <input type="text" name="" id="" class="form-item">
+                                <img src="/assets/image/icon/ic_cal.png" alt="">
+                            </div>
+                            <button type="submit" class="btn btn-sch">Search</button>
+                            <button type="submit" class="btn btn-reset"><img src="/assets/image/icon/ic_reset.png" alt="">Reset</button>
+                        </fieldset>
+                    </form>
+                </div>
+                <p class="info-text text-right">
+                    * <span class="btn btn-reset"><img src="/assets/image/icon/ic_reset.png" alt="">Reset</span>
+                    버튼을 클릭하면 전체 리스트를 보실 수 있습니다.
+                </p>
+
+                <div class="sub-tab-wrap sticky">
+                    <ul class="sub-tab-menu col4">
+                        <li class="on"><a href="#n">depth2Menu-1</a></li>
+                        <li class="disabled"><a href="#n">depth2Menu-2</a></li>
+                        <li><a href="#n">depth2Menu-3</a></li>
+                        <li><a href="#n">depth2Menu-4</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-wrap">
+                    <a href="#n" class="btn btn-type1 color-type1">color-type1</a>
+                    <a href="#n" class="btn btn-type1 color-type2">color-type2</a>
+                    <a href="#n" class="btn btn-type1 color-type3">color-type3</a>
+                    <a href="#n" class="btn btn-type1 color-type4">color-type4</a>
+                    <a href="#n" class="btn btn-type1 color-type5">color-type5</a>
+                    <a href="#n" class="btn btn-type1 color-type6">color-type6</a>
+                </div>
+                <div class="btn-wrap mt-10">
+                    <a href="#n" class="btn btn-type1 btn-line color-type1">color-type1</a>
+                    <a href="#n" class="btn btn-type1 btn-line color-type2">color-type2</a>
+                    <a href="#n" class="btn btn-type1 btn-line color-type3">color-type3</a>
+                    <a href="#n" class="btn btn-type1 btn-line color-type4">color-type4</a>
+                    <a href="#n" class="btn btn-type1 btn-line color-type5">color-type5</a>
+                    <a href="#n" class="btn btn-type1 btn-line color-type6">color-type6</a>
+                </div>
+                <div class="btn-wrap">
+                    <a href="#n" class="btn btn-small color-type1">color-type1</a>
+                    <a href="#n" class="btn btn-small color-type2">color-type2</a>
+                    <a href="#n" class="btn btn-small color-type3">color-type3</a>
+                    <a href="#n" class="btn btn-small color-type4">color-type4</a>
+                    <a href="#n" class="btn btn-small color-type5">color-type5</a>
+                    <a href="#n" class="btn btn-small color-type6">color-type6</a>
+                </div>
+                <div class="btn-wrap mt-10">
+                    <a href="#n" class="btn btn-small btn-line color-type1">color-type1</a>
+                    <a href="#n" class="btn btn-small btn-line color-type2">color-type2</a>
+                    <a href="#n" class="btn btn-small btn-line color-type3">color-type3</a>
+                    <a href="#n" class="btn btn-small btn-line color-type4">color-type4</a>
+                    <a href="#n" class="btn btn-small btn-line color-type5">color-type5</a>
+                    <a href="#n" class="btn btn-small btn-line color-type6">color-type6</a>
+                </div>
+                <br>
+                <div class="table-wrap">
+                    <table class="cst-table">
+                        <caption class="hide">table caption</caption>
+                        <colgroup>
+                            <col style="width: 18%;">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row">th</th>
+                                <td class="text-left">
+                                    td
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">th</th>
+                                <td class="text-left">
+                                    td
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">th</th>
+                                <td class="text-left">
+                                    td
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">th</th>
+                                <td class="text-left">
+                                    td
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">th</th>
+                                <td class="text-left">
+                                    td
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-contop">
+                    <div>
+                        <span class="state waiting"><b class="mark"></b> 입력전</span>
+                        <span class="state ing"><b class="mark"></b> 입력중</span>
+                        <span class="state complete"><b class="mark"></b> 입력완료</span>
+                    </div>
+                    <p class="full-right">
+                        * 총 <b class="text-red">370</b> 명의 환자가 검색되어 있습니다.
+                    </p>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="cst-table type-regist">
+                        <caption class="hide">목록</caption>
+                        <colgroup>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Serial number</th>
+                                <th scope="col">이니셜</th>
+                                <th scope="col">성별 / 만 나이</th>
+                                <th scope="col">기관</th>
+                                <th scope="col">희귀질환명</th>
+                                <th scope="col">마취 전 평가</th>
+                                <th scope="col">삭제</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>** - ***</td>
+                                <td>M / 71</td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state waiting"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state waiting"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <div class="btn-wrap">
+                                        <a href="#n" class="btn btn-modity"><img src="/assets/image/icon/ic_modify.png" alt="수정"></a>
+                                        <a href="#n" class="btn btn-del"><img src="/assets/image/icon/ic_del.png" alt="삭제"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>** - ***</td>
+                                <td>F / 44</td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state waiting"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state waiting"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <div class="btn-wrap">
+                                        <a href="#n" class="btn btn-modity"><img src="/assets/image/icon/ic_modify.png" alt="수정"></a>
+                                        <a href="#n" class="btn btn-del"><img src="/assets/image/icon/ic_del.png" alt="삭제"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>** - ***</td>
+                                <td>M / 16</td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state ing"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state ing"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state ing"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <div class="btn-wrap">
+                                        <a href="#n" class="btn btn-modity"><img src="/assets/image/icon/ic_modify.png" alt="수정"></a>
+                                        <a href="#n" class="btn btn-del"><img src="/assets/image/icon/ic_del.png" alt="삭제"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>** - ***</td>
+                                <td>M / 71</td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td colspan="4">
+                                    <strong>Drop out</strong>
+                                </td>
+                                <td>
+                                    <div class="btn-wrap">
+                                        <a href="#n" class="btn btn-modity"><img src="/assets/image/icon/ic_modify.png" alt="수정"></a>
+                                        <a href="#n" class="btn btn-del"><img src="/assets/image/icon/ic_del.png" alt="삭제"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>** - ***</td>
+                                <td>M / 71</td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td>
+                                    <a href="#n" class="btn btn-view">VIEW</a>
+                                    <span class="state complete"><b class="mark"></b></span>
+                                </td>
+                                <td colspan="3">
+                                    <strong>Drop out</strong>
+                                </td>
+                                <td>
+                                    <div class="btn-wrap">
+                                        <a href="#n" class="btn btn-modity"><img src="/assets/image/icon/ic_modify.png" alt="수정"></a>
+                                        <a href="#n" class="btn btn-del"><img src="/assets/image/icon/ic_del.png" alt="삭제"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="paging-wrap">
+                    <span class="count full-left"><strong class="text-red">1</strong> of 30</span>
+                    <ul class="paging">
+                        <li class="first"><a href="#n"><img src="/assets/image/icon/ic_first.png" alt="처음"></a></li>
+                        <li class="prev"><a href="#n"><img src="/assets/image/icon/ic_prev.png" alt="이전"></a></li>
+                        <li class="num on"><a href="#n">1</a></li>
+                        <li class="num"><a href="#n">2</a></li>
+                        <li class="num"><a href="#n">3</a></li>
+                        <li class="num"><a href="#n">4</a></li>
+                        <li class="num"><a href="#n">5</a></li>
+                        <li class="num"><a href="#n">6</a></li>
+                        <li class="num"><a href="#n">7</a></li>
+                        <li class="num"><a href="#n">8</a></li>
+                        <li class="num"><a href="#n">9</a></li>
+                        <li class="num"><a href="#n">10</a></li>
+                        <li class="next"><a href="#n"><img src="/assets/image/icon/ic_next.png" alt="다음"></a></li>
+                        <li class="last"><a href="#n"><img src="/assets/image/icon/ic_last.png" alt="마지막"></a></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </section>
+        
+        <footer id="footer">
+            <div class="footer-wrap text-center">
+                COPYRIGHT 2026. Microbiome Registry, All rights reserved.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

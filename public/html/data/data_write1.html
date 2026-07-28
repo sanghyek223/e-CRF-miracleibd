@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes,viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="format-detection" content="telephone=no, address=no, email=no">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Microbiome Registry</title>
+<meta name="Author" content="The Korean Audiological Society">
+<meta name="Keywords" content="Microbiome Registry 마이크로바이옴 레지스트리">
+<meta name="description" content="Microbiome Registry 마이크로바이옴 레지스트리">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="/assets/css/common.css">
+<script src="/assets/js/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/common.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <header id="header">
+            <div class="util-wrap text-right inner-layer">
+                <p class="user-state">
+                    [OO대학교병원] 관리자 님 최근 방문일 : 2022-02-09 오전 09:50:45  
+                </p>
+                <p>
+                    로그인 유지시간: 56분 05초
+                </p>
+                <ul class="util-menu">
+                    <li class="on"><a href="#n">연장</a></li>
+                    <li><a href="#n">로그아웃</a></li>
+                    <li><a href="#n">관리자</a></li>
+                </ul>
+            </div>
+            <div class="header-wrap inner-layer">
+                <h1 class="header-logo">
+                    <a href="/">
+                        마이크로바이옴 레지스트리
+                        <span>Microbiome Registry</span>
+                    </a>
+                </h1>
+                <nav id="gnb">
+                    <ul class="gnb-menu">
+                        <li><a href="#n">신규 대상자 등록</a></li>
+                        <li><a href="#n">전체 대상자 리스트</a></li>
+                        <li class="on"><a href="#n">데이터 열람 / 신청</a></li>
+                        <li><a href="#n">마이페이지</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section id="container">
+            <div class="contents inner-layer">
+				<div class="sub-tit-wrap">
+					<h3 class="sub-tit">데이터 열람 / 신청</h3>
+				</div>
+
+				<div class="sub-conbox">
+					<div class="write-form-wrap">
+						<form action="" method="">
+							<fieldset>
+								<legend class="hide">데이터 열람 / 신청</legend>
+
+								<div class="table-wrap">
+									<table class="cst-table">
+										<caption class="hide">데이터 열람 / 신청</caption>
+										<colgroup>
+											<col style="width: 20%;">
+											<col>
+											<col style="width: 20%;">
+											<col>
+										</colgroup>
+										<tbody>
+											<tr>
+												<th scope="row">
+													기관
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <div class="checkbox-wrap">
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> A기관</label></div>
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> B기관</label></div>
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> C기관</label></div>
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> D기관</label></div>
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> E기관</label></div>
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> F기관</label></div>
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> G기관</label></div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													등록 날짜
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <div class="form-group date">
+                                                        <input type="text" name="" id="" class="form-item line short text-center">
+                                                        <img src="/assets/image/icon/ic_cal.png" alt=""> 
+                                                        <span class="text"> ~ </span>
+                                                        <input type="text" name="" id="" class="form-item line short text-center">
+                                                        <img src="/assets/image/icon/ic_cal.png" alt="">
+                                                    </div>
+												</td>
+											</tr>
+                                            <tr>
+												<th scope="row">
+													성별
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <div class="checkbox-wrap">
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> 남자</label></div>
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> 여자</label></div>
+													</div>
+												</td>
+											</tr>
+                                            <tr>
+												<th scope="row">
+													진단시 나이
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <div class="form-group date">
+                                                        만 <input type="text" name="" id="" class="form-item line small text-center"> 세
+                                                        <span class="text"> ~ </span>
+                                                        만 <input type="text" name="" id="" class="form-item line small text-center"> 세
+                                                    </div>
+												</td>
+											</tr>
+                                            <tr>
+												<th scope="row">
+													IBD Type
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <div class="checkbox-wrap">
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> UC</label></div>
+														<div><label class="checkbox-group"><input type="checkbox" name="" id=""> CD</label></div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="btn-wrap text-center mt-20">
+									<button type="submit" class="btn btn-type1 color-type3">검색</button>
+									<button type="submit" class="btn btn-type1 btn-line color-type3">검색 초기화</button>
+								</div>
+								
+                                <div class="sub-tit-wrap">
+                                    <h4 class="sub-contit">데이터 검색 결과</h4>
+                                    <p class="data-result-text">총 <strong class="result-count">21</strong>건의 데이터가 검색되었습니다.</p>
+                                </div>
+                                <ul class="data-sch-result">
+                                    <li class="no-data"><!--// 검색결과 없을 경우 클래스 no-data 추가 -->
+                                        <div class="name">
+                                            <div class="checkbox-wrap text-center">
+                                                <div><label class="checkbox-group"><input type="checkbox" name="" id="" disabled> A기관</label></div>
+                                            </div>
+                                        </div>
+                                        <div class="result">
+                                            <strong>0</strong> 건
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="name">
+                                            <div class="checkbox-wrap text-center">
+                                                <div><label class="checkbox-group"><input type="checkbox" name="" id=""> B기관</label></div>
+                                            </div>
+                                        </div>
+                                        <div class="result">
+                                            <strong>4</strong> 건
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="name">
+                                            <div class="checkbox-wrap text-center">
+                                                <div><label class="checkbox-group"><input type="checkbox" name="" id=""> C기관</label></div>
+                                            </div>
+                                        </div>
+                                        <div class="result">
+                                            <strong>5</strong> 건
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="name">
+                                            <div class="checkbox-wrap text-center">
+                                                <div><label class="checkbox-group"><input type="checkbox" name="" id=""> D기관</label></div>
+                                            </div>
+                                        </div>
+                                        <div class="result">
+                                            <strong>10</strong> 건
+                                        </div>
+                                    </li>
+                                    <li class="no-data">
+                                        <div class="name">
+                                            <div class="checkbox-wrap text-center">
+                                                <div><label class="checkbox-group"><input type="checkbox" name="" id="" disabled> E기관</label></div>
+                                            </div>
+                                        </div>
+                                        <div class="result">
+                                            <strong>0</strong> 건
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="name">
+                                            <div class="checkbox-wrap text-center">
+                                                <div><label class="checkbox-group"><input type="checkbox" name="" id=""> F기관</label></div>
+                                            </div>
+                                        </div>
+                                        <div class="result">
+                                            <strong>2</strong> 건
+                                        </div>
+                                    </li>
+                                    <li class="no-data">
+                                        <div class="name">
+                                            <div class="checkbox-wrap text-center">
+                                                <div><label class="checkbox-group"><input type="checkbox" name="" id="" disabled> G기관</label></div>
+                                            </div>
+                                        </div>
+                                        <div class="result">
+                                            <strong>0</strong> 건
+                                        </div>
+                                    </li>
+                                </ul>
+								<div class="btn-wrap text-center mt-20">
+									<button type="submit" class="btn btn-type1 color-type2">타 기관 데이터 신청</button>
+								</div>
+
+                                <div class="sub-tit-wrap">
+                                    <h4 class="sub-contit">백업</h4>
+                                </div>
+                                <div class="table-wrap">
+									<table class="cst-table">
+										<caption class="hide">백업</caption>
+										<colgroup>
+											<col style="width: 15%;">
+											<col style="width: 20%;">
+											<col>
+											<col style="width: 20%;"> 
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">
+                                                    <div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> ALL DATA</label></div>
+                                                    </div>
+                                                </th>
+												<th scope="col" colspan="2">입력폼</th>
+												<th scope="col">건수</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th scope="row" class="bg-gray">
+													<div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+												</th>
+												<th colspan="2" class="text-left">
+                                                    기본 정보
+												</th>
+												<td>
+                                                    000 건
+												</td>
+											</tr>
+											<tr>
+												<th scope="row" rowspan="6" class="bg-gray">
+													<div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+												</th>
+												<th scope="row" rowspan="6" class="text-left">
+                                                    Baseline
+												</th>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 진단 시점 정보</label></div>
+                                                    </div>
+                                                </td>
+												<td rowspan="6">
+                                                    000 건
+												</td>
+											</tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 진단 시점 검사</label></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 진단 시점 영상</label></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 진단 시점 Lab</label></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 영양 치료</label></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 환경 인자 설문</label></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+												<th scope="row" class="bg-gray">
+													<div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+												</th>
+												<th colspan="2" class="text-left">
+                                                    Medication
+												</th>
+												<td>
+                                                    000 건
+												</td>
+											</tr>
+                                            <tr>
+												<th scope="row" class="bg-gray">
+													<div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+												</th>
+												<th colspan="2" class="text-left">
+                                                    Surgery
+												</th>
+												<td>
+                                                    000 건
+												</td>
+											</tr>
+                                            <tr>
+												<th scope="row" class="bg-gray">
+													<div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+												</th>
+												<th colspan="2" class="text-left">
+                                                    ER / Admission
+												</th>
+												<td>
+                                                    000 건
+												</td>
+											</tr>
+                                            <tr>
+												<th scope="row" rowspan="2" class="bg-gray">
+													<div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+												</th>
+												<th rowspan="2" class="text-left">
+                                                    End of Study (Last F/U)
+												</th>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 마지막 내시경</label></div>
+                                                    </div>
+                                                </td>
+												<td rowspan="2">
+                                                    000 건
+												</td>
+											</tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 마지막 F/U 시점의 약제 사용</label></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+										</tbody>
+									</table>
+								</div>
+                                <div class="btn-wrap text-center mt-20">
+                                    <a href="#n" class="btn btn-type1 color-type4">Excel 다운로드</a>
+                                </div>
+
+                                <div class="table-wrap mt-80">
+									<table class="cst-table">
+										<caption class="hide">백업</caption>
+										<colgroup>
+											<col style="width: 15%;">
+											<col style="width: 20%;">
+											<col>
+											<col style="width: 20%;"> 
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">
+                                                    <div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> ALL DATA</label></div>
+                                                    </div>
+                                                </th>
+												<th scope="col" colspan="2">입력폼</th>
+												<th scope="col">건수</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th scope="row" rowspan="4" class="bg-gray">
+													<div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+												</th>
+												<th scope="row" rowspan="4" class="text-left">
+                                                    Follow-up
+												</th>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 검체 정보</label></div>
+                                                    </div>
+                                                </td>
+												<td rowspan="4">
+                                                    000 건
+												</td>
+											</tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 검체 획득 시점 Lab</label></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 검체 획득 시점 검사</label></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <div class="checkbox-wrap">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 검체 획득 시점 영상</label></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+										</tbody>
+									</table>
+								</div>
+                                <div class="btn-wrap text-center mt-20 mb-80">
+                                    <a href="#n" class="btn btn-type1 color-type4">Excel 다운로드</a>
+                                </div>
+                                
+                                <!-- 전체 다운로드 시 노출, 다운로드 취소 버튼 클릭 시 비노출 -->
+                                <div class="bg-box type-info">
+                                    <div class="progress-wrap mb-0">
+                                        <div class="download-progress-bar">
+                                            <progress max="100" value="46" class="all"></progress>
+                                            <div class="value-wrap">
+                                                <p data-value="46" class="value"></p>
+                                            </div>
+                                        </div>
+                                        <div class="desc">
+                                            전송속도 11.1MB/초  |  5분 30초 남음
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--// 전체 다운로드 시 노출, 다운로드 취소 버튼 클릭 시 비노출 -->
+
+                                <div class="table-wrap">
+                                    <table class="cst-table">
+                                        <caption class="hide">마이페이지 | 신청내역 다운로드 상세</caption>
+                                        <colgroup>
+                                            <col style="width:12%">
+                                            <col style="width:14%">
+                                            <col style="width:24%;">
+                                            <col style="width:12%;">
+                                            <col style="width:auto;">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    <div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> ALL DATA</label></div>
+                                                    </div>
+                                                </th>
+                                                <th scope="col">대상자 ID</th>
+                                                <th scope="col">파일명</th>
+                                                <th scope="col">용량</th>
+                                                <th scope="col">상태/관리</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    HHH-0001
+                                                </td>
+                                                <td>
+                                                    HHH-0001_n1.fastq.gz
+                                                </td>
+                                                <td>
+                                                    1.5 GB
+                                                </td>
+                                                <td class="progress-state">
+                                                    <strong class="text-blue">완료</strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    HHH-0001
+                                                </td>
+                                                <td>
+                                                    HHH-0001_n1.fastq.gz
+                                                </td>
+                                                <td>
+                                                    1.5 GB
+                                                </td>
+                                                <td class="progress-state">
+                                                    <div class="progress-wrap">
+                                                        <div class="download-progress-bar">
+                                                            <progress max="100" value="30" class="all"></progress>
+                                                            <div class="value-wrap">
+                                                                <p data-value="30" class="value"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="desc">
+                                                            367.9MB/1.2GB
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    HHH-0001
+                                                </td>
+                                                <td>
+                                                    HHH-0001_n1.fastq.gz
+                                                </td>
+                                                <td>
+                                                    1.5 GB
+                                                </td>
+                                                <td class="progress-state">
+                                                    대기
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    HHH-0001
+                                                </td>
+                                                <td>
+                                                    HHH-0001_n1.fastq.gz
+                                                </td>
+                                                <td>
+                                                    1.5 GB
+                                                </td>
+                                                <td class="progress-state">
+                                                    <a href="#n" class="btn btn-type1 btn-line color-type3"><span class="icon mr-10"><img src="/assets/image/icon/ic_download.png" alt=""></span>다운로드</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox-wrap text-center">
+                                                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""></label></div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    HHH-0001
+                                                </td>
+                                                <td>
+                                                    HHH-0001_n1.fastq.gz
+                                                </td>
+                                                <td>
+                                                    1.5 GB
+                                                </td>
+                                                <td class="progress-state">
+                                                    <a href="#n" class="btn btn-type1 btn-line color-type3"><span class="icon mr-10"><img src="/assets/image/icon/ic_download.png" alt=""></span>다운로드</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="mt-10 text-right">
+                                        *전체 다운로드 시, 압축 파일(.zip) 형태로 제공됩니다. 
+                                    </p>
+                                </div>
+                                <div class="btn-wrap text-center">
+                                    <button type="submit" class="btn btn-type1 btn-line color-type2">선택 다운로드</button>
+                                    <button type="submit" class="btn btn-type1 color-type2">전체 다운로드</button>
+                                    <button type="submit" class="btn btn-type1 color-type6">다운로드 취소</button>
+                                </div>
+
+							</fieldset>
+						</form>
+					</div>
+				</div>
+            </div>
+        </section>
+        
+        <footer id="footer">
+            <div class="footer-wrap text-center">
+                COPYRIGHT 2026. Microbiome Registry, All rights reserved.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

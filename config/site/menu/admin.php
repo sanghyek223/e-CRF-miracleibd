@@ -1,13 +1,23 @@
 <?php
 
 return [
-    // ================= admin menu =================
+    // ================= web menu =================
     'main' => [
         'M1' => [
-            'name' => '회원 관리',
-            'route' => null,
+            'name' => '데이터 신청 / 승인로그',
+            'route' => 'log',
             'param' => [],
-            'url' => 'javascript:void(0);',
+            'url' => null,
+            'blank' => false,
+            'dev' => false,
+            'continue' => false,
+        ],
+
+        'M2' => [
+            'name' => '회원관리',
+            'route' => 'member',
+            'param' => [],
+            'url' => null,
             'blank' => false,
             'dev' => false,
             'continue' => false,
@@ -15,26 +25,6 @@ return [
     ],
 
     'sub' => [
-        'M1' => [
-            'S1' => [
-                'name' => '전체 회원',
-                'route' => 'member',
-                'param' => [],
-                'url' => null,
-                'blank' => false,
-                'dev' => false,
-                'continue' => false,
-            ],
 
-            'S2' => [
-                'name' => '탈퇴 회원',
-                'route' => 'member',
-                'param' => ['case' => 'withdrawal'],
-                'url' => null,
-                'blank' => false,
-                'dev' => false,
-                'continue' => false,
-            ],
-        ],
-    ]
+    ],
 ];

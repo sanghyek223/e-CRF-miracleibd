@@ -4,112 +4,209 @@
 @endsection
 
 @section('contents')
-    <div class="sub-contents">
-        <div class="sub-tab-wrap">
-            <ul class="sub-tab-menu cf">
-                <li class="{{ empty($memberCase) ? 'on' : '' }}">
-                    <a href="{{ route('member') }}">전체 회원</a>
-                </li>
+    <div class="contents inner-layer">
+        @include('admin.layouts.include.sub-tit-wrap')
 
-                <li class="{{ request()->case == 'withdrawal' ? 'on' : '' }}">
-                    <a href="{{ route('member', ['case' => 'withdrawal']) }}">탈퇴 회원</a>
-                </li>
-            </ul>
+        <div class="sch-wrap">
+            <form id="sch-frm">
+                <fieldset>
+                    <legend class="hide">회원 관리</legend>
+
+                    <div class="form-group">
+                        <select name="" id="" class="form-item sch-cate">
+                            <option value="">전체 기관</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select name="" id="" class="form-item sch-cate">
+                            <option value="">이름</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="" id="" class="form-item text-center">
+                    </div>
+
+                    <div class="form-group date">
+                        <span class="text">등록일 :</span>
+                        <input type="text" name="" id="" class="form-item text-center">
+                        <img src="/assets/image/icon/ic_cal.png" alt="">
+                        <span>~</span>
+                        <input type="text" name="" id="" class="form-item text-center">
+                        <img src="/assets/image/icon/ic_cal.png" alt="">
+                    </div>
+
+                    <button type="submit" class="btn btn-sch">검색</button>
+                    <button type="submit" class="btn btn-reset"><img src="/assets/image/icon/ic_reset.png" alt=""> 검색초기화</button>
+                </fieldset>
+            </form>
         </div>
 
-        <form id="searchF" name="searchF" class="sch-form-wrap">
-            <fieldset>
-                <legend class="hide">검색</legend>
-                <div class="table-wrap">
-                    <table class="cst-table">
-                        <colgroup>
-                            <col style="width: 20%;">
-                            <col style="width: 30%;">
-                            <col style="width: 20%;">
-                            <col style="width: 30%;">
-                        </colgroup>
+        <div class="write-form-wrap mt-40">
+            <div class="table-wrap">
+                <table class="cst-table type-regist mypage-tbl">
+                    <caption class="hide">목록</caption>
+                    <colgroup>
+                        <col style="width:8%">
+                        <col style="width:14%">
+                        <col style="width:14%">
+                        <col>
+                        <col style="width:14%;">
+                        <col style="width:14%">
+                        <col style="width:10%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">이름</th>
+                        <th scope="col">기관</th>
+                        <th scope="col">등급</th>
+                        <th scope="col">등록일</th>
+                        <th scope="col">관리</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            user4
+                        </td>
+                        <td>
+                            김OO
+                        </td>
+                        <td>
+                            B기관
+                        </td>
+                        <td>
+                            <select name="" id="" class="form-item">
+                                <option value="">관리자</option>
+                                <option value="">PI</option>
+                                <option value="">CRC</option>
+                            </select>
+                        </td>
+                        <td>
+                            2026-06-11 <br>
+                            11:11:11
+                        </td>
+                        <td>
+                            <div class="btn-wrap">
+                                <a href="#n" class="btn btn-modity" title="수정"><img src="/assets/image/icon/icon_edit.png" alt="수정"></a>
+                                <a href="#n" class="btn btn-del" title="삭제"><img src="/assets/image/icon/ic_delete.png" alt="삭제"></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            user4
+                        </td>
+                        <td>
+                            김OO
+                        </td>
+                        <td>
+                            B기관
+                        </td>
+                        <td>
+                            <select name="" id="" class="form-item">
+                                <option value="">관리자</option>
+                                <option value="">PI</option>
+                                <option value="">CRC</option>
+                            </select>
+                        </td>
+                        <td>
+                            2026-06-11 <br>
+                            11:11:11
+                        </td>
+                        <td>
+                            <div class="btn-wrap">
+                                <a href="#n" class="btn btn-modity" title="수정"><img src="/assets/image/icon/icon_edit.png" alt="수정"></a>
+                                <a href="#n" class="btn btn-del" title="삭제"><img src="/assets/image/icon/ic_delete.png" alt="삭제"></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            user4
+                        </td>
+                        <td>
+                            김OO
+                        </td>
+                        <td>
+                            B기관
+                        </td>
+                        <td>
+                            <select name="" id="" class="form-item">
+                                <option value="">관리자</option>
+                                <option value="">PI</option>
+                                <option value="">CRC</option>
+                            </select>
+                        </td>
+                        <td>
+                            2026-06-11 <br>
+                            11:11:11
+                        </td>
+                        <td>
+                            <div class="btn-wrap">
+                                <a href="#n" class="btn btn-modity" title="수정"><img src="/assets/image/icon/icon_edit.png" alt="수정"></a>
+                                <a href="#n" class="btn btn-del" title="삭제"><img src="/assets/image/icon/ic_delete.png" alt="삭제"></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            user4
+                        </td>
+                        <td>
+                            김OO
+                        </td>
+                        <td>
+                            B기관
+                        </td>
+                        <td>
+                            <select name="" id="" class="form-item">
+                                <option value="">관리자</option>
+                                <option value="">PI</option>
+                                <option value="">CRC</option>
+                            </select>
+                        </td>
+                        <td>
+                            2026-06-11 <br>
+                            11:11:11
+                        </td>
+                        <td>
+                            <div class="btn-wrap">
+                                <a href="#n" class="btn btn-modity" title="수정"><img src="/assets/image/icon/icon_edit.png" alt="수정"></a>
+                                <a href="#n" class="btn btn-del" title="삭제"><img src="/assets/image/icon/ic_delete.png" alt="삭제"></a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                        <tbody>
-                        <tr>
-                            <th scope="row">활동 상태</th>
-                            <td class="text-left">
-                                <div class="radio-wrap">
-                                    <div class="radio-group">
-                                        <input type="radio" name="active" id="active_all"  value="all" {{ request()->input('active', 'all') === 'all' ? 'checked' : '' }}>
-                                        <label for="active_all">전체</label>
-                                    </div>
+            {{ $list->links('pagination::custom') }}
 
-                                    @foreach($userConfig['active'] as $key => $val)
-                                        <div class="radio-group">
-                                            <input type="radio" name="active" id="active_{{ $key }}"  value="{{ $key }}" {{ request()->input('active', '') === $key ? 'checked' : '' }}>
-                                            <label for="active_{{ $key }}">{{ $val }}</label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </td>
-
-                            <th scope="row">회원 등급</th>
-                            <td class="text-left">
-                                <div class="checkbox-wrap">
-                                    @foreach($userConfig['level'] as $key => $val)
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" name="level[]" id="level_{{ $key }}"  value="{{ $key }}" {{ in_array($key, request()->input('level', [])) ? 'checked' : '' }}>
-                                            <label for="level_{{ $key }}">{{ $val }}</label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">상세검색</th>
-                            <td class="text-left" colspan="3">
-                                <select name="search_key" class="form-item mr-5" style="width: 20%;">
-                                    <option value="">선택</option>
-
-                                    @foreach($userConfig['admin_search'] as $key => $val)
-                                        <option value="{{ $key }}" {{ request()->input('search_key', '') === $key ? 'selected' : '' }}>{{ $val }}</option>
-                                    @endforeach
-                                </select>
-
-                                <input type="text" name="keyword" value="{{ request()->input('keyword', '') }}" class="form-item" style="width: 79%;">
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="btn-wrap text-center">
-                    <button type="submit" class="btn btn-type1 color-type17">검색</button>
-                    <a href="{{ route('member', $memberCase) }}" class="btn btn-type1 color-type18">검색 초기화</a>
-                    <a href="{{ route('member.excel', request()->except(['page']) + $memberCase) }}" class="btn btn-type1 color-type19">Get Excel File</a>
-                </div>
-            </fieldset>
-        </form>
-
-        @switch($memberCase['case'] ?? '')
-            @case('withdrawal')
-                @include('admin.member.include.withdrawal-list')
-                @break
-
-            @default
-                @include('admin.member.include.default-list')
-                @break
-        @endswitch
-
-
-        {{ $list->links('pagination::custom') }}
+            <div class="btn-wrap text-right mt-20">
+                <a href="#n" class="btn btn-type1 color-type2">등록</a>
+            </div>
+        </div>
     </div>
 @endsection
 
 @section('addScript')
     <script>
         const dataUrl = '{{ route('member.data') }}';
-
-        const getPK = (_this) => {
-            return $(_this).closest('tr').data('sid');
-        }
     </script>
-
-    @yield('list-script')
 @endsection

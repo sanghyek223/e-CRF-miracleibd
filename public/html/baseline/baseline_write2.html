@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes,viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="format-detection" content="telephone=no, address=no, email=no">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Microbiome Registry</title>
+<meta name="Author" content="The Korean Audiological Society">
+<meta name="Keywords" content="Microbiome Registry 마이크로바이옴 레지스트리">
+<meta name="description" content="Microbiome Registry 마이크로바이옴 레지스트리">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="/assets/css/common.css">
+<script src="/assets/js/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/assets/js/common.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <header id="header">
+            <div class="util-wrap text-right inner-layer">
+                <p class="user-state">
+                    [OO대학교병원] 관리자 님 최근 방문일 : 2022-02-09 오전 09:50:45  
+                </p>
+                <p>
+                    로그인 유지시간: 56분 05초
+                </p>
+                <ul class="util-menu">
+                    <li class="on"><a href="#n">연장</a></li>
+                    <li><a href="#n">로그아웃</a></li>
+                    <li><a href="#n">관리자</a></li>
+                </ul>
+            </div>
+            <div class="header-wrap inner-layer">
+                <h1 class="header-logo">
+                    <a href="/">
+                        마이크로바이옴 레지스트리
+                        <span>Microbiome Registry</span>
+                    </a>
+                </h1>
+                <nav id="gnb">
+                    <ul class="gnb-menu">
+                        <li><a href="#n">신규 대상자 등록</a></li>
+                        <li class="on"><a href="#n">전체 대상자 리스트</a></li>
+                        <li><a href="#n">데이터 열람 / 신청</a></li>
+                        <li><a href="#n">마이페이지</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section id="container">
+            <div class="contents inner-layer">
+				<div class="sub-tit-wrap">
+					<h3 class="sub-tit">Baseline</h3>
+				</div>
+
+                <div class="table-wrap">
+                    <table class="cst-table">
+                        <caption class="hide">대상자 정보</caption>
+                        <colgroup>
+                            <col style="width:10%;">
+                            <col>
+                            <col style="width:10%;">
+                            <col>
+							<col style="width:10%;">
+                            <col>
+							<col style="width:10%;">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Registration No.</th>
+                                <td>
+                                    AAA-0010
+                                </td>
+                                <th scope="row">Initial</th>
+                                <td>
+                                    ABC
+                                </td>
+                                <th scope="row">성별/나이</th>
+                                <td>
+                                    남자 / 11
+                                </td>
+                                <th scope="row">IBD Type</th>
+                                <td>
+                                    UC
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="sub-tab-wrap sticky">
+                    <div class="sub-tab-cont-bg">
+                        <ul class="sub-tab-menu col5">
+                            <li class="ing on"><a href="#n">Baseline</a></li>
+                            <li><a href="#n">Outcome</a></li>
+                            <li><a href="#n">Follow-up</a></li>
+                            <li><a href="#n">End of Study (Last F/U)</a></li>
+                            <li><a href="#n">Microbiome Data Upload</a></li>
+                        </ul>
+                        <ul class="con-menu">
+                            <li><a href="#"><span class="state ing"><b class="mark"></b></span> 진단 시점 정보</a></li>
+                            <li class="on"><a href="#"><span class="state ing"><b class="mark"></b></span> 진단 시점 검사</a></li>
+                            <li><a href="#"><span class="state complete"><b class="mark"></b></span> 진단 시점 영상</a></li>
+                            <li><a href="#"><span class="state ing"><b class="mark"></b></span> 진단 시점 Lab</a></li>
+                            <li><a href="#"><span class="state ing"><b class="mark"></b></span> 영양 치료</a></li>
+                            <li><a href="#"><span class="state waiting"><b class="mark"></b></span> 환경 인자 설문</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+				<div class="sub-conbox">
+					<div class="write-form-wrap">
+						<form action="" method="">
+							<fieldset>
+								<legend class="hide">Baseline</legend>
+
+                                <div class="table-contop">
+									<p><strong>최종 저장일시</strong> YYYY-MM-DD, 오후 HH:MM:SS</p>
+									<div class="checkbox-wrap full-right">
+										<div><label class="checkbox-group"><input type="checkbox" name="" id=""> 진단 시점 검사 입력 상태</label></div>
+									</div>
+                                </div>
+								<div class="table-wrap">
+									<table class="cst-table">
+										<caption class="hide">Baseline | 진단 시점 검사</caption>
+										<colgroup>
+											<col style="width: 20%;">
+											<col>
+											<col style="width: 20%;">
+											<col>
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col" colspan="4">진단 시점 검사</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th scope="row">
+													최초 내시경 검사일
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <div class="form-group date">
+														<input type="text" name="" id="" class="form-item line small text-center"> /
+														<input type="text" name="" id="" class="form-item line small text-center"> /
+														<input type="text" name="" id="" class="form-item line small text-center">
+														<img src="/assets/image/icon/ic_cal.png" alt="">
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													MES (UC인 경우)
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <select name="" id="" class="form-item w-10p">
+														<option value="">선택</option>
+														<option value="0">0</option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													SES-CD (CD인 경우)
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <select name="" id="" class="form-item w-10p">
+														<option value="">선택</option>
+														<option value="0">0</option>
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+														<option value="6">6</option>
+														<option value="7">7</option>
+														<option value="8">8</option>
+														<option value="9">9</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													내시경 Severity 
+													<a href="#n" class="tooltip">
+                                                        <img src="/assets/image/icon/ic_tooltip.png" alt="information">
+                                                        <span class="tooltip-con" style="opacity: 1; display: none;">
+                                                            UC MES : 0,1,2,3 <br>
+															SES-CD : 0~2, 3~6, 7~9, 10~
+                                                        </span>
+                                                    </a>
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <div class="radio-wrap full">
+														<div><label class="radio-group"><input type="radio" name="" id=""> inactive (remission)</label></div>
+														<div><label class="radio-group"><input type="radio" name="" id=""> mild</label></div>
+														<div><label class="radio-group"><input type="radio" name="" id=""> moderate</label></div>
+														<div><label class="radio-group"><input type="radio" name="" id=""> severe</label></div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<th scope="row">
+													최초 소장내시경 검사일
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <div class="form-group date">
+														<input type="text" name="" id="" class="form-item line small text-center"> /
+														<input type="text" name="" id="" class="form-item line small text-center"> /
+														<input type="text" name="" id="" class="form-item line small text-center">
+														<img src="/assets/image/icon/ic_cal.png" alt="">
+													</div>
+												</td>
+											</tr>
+                                            <tr>
+												<th scope="row">
+													소장내시경 Severity
+												</th>
+												<td colspan="3" class="text-left">
+                                                    <div class="radio-wrap full">
+														<div><label class="radio-group"><input type="radio" name="" id=""> inactive (remission)</label></div>
+														<div><label class="radio-group"><input type="radio" name="" id=""> mild</label></div>
+														<div><label class="radio-group"><input type="radio" name="" id=""> moderate</label></div>
+														<div><label class="radio-group"><input type="radio" name="" id=""> severe</label></div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+						
+								<div class="btn-wrap text-center">
+									<button type="submit" class="btn btn-type1 color-type2">저장</button>
+									<button type="submit" class="btn btn-type1 color-type1">저장 후 다음정보 등록</button>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+            </div>
+        </section>
+        
+        <footer id="footer">
+            <div class="footer-wrap text-center">
+                COPYRIGHT 2026. Microbiome Registry, All rights reserved.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

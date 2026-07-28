@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Member;
 
 use App\Http\Controllers\Controller;
-use App\Services\Admin\Member\MemberServices;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -12,11 +11,11 @@ class MemberController extends Controller
 
     public function __construct()
     {
-        $this->memberServices = (new MemberServices());
+        $this->memberServices = (new \App\Services\Admin\Member\MemberServices());
 
         view()->share([
+            'main_key' => 'M2',
             'userConfig' => getConfig('user'),
-            'main_key' => 'M1',
         ]);
     }
 
@@ -28,12 +27,6 @@ class MemberController extends Controller
     public function upsert(Request $request)
     {
         return view('admin.member.upsert', $this->memberServices->upsertService($request));
-    }
-
-    public function excel(Request $request)
-    {
-        $request->merge(['excel' => true]);
-        return $this->memberServices->indexService($request);
     }
 
     public function data(Request $request)

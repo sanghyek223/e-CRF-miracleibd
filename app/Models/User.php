@@ -23,6 +23,7 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
+        'login_at' => 'datetime',
         'password_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -64,6 +65,11 @@ class User extends Authenticatable
 
         $this->password = Hash::make($password);
         $this->password_at = now();
+    }
+
+    public function hospitalName()
+    {
+        return $this->hospital->org_name ?? '';
     }
 
     public function getLevel()

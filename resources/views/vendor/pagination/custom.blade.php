@@ -1,38 +1,47 @@
-@if ($paginator->hasPages())
-    <div class="paging-wrap">
-        <ul class="paging">
-            {{-- Previous Page Link --}}
-            @if (!$paginator->onFirstPage())
-                <li>
-                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
-                </li>
+<div class="paging-wrap">
+    <span class="count full-left"><b class="text-red">{{ $paginator->currentPage() }}</b> of {{ $paginator->lastPage() }}</span>
+
+    <ul class="paging">
+        @if (!$paginator->onFirstPage() /* 처음 */)
+            <li class="first">
+                <a href="{{ $paginator->url(1) }}">
+                    <img src="/assets/image/icon/ic_first.png" alt="처음">
+                </a>
+            </li>
+        @endif
+
+        @if (!$paginator->onFirstPage() /* 이전 */)
+            <li class="prev">
+                <a href="{{ $paginator->previousPageUrl() }}">
+                    <img src="/assets/image/icon/ic_prev.png" alt="이전">
+                </a>
+            </li>
+        @endif
+
+        @foreach ($elements as $element /* 페이지 번호 */)
+            @if (is_array($element))
+                @foreach ($element as $page => $url)
+                    <li class="num {{ $page == $paginator->currentPage() ? 'on' : '' }}">
+                        <a href="{{ $url }}">{{ $page }}</a>
+                    </li>
+                @endforeach
             @endif
+        @endforeach
 
-            {{-- Pagination Elements --}}
-            @foreach ($elements as $element)
-                {{-- "Three Dots" Separator --}}
-                @if (is_string($element))
-                    <li class="disabled num" aria-disabled="true"><span>{{ $element }}</span></li>
-                @endif
+        @if ($paginator->hasMorePages() /* 다음 */)
+            <li class="next">
+                <a href="{{ $paginator->nextPageUrl() }}">
+                    <img src="/assets/image/icon/ic_next.png" alt="다음">
+                </a>
+            </li>
+        @endif
 
-                {{-- Array Of Links --}}
-                @if (is_array($element))
-                    @foreach ($element as $page => $url)
-                        @if ($page == $paginator->currentPage())
-                            <li class="on num" aria-current="page"><a href="javascript:void(0);">{{ $page }}</a></li>
-                        @else
-                            <li class="num"><a href="{{ $url }}">{{ $page }}</a></li>
-                        @endif
-                    @endforeach
-                @endif
-            @endforeach
-
-            {{-- Next Page Link --}}
-            @if ($paginator->hasMorePages())
-                <li class="next">
-                    <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
-                </li>
-            @endif
-        </ul>
-    </div>
-@endif
+        @if ($paginator->hasMorePages() /* 마지막 */)
+            <li class="last">
+                <a href="{{ $paginator->url($paginator->lastPage()) }}">
+                    <img src="/assets/image/icon/ic_last.png" alt="마지막">
+                </a>
+            </li>
+        @endif
+    </ul>
+</div>
