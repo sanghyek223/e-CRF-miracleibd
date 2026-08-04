@@ -60,8 +60,7 @@ class LoginServices extends AppServices
 //                ]);
 //            }
 
-//            return $this->returnJsonData('location', $this->ajaxActionLocation('replace', route('register')));
-            return $this->returnJsonData('location', $this->ajaxActionLocation('replace', env('APP_URL')));
+            return $this->returnJsonData('location', $this->ajaxActionLocation('replace', route('register')));
         }
 
         // 비밀번호 불일치

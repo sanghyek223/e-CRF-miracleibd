@@ -1,27 +1,17 @@
 @php
 
     /*
-        기본 텍스트 데이터 - 옵션값으로 생략 가능한 값은 : 사용
-        : 없으면 → 문자열, {{ }} 사용
-        : 있으면 → PHP 표현식, {{ }} 사용 안함
+        기본 사용법 Components 호출시
+        : 없으면 → 문자열
+        : 있으면 → PHP 표현식
 
-        field' => 필드명 (필수)
-        data' => 데이터 (필수)
-        :class => 추가 클래스 [] 배열 형태 (생략 가능)
-        :attr => 추가 속성값 [] 형태 (생략 가능)
-
-        :is-disabled = disabled 속성 사용시
+        field' => 필드명 (필수) - 문자열
+        :data' => value (필수) - PHP 데이터
+        :disabled = disabled 속성 사용시 - (true or false)
     */
 
-    $dataField = $data->{$field} ?? '';
-    $isDisabled = ($isDisabled ?? false);
+    $data = $data ?? '';
+    $disabled = ($disabled ?? false);
 @endphp
 
-<input type="text"
-       id="{{ $field }}"
-       name="{{ $field }}"
-       value="{{ $dataField }}"
-
-        @class($class ?? [])
-        {{ $isDisabled ? 'disabled' : '' }}
-        {{ implode(' ', $attr ?? []) }}>
+<input type="text" id="{{ $field }}" name="{{ $field }}" value="{{ $data }}" {{ $attributes }} @if($disabled) disabled @endif>

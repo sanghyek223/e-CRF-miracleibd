@@ -54,6 +54,21 @@ class User extends Authenticatable
         $this->mobile = $data['mobile'];
     }
 
+    public function hospital()
+    {
+        return $this->belongsTo(Hospital::class, 'org_code', 'org_code');
+    }
+
+    public function patients() // 같은 병원에 속환 환자들
+    {
+        return $this->hasMany(Patient::class, 'org_code', 'org_code');
+    }
+
+    public function myPatients() // 내가 등록한 환자들
+    {
+        return $this->hasMany(Patient::class, 'reg_id', 'uid');
+    }
+
     public function passwordHash($password)
     {
         return Hash::check(trim($password), $this->password);

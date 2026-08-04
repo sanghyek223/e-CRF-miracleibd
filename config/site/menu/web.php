@@ -15,9 +15,9 @@ return [
 
         'M2' => [
             'name' => '전체 대상자 리스트',
-            'route' => null,
+            'route' => 'register',
             'param' => [],
-            'url' => 'javascript:void(0)',
+            'url' => null,
             'blank' => false,
             'dev' => false,
             'continue' => false,

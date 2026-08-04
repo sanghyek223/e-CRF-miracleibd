@@ -42,9 +42,6 @@ class PatientServices extends AppServices
             case 'patient-update':
                 return $this->patientUpdate($request);
 
-            case 'patient-delete':
-                return $this->patientDelete($request);
-
             default:
                 return notFoundRedirect();
         }
@@ -54,12 +51,10 @@ class PatientServices extends AppServices
     {
         if ($next) {
             $replaceUrl = route('register.upsert', ['reg_type' => 'base', 'regist_num' => $patient->regist_num]);
-            $locationAction = $this->ajaxActionLocation('replace', $replaceUrl);
-        } else {
-            $locationAction = $this->ajaxActionLocation('replace', route('register'));
+            return $this->ajaxActionLocation('replace', $replaceUrl);
         }
 
-        return $locationAction;
+        return $this->ajaxActionLocation('replace', route('register'));
     }
 
     private function patientCreate($request)
@@ -84,33 +79,15 @@ class PatientServices extends AppServices
         $this->transaction();
 
         try {
-            $patient = $this->whenPatient()->findOrFail($request->sid);
+            $sid = deCryptString($request->sid);
+
+            $patient = $this->whenPatient()->findOrFail($sid);
             $patient->setByData($request);
             $patient->update();
 
             $this->dbCommit('환자 정보 수정');
 
             return $this->returnJsonData('location', $this->setLocationAction($patient, $request->next));
-        } catch (\Exception $e) {
-            return $this->dbRollback($e);
-        }
-    }
-
-    private function patientDelete($request)
-    {
-        $this->transaction();
-
-        try {
-            $patient = $this->whenPatient()->findOrFail($request->sid);
-            $patient->delete();
-
-            $this->dbCommit('환자 삭제');
-
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '삭제 되었습니다.',
-                'location' => $this->ajaxActionLocation('reload'),
-            ]);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }

@@ -215,6 +215,7 @@ const callTargetDateTimePicker = () => {
 
                 const target = $(instance.element).data('target');
                 $(`#${target}`).val(dateStr);
+                validateEssChk();
             }
         };
 
@@ -271,13 +272,15 @@ const callTargetReplaceDatePicker = () => {
                 const _this = $(instance.element);
                 const target = _this.data('target');
 
-                $(`#${target}_date_y`).val(year);
-                $(`#${target}_date_m`).val(month);
-                $(`#${target}_date_d`).val(day);
+                $(`#${target}_d_y`).val(year);
+                $(`#${target}_d_m`).val(month);
+                $(`#${target}_d_d`).val(day);
 
                 if (_this.hasClass('date-calc')) {
                     dateCalc();
                 }
+
+                validateEssChk();
             }
         };
 
@@ -1121,7 +1124,7 @@ const loginTimer = () => {
     if (diff <= 0) {
         clearInterval(timerInterval);
         alert('로그인 시간이 만료 되었습니다.');
-        callAjax('/auth/logout', {});
+        callAjax('/logout', {});
         return;
     }
 
@@ -1270,29 +1273,37 @@ const visibleAction = (target, is_show) => {
     }
 }
 
+$(document).on('blur click', '.ESS-CHK', function () {
+    validateEssChk();
+});
+
+$(document).on('change', 'input[type=radio]:not(.ESS-CHK), input[type=checkbox]:not(.ESS-CHK)', function () {
+    validateEssChk();
+});
+
 $(document).on('blur', '.dateY, .dateM, .dateD', function() {
     const _this = $(this);
     let _name = '';
 
     if(_this.hasClass('dateY')){
-        _name = _this.attr('name').replace('_date_y', '');
+        _name = _this.attr('name').replace('_d_y', '');
     }
 
     if(_this.hasClass('dateM')){
-        _name = _this.attr('name').replace('_date_m','');
+        _name = _this.attr('name').replace('_d_m','');
     }
 
     if(_this.hasClass('dateD')){
-        _name = _this.attr('name').replace('_date_d','');
+        _name = _this.attr('name').replace('_d_d','');
     }
 
     if (isEmpty(_name)) {
         return false;
     }
 
-    const _yTarget = $(`input[name=${_name}_date_y]`);
-    const _mTarget = $(`input[name=${_name}_date_m]`);
-    const _dTarget = $(`input[name=${_name}_date_d]`);
+    const _yTarget = $(`input[name=${_name}_d_y]`);
+    const _mTarget = $(`input[name=${_name}_d_m]`);
+    const _dTarget = $(`input[name=${_name}_d_d]`);
 
     let _y = _yTarget.val(); // 년
     let _m = _mTarget.val(); // 월

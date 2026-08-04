@@ -682,6 +682,10 @@ select.form-item {
     margin: 0 -8px;
     line-height: 24px;
 }
+.radio-wrap.inline,
+.checkbox-wrap.inline {
+    display: inline-flex;
+}
 .radio-wrap.text-center,
 .checkbox-wrap.text-center {
 	justify-content: center;

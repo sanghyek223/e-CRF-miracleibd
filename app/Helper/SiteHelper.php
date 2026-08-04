@@ -45,12 +45,12 @@ if (!function_exists('getDefaultUrl')) {
         if ($auth) {
             return thisAuth()->check()
                 ? getDefaultUrl()
-                : url('auth/login');
+                : url('/');
         }
 
         return (checkUrl() === 'admin')
             ? url('/admin/log')
-            : url('/');
+            : url('/register');
     }
 }
 

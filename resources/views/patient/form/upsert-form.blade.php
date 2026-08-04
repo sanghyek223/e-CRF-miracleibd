@@ -40,9 +40,9 @@
             <th scope="row">생년월일</th>
             <td class="text-left">
                 <div class="form-group date">
-                    <input type="text" name="birth_date_y" id="birth_date_y" value="{{ $patient->birth_date_y ?? '' }}" class="form-item line small text-center dateY" maxlength="4" onlynumber> /
-                    <input type="text" name="birth_date_m" id="birth_date_m" value="{{ $patient->birth_date_m ?? '' }}" class="form-item line small text-center dateM" maxlength="2" onlynumber> /
-                    <input type="text" name="birth_date_d" id="birth_date_d" value="{{ $patient->birth_date_d ?? '' }}" class="form-item line small text-center dateD" maxlength="2" onlynumber>
+                    <input type="text" name="birth_d_y" id="birth_d_y" value="{{ $patient->birth_d_y ?? '' }}" class="form-item line small text-center dateY" maxlength="4" onlynumber> /
+                    <input type="text" name="birth_d_m" id="birth_d_m" value="{{ $patient->birth_d_m ?? '' }}" class="form-item line small text-center dateM" maxlength="2" onlynumber> /
+                    <input type="text" name="birth_d_d" id="birth_d_d" value="{{ $patient->birth_d_d ?? '' }}" class="form-item line small text-center dateD" maxlength="2" onlynumber>
                     <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="birth" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
@@ -106,7 +106,7 @@
                 return false;
             }
 
-            const birthStr = $('#birth_date_y').val() + "-" + $('#birth_date_m').val() + '-' + $('#birth_date_d').val();
+            const birthStr = $('#birth_d_y').val() + "-" + $('#birth_d_m').val() + '-' + $('#birth_d_d').val();
             const birth = moment(birthStr, 'YYYY-MM-DD', true);
 
             // 유효성 체크

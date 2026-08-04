@@ -9,15 +9,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth.check')->group(function () {
-    Route::controller(\App\Http\Controllers\Main\MainController::class)->group(function () {
-        Route::get('/', 'main')->name('main');
-        Route::post('data', 'data')->name('main.data');
-    });
-
     // 신규 대상자
     Route::controller(\App\Http\Controllers\Patient\PatientController::class)->prefix('patient')->group(function () {
-        Route::get('upsert', 'upsert')->name('patient.upsert');
+        Route::get('upsert/{regist_num?}', 'upsert')->name('patient.upsert');
         Route::post('data', 'data')->name('patient.data');
+    });
+
+    // 전체 대상자 리스트
+    Route::controller(\App\Http\Controllers\Register\RegisterController::class)->prefix('register')->group(function () {
+        $reg_type_keys = array_keys(config('site.register.type'));
+
+        Route::get('/', 'index')->name('register');
+        Route::get('{type}-{tab}/{regist_num}', 'upsert')->where('type', implode('|', $reg_type_keys))->name('register.upsert');
+        Route::post('data', 'data')->name('register.data');
     });
 
     // mypage
@@ -28,8 +32,8 @@ Route::middleware('auth.check')->group(function () {
 });
 
 // auth
-Route::controller(\App\Http\Controllers\Auth\LoginController::class)->prefix('auth')->group(function () {
-    Route::match(['get', 'post'], 'login', 'login')->middleware('guest')->name('login');
+Route::controller(\App\Http\Controllers\Auth\LoginController::class)->group(function () {
+    Route::match(['get', 'post'], '/', 'login')->middleware('guest')->name('login');
     Route::post('logout', 'logout')->middleware('auth.check')->name('logout');
 });
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Mypage;
 
 use App\Http\Controllers\Controller;
-use App\Services\Mypage\MypageServices;
 use Illuminate\Http\Request;
 
 class MypageController extends Controller
@@ -12,7 +11,7 @@ class MypageController extends Controller
 
     public function __construct()
     {
-        $this->mypageServices = (new MypageServices());
+        $this->mypageServices = (new \App\Services\Mypage\MypageServices());
 
         view()->share([
             'userConfig' => getConfig('user'),
