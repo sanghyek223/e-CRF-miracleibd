@@ -1,3 +1,10 @@
+@php
+    $evnConfig = $registerConfig['BASE']['EVN'];
+
+    $register = $register->additionalData(); // 데이터 가공 & 추가
+    $disabled_survey_d = (!$register->is_survey_y || $register->is_survey_uk); // 설문지 작성일자 text box disabled 유무
+@endphp
+
 @include('register.include.status')
 
 <div class="table-wrap">
@@ -9,33 +16,34 @@
             <col style="width: 20%;">
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">환경 인자 설문</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
-            <th scope="row">
-                설문 진행 유무
-            </th>
-            <td class="text-left">
+            <th scope="row">설문 진행 유무</th>
+            <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_survey" value="{{ $key }}" :text="$val" :data="$register->b_EVN_survey"/>
+                    @endforeach
                 </div>
             </td>
-            <th scope="row">
-                설문지 작성일자
-            </th>
-            <td class="text-left">
-                <div class="form-group date">
-                    <input type="text" name="" id="" class="form-item line small text-center"> /
-                    <input type="text" name="" id="" class="form-item line small text-center"> /
-                    <input type="text" name="" id="" class="form-item line small text-center">
-                    <img src="/assets/image/icon/ic_cal.png" alt="">
+
+            <th scope="row">설문지 작성일자</th>
+            <td class="text-left ESS-CHK">
+                <div class="form-group date survey-date">
+                    <x-input.text field="b_EVN_survey_d_y" :data="$register->b_EVN_survey_d_y" :disabled="$disabled_survey_d" class="form-item line small text-center dateY chk-active" maxlength="4" onlynumber/> /
+                    <x-input.text field="b_EVN_survey_d_m" :data="$register->b_EVN_survey_d_m" :disabled="$disabled_survey_d" class="form-item line small text-center dateM chk-active" maxlength="2" onlynumber/> /
+                    <x-input.text field="b_EVN_survey_d_d" :data="$register->b_EVN_survey_d_d" :disabled="$disabled_survey_d" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_EVN_survey_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $disabled_survey_d ? 'none' : '' }}">
+
                     <div class="checkbox-wrap inline ml-10">
-                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> Unknown</label></div>
+                        <x-input.checkbox field="b_EVN_survey_d_uk" value="1" text="Unknown" :data="$register->b_EVN_survey_d_uk" :active="true" class="target-active ESS-CHK-NONE {{ $disabled_survey_d ? 'NONE-CLICK' : '' }}"/>
                     </div>
                 </div>
             </td>
@@ -648,6 +656,42 @@
 
 @push('register-script')
     <script>
+        $(function () {
+            validateEssChk();
+        });
 
+        function submitAction(next = false) {
+            let ajaxData = newFormData(form);
+
+            if (next) {
+                ajaxData.append('next', true);
+            }
+
+            callMultiAjax(dataUrl, ajaxData);
+        }
+
+        $(document).on('change', `${form} input[name=b_EVN_survey]`, function () {
+            const value = $(form).find('input[name=b_EVN_survey]:checked').val() || '';
+            const target = $(form).find('.survey-date');
+            const target_text = target.find('input[type=text]');
+            const target_checkbox = target.find('#b_EVN_survey_d_uk');
+            const target_calendar = target.find('.target-replace-datepicker');
+
+            if (value == '1') {
+                target_text.removeAttr('disabled');
+                target_checkbox.removeClass('NONE-CLICK');
+                target_calendar.show();
+            } else {
+                target_text.val('');
+                target_text.attr('disabled', true);
+
+                target_checkbox.prop('checked', false);
+                target_checkbox.addClass('NONE-CLICK');
+
+                target_calendar.hide();
+            }
+
+            validateEssChk();
+        });
     </script>
 @endpush

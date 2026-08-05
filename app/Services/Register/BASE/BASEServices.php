@@ -48,11 +48,11 @@ class BASEServices extends AppServices
             case 'LAB-update':
                 return $this->LABUpdate($request);
 
-            case 'EVN-update':
-                return $this->EVNUpdate($request);
-
             case 'NTR-update':
                 return $this->NTRUpdate($request);
+                
+            case 'EVN-update':
+                return $this->EVNUpdate($request);
 
             default:
                 return notFoundRedirect();
@@ -177,6 +177,35 @@ class BASEServices extends AppServices
 
             $this->dbCommit('진단 시점 Lab 수정');
 
+            $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'NTR', 'regist_num' => $patient->regist_num]);
+            $location = ($request->next)
+                ? $this->ajaxActionLocation('replace', $nextRoute)
+                : $this->ajaxActionLocation('reload');
+
+            return $this->returnJsonData('alert', [
+                'case' => true,
+                'msg' => '수정 되었습니다',
+                'location' => $location,
+            ]);
+        } catch (\Exception $e) {
+            return $this->dbRollback($e);
+        }
+    }
+
+    private function NTRUpdate(Request $request)
+    {
+        $this->transaction();
+
+        try {
+            $patient = $this->getPatient($request);
+            $decrypt_sid = deCryptString($request->sid);
+
+            $ntr = $patient->BaseNTR()->findOrFail($decrypt_sid);
+            $ntr->setByData($request);
+            $ntr->update();
+
+            $this->dbCommit('환경 인자 설문 수정');
+
             $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'EVN', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
                 ? $this->ajaxActionLocation('replace', $nextRoute)
@@ -207,35 +236,6 @@ class BASEServices extends AppServices
             $this->dbCommit('영양 진자 설문 수정');
 
             $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'NTR', 'regist_num' => $patient->regist_num]);
-            $location = ($request->next)
-                ? $this->ajaxActionLocation('replace', $nextRoute)
-                : $this->ajaxActionLocation('reload');
-
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
-        } catch (\Exception $e) {
-            return $this->dbRollback($e);
-        }
-    }
-
-    private function NTRUpdate(Request $request)
-    {
-        $this->transaction();
-
-        try {
-            $patient = $this->getPatient($request);
-            $decrypt_sid = deCryptString($request->sid);
-
-            $ntr = $patient->BaseNTR()->findOrFail($decrypt_sid);
-            $ntr->setByData($request);
-            $ntr->update();
-
-            $this->dbCommit('환경 인자 설문 수정');
-
-            $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'DX', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
                 ? $this->ajaxActionLocation('replace', $nextRoute)
                 : $this->ajaxActionLocation('reload');

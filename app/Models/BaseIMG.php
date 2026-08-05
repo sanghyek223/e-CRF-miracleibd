@@ -61,7 +61,48 @@ class BaseIMG extends Model
 
     public function setByData($data)
     {
+        $baseConfig = $this->baseConfig();
+        $imgConfig = $baseConfig['ENDO'];
 
+        $b_img_d = "{$data['b_img_d_y']}-{$data['b_img_d_m']}-{$data['b_img_d_d']}";
+        $b_img_d_replace = str_replace('-', '', $b_img_d);
+
+        if (empty($b_img_d_replace)) {
+            $b_img_d = '';
+        }
+
+        $this->b_img_d_uk = $data['b_img_d_uk'];
+        $this->b_img_d = (empty($this->b_img_d_uk) ? $b_img_d : null);
+
+        $this->b_img_sev = $data['b_img_sev'];
+
+        $this->b_inv_seg1 = $data['b_inv_seg1'];
+        $this->b_inv_seg2 = $data['b_inv_seg2'];
+        $this->b_inv_seg3 = $data['b_inv_seg3'];
+        $this->b_inv_seg4 = $data['b_inv_seg4'];
+        $this->b_inv_seg5 = $data['b_inv_seg5'];
+        $this->b_inv_seg6 = $data['b_inv_seg6'];
+        $this->b_inv_seg7 = $data['b_inv_seg7'];
+        $this->b_inv_seg8 = $data['b_inv_seg8'];
+        $this->b_inv_seg9 = $data['b_inv_seg9'];
+
+        $this->b_fistula = $data['b_fistula'];
+        $this->b_stricture = $data['b_stricture'];
+        $this->b_abscess = $data['b_abscess'];
+        
+        $this->status = empty($data['status']) ? 'I' : 'C';
+    }
+
+    public function additionalData() // 노출 정보 추가 가공
+    {
+        $b_img_d = empty($this->b_img_d) ? '' : explode('-', $this->b_img_d);
+        $this->is_img_uk = (($this->b_img_d_uk ?? '') == '1'); // 최초 내시경 검사일 Unknown 체크여부
+
+        $this->b_img_d_y = $b_img_d[0] ?? '';
+        $this->b_img_d_m = $b_img_d[1] ?? '';
+        $this->b_img_d_d = $b_img_d[2] ?? '';
+
+        return $this;
     }
 
     public function patient()

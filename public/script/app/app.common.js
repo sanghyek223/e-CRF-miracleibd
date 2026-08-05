@@ -272,9 +272,9 @@ const callTargetReplaceDatePicker = () => {
                 const _this = $(instance.element);
                 const target = _this.data('target');
 
-                $(`#${target}_d_y`).val(year);
-                $(`#${target}_d_m`).val(month);
-                $(`#${target}_d_d`).val(day);
+                $(`#${target}_y`).val(year);
+                $(`#${target}_m`).val(month);
+                $(`#${target}_d`).val(day);
 
                 if (_this.hasClass('date-calc')) {
                     dateCalc();
@@ -1486,7 +1486,7 @@ $(document).on("keyup", "input[EnUpperCase]", function () {
 });
 
 // 라디오 버튼 더블클릭 체크 해제
-$(document).on('dblclick', 'input[type=radio], label', function (e) {
+$(document).on('dblclick', 'input[type="radio"], label:has(input[type="radio"])', function (e) {
     let $radio;
 
     // label 클릭인지 radio 클릭인지 구분
@@ -1508,12 +1508,9 @@ $(document).on('change', 'input[type=radio], input[type=checkbox]', function () 
     const _this = $(this);
     const name = _this.attr('name');
     const checked = _this.is(':checked');
-
-    const is_text = _this.hasClass('target-text');
-    const is_radio = (_this.attr('type') === 'radio');
     const is_ESS_CHK = $('.ESS-CHK').length > 0; // 필수값 체크 클래스 있는지 확인
 
-    // .target-active 변경시 상위태그 td 기준 하위대상 .chk-active (모든 태그대상) disabled 해제 여부 판단
+    // .target-active 변경시 상위태그 td 기준 하위대상 .chk-active disabled 해제 여부 판단
     if (_this.hasClass('target-active')) {
         const is_active = _this.data('active');
 
@@ -1541,64 +1538,61 @@ $(document).on('change', 'input[type=radio], input[type=checkbox]', function () 
                     break;
             }
 
-            if (is_radio) {
-                _item.attr('disabled', !is_active);
+            // 이벤트 실행 선택자가 체크시 is_active 값으로 disabled 추가 및 삭제
+            if (_this.is(':checked')) {
+                _item.attr('disabled', is_active);
             } else {
-                // 이벤트 실행 선택자가 체크 박스일때 체크시 is_active 값으로 해제시 반대
-                if (_this.is(':checked')) {
-                    _item.attr('disabled', is_active);
-                } else {
-                    _item.attr('disabled', !is_active);
-                }
+                _item.attr('disabled', !is_active);
             }
         });
-
-        if (is_ESS_CHK) {
-            validateEssChk();
-        }
-
-        return; // 멈춰야함 target-text 이벤트와 겹치면 안됨
     }
 
-    // .target-text 변경시 상위태그 div 기준 하위대상 .chk-text (텍스트 박스만) disabled 해제 여부 판단
-    if (is_radio) {
+    // .target-box-active 변경시 상위태그 .target-box 기준 하위대상 .chk-active disabled 해제 여부 판단
+    if (_this.hasClass('target-box-active')) {
+        const is_active = _this.data('active2');
 
-        // 라디오 버튼 변경시 각 버튼마다 텍스트 박스가 개별로 있을수 있음 선택 대상만 해제 그외 disabled
-        $(`input[name=${name}]`).each(function (index, item) {
+        _this.closest('.target-box').find('.chk-active').each(function (index, item) {
             const _item = $(item);
-            const _item_checked = _item.is(':checked');
+            const _item_tag = _item.prop('tagName').toLowerCase();
 
-            const _item_is_text = _item.hasClass('target-text');
-            const _item_text_target = _item.closest('div').find('.chk-text');
+            switch (_item_tag) {
+                case 'select':
+                case 'textarea':
+                    _item.val('');
+                    break;
 
-            if (!_item_is_text || _item_text_target.length === 0) {
-                return;
+                case 'input':
+                    const type = _item.attr('type');
+
+                    if (type === 'text') {
+                        _item.val('');
+                    } else if(type === 'radio' || type === 'checkbox') {
+                        _item.prop('checked', false).trigger('change');
+                    }
+                    break;
+
+                default:
+                    break;
             }
 
-            if (_item_checked) {
-                _item_text_target.removeAttr('disabled')
+            // 이벤트 실행 선택자가 체크시 is_active 값으로 disabled 추가 및 삭제
+            if (_this.is(':checked')) {
+                _item.attr('disabled', is_active);
             } else {
-                _item_text_target.val('');
-                _item_text_target.attr('disabled', true);
+                _item.attr('disabled', !is_active);
             }
         });
-
-    } else {
-        const text_target = _this.closest('div').find('.chk-text');
-
-        if (!is_text || text_target.length === 0) {
-            return;
-        }
-
-        if (checked) {
-            text_target.removeAttr('disabled')
-        } else {
-            text_target.val('');
-            text_target.attr('disabled', true);
-        }
     }
 
     if (is_ESS_CHK) {
         validateEssChk();
     }
+});
+
+// 라디오 or 체크박스 클릭 막기
+$(document).on('click', '.NONE-CLICK', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    validateEssChk();
+    return false;
 });

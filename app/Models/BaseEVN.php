@@ -61,7 +61,34 @@ class BaseEVN extends Model
 
     public function setByData($data)
     {
+        $baseConfig = $this->baseConfig();
+        $evnConfig = $baseConfig['EVN'];
 
+        // 환경 인자 설문
+        $b_EVN_survey_d = "{$data['b_EVN_survey_d_y']}-{$data['b_EVN_survey_d_m']}-{$data['b_EVN_survey_d_d']}"; // 설문지 작성일자
+        $b_EVN_survey_d_replace = str_replace('-', '', $b_EVN_survey_d);
+
+        if (empty($b_EVN_survey_d_replace)) {
+            $b_EVN_survey_d = '';
+        }
+
+        $this->b_EVN_survey = $data['b_EVN_survey'];
+        $this->b_EVN_survey_d_uk = $data['b_EVN_survey_d_uk'];
+        $this->b_EVN_survey_d = (($this->b_EVN_survey ?? '') == '1' && empty($this->b_EVN_survey_d_uk)) ? $b_EVN_survey_d : null;
+    }
+
+    public function additionalData() // 노출 정보 추가 가공
+    {
+        $is_survey_y = ($this->b_EVN_survey == '1');
+
+        $b_EVN_survey_d = empty($this->b_EVN_survey_d) ? '' : explode('-', $this->b_EVN_survey_d);
+        $this->is_survey_uk = (($this->b_EVN_survey_d_uk ?? '') == '1'); // 설문지 작성일자 Unknown 체크여부
+
+        $this->b_EVN_survey_d_y = $b_EVN_survey_d[0] ?? '';
+        $this->b_EVN_survey_d_m = $b_EVN_survey_d[1] ?? '';
+        $this->b_EVN_survey_d_d = $b_EVN_survey_d[2] ?? '';
+
+        return $this;
     }
 
     public function patient()

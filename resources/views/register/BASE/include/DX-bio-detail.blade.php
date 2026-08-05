@@ -1,5 +1,10 @@
 @php
     $common_field = "b_bio{$eq}";
+
+    $b_bio_text = $register->{$common_field . '_n'} ?? '';
+    $b_bio_date_y = $register->{$common_field . '_d_y'} ?? '';
+    $b_bio_date_m = $register->{$common_field . '_d_m'} ?? '';
+    $b_bio_date_d = $register->{$common_field . '_d_d'} ?? '';
 @endphp
 
 <tr class="bio-detail-tr">
@@ -11,15 +16,15 @@
     </th>
 
     <td class="text-left ESS-CHK">
-        <x-input.text field="{{ $common_field }}_n" :data="$register->{$common_field . '_n'}" class="form-item full bio-detail-text"/>
+        <x-input.text field="{{ $common_field }}_n" :data="$b_bio_text" class="form-item full bio-detail-text"/>
     </td>
 
     <td class="ESS-CHK">
         <div class="form-group date">
-            <x-input.text field="{{ $common_field }}_d_y" :data="$register->{$common_field . '_d_y'}" class="form-item line small text-center bio-detail-y dateY" maxlength="4" onlynumber/> /
-            <x-input.text field="{{ $common_field }}_d_m" :data="$register->{$common_field . '_d_m'}" class="form-item line small text-center bio-detail-m dateM" maxlength="2" onlynumber/> /
-            <x-input.text field="{{ $common_field }}_d_d" :data="$register->{$common_field . '_d_d'}" class="form-item line small text-center bio-detail-d dateD" maxlength="2" onlynumber/>
-            <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="{{ $common_field }}" data-maxdate="{{ now()->format('Y-m-d') }}">
+            <x-input.text field="{{ $common_field }}_d_y" :data="$b_bio_date_y" class="form-item line small text-center bio-detail-y dateY" maxlength="4" onlynumber/> /
+            <x-input.text field="{{ $common_field }}_d_m" :data="$b_bio_date_m" class="form-item line small text-center bio-detail-m dateM" maxlength="2" onlynumber/> /
+            <x-input.text field="{{ $common_field }}_d_d" :data="$b_bio_date_d" class="form-item line small text-center bio-detail-d dateD" maxlength="2" onlynumber/>
+            <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="{{ $common_field }}_d" data-maxdate="{{ now()->format('Y-m-d') }}">
         </div>
     </td>
 </tr>

@@ -1,3 +1,10 @@
+@php
+    $ntrConfig = $registerConfig['BASE']['NTR'];
+
+    $register = $register->additionalData(); // 데이터 가공 & 추가
+    $disabled_Tx_d = (!$register->is_Tx_k_etc || !$register->is_Tx_d_uk); // 영양 치료 병행 방식 기타 시행일자 text box disabled 유무
+@endphp
+
 @include('register.include.status')
 
 <div class="table-wrap">
@@ -9,44 +16,45 @@
             <col style="width: 20%;">
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">영양 인자 설문</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
-            <th scope="row">
-                설문 진행 유무
-            </th>
-            <td class="text-left">
+            <th scope="row">설문 진행 유무</th>
+            <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_NTR_survey" value="{{ $key }}" :text="$val" :data="$register->b_NTR_survey"/>
+                    @endforeach
                 </div>
             </td>
-            <th scope="row">
-                설문 작성일자
-            </th>
-            <td class="text-left">
+
+            <th scope="row">설문 작성일자</th>
+            <td class="text-left ESS-CHK">
                 <div class="form-group date">
-                    <input type="text" name="" id="" class="form-item line small text-center"> /
-                    <input type="text" name="" id="" class="form-item line small text-center"> /
-                    <input type="text" name="" id="" class="form-item line small text-center">
-                    <img src="/assets/image/icon/ic_cal.png" alt="">
+                    <x-input.text field="b_NTR_survey_d_y" :data="$register->b_NTR_survey_d_y" :disabled="$register->is_survey_uk" class="form-item line small text-center dateY chk-active" maxlength="4" onlynumber/> /
+                    <x-input.text field="b_NTR_survey_d_m" :data="$register->b_NTR_survey_d_m" :disabled="$register->is_survey_uk" class="form-item line small text-center dateM chk-active" maxlength="2" onlynumber/> /
+                    <x-input.text field="b_NTR_survey_d_d" :data="$register->b_NTR_survey_d_d" :disabled="$register->is_survey_uk" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_NTR_survey_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_survey_uk ? 'none' : '' }}">
+
                     <div class="checkbox-wrap inline ml-10">
-                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> Unknown</label></div>
+                        <x-input.checkbox field="b_NTR_survey_d_uk" value="1" text="Unknown" :data="$register->b_NTR_survey_d_uk" :active="true" class="target-active ESS-CHK-NONE"/>
                     </div>
                 </div>
             </td>
         </tr>
+
         <tr>
-            <th scope="row">
-                설문지 종류
-            </th>
-            <td class="text-left nbdr">
-                <input type="text" name="" id="" class="form-item full">
+            <th scope="row">설문지 종류</th>
+            <td class="text-left nbdr ESS-CHK">
+                <x-input.text field="b_NTR_survey_k" :data="$register->b_NTR_survey_k" class="form-item full"/>
             </td>
+
             <td colspan="2" class="nbdl"></td>
         </tr>
         </tbody>
@@ -62,69 +70,80 @@
             <col style="width: 20%;">
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">영양 치료</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
-            <th scope="row">
-                영양 치료 여부
-            </th>
-            <td colspan="3" class="text-left">
+            <th scope="row">영양 치료 여부</th>
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_NTR_Tx" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
-            <th scope="row">
-                영양 치료 병행 방식
-            </th>
-            <td colspan="3" class="text-left">
+            <th scope="row">영양 치료 병행 방식</th>
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 없음 (일반식)</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> EEN (6주 이상)</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> CDED (phase 1 6주 완료 / 12주 완료)</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> CDED + PEN</label></div>
-                    <div class="inWrap">
-                        <label class="radio-group"><input type="radio" name="" id=""> 기타 식이요법 ( <input type="text" name="" id="" class="form-item large"> )</label>
-                        <div class="form-group date">
-                            <span class="text">시행일자 :</span>
-                            <input type="text" name="" id="" class="form-item line small text-center"> /
-                            <input type="text" name="" id="" class="form-item line small text-center"> /
-                            <input type="text" name="" id="" class="form-item line small text-center">
-                            <img src="/assets/image/icon/ic_cal.png" alt="">
-                            <div class="checkbox-wrap inline ml-10">
-                                <div><label class="checkbox-group"><input type="checkbox" name="" id=""> Unknown</label></div>
+                    @foreach($ntrConfig['b_NTR_Tx_k'] as $key => $val)
+                        @if($key != '4')
+                            <x-input.radio field="b_NTR_Tx_k" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx_k"/>
+                        @else
+                            <div class="inWrap">
+                                <x-input.radio2 field="b_NTR_Tx_k" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx_k"/>
+                                ( <x-input.text field="b_NTR_Tx_ow" :data="$register->b_NTR_Tx_ow" :disabled="!$register->is_Tx_k_etc" class="form-item large"/> )
+
+                                <div class="form-group date target-box">
+                                    <span class="text">시행일자 :</span>
+                                    <x-input.text field="b_NTR_Tx_d_y" :data="$register->b_NTR_Tx_d_y" :disabled="$register->is_Tx_d_uk" class="form-item line small text-center dateY chk-active" maxlength="4" onlynumber/> /
+                                    <x-input.text field="b_NTR_Tx_d_m" :data="$register->b_NTR_Tx_d_m" :disabled="$register->is_Tx_d_uk" class="form-item line small text-center dateM chk-active" maxlength="2" onlynumber/> /
+                                    <x-input.text field="b_NTR_Tx_d_d" :data="$register->b_NTR_Tx_d_d" :disabled="$register->is_Tx_d_uk" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/>
+                                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_NTR_Tx_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_Tx_d_uk ? 'none' : '' }}">
+
+                                    <div class="checkbox-wrap inline ml-10">
+                                        <x-input.checkbox field="b_NTR_Tx_d_uk" value="1" text="Unknown" :data="$register->b_NTR_Tx_d_uk" :active2="true" class="target-box-active ESS-CHK-NONE {{ !$register->is_Tx_k_etc ? 'NONE-CLICK' : '' }}"/>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        @endif
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
-            <th scope="row">
-                영양 치료 중단
-            </th>
-            <td colspan="3" class="text-left">
+            <th scope="row">영양 치료 중단</th>
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_NTR_Tx_stop" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx_stop"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
-            <th scope="row">
-                영양 치료 중단 사유
-            </th>
-            <td colspan="3" class="text-left">
-                <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 맛 거부감</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 위장 증상 악화</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 기타 : <input type="text" name="" id="" class="form-item xx-large"></label></div>
+            <th scope="row">영양 치료 중단 사유</th>
+            <td colspan="3" class="text-left ESS-CHK">
+                <div class="radio-wrap target-box">
+                    @foreach($ntrConfig['b_NTR_Tx_stop_k'] as $key => $val)
+                        @if($key != '3')
+                            <x-input.radio field="b_NTR_Tx_stop_k" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx_stop_k" :active2="true" class="target-box-active"/>
+                        @else
+                            <div class="inWrap">
+                                <x-input.radio2 field="b_NTR_Tx_stop_k" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx_stop_k" :active2="false" class="target-box-active"/>
+                                : <x-input.text field="b_NTR_Tx_stop_ow" :data="$register->b_NTR_Tx_stop_ow" :disabled="!$register->is_Tx_stop_k_etc" class="form-item xx-large chk-active"/>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </td>
         </tr>
@@ -141,54 +160,53 @@
             <col style="width: 20%;">
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">식습관 조사</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
-            <th scope="row">
-                음주 여부 (성인만 해당)
-            </th>
-            <td colspan="3" class="text-left">
+            <th scope="row">음주 여부 (성인만 해당)</th>
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_NTR_alc" value="{{ $key }}" :text="$val" :data="$register->b_NTR_alc"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
-            <th scope="row">
-                흡연 여부 (성인만 해당)
-            </th>
-            <td colspan="3" class="text-left">
+            <th scope="row">흡연 여부 (성인만 해당)</th>
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_NTR_S" value="{{ $key }}" :text="$val" :data="$register->b_NTR_S"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
-            <th scope="row">
-                가공식품 섭취
-            </th>
-            <td colspan="3" class="text-left">
+            <th scope="row">가공식품 섭취</th>
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 매일</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 주 3~4회</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 월 3~4회</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 거의 먹지 않음</label></div>
+                    @foreach($ntrConfig['b_NTR_PF'] as $key => $val)
+                        <x-input.radio field="b_NTR_PF" value="{{ $key }}" :text="$val" :data="$register->b_NTR_PF"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
-            <th scope="row">
-                BMI
-            </th>
+            <th scope="row">BMI</th>
             <td class="text-left nbdr">
-                {00.0} ㎏/㎡ <!--// 자동연동 부분 -->
+                {{ $patient->BaseDX->b_BMI ?? '' }} ㎏/㎡
             </td>
+
             <td colspan="2" class="nbdl"></td>
         </tr>
         </tbody>
@@ -197,6 +215,50 @@
 
 @push('register-script')
     <script>
+        $(function () {
+            validateEssChk();
+        });
 
+        function submitAction(next = false) {
+            let ajaxData = newFormData(form);
+
+            if (next) {
+                ajaxData.append('next', true);
+            }
+
+            callMultiAjax(dataUrl, ajaxData);
+        }
+
+        $(document).on('change', `${form} input[name=b_NTR_Tx_k]`, function () {
+            const value = $(form).find('input[name=b_NTR_Tx_k]:checked').val() || '';
+            const target_calendar = $(this).closest('td').find('.target-replace-datepicker');
+            const target_checkbox = $(this).closest('td').find('#b_NTR_Tx_d_uk');
+            const target_text = $(this).closest('td').find('input[type=text]');
+
+            if (value == '4') {
+                target_calendar.show();
+                target_checkbox.removeClass('NONE-CLICK');
+                target_text.attr('disabled', false);
+            } else {
+                target_calendar.hide();
+
+                target_checkbox.addClass('NONE-CLICK');
+                target_checkbox.prop('checked', false);
+
+                target_text.val('');
+                target_text.attr('disabled', true);
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', `${form} #b_NTR_survey_d_uk, ${form} #b_NTR_Tx_d_uk`, function () {
+            const checked = $(this).is(':checked');
+            const target = $(this).closest('td').find('.target-replace-datepicker');
+
+            checked
+                ? target.hide()
+                : target.show();
+        });
     </script>
 @endpush

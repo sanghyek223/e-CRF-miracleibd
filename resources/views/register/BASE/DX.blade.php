@@ -36,13 +36,13 @@
                     <x-input.text field="IBD_d_y" :data="$register->IBD_d_y" class="form-item line small text-center dateY date-calc" maxlength="4" onlynumber/> /
                     <x-input.text field="IBD_d_m" :data="$register->IBD_d_m" class="form-item line small text-center dateM date-calc" maxlength="2" onlynumber/> /
                     <x-input.text field="IBD_d_d" :data="$register->IBD_d_d" class="form-item line small text-center dateD date-calc" maxlength="2" onlynumber/>
-                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker date-calc" data-target="IBD" data-maxdate="{{ now()->format('Y-m-d') }}">
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker date-calc" data-target="IBD_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
 
             <th scope="row">진단 시 나이</th>
             <td class="text-left ESS-CHK">
-                만 <x-input.text field="IBD_age" :data="$register->IBD_age" class="form-item small text-center"/> 세
+                만 <x-input.text field="IBD_age" :data="$register->IBD_age" class="form-item small text-center" readonly/> 세
             </td>
         </tr>
 
@@ -51,7 +51,7 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($dxConfig['ibd_type'] as $key => $val)
-                        <x-input.radio field="IBD_type" :value="$key" :text="$val" :data="$register->IBD_type"/>
+                        <x-input.radio field="IBD_type" value="{{ $key }}" :text="$val" :data="$register->IBD_type"/>
                     @endforeach
                 </div>
             </td>
@@ -65,7 +65,7 @@
 
             <th scope="row">체중</th>
             <td class="text-left ESS-CHK">
-                <x-input.text field="b_HT" :data="$register->b_HT" class="form-item small text-center" onlydecimal/> kg
+                <x-input.text field="b_WT" :data="$register->b_WT" class="form-item small text-center" onlydecimal/> kg
             </td>
         </tr>
 
@@ -85,7 +85,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($dxConfig['uc_location'] as $key => $val)
-                        <x-input.radio field="b_UC_l" :value="$key" :text="$val" :data="$register->b_UC_l"/>
+                        <x-input.radio field="b_UC_l" value="{{ $key }}" :text="$val" :data="$register->b_UC_l"/>
                     @endforeach
                 </div>
             </td>
@@ -94,7 +94,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($dxConfig['uc_severity'] as $key => $val)
-                        <x-input.radio field="b_UC_sens" :value="$key" :text="$val" :data="$register->b_UC_sens"/>
+                        <x-input.radio field="b_UC_sens" value="{{ $key }}" :text="$val" :data="$register->b_UC_sens"/>
                     @endforeach
                 </div>
             </td>
@@ -109,7 +109,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($dxConfig['cd_location'] as $key => $val)
-                        <x-input.radio field="b_CD_l" :value="$key" :text="$val" :data="$register->b_CD_l"/>
+                        <x-input.radio field="b_CD_l" value="{{ $key }}" :text="$val" :data="$register->b_CD_l"/>
                     @endforeach
                 </div>
             </td>
@@ -118,7 +118,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_CD_L4" :value="$key" :text="$val" :data="$register->b_CD_L4"/>
+                        <x-input.radio field="b_CD_L4" value="{{ $key }}" :text="$val" :data="$register->b_CD_L4"/>
                     @endforeach
                 </div>
             </td>
@@ -129,7 +129,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($dxConfig['cd_severity'] as $key => $val)
-                        <x-input.radio field="b_CD_sens" :value="$key" :text="$val" :data="$register->b_CD_sens"/>
+                        <x-input.radio field="b_CD_sens" value="{{ $key }}" :text="$val" :data="$register->b_CD_sens"/>
                     @endforeach
                 </div>
             </td>
@@ -138,7 +138,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($dxConfig['behavior'] as $key => $val)
-                        <x-input.radio field="b_CD_behav" :value="$key" :text="$val" :data="$register->b_CD_behav"/>
+                        <x-input.radio field="b_CD_behav" value="{{ $key }}" :text="$val" :data="$register->b_CD_behav"/>
                     @endforeach
                 </div>
             </td>
@@ -149,7 +149,7 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_CD_PA_modi" :value="$key" :text="$val" :data="$register->b_CD_PA_modi"/>
+                        <x-input.radio field="b_CD_PA_modi" value="{{ $key }}" :text="$val" :data="$register->b_CD_PA_modi"/>
                     @endforeach
                 </div>
             </td>
@@ -164,7 +164,7 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_med" :value="$key" :text="$val" :data="$register->b_med"/>
+                        <x-input.radio field="b_med" value="{{ $key }}" :text="$val" :data="$register->b_med"/>
                     @endforeach
                 </div>
             </td>
@@ -175,7 +175,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_5ASA" :value="$key" :text="$val" :data="$register->b_5ASA"/>
+                        <x-input.radio field="b_5ASA" value="{{ $key }}" :text="$val" :data="$register->b_5ASA"/>
                     @endforeach
                 </div>
             </td>
@@ -184,7 +184,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_aza" :value="$key" :text="$val" :data="$register->b_aza"/>
+                        <x-input.radio field="b_aza" value="{{ $key }}" :text="$val" :data="$register->b_aza"/>
                     @endforeach
                 </div>
             </td>
@@ -195,7 +195,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_MTX" :value="$key" :text="$val" :data="$register->b_MTX"/>
+                        <x-input.radio field="b_MTX" value="{{ $key }}" :text="$val" :data="$register->b_MTX"/>
                     @endforeach
                 </div>
             </td>
@@ -204,7 +204,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_tofa" :value="$key" :text="$val" :data="$register->b_tofa"/>
+                        <x-input.radio field="b_tofa" value="{{ $key }}" :text="$val" :data="$register->b_tofa"/>
                     @endforeach
                 </div>
             </td>
@@ -215,7 +215,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_oza" :value="$key" :text="$val" :data="$register->b_oza"/>
+                        <x-input.radio field="b_oza" value="{{ $key }}" :text="$val" :data="$register->b_oza"/>
                     @endforeach
                 </div>
             </td>
@@ -224,7 +224,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_st" :value="$key" :text="$val" :data="$register->b_st"/>
+                        <x-input.radio field="b_st" value="{{ $key }}" :text="$val" :data="$register->b_st"/>
                     @endforeach
                 </div>
             </td>
@@ -235,7 +235,7 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_bio" :value="$key" :text="$val" :data="$register->b_bio"/>
+                        <x-input.radio field="b_bio" value="{{ $key }}" :text="$val" :data="$register->b_bio"/>
                     @endforeach
                 </div>
             </td>
@@ -270,7 +270,6 @@
                         @php
                             if ($i !== 1) {
                                 $bio_text = $register->{"b_bio{$i}_n"};
-                                $bio_date = $register->{"b_bio{$i}_d"};
                                 if (empty($bio_text) && empty($bio_date)) continue;
                             }
                         @endphp

@@ -67,6 +67,12 @@ class BaseENDO extends Model
 
 
         $b_endo_d = "{$data['b_endo_d_y']}-{$data['b_endo_d_m']}-{$data['b_endo_d_d']}";
+        $b_endo_d_replace = str_replace('-', '', $b_endo_d);
+
+        if (empty($b_endo_d_replace)) {
+            $b_endo_d = '';
+        }
+
         $this->b_endo_d_uk = $data['b_endo_d_uk'];
         $this->b_endo_d = (empty($this->b_endo_d_uk) ? $b_endo_d : null);
 
@@ -76,31 +82,42 @@ class BaseENDO extends Model
         $this->b_endo_sev = $data['b_endo_sev'];
 
         $b_entero_d = "{$data['b_entero_d_y']}-{$data['b_entero_d_m']}-{$data['b_entero_d_d']}";
+        $b_entero_d_replace = str_replace('-', '', $b_entero_d);
+
+        if (empty($b_entero_d_replace)) {
+            $b_entero_d = '';
+        }
+
         $this->b_entero_d_uk = $data['b_entero_d_uk'];
         $this->b_entero_d = (empty($this->b_entero_d_uk) ? $b_entero_d : null);
 
         $this->b_entero_sev = $data['b_entero_sev'];
 
         // 입력상태
-        $this->status = empty($data['status']) ? 'I' : 'C';
+        if (is_null($this->b_MES) && is_null($this->b_SES_CD)) {
+            // IBD Type 이 선택 안되어있으면 무조건 I
+            $this->status = 'I';
+        } else {
+            $this->status = empty($data['status']) ? 'I' : 'C';
+        }
     }
 
     public function additionalData() // 노출 정보 추가 가공
     {
         $b_endo_d = empty($this->b_endo_d) ? '' : explode('-', $this->b_endo_d);
+        $this->is_endo_uk = (($this->b_endo_d_uk ?? '') == '1'); // 최초 내시경 검사일 Unknown 체크여부
 
         $this->b_endo_d_y = $b_endo_d[0] ?? '';
         $this->b_endo_d_m = $b_endo_d[1] ?? '';
         $this->b_endo_d_d = $b_endo_d[2] ?? '';
 
+
         $b_entero_d = empty($this->b_entero_d) ? '' : explode('-', $this->b_entero_d);
+        $this->is_entero_uk = (($this->b_entero_d_uk ?? '') == '1'); // 최초 소장내시경 검사일 Unknown 체크여부
 
         $this->b_entero_d_y = $b_entero_d[0] ?? '';
         $this->b_entero_d_m = $b_entero_d[1] ?? '';
         $this->b_entero_d_d = $b_entero_d[2] ?? '';
-
-        $this->is_endo_uk = (($this->b_endo_d_uk ?? '') == '1'); // 최초 내시경 검사일 Unknown 체크여부
-        $this->is_entero_uk = (($this->b_entero_d_uk ?? '') == '1'); // 최초 소장내시경 검사일 Unknown 체크여부
 
         return $this;
     }

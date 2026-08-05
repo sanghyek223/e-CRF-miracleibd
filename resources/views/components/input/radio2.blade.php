@@ -24,12 +24,10 @@
     $checked = ($data == $value); // 숫자값이 있을수있어서 == 으로 체크
 @endphp
 
-<div>
-    <label class="checkbox-group">
-        <input type="checkbox" id="{{ $field }}" name="{{ $field }}"
-               {{ $attributes }}
-               @if($checked) checked @endif
-               @isset($active) data-active="{{ $active ? 'true' : 'false' }}" @endisset
-               @isset($active2) data-active2="{{ $active2 ? 'true' : 'false' }}" @endisset> {!! $text !!}
-    </label>
-</div>
+<label class="radio-group">
+    <input type="radio" id="{{ $field }}_{{ $value }}" name="{{ $field }}"
+           {{ $attributes }}
+           @if($checked) checked @endif
+           @isset($active) data-active="{{ $active ? 'true' : 'false' }}" @endisset
+           @isset($active2) data-active2="{{ $active2 ? 'true' : 'false' }}" @endisset> {!! $text !!}
+</label>

@@ -30,6 +30,15 @@ class BaseDX extends Model
     {
         parent::boot();
 
+        static::updated(function ($BaseDX) {
+            if ($BaseDX->isDirty('b_BMI')) {
+                // b_BMI가 변경된 경우만 실행 (영양 인자 설문 BMI 업데이트)
+                $BaseNTR = $BaseDX->patient->BaseNTR;
+                $BaseNTR->b_BMI = $BaseDX->b_BMI;
+                $BaseNTR->saveQuietly();
+            }
+        });
+
         static::saving(function ($BaseDX) {
             if (checkUrl() !== 'admin') {
                 // 마지막 수정자
@@ -65,13 +74,18 @@ class BaseDX extends Model
         $dxConfig = $baseConfig['DX'];
 
         $IBD_d = "{$data['IBD_d_y']}-{$data['IBD_d_m']}-{$data['IBD_d_d']}";
+        $IBD_d_replace = str_replace('-', '', $IBD_d);
+
+        if (empty($IBD_d_replace)) {
+            $IBD_d = '';
+        }
 
         $this->IBD_d = $IBD_d;
         $this->IBD_age = $data['IBD_age'];
         $this->IBD_type = $data['IBD_type'];
 
         $this->b_HT = $data['b_HT'];
-        $this->b_HT = $data['b_HT'];
+        $this->b_WT = $data['b_WT'];
         $this->b_BMI = $data['b_BMI'];
 
 
@@ -88,7 +102,7 @@ class BaseDX extends Model
         $this->b_CD_PA_modi = $is_cd ? $data['b_CD_PA_modi'] : null;
 
 
-        $this->b_med = $is_cd ? $data['b_med'] : null;
+        $this->b_med = $data['b_med'];
         $is_med = ($this->b_med == '1'); // 약물 투약 여부 데이터 구분용
 
         $this->b_5ASA = $is_med ? $data['b_5ASA'] : null;
@@ -113,6 +127,11 @@ class BaseDX extends Model
             $b_bio_d_d = $data["b_bio{$i}_d_d"] ?? '';
 
             $b_bio_d = "{$b_bio_d_y}-{$b_bio_d_m}-{$b_bio_d_d}";
+            $b_bio_d_replace = str_replace('-', '', $b_bio_d);
+
+            if (empty($b_bio_d_replace)) {
+                $b_bio_d = '';
+            }
 
             $this->{$text_field} = $is_bio ? $b_bio_n : null;
             $this->{$date_field} = $is_bio ? $b_bio_d : null;

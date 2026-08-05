@@ -1,12 +1,8 @@
 @php
     $endoConfig = $registerConfig['BASE']['ENDO'];
-
+    
     $register = $register->additionalData(); // 데이터 가공 & 추가
-    $is_endo_uk = $register->is_endo_uk; // 최초 내시경 검사일 Unknown 체크 유무
-    $is_entero_uk = $register->is_entero_uk; // 최초 소장내시경 검사일 Unknown 체크 유무
-
-    // 진단 시점 정보
-    $BaseDX = $patient->BaseDX->additionalData(); // 데이터 가공 & 추가
+    $BaseDX = $patient->BaseDX->additionalData(); // 진단 시점 정보
 @endphp
 
 @include('register.include.status')
@@ -32,13 +28,13 @@
             <th scope="row">최초 내시경 검사일</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="form-group date">
-                    <x-input.text field="b_endo_d_y" :data="$register->b_endo_d_y" :disabled="$is_endo_uk" class="form-item line small text-center dateY chk-active" maxlength="4" onlynumber/> /
-                    <x-input.text field="b_endo_d_m" :data="$register->b_endo_d_m" :disabled="$is_endo_uk" class="form-item line small text-center dateM chk-active" maxlength="2" onlynumber/> /
-                    <x-input.text field="b_endo_d_d" :data="$register->b_endo_d_d" :disabled="$is_endo_uk" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/>
-                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_endo" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $is_endo_uk ? 'none' : '' }}">
+                    <x-input.text field="b_endo_d_y" :data="$register->b_endo_d_y" :disabled="$register->is_endo_uk" class="form-item line small text-center dateY chk-active" maxlength="4" onlynumber/> /
+                    <x-input.text field="b_endo_d_m" :data="$register->b_endo_d_m" :disabled="$register->is_endo_uk" class="form-item line small text-center dateM chk-active" maxlength="2" onlynumber/> /
+                    <x-input.text field="b_endo_d_d" :data="$register->b_endo_d_d" :disabled="$register->is_endo_uk" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_endo_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_endo_uk ? 'none' : '' }}">
 
                     <div class="checkbox-wrap inline ml-10">
-                        <x-input.checkbox field="b_endo_d_uk" value="1" text="Unknown" :data="$register->b_endo_d_uk" :active="!$is_entero_uk" class="target-active ESS-CHK-NONE"/>
+                        <x-input.checkbox field="b_endo_d_uk" value="1" text="Unknown" :data="$register->b_endo_d_uk" :active="true" class="target-active ESS-CHK-NONE"/>
                     </div>
                 </div>
             </td>
@@ -87,7 +83,7 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($endoConfig['b_endo_sev'] as $key => $val)
-                        <x-input.radio field="b_endo_sev" :value="$key" :text="$val" :data="$register->b_endo_sev"/>
+                        <x-input.radio field="b_endo_sev" value="{{ $key }}" :text="$val" :data="$register->b_endo_sev"/>
                     @endforeach
                 </div>
             </td>
@@ -97,13 +93,13 @@
             <th scope="row">최초 소장내시경 검사일</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="form-group date">
-                    <x-input.text field="b_entero_d_y" :data="$register->b_entero_d_y" :disabled="$is_entero_uk" class="form-item line small text-center dateY chk-active" maxlength="4" onlynumber/> /
-                    <x-input.text field="b_entero_d_m" :data="$register->b_entero_d_m" :disabled="$is_entero_uk" class="form-item line small text-center dateM chk-active" maxlength="2" onlynumber/> /
-                    <x-input.text field="b_entero_d_d" :data="$register->b_entero_d_d" :disabled="$is_entero_uk" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/>
-                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_entero" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $is_entero_uk ? 'none' : '' }}">
+                    <x-input.text field="b_entero_d_y" :data="$register->b_entero_d_y" :disabled="$register->is_entero_uk" class="form-item line small text-center dateY chk-active" maxlength="4" onlynumber/> /
+                    <x-input.text field="b_entero_d_m" :data="$register->b_entero_d_m" :disabled="$register->is_entero_uk" class="form-item line small text-center dateM chk-active" maxlength="2" onlynumber/> /
+                    <x-input.text field="b_entero_d_d" :data="$register->b_entero_d_d" :disabled="$register->is_entero_uk" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_entero_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_entero_uk ? 'none' : '' }}">
 
                     <div class="checkbox-wrap inline ml-10">
-                        <x-input.checkbox field="b_entero_d_uk" value="1" text="Unknown" :data="$register->b_entero_d_uk" :active="!$is_entero_uk" class="target-active ESS-CHK-NONE"/>
+                        <x-input.checkbox field="b_entero_d_uk" value="1" text="Unknown" :data="$register->b_entero_d_uk" :active="true" class="target-active ESS-CHK-NONE"/>
                     </div>
                 </div>
             </td>
@@ -114,7 +110,7 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($endoConfig['b_entero_sev'] as $key => $val)
-                        <x-input.radio field="b_entero_sev" :value="$key" :text="$val" :data="$register->b_entero_sev"/>
+                        <x-input.radio field="b_entero_sev" value="{{ $key }}" :text="$val" :data="$register->b_entero_sev"/>
                     @endforeach
                 </div>
             </td>
@@ -146,6 +142,6 @@
             checked
                 ? target.hide()
                 : target.show();
-        })
+        });
     </script>
 @endpush

@@ -89,6 +89,11 @@ return [
         '1' => 'Yes',
     ],
 
+    'yn2' => [
+        '0' => '아니오',
+        '1' => '예',
+    ],
+
     'BASE' => [
         'DX' => [
             'ibd_type' => [ // IBD Type
@@ -151,6 +156,135 @@ return [
                 '2' => 'moderate',
                 '3' => 'severe',
             ],
+        ],
+
+        'IMG' => [
+            'b_img_sev' => [ // Severity
+                '0' => 'No',
+                '1' => 'mild',
+                '2' => 'moderate',
+                '3' => 'severe',
+            ],
+
+            'b_inv_seg' => [ // Involved segment (checkbox key => 필드명, value => 1 고정)
+                'b_inv_seg1' => 'ileum',
+                'b_inv_seg2' => 'terminal ileum',
+                'b_inv_seg3' => 'IC valve',
+                'b_inv_seg4' => 'Cecum',
+                'b_inv_seg5' => 'A colon',
+                'b_inv_seg6' => 'T colon',
+                'b_inv_seg7' => 'D colon',
+                'b_inv_seg8' => 'S colon',
+                'b_inv_seg9' => 'Rectum',
+            ],
+
+            'b_fistula' => [ // Fistula
+                '1' => 'Perianal',
+                '2' => 'Enteroenteric',
+                '31' => 'Enterocolic',
+            ],
+
+            'b_stricture' => [ // Stricture
+                '0' => 'No',
+                '1' => 'Present',
+            ],
+
+            'b_abscess' => [ // Abscess
+                '0' => 'No',
+                '1' => 'Present',
+            ],
+        ],
+
+        'LAB' => [
+            'b_lab_IgG' => [ // ASCA IgG
+                '0' => 'negative (<10)',
+                '1' => 'positive',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_IgA' => [ // ASCA IgA
+                '0' => 'negative (<10)',
+                '1' => 'positive',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_IgG_cat' => [ // ASCA IgG 분류
+                '0' => '0~4.9',
+                '1' => '5~14.9',
+                '2' => '15~',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_IgA_cat' => [ // ASCA IgA 분류
+                '0' => '0~4.9',
+                '1' => '5~14.9',
+                '2' => '15~',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_ASCA_total' => [ // ASCA Total 분류
+                '0' => '0~4.9',
+                '1' => '5~14.9',
+                '2' => '15~',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_ANCA' => [ // ANCA
+                '0' => 'negative (<3.5)',
+                '1' => 'positive (>5)',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_Cdiff_toxin' => [ // C.difficile toxin
+                '0' => 'negative',
+                '1' => 'positive',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_Cdiff_CPR' => [ // C.difficile PCR
+                '0' => 'negative',
+                '1' => 'positive',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_bi_toxin' => [ // binary toxin
+                '0' => 'not detected',
+                '1' => 'detected',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_TcDc_del' => [ // TcDc deletion
+                '0' => 'not detected',
+                '1' => 'detected',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+        ],
+
+        'NTR' => [
+            'b_NTR_Tx_k' => [ // 영양 치료 병행 방식
+                '0' => '없음 (일반식)',
+                '1' => 'EEN (6주 이상)',
+                '2' => 'CDED (phase 1 6주 완료 / 12주 완료)',
+                '3' => 'CDED + PEN',
+                '4' => '기타 식이요법',
+            ],
+
+            'b_NTR_Tx_stop_k' => [ // 영양 치료 중단 사유
+                '1' => '맛 거부감',
+                '2' => '위장 증상 악화',
+                '3' => '기타',
+            ],
+
+            'b_NTR_PF' => [ // 가공식품 섭취
+                '1' => '매일',
+                '2' => '주 3~4회',
+                '3' => '월 3~4회',
+                '4' => '거의 먹지 않음',
+            ],
+        ],
+
+        'EVN' => [
+              
         ],
     ],
 ];

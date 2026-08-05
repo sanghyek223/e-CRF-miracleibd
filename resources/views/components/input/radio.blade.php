@@ -5,12 +5,17 @@
         : 있으면 → PHP 표현식
 
         field' => 필드명 (필수) - 문자열
-        text => 노출 명 (필수)
-        value' => value 값 (필수)
+        value' => value 값 (필수) - 문자열
+        text => 노출 명 (필수) - 문자열
         :data' => 데이터 (필수) - PHP 데이터
 
         :active => .target-active 클래스 사용시 필수값으로 (true or false)
-         상위 태그 div 기준 하위 대상 .chk-active 클래스 사용중인 타겟 disabled 속성 활성화 비활성화
+         상위 태그 td 기준 하위 대상 .chk-active 클래스 사용중인 타겟 disabled 속성 활성화 비활성화
+         true: 체크시 타겟 대상 비활성화
+         false: 체크 해제시 타겟 대상 비활성화
+
+        :active2 => .target-text 클래스 사용시 필수값으로 (true or false)
+         상위 태그 .target-box 기준 하위 대상 .chk-text 클래스 사용중인 타겟 disabled 속성 활성화 비활성화
          true: 체크시 타겟 대상 비활성화
          false: 체크 해제시 타겟 대상 비활성화
     */
@@ -21,9 +26,10 @@
 
 <div>
     <label class="radio-group">
-        <input type="radio" id="{{ $field }}_{{ $value }}" name="{{ $field }}" value="{{ $value }}"
+        <input type="radio" id="{{ $field }}_{{ $value }}" name="{{ $field }}"
                {{ $attributes }}
                @if($checked) checked @endif
-               @isset($active) data-active="{{ $active ? 'true' : 'false' }}" @endisset> {!! $text !!}
+               @isset($active) data-active="{{ $active ? 'true' : 'false' }}" @endisset
+               @isset($active2) data-active2="{{ $active2 ? 'true' : 'false' }}" @endisset> {!! $text !!}
     </label>
 </div>
