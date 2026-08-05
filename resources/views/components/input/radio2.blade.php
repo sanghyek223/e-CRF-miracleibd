@@ -25,7 +25,7 @@
 @endphp
 
 <label class="radio-group">
-    <input type="radio" id="{{ $field }}_{{ $value }}" name="{{ $field }}"
+    <input type="radio" id="{{ $field }}{{ $value }}" name="{{ $field }}"
            {{ $attributes }}
            @if($checked) checked @endif
            @isset($active) data-active="{{ $active ? 'true' : 'false' }}" @endisset

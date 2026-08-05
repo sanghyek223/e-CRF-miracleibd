@@ -133,13 +133,13 @@
         <tr>
             <th scope="row">영양 치료 중단 사유</th>
             <td colspan="3" class="text-left ESS-CHK">
-                <div class="radio-wrap target-box">
+                <div class="radio-wrap">
                     @foreach($ntrConfig['b_NTR_Tx_stop_k'] as $key => $val)
                         @if($key != '3')
-                            <x-input.radio field="b_NTR_Tx_stop_k" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx_stop_k" :active2="true" class="target-box-active"/>
+                            <x-input.radio field="b_NTR_Tx_stop_k" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx_stop_k" :active="true" class="target-active"/>
                         @else
                             <div class="inWrap">
-                                <x-input.radio2 field="b_NTR_Tx_stop_k" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx_stop_k" :active2="false" class="target-box-active"/>
+                                <x-input.radio2 field="b_NTR_Tx_stop_k" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx_stop_k" :active="false" class="target-active"/>
                                 : <x-input.text field="b_NTR_Tx_stop_ow" :data="$register->b_NTR_Tx_stop_ow" :disabled="!$register->is_Tx_stop_k_etc" class="form-item xx-large chk-active"/>
                             </div>
                         @endif

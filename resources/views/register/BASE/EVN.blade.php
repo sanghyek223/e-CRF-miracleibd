@@ -61,11 +61,13 @@
             <col>
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">일상 활동 정도</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
             <td colspan="4" class="text-left">
@@ -81,6 +83,7 @@
                             직접 기술을 선택하신 경우에는 예시를 확인하시고, 이를 바탕으로 작성해주세요.
                         </th>
                     </tr>
+
                     <tr>
                         <th>1.0</th>
                         <td class="text-left">수면</td>
@@ -105,17 +108,21 @@
                 </table>
             </td>
         </tr>
+
         <tr>
-            <th scope="row">
-                일상 활동 정도
-            </th>
-            <td colspan="3" class="text-left">
+            <th scope="row">일상 활동 정도</th>
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap full">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 움직임이 극히 적음</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 대부분의 시간을 앉아서 하는 정적 활동으로 보냄</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 주로 앉아서 보내지만 서서 하는 작업, 통근, 물건구입, 집안일, 가벼운 운동 등</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 주로 서서 하는 작업 종사, 또는 운동 등 활발한 여가 활동</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 직접 기술 <input type="text" name="" id="" class="form-item xx-large"></label></div>
+                    @foreach($evnConfig['b_EVN_E1q'] as $key => $val)
+                        @if($key != '5')
+                            <x-input.radio field="b_EVN_E1q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_E1q" :active="true" class="target-active"/>
+                        @else
+                            <div class="inWrap">
+                                <x-input.radio2 field="b_EVN_E1q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_E1q" :active="false" class="target-active"/>
+                                <x-input.text field="b_EVN_E1q_ow" :data="$register->b_EVN_E1q_ow" :disabled="!$register->is_E1q_etc" class="form-item xx-large chk-active"/>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </td>
         </tr>
@@ -132,39 +139,39 @@
             <col>
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">모유 수유 / 출산력</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
-            <th scope="row" colspan="2" class="text-left">
-                1. 어릴 때 모유 수유를 하셨나요?
-            </th>
-            <td colspan="2" class="text-left">
+            <th scope="row" colspan="2" class="text-left">1. 어릴 때 모유 수유를 하셨나요?</th>
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_B1q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_B1q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
-            <th scope="row" colspan="2" class="text-left pl-30">
-                1-1. 모유 수유를 하였다면 기간은 어떻게 되나요?
-            </th>
-            <td colspan="2" class="text-left">
-                <input type="text" name="" id="" class="form-item small text-center"> 개월
+            <th scope="row" colspan="2" class="text-left pl-30">1-1. 모유 수유를 하였다면 기간은 어떻게 되나요?</th>
+            <td colspan="2" class="text-left ESS-CHK">
+                <x-input.text field="b_EVN_B1q_1" :data="$register->b_EVN_B1q_1" :disabled="!$register->is_B1q" class="form-item small text-center" onlynumber/> 개월
             </td>
         </tr>
+
         <tr>
-            <th scope="row" colspan="2" class="text-left">
-                2. 어머니가 본인을 출산할 때 어떤 방법으로 하셨나요?
-            </th>
-            <td colspan="2" class="text-left">
+            <th scope="row" colspan="2" class="text-left">2. 어머니가 본인을 출산할 때 어떤 방법으로 하셨나요?</th>
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 질식분만</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 제왕절개 (수술)</label></div>
+                    @foreach($evnConfig['b_EVN_B2q'] as $key => $val)
+                        <x-input.radio field="b_EVN_B2q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_B2q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
@@ -181,51 +188,49 @@
             <col>
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">어린시절 병력</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 1. 염증성 장질환 진단 전 장염 또는 식중독으로 입원한 적이 있나요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_PH1q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_PH1q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 2. 다음 중 염증성장질환 진단 전 경험한 감염증을 <span class="underline">모두 선택해</span> 주세요.
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="checkbox-wrap n4">
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 홍역</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 백일해</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 풍진</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 수두</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 볼거리</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 소아마비(폴리오)</label></div>
+                    @foreach($evnConfig['b_EVN_PH2q'] as $key => $val)
+                        <x-input.checkbox field="{{ $key }}" value="1" :text="$val" :data="$register->{$key}"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 3. 다음 중 어린 시절 접종 받았던 백신을 <span class="underline">모두 선택해</span> 주세요.
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="checkbox-wrap n4">
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> BCG</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 백일해</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 홍역</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 풍진</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 디프테리아</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 파상풍</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 소아마비(폴리오)</label></div>
+                    @foreach($evnConfig['b_EVN_PH3q'] as $key => $val)
+                        <x-input.checkbox field="{{ $key }}" value="1" :text="$val" :data="$register->{$key}"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
@@ -242,20 +247,23 @@
             <col>
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">반려 동물</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 1. 현재 반려동물을 기르고 있습니까?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_P1q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_P1q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
@@ -263,70 +271,81 @@
             <th scope="row" colspan="2" class="text-left pl-30">
                 1-1. 현재 기르고 있는 반려 동물을 <span class="underline">모두 선택해</span> 주세요.
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="checkbox-wrap n4">
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 개</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 고양이</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 설치류</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 새</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 물고기</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 기타 <input type="text" name="" id="" class="form-item w-80p text-center"></label></div>
+                    @foreach($evnConfig['b_EVN_P1q'] as $key => $val)
+                        @if($key != 'b_EVN_P1q6')
+                            <x-input.checkbox field="{{ $key }}" value="1" :text="$val" :data="$register->{$key}" class="P1q-chk"/>
+                        @else
+                            <div class="target-box">
+                                <x-input.checkbox2 field="{{ $key }}" value="1" :text="$val" :data="$register->{$key}" :active2="false" class="target-box-active P1q-chk"/>
+                                <x-input.text field="b_EVN_P1q_6_ow" :data="$register->b_EVN_P1q_6_ow" :disabled="empty($register->{$key})" class="form-item w-60p chk-active"/>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left pl-30">
                 1-2. 현재 기르고 있는 반려 동물과 함께 한 기간을 적어주세요.
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="form-group n4">
-                    <div>개 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
-                    <div>고양이 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
-                    <div>설치류 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
-                    <div>새 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
-                    <div>물고기 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
-                    <div>기타 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
+                    @foreach($evnConfig['b_EVN_P1q'] as $key => $val)
+                        <div>
+                            {{ $val }} : <x-input.text field="{{ $key }}_p" :data="$register->{$key . '_p'}" :disabled="empty($register->{$key})" class="form-item small" onlynumber/> 개월
+                        </div>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
-            <th scope="row" colspan="2" class="text-left">
+            <th scope="row" colspan="2" class="text-left ESS-CHK">
                 2. 어린 시절 반려동물을 기른 적이 있습니까?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_P2q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_P2q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left pl-30">
                 2-1. 어린 시절 길렀던 반려 동물을 <span class="underline">모두 선택해</span> 주세요.
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="checkbox-wrap n4">
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 개</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 고양이</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 설치류</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 새</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 물고기</label></div>
-                    <div><label class="checkbox-group"><input type="checkbox" name="" id=""> 기타 <input type="text" name="" id="" class="form-item w-80p text-center"></label></div>
+                    @foreach($evnConfig['b_EVN_P2q'] as $key => $val)
+                        @if($key != 'b_EVN_P2q6')
+                            <x-input.checkbox field="{{ $key }}" value="1" :text="$val" :data="$register->{$key}" class="P2q-chk"/>
+                        @else
+                            <div class="target-box">
+                                <x-input.checkbox2 field="{{ $key }}" value="1" :text="$val" :data="$register->{$key}" :active2="false" class="target-box-active P2q-chk"/>
+                                <x-input.text field="b_EVN_P2q_6_ow" :data="$register->b_EVN_P2q_6_ow" :disabled="empty($register->{$key})" class="form-item w-60p chk-active"/>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left pl-30">
                 2-2. 어린 시절 길렀던 반려 동물과 함께 한 기간을 적어주세요.
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="form-group n4">
-                    <div>개 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
-                    <div>고양이 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
-                    <div>설치류 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
-                    <div>새 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
-                    <div>물고기 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
-                    <div>기타 : <input type="text" name="" id="" class="form-item small text-center"> 개월</div>
+                    @foreach($evnConfig['b_EVN_P2q'] as $key => $val)
+                        <div>
+                            {{ $val }} : <x-input.text field="{{ $key }}_p" :data="$register->{$key . '_p'}" :disabled="empty($register->{$key})" class="form-item small" onlynumber/> 개월
+                        </div>
+                    @endforeach
                 </div>
             </td>
         </tr>
@@ -343,73 +362,91 @@
             <col>
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">동거 가족 및 거주</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 1. 동거 가족이 4인을 초과한 적이 있나요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_FH1q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_FH1q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 2. 영유아기(0~6세)에 조부모와 동거한 적이 있나요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예 <input type="text" name="" id="" class="form-item small text-center"> 개월</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_FH2q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_FH2q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 3. 영유아기(0~6세)에 조부모가 1년 이상 나를 키워주셨나요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        @if($key == '0')
+                            <x-input.radio field="b_EVN_FH3q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_FH3q" :active="true" class="target-active"/>
+                        @else
+                            <div>
+                                <x-input.radio2 field="{{ $key }}" value="{{ $key }}" :text="$val" :data="$register->b_EVN_FH3q" :active="false" class="target-active"/>
+                                <x-input.text field="b_EVN_FH3q_1" :data="$register->b_EVN_FH3q_1" :disabled="!$register->FH3q_y" class="form-item small text-center chk-active" onlynumber/> 개월
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 4. 염증성 장질환을 가진 환자와 현재 동거 중 인가요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_FH4q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_FH4q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left pl-30">
                 4-1. 염증성 장질환 환자와 동거 중인 경우 동거 기간은 어떻게 되나요?
             </th>
-            <td colspan="2" class="text-left">
-                <input type="text" name="" id="" class="form-item small text-center"> 개월
+            <td colspan="2" class="text-left ESS-CHK">
+                <x-input.text field="b_EVN_FH4q_1" :data="$register->b_EVN_FH4q_1" :disabled="!$register->FH4q_y" class="form-item small text-center" onlynumber/> 개월
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 5. 나의 출생지는 어디인가요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 대도시 (인구 50만명 이상)</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 중·소도시</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 농촌, 도서지역</label></div>
+                    @foreach($evnConfig['b_EVN_FH5q'] as $key => $val)
+                        <x-input.radio field="b_EVN_FH5q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_FH5q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
@@ -689,6 +726,35 @@
                 target_checkbox.addClass('NONE-CLICK');
 
                 target_calendar.hide();
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', 'input[name=b_EVN_B1q]', function () {
+            const value = $(form).find('input[name=b_EVN_B1q]:checked').val() || '';
+            const target = $(form).find('#b_EVN_B1q_1');
+
+            if (value == '1') {
+                target.removeAttr('disabled');
+            } else {
+                target.val('');
+                target.attr('disabled', true);
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', '.P1q-chk, .P2q-chk', function () {
+            const checked = $(this).is(':checked');
+            const this_id = $(this).attr('id')
+            const text_target = $(form).find(`#${this_id}_p`);
+
+            if (checked) {
+                text_target.removeAttr('disabled');
+            } else {
+                text_target.val('');
+                text_target.attr('disabled', true);
             }
 
             validateEssChk();
