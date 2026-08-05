@@ -463,48 +463,55 @@
             <col>
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">진단 전 수술 병력</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 1. 진단 전에 충수돌기 절제술(맹장 수술)을 받은 적이 있나요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_OP1q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_OP1q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left pl-30">
                 1-1. 충수돌기 절제술 받은 시기와 염증성장질환 진단 시점의 차이가 얼마나 됩니까?
             </th>
-            <td colspan="2" class="text-left">
-                <input type="text" name="" id="" class="form-item small text-center"> 개월
+            <td colspan="2" class="text-left ESS-CHK">
+                <x-input.text field="b_EVN_OP1q_1" :data="$register->b_EVN_OP1q_1" class="form-item small text-center" onlynumber/> 개월
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 2. 진단 전에 편도선 절제술을 받은 적이 있나요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_OP2q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_OP2q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left pl-30">
                 2-1. 편도선 절제술을 받은 시기와 염증성 장질환 진단 시점의 차이가 얼마나 됩니까?
             </th>
-            <td colspan="2" class="text-left">
-                <input type="text" name="" id="" class="form-item small text-center"> 개월
+            <td colspan="2" class="text-left ESS-CHK">
+                <x-input.text field="b_EVN_OP2q_1" :data="$register->b_EVN_OP2q_1" class="form-item small text-center" onlynumber/> 개월
             </td>
         </tr>
         </tbody>
@@ -520,68 +527,77 @@
             <col>
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">약제 사용력</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 1. 어린 시절 항생제 치료를 1주 이상 지속한 적이 있나요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_M1q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_M1q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left pl-30">
                 1-1. 어린 시절 항생제 치료 기간은 얼마입니까? (최대)
             </th>
-            <td colspan="2" class="text-left">
-                <input type="text" name="" id="" class="form-item small text-center"> 개월
+            <td colspan="2" class="text-left ESS-CHK">
+                <x-input.text field="b_EVN_M1q_1" :data="$register->b_EVN_M1q_1" class="form-item small text-center" onlynumber/> 개월
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 2. 진단 시점 이전 항생제 치료를 1주 이상 지속한 적이 있나요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_M2q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_M2q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left pl-30">
                 2-1. 진단 시점 이전 항생제 치료 횟수는 얼마입니까?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 1-3회</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 4-5회</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 6회 이상</label></div>
+                    @foreach($evnConfig['b_EVN_M2q_1'] as $key => $val)
+                        <x-input.radio field="b_EVN_M2q_1" value="{{ $key }}" :text="$val" :data="$register->b_EVN_M2q_1"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 3. 비스테로이드성 소염 진통제를 주 1회 이상 복용한다.
-                <a href="#n" class="tooltip">
+                <a href="javascript:void(0);" class="tooltip">
                     <img src="/assets/image/icon/ic_tooltip.png" alt="information">
                     <span class="tooltip-con" style="opacity: 1; display: none;">
-                                                            아스피린, 부루펜, 이지엔6 등 모든 소염 진통제
-                                                        </span>
+                        아스피린, 부루펜, 이지엔6 등 모든 소염 진통제
+                    </span>
                 </a>
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_M3q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_M3q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
@@ -598,29 +614,32 @@
             <col>
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">수면</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 1. 하루 평균 수면 시간은 어느 정도인가요? (최근 일주일 평균)
             </th>
-            <td colspan="2" class="text-left">
-                <input type="text" name="" id="" class="form-item small text-center"> 시간
+            <td colspan="2" class="text-left ESS-CHK">
+                <x-input.text field="b_EVN_S1q" :data="$register->b_EVN_S1q" class="form-item small text-center" onlynumber/> 시간
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 2. 진단 시점 이전 항생제 치료를 1주 이상 지속한 적이 있나요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 3교대 이상</label></div>
+                    @foreach($evnConfig['b_EVN_S2q'] as $key => $val)
+                        <x-input.radio field="b_EVN_S2q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_S2q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
@@ -637,53 +656,63 @@
             <col>
             <col>
         </colgroup>
+
         <thead>
         <tr>
             <th scope="col" colspan="4">COVID 19 (코로나19 바이러스 감염증)</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 1. COVID 19에 감염된 적이 있나요?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 아니요</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id="" checked> 예</label></div>
+                    @foreach($registerConfig['yn2'] as $key => $val)
+                        <x-input.radio field="b_EVN_C1q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_C1q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left pl-30">
                 1-1. COVID 19에 감염되었다면 감염이 확인된 일자는 언제인가요? (확진일 기준)
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="form-group date">
-                    <select name="" id="" class="form-item w-10p">
+                    <select name="b_EVN_C1q_1_year" id="b_EVN_C1q_1_year" class="form-item w-10p chk-active">
                         <option value="">년</option>
+                        @for ($i = now()->year; $i >= 2000; $i--)
+                            <option value="{{ $i }}" {{ ($register->b_EVN_C1q_1_year ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                        @endfor
                     </select>
-                    <select name="" id="" class="form-item w-10p">
+
+                    <select name="b_EVN_C1q_1_month" id="b_EVN_C1q_1_month" class="form-item w-10p chk-active">
                         <option value="">월</option>
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option value="{{ $i }}" {{ ($register->b_EVN_C1q_1_month ?? '') == $i ? 'selected' : '' }}>{{ $i }}월</option>
+                        @endfor
                     </select>
+
                     <div class="checkbox-wrap inline ml-10">
-                        <div><label class="checkbox-group"><input type="checkbox" name="" id=""> Unknown</label></div>
+                        <x-input.checkbox field="b_EVN_C1q_1_uk" value="1" text="Unknown" :data="$register->b_EVN_C1q_1_uk" :active="true" class="target-active ESS-CHK-NONE"/>
                     </div>
                 </div>
             </td>
         </tr>
+
         <tr>
             <th scope="row" colspan="2" class="text-left">
                 2. COVID 19 백신 접종 횟수는?
             </th>
-            <td colspan="2" class="text-left">
+            <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap n4">
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 미접종</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 1회</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 2회</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 3회</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 4회</label></div>
-                    <div><label class="radio-group"><input type="radio" name="" id=""> 5회 이상</label></div>
+                    @foreach($evnConfig['b_EVN_C2q'] as $key => $val)
+                        <x-input.radio field="b_EVN_C2q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_C2q"/>
+                    @endforeach
                 </div>
             </td>
         </tr>
