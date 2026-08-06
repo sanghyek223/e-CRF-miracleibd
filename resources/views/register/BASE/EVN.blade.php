@@ -43,7 +43,7 @@
                     <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_EVN_survey_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $disabled_survey_d ? 'none' : '' }}">
 
                     <div class="checkbox-wrap inline ml-10">
-                        <x-input.checkbox field="b_EVN_survey_d_uk" value="1" text="Unknown" :data="$register->b_EVN_survey_d_uk" :active="true" class="target-active ESS-CHK-NONE {{ $disabled_survey_d ? 'NONE-CLICK' : '' }}"/>
+                        <x-input.checkbox field="b_EVN_survey_d_uk" value="1" text="Unknown" :data="$register->b_EVN_survey_d_uk" :active="true" class="target-active ESS-CHK-NONE {{ !$register->is_survey_y ? 'NONE-CLICK' : '' }}"/>
                     </div>
                 </div>
             </td>
@@ -158,7 +158,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="B1q-tr" style="display: {{ $register->is_B1q ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">1-1. 모유 수유를 하였다면 기간은 어떻게 되나요?</th>
             <td colspan="2" class="text-left ESS-CHK">
                 <x-input.text field="b_EVN_B1q_1" :data="$register->b_EVN_B1q_1" :disabled="!$register->is_B1q" class="form-item small text-center" onlynumber/> 개월
@@ -267,7 +267,8 @@
                 </div>
             </td>
         </tr>
-        <tr>
+
+        <tr class="P1q-tr" style="display: {{ $register->is_P1q_y ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">
                 1-1. 현재 기르고 있는 반려 동물을 <span class="underline">모두 선택해</span> 주세요.
             </th>
@@ -287,7 +288,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="P1q-tr" style="display: {{ $register->is_P1q_y ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">
                 1-2. 현재 기르고 있는 반려 동물과 함께 한 기간을 적어주세요.
             </th>
@@ -315,7 +316,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="P2q-tr" style="display: {{ $register->is_P2q_y ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">
                 2-1. 어린 시절 길렀던 반려 동물을 <span class="underline">모두 선택해</span> 주세요.
             </th>
@@ -335,7 +336,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="P2q-tr" style="display: {{ $register->is_P2q_y ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">
                 2-2. 어린 시절 길렀던 반려 동물과 함께 한 기간을 적어주세요.
             </th>
@@ -407,8 +408,8 @@
                             <x-input.radio field="b_EVN_FH3q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_FH3q" :active="true" class="target-active"/>
                         @else
                             <div>
-                                <x-input.radio2 field="{{ $key }}" value="{{ $key }}" :text="$val" :data="$register->b_EVN_FH3q" :active="false" class="target-active"/>
-                                <x-input.text field="b_EVN_FH3q_1" :data="$register->b_EVN_FH3q_1" :disabled="!$register->FH3q_y" class="form-item small text-center chk-active" onlynumber/> 개월
+                                <x-input.radio2 field="b_EVN_FH3q" value="{{ $key }}" :text="$val" :data="$register->b_EVN_FH3q" :active="false" class="target-active"/>
+                                <x-input.text field="b_EVN_FH3q_1" :data="$register->b_EVN_FH3q_1" :disabled="!$register->is_FH3q_y" class="form-item small text-center chk-active" onlynumber/> 개월
                             </div>
                         @endif
                     @endforeach
@@ -429,12 +430,12 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="FH4q-tr" style="display: {{ $register->b_EVN_FH4q ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">
                 4-1. 염증성 장질환 환자와 동거 중인 경우 동거 기간은 어떻게 되나요?
             </th>
             <td colspan="2" class="text-left ESS-CHK">
-                <x-input.text field="b_EVN_FH4q_1" :data="$register->b_EVN_FH4q_1" :disabled="!$register->FH4q_y" class="form-item small text-center" onlynumber/> 개월
+                <x-input.text field="b_EVN_FH4q_1" :data="$register->b_EVN_FH4q_1" class="form-item small text-center" onlynumber/> 개월
             </td>
         </tr>
 
@@ -484,7 +485,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="OP1q-tr" style="display: {{ $register->is_OP1q_y ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">
                 1-1. 충수돌기 절제술 받은 시기와 염증성장질환 진단 시점의 차이가 얼마나 됩니까?
             </th>
@@ -506,7 +507,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="OP2q-tr" style="display: {{ $register->is_OP2q_y ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">
                 2-1. 편도선 절제술을 받은 시기와 염증성 장질환 진단 시점의 차이가 얼마나 됩니까?
             </th>
@@ -548,7 +549,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="M1q-tr" style="display: {{ $register->is_M1q_y ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">
                 1-1. 어린 시절 항생제 치료 기간은 얼마입니까? (최대)
             </th>
@@ -570,7 +571,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="M2q-tr" style="display: {{ $register->is_M2q_y ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">
                 2-1. 진단 시점 이전 항생제 치료 횟수는 얼마입니까?
             </th>
@@ -677,20 +678,20 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="C1q-tr" style="display: {{ $register->is_C1q_y ? '' : 'none' }}">
             <th scope="row" colspan="2" class="text-left pl-30">
                 1-1. COVID 19에 감염되었다면 감염이 확인된 일자는 언제인가요? (확진일 기준)
             </th>
             <td colspan="2" class="text-left ESS-CHK">
                 <div class="form-group date">
-                    <select name="b_EVN_C1q_1_year" id="b_EVN_C1q_1_year" class="form-item w-10p chk-active">
+                    <select name="b_EVN_C1q_1_year" id="b_EVN_C1q_1_year" class="form-item w-10p chk-active" @if($register->is_C1q_1_uk) disabled @endif>
                         <option value="">년</option>
                         @for ($i = now()->year; $i >= 2000; $i--)
                             <option value="{{ $i }}" {{ ($register->b_EVN_C1q_1_year ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
                         @endfor
                     </select>
 
-                    <select name="b_EVN_C1q_1_month" id="b_EVN_C1q_1_month" class="form-item w-10p chk-active">
+                    <select name="b_EVN_C1q_1_month" id="b_EVN_C1q_1_month" class="form-item w-10p chk-active" @if($register->is_C1q_1_uk) disabled @endif>
                         <option value="">월</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i }}" {{ ($register->b_EVN_C1q_1_month ?? '') == $i ? 'selected' : '' }}>{{ $i }}월</option>
@@ -760,15 +761,49 @@
             validateEssChk();
         });
 
-        $(document).on('change', 'input[name=b_EVN_B1q]', function () {
+        $(document).on('change', `${form} input[name=b_EVN_B1q]`, function () {
             const value = $(form).find('input[name=b_EVN_B1q]:checked').val() || '';
-            const target = $(form).find('#b_EVN_B1q_1');
+            const target = $(form).find('.B1q-tr');
 
             if (value == '1') {
-                target.removeAttr('disabled');
+                target.find('input[type=text]').removeAttr('disabled');
+                target.show();
             } else {
-                target.val('');
-                target.attr('disabled', true);
+                target.find('input[type=text]').val('');
+                target.find('input[type=text]').attr('disabled', true);
+                target.hide();
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', `${form} input[name=b_EVN_P1q]`, function () {
+            const value = $(form).find('input[name=b_EVN_P1q]:checked').val() || '';
+            const target = $(form).find('.P1q-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.find('input[type=text]').val('');
+                target.find('input[type=text]').attr('disabled', true);
+                target.find('input[type=checkbox]').prop('checked', false);
+                target.hide();
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', `${form} input[name=b_EVN_P2q]`, function () {
+            const value = $(form).find('input[name=b_EVN_P2q]:checked').val() || '';
+            const target = $(form).find('.P2q-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.find('input[type=text]').val('');
+                target.find('input[type=text]').attr('disabled', true);
+                target.find('input[type=checkbox]').prop('checked', false);
+                target.hide();
             }
 
             validateEssChk();
@@ -776,14 +811,98 @@
 
         $(document).on('change', '.P1q-chk, .P2q-chk', function () {
             const checked = $(this).is(':checked');
-            const this_id = $(this).attr('id')
-            const text_target = $(form).find(`#${this_id}_p`);
+            const this_name = $(this).attr('name')
+            const text_target = $(form).find(`#${this_name}_p`);
 
             if (checked) {
                 text_target.removeAttr('disabled');
             } else {
                 text_target.val('');
                 text_target.attr('disabled', true);
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', `${form} input[name=b_EVN_FH4q]`, function () {
+            const value = $(form).find('input[name=b_EVN_FH4q]:checked').val() || '';
+            const target = $(form).find('.FH4q-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.find('input[type=text]').val('');
+                target.hide();
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', `${form} input[name=b_EVN_OP1q]`, function () {
+            const value = $(form).find('input[name=b_EVN_OP1q]:checked').val() || '';
+            const target = $(form).find('.OP1q-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.find('input[type=text]').val('');
+                target.hide();
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', `${form} input[name=b_EVN_OP2q]`, function () {
+            const value = $(form).find('input[name=b_EVN_OP2q]:checked').val() || '';
+            const target = $(form).find('.OP2q-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.find('input[type=text]').val('');
+                target.hide();
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', `${form} input[name=b_EVN_M1q]`, function () {
+            const value = $(form).find('input[name=b_EVN_M1q]:checked').val() || '';
+            const target = $(form).find('.M1q-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.find('input[type=text]').val('');
+                target.hide();
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', `${form} input[name=b_EVN_M2q]`, function () {
+            const value = $(form).find('input[name=b_EVN_M2q]:checked').val() || '';
+            const target = $(form).find('.M2q-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.find('input[type=text]').val('');
+                target.hide();
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', `${form} input[name=b_EVN_C1q]`, function () {
+            const value = $(form).find('input[name=b_EVN_C1q]:checked').val() || '';
+            const target = $(form).find('.C1q-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.find('#b_EVN_C1q_1_uk').prop('checked', false).trigger('change');
+                target.hide();
             }
 
             validateEssChk();

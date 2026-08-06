@@ -188,7 +188,7 @@ class BaseDX extends Model
 
     public function getIBD()
     {
-        return $this->baseConfig()['ibd_type'][$this->IBD_type ?? ''] ?? '';
+        return $this->baseConfig()['DX']['ibd_type'][$this->IBD_type ?? ''] ?? '';
     }
 
     public function getRegStatusName()

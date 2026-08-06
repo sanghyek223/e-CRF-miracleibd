@@ -88,27 +88,24 @@
                     </thead>
 
                     <tbody>
-                    @foreach($list as $row)
-                        @php
-                            $BaseDX = $row->BaseDX;
-                        @endphp
-                        <tr data-sid="{{ enCryptString($row->sid) }}" data-num="{{ $row->regist_num }}">
-                            <td>{{ $row->regist_num }}</td>
-                            <td>{{ $row->initial ?? '' }}</td>
-                            <td>{{ $row->org_name ?? '' }}</td>
-                            <td>{{ $row->getSex() ?? '' }} / {{ $row->age ?? '' }}</td>
-                            <td>{{ $BaseDX->getIBD() }}</td>
+                    @foreach($list as $patient)
+                        <tr data-sid="{{ enCryptString($patient->sid) }}" data-num="{{ $patient->regist_num }}">
+                            <td>{{ $patient->regist_num }}</td>
+                            <td>{{ $patient->initial ?? '' }}</td>
+                            <td>{{ $patient->org_name ?? '' }}</td>
+                            <td>{{ $patient->getSex() }} / {{ $patient->BaseDX->IBD_age ?? '-' }}</td>
+                            <td>{{ $patient->BaseDX->getIBD() }}</td>
 
                             @foreach($registerConfig['type'] as $key => $val)
                                 <td>
-                                    <a href="{{ route('register.upsert', ['type' => $key, 'tab' => $val['first_tab'], 'regist_num' => $row->regist_num]) }}" class="btn btn-view" title="이동">VIEW</a>
-                                    <span class="state {{ $row->getRegStatusClass($key) }}"><b class="mark"></b></span>
+                                    <a href="{{ route('register.upsert', ['type' => $key, 'tab' => $val['first_tab'], 'regist_num' => $patient->regist_num]) }}" class="btn btn-view" title="이동">VIEW</a>
+                                    <span class="state {{ $patient->getRegStatusClass($key) }}"><b class="mark"></b></span>
                                 </td>
                             @endforeach
 
                             <td>
                                 <div class="btn-wrap">
-                                    <a href="{{ route('patient.upsert', ['regist_num' => $row->regist_num]) }}" class="btn btn-modity" title="수정"><img src="/assets/image/icon/icon_edit.png" alt="수정"></a>
+                                    <a href="{{ route('patient.upsert', ['regist_num' => $patient->regist_num]) }}" class="btn btn-modity" title="수정"><img src="/assets/image/icon/icon_edit.png" alt="수정"></a>
                                     <a href="javascript:void(0);" class="btn btn-del" title="삭제"><img src="/assets/image/icon/ic_delete.png" alt="삭제"></a>
                                 </div>
                             </td>
