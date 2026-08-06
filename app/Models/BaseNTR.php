@@ -31,13 +31,15 @@ class BaseNTR extends Model
         parent::boot();
 
         static::saving(function ($BaseNTR) {
-            if (checkUrl() !== 'admin') {
+            if (!isAdmin()) {
                 // 마지막 수정자
                 $BaseNTR->last_reg_id = thisUser()->uid;
             }
+        });
 
-            $patient = $BaseNTR->patient;
-            $patient->updateStatusBASE();
+        static::saved(function ($BaseNTR) {
+            // saving 할때 하면 상태값 업데이트 반영안되서 저장 완료후
+            $BaseNTR->patient->updateStatusBASE();
         });
     }
 

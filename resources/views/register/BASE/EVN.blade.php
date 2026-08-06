@@ -686,7 +686,7 @@
                 <div class="form-group date">
                     <select name="b_EVN_C1q_1_year" id="b_EVN_C1q_1_year" class="form-item w-10p chk-active" @if($register->is_C1q_1_uk) disabled @endif>
                         <option value="">년</option>
-                        @for ($i = now()->year; $i >= 2000; $i--)
+                        @for ($i = $registerConfig['year_end']; $i >= $registerConfig['year_start']; $i--)
                             <option value="{{ $i }}" {{ ($register->b_EVN_C1q_1_year ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
                         @endfor
                     </select>

@@ -22,29 +22,25 @@ class EndENDO extends Model
         'deleted_at' => 'datetime',
     ];
 
-    protected ?array $patientConfig = null;
-
     protected ?array $registerConfig = null;
+
+    protected ?array $endConfig = null;
 
     protected static function booted()
     {
         parent::boot();
 
-        static::updating(function ($EndENDO) {
-            if (checkUrl() !== 'admin') {
+        static::saving(function ($EndENDO) {
+            if (!isAdmin()) {
                 // 마지막 수정자
                 $EndENDO->last_reg_id = thisUser()->uid;
             }
         });
-    }
 
-    private function patientConfig()
-    {
-        if (is_null($this->patientConfig)) {
-            $this->patientConfig = config("site.patient");
-        }
-
-        return $this->patientConfig;
+        static::saved(function ($EndENDO) {
+            // saving 할때 하면 상태값 업데이트 반영안되서 저장 완료후
+            $EndENDO->patient->updateStatusEND();
+        });
     }
 
     private function registerConfig()
@@ -56,13 +52,68 @@ class EndENDO extends Model
         return $this->registerConfig;
     }
 
+    private function endConfig()
+    {
+        if (is_null($this->endConfig)) {
+            $this->endConfig = $this->registerConfig()['END'];
+        }
+
+        return $this->endConfig;
+    }
+
     public function setByData($data)
     {
+        $endConfig = $this->endConfig();
+        $endoConfig = $endConfig['ENDO'];
+        $BaseDX = $this->patient->BaseDX->additionalData(); // 진단 시점 정보
 
+        $this->end_endo_year = $data['end_endo_year'];
+        $this->end_endo_month = $data['end_endo_month'];
+
+        $this->end_asst_year = $data['end_asst_year'];
+        $this->end_asst_month = $data['end_asst_month'];
+
+        $this->end_UC_l = ($BaseDX->is_uc ? $data['end_UC_l'] : null);
+        $this->end_UC_sens = ($BaseDX->is_uc ? $data['end_UC_sens'] : null);
+
+        $this->end_CD_l = ($BaseDX->is_cd ? $data['end_CD_l'] : null);
+        $this->end_CD_L4 = ($BaseDX->is_cd ? $data['end_CD_L4'] : null);
+        $this->end_CD_sens = ($BaseDX->is_cd ? $data['end_CD_sens'] : null);
+        $this->end_CD_behav = ($BaseDX->is_cd ? $data['end_CD_behav'] : null);
+        $this->end_CD_PA_modi = ($BaseDX->is_cd ? $data['end_CD_PA_modi'] : null);
+
+        // 입력상태
+        if (!$BaseDX->is_uc && !$BaseDX->is_cd) {
+            // IBD Type 이 선택 안되어있으면 무조건 I
+            $this->status = 'I';
+        } else {
+            $this->status = empty($data['status']) ? 'I' : 'C';
+        }
+    }
+
+    public function additionalData() // 노출 정보 추가 가공
+    {
+        $BaseDX = $this->patient->BaseDX->additionalData(); // 진단 시점 정보
+
+        $this->is_uc = $BaseDX->is_uc; // IBD Type UC
+        $this->is_cd = $BaseDX->is_cd; // IBD Type CD
+
+        return $this;
     }
 
     public function patient()
     {
         return $this->belongsTo(Patient::class, 'regist_num', 'regist_num')->withTrashed();
+    }
+
+    public function getRegStatusName()
+    {
+        return $this->registerConfig()['status'][$this->status ?? '']['name'] ?? '';
+    }
+
+    public function getRegStatusClass()
+    {
+        $status = $this->getRegStatus();
+        return $this->registerConfig()['status'][$this->status ?? '']['class'] ?? '';
     }
 }

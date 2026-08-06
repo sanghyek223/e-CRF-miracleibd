@@ -29,15 +29,17 @@ class BaseENDO extends Model
     protected static function booted()
     {
         parent::boot();
-
+        
         static::saving(function ($BaseENDO) {
-            if (checkUrl() !== 'admin') {
+            if (!isAdmin()) {
                 // 마지막 수정자
                 $BaseENDO->last_reg_id = thisUser()->uid;
             }
+        });
 
-            $patient = $BaseENDO->patient;
-            $patient->updateStatusBASE();
+        static::saved(function ($BaseENDO) {
+            // saving 할때 하면 상태값 업데이트 반영안되서 저장 완료후
+            $BaseENDO->patient->updateStatusBASE();
         });
     }
 
@@ -94,7 +96,7 @@ class BaseENDO extends Model
         $this->b_entero_sev = $data['b_entero_sev'];
 
         // 입력상태
-        if (is_null($this->b_MES) && is_null($this->b_SES_CD)) {
+        if (!$BaseDX->is_uc && !$BaseDX->is_cd) {
             // IBD Type 이 선택 안되어있으면 무조건 I
             $this->status = 'I';
         } else {
@@ -104,6 +106,11 @@ class BaseENDO extends Model
 
     public function additionalData() // 노출 정보 추가 가공
     {
+        $BaseDX = $this->patient->BaseDX->additionalData(); // 진단 시점 정보
+
+        $this->is_uc = $BaseDX->is_uc; // IBD Type UC
+        $this->is_cd = $BaseDX->is_cd; // IBD Type CD
+        
         $b_endo_d = empty($this->b_endo_d) ? '' : explode('-', $this->b_endo_d);
         $this->is_endo_uk = (($this->b_endo_d_uk ?? '') == '1'); // 최초 내시경 검사일 Unknown 체크여부
 

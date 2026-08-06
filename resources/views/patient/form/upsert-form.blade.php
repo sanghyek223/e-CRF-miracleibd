@@ -1,4 +1,6 @@
-@php($patient = empty($patient) ? null : $patient->additionalData())
+@php
+    $patient = empty($patient) ? null : $patient->additionalData();
+@endphp
 
 <legend class="hide">List of subject</legend>
 
@@ -19,7 +21,7 @@
 
             <th scope="row">Initial</th>
             <td class="text-left">
-                <input type="text" name="initial" id="initial" value="{{ $patient->initial ?? '' }}" class="form-item line text-center" enuppercase nonespace>
+                <x-input.text field="initial" :data="$patient?->initial" class="form-item line text-center" enuppercase nonespace/>
             </td>
         </tr>
 
@@ -28,11 +30,7 @@
             <td class="text-left">
                 <div class="radio-wrap">
                     @foreach($patientConfig['sex'] as $key => $val)
-                        <div>
-                            <label class="radio-group">
-                                <input type="radio" name="sex" id="sex_{{ $key }}" value="{{ $key }}" {{ ($patient->sex ?? '') == $key ? 'checked' : '' }}> {{ $val }}
-                            </label>
-                        </div>
+                        <x-input.radio field="sex" value="{{ $key }}" :text="$val" :data="$patient?->sex"/>
                     @endforeach
                 </div>
             </td>
@@ -40,10 +38,10 @@
             <th scope="row">생년월일</th>
             <td class="text-left">
                 <div class="form-group date">
-                    <input type="text" name="birth_d_y" id="birth_d_y" value="{{ $patient->birth_d_y ?? '' }}" class="form-item line small text-center dateY" maxlength="4" onlynumber> /
-                    <input type="text" name="birth_d_m" id="birth_d_m" value="{{ $patient->birth_d_m ?? '' }}" class="form-item line small text-center dateM" maxlength="2" onlynumber> /
-                    <input type="text" name="birth_d_d" id="birth_d_d" value="{{ $patient->birth_d_d ?? '' }}" class="form-item line small text-center dateD" maxlength="2" onlynumber>
-                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="birth" data-maxdate="{{ now()->format('Y-m-d') }}">
+                    <x-input.text field="birth_d_y" :data="$patient?->birth_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="birth_d_m" :data="$patient?->birth_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="birth_d_d" :data="$patient?->birth_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="birth_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
         </tr>
@@ -53,11 +51,7 @@
             <td class="text-left nbdr">
                 <div class="radio-wrap">
                     @foreach($patientConfig['arrival'] as $key => $val)
-                        <div>
-                            <label class="radio-group">
-                                <input type="radio" name="arrival_chk" id="arrival_chk_{{ $key }}" value="{{ $key }}" {{ ($patient->arrival_chk ?? '') == $key ? 'checked' : '' }}> {{ $val }}
-                            </label>
-                        </div>
+                        <x-input.radio field="arrival_chk" value="{{ $key }}" :text="$val" :data="$patient?->arrival_chk"/>
                     @endforeach
                 </div>
             </td>

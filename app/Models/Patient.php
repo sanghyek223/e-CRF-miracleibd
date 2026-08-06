@@ -41,8 +41,11 @@ class Patient extends Model
 
             // 초기 데이터 전체 생성
             foreach ($patient->allData() as $type => $val) {
+                // Follow-up 제외
+                if ($type === 'FU') continue;
 
                 foreach ($val as $tab => $model) {
+
                     $model->insert([
                         'regist_num' => $patient->regist_num,
                         'created_at' => now(),
@@ -63,9 +66,17 @@ class Patient extends Model
 
             // 연관 데이터 전체 삭제
             foreach ($patient->allData() as $type => $val) {
-                foreach ($val as $tab => $model) {
-                    $model->delete();
+
+                if ($type === 'FU') {
+                    $val['LIST']->each(function ($row) {
+                        $row->delete();
+                    });
+                } else {
+                    foreach ($val as $tab => $model) {
+                        $model->delete();
+                    }
                 }
+
             }
         });
 
@@ -74,9 +85,17 @@ class Patient extends Model
 
             // 연관 데이터 전체 복원
             foreach ($patient->allData() as $type => $val) {
-                foreach ($val as $tab => $model) {
-                    $model->restore();
+
+                if ($type === 'FU') {
+                    $val['LIST']->each(function ($row) {
+                        $row->restore();
+                    });
+                } else {
+                    foreach ($val as $tab => $model) {
+                        $model->restore();
+                    }
                 }
+
             }
         });
     }
@@ -185,27 +204,7 @@ class Patient extends Model
 
     public function FuLIST()
     {
-        return $this->hasOne(Fu::class, 'regist_num', 'regist_num')->withTrashed();
-    }
-
-    public function FuBX()
-    {
-        return $this->hasOne(FuBX::class, 'regist_num', 'regist_num')->withTrashed();
-    }
-
-    public function FuENDO()
-    {
-        return $this->hasOne(FuENDO::class, 'regist_num', 'regist_num')->withTrashed();
-    }
-
-    public function FuIMG()
-    {
-        return $this->hasOne(FuIMG::class, 'regist_num', 'regist_num')->withTrashed();
-    }
-
-    public function FuLAB()
-    {
-        return $this->hasOne(FuLAB::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasMany(Fu::class, 'regist_num', 'regist_num')->withTrashed();
     }
 
     public function EndENDO()
@@ -247,10 +246,6 @@ class Patient extends Model
         if (empty($getTarget) || in_array('FU', $getTarget)) {
             $data['FU'] = [
                 'LIST' => $this->FuLIST ?? (new Fu()),
-                'BX' => $this->FuBX ?? (new FuBX()),
-                'LAB' => $this->FuLAB ?? (new FuLAB()),
-                'ENDO' => $this->FuENDO ?? (new FuENDO()),
-                'IMG' => $this->FuIMG ?? (new FuIMG()),
             ];
         }
 
@@ -441,26 +436,6 @@ class Patient extends Model
 
                     case 'V':
                         return $this->OutV->status;
-
-                    default:
-                        return '';
-                }
-                break;
-
-            case 'FU':
-
-                switch ($tab) {
-                    case 'BX':
-                        return $this->FuBX->status;
-
-                    case 'LAB':
-                        return $this->FuLAB->status;
-
-                    case 'ENDO':
-                        return $this->FuENDO->status;
-
-                    case 'IMG':
-                        return $this->FuIMG->status;
 
                     default:
                         return '';

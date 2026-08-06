@@ -2,7 +2,6 @@
     $endoConfig = $registerConfig['BASE']['ENDO'];
     
     $register = $register->additionalData(); // 데이터 가공 & 추가
-    $BaseDX = $patient->BaseDX->additionalData(); // 진단 시점 정보
 @endphp
 
 @include('register.include.status')
@@ -40,32 +39,36 @@
             </td>
         </tr>
 
-        @if($BaseDX->is_uc)
-            <tr>
-                <th scope="row">MES (UC인 경우)</th>
-                <td colspan="3" class="text-left ESS-CHK">
-                    <select name="b_MES" id="b_MES" class="form-item w-10p">
-                        <option value="">선택</option>
-                        @foreach($endoConfig['b_MES'] as $key => $val)
-                            <option value="{{ $key }}" {{ ($register->b_MES ?? '') == $key ? 'selected' : '' }}>{{ $val }}</option>
-                        @endforeach
-                    </select>
-                </td>
-            </tr>
-        @endif
+        @if(!$register->is_uc && !$register->is_cd)
+            @include('register.include.none-ibd')
+        @else
+            @if($register->is_uc)
+                <tr>
+                    <th scope="row">MES (UC인 경우)</th>
+                    <td colspan="3" class="text-left ESS-CHK">
+                        <select name="b_MES" id="b_MES" class="form-item w-10p">
+                            <option value="">선택</option>
+                            @foreach($endoConfig['b_MES'] as $key => $val)
+                                <option value="{{ $key }}" {{ ($register->b_MES ?? '') == $key ? 'selected' : '' }}>{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+            @endif
 
-        @if($BaseDX->is_cd)
-            <tr>
-                <th scope="row">SES-CD (CD인 경우)</th>
-                <td colspan="3" class="text-left ESS-CHK">
-                    <select name="b_SES_CD" id="b_SES_CD" class="form-item w-10p">
-                        <option value="">선택</option>
-                        @foreach($endoConfig['b_SES_CD'] as $key => $val)
-                            <option value="{{ $key }}" {{ ($register->b_SES_CD ?? '') == $key ? 'selected' : '' }}>{{ $val }}</option>
-                        @endforeach
-                    </select>
-                </td>
-            </tr>
+            @if($register->is_cd)
+                <tr>
+                    <th scope="row">SES-CD (CD인 경우)</th>
+                    <td colspan="3" class="text-left ESS-CHK">
+                        <select name="b_SES_CD" id="b_SES_CD" class="form-item w-10p">
+                            <option value="">선택</option>
+                            @foreach($endoConfig['b_SES_CD'] as $key => $val)
+                                <option value="{{ $key }}" {{ ($register->b_SES_CD ?? '') == $key ? 'selected' : '' }}>{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+            @endif
         @endif
 
         <tr>

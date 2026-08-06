@@ -14,8 +14,8 @@
                         @include('patient.form.upsert-form')
 
                         <div class="btn-wrap text-center">
-                            <button type="submit" class="btn btn-type1 color-type2">대상자 등록</button>
-                            <button type="button" class="btn btn-type1 color-type1" id="next-submit">대상자 등록 후 정보 등록</button>
+                            <button type="submit" class="btn btn-type1 color-type2">대상자 {{ empty($patient) ? '등록' : '수정' }}</button>
+                            <button type="button" class="btn btn-type1 color-type1" id="next-submit">대상자 {{ empty($patient) ? '등록' : '수정' }} 후 정보 등록</button>
                         </div>
                     </fieldset>
                 </form>

@@ -29,15 +29,17 @@ class BaseIMG extends Model
     protected static function booted()
     {
         parent::boot();
-
+        
         static::saving(function ($BaseIMG) {
-            if (checkUrl() !== 'admin') {
+            if (!isAdmin()) {
                 // 마지막 수정자
                 $BaseIMG->last_reg_id = thisUser()->uid;
             }
+        });
 
-            $patient = $BaseIMG->patient;
-            $patient->updateStatusBASE();
+        static::saved(function ($BaseIMG) {
+            // saving 할때 하면 상태값 업데이트 반영안되서 저장 완료후
+            $BaseIMG->patient->updateStatusBASE();
         });
     }
 

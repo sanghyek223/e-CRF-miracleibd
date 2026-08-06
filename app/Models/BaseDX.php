@@ -40,13 +40,15 @@ class BaseDX extends Model
         });
 
         static::saving(function ($BaseDX) {
-            if (checkUrl() !== 'admin') {
+            if (!isAdmin()) {
                 // 마지막 수정자
                 $BaseDX->last_reg_id = thisUser()->uid;
             }
+        });
 
-            $patient = $BaseDX->patient;
-            $patient->updateStatusBASE();
+        static::saved(function ($BaseDX) {
+            // saving 할때 하면 상태값 업데이트 반영안되서 저장 완료후
+            $BaseDX->patient->updateStatusBASE();
         });
     }
 
@@ -115,6 +117,7 @@ class BaseDX extends Model
 
         $this->b_bio = $is_med ? $data['b_bio'] : null;
         $is_bio = ($this->b_bio == '1'); // 생물학적제제 투약 여부 데이터 구분용
+        $this->b_bio_cnt = $is_bio ? $data['b_bio_cnt'] : '0';
 
         // 생물학적제제 상세 현황
         for ($i = 1; $i <= $dxConfig['b_bio_max']; $i++) {
@@ -149,29 +152,7 @@ class BaseDX extends Model
         $this->IBD_d_m = $IBD_d[1] ?? '';
         $this->IBD_d_d = $IBD_d[2] ?? '';
 
-        $b_bio1_d = empty($this->b_bio1_d) ? '' : explode('-', $this->b_bio1_d);
-
-        $this->b_bio1_d_y = $b_bio1_d[0] ?? '';
-        $this->b_bio1_d_m = $b_bio1_d[1] ?? '';
-        $this->b_bio1_d_d = $b_bio1_d[2] ?? '';
-
-        $b_bio2_d = empty($this->b_bio2_d) ? '' : explode('-', $this->b_bio2_d);
-
-        $this->b_bio2_d_y = $b_bio2_d[0] ?? '';
-        $this->b_bio2_d_m = $b_bio2_d[1] ?? '';
-        $this->b_bio2_d_d = $b_bio2_d[2] ?? '';
-
-        $b_bio3_d = empty($this->b_bio3_d) ? '' : explode('-', $this->b_bio3_d);
-
-        $this->b_bio3_d_y = $b_bio3_d[0] ?? '';
-        $this->b_bio3_d_m = $b_bio3_d[1] ?? '';
-        $this->b_bio3_d_d = $b_bio3_d[2] ?? '';
-
-        $b_bio4_d = empty($this->b_bio4_d) ? '' : explode('-', $this->b_bio4_d);
-
-        $this->b_bio4_d_y = $b_bio4_d[0] ?? '';
-        $this->b_bio4_d_m = $b_bio4_d[1] ?? '';
-        $this->b_bio4_d_d = $b_bio4_d[2] ?? '';
+        $this->b_bio_cnt = (int)($this->b_bio_cnt ?? 0);
 
         $this->is_uc = (($this->IBD_type ?? '') == '1');
         $this->is_cd = (($this->IBD_type ?? '') == '2');
@@ -188,7 +169,7 @@ class BaseDX extends Model
 
     public function getIBD()
     {
-        return $this->baseConfig()['DX']['ibd_type'][$this->IBD_type ?? ''] ?? '';
+        return $this->baseConfig()['DX']['IBD_type'][$this->IBD_type ?? ''] ?? '';
     }
 
     public function getRegStatusName()

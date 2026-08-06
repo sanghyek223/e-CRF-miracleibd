@@ -50,7 +50,7 @@
             <th scope="row">IBD Type</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    @foreach($dxConfig['ibd_type'] as $key => $val)
+                    @foreach($dxConfig['IBD_type'] as $key => $val)
                         <x-input.radio field="IBD_type" value="{{ $key }}" :text="$val" :data="$register->IBD_type"/>
                     @endforeach
                 </div>
@@ -267,13 +267,7 @@
 
                     <tbody id="bio-detail-tbody">
                     @for($i = 1; $i <= $b_bio_max; $i++)
-                        @php
-                            if ($i !== 1) {
-                                $bio_text = $register->{"b_bio{$i}_n"};
-                                if (empty($bio_text) && empty($bio_date)) continue;
-                            }
-                        @endphp
-
+                        @if($i !== 1 && $i > $register->b_bio_cnt) @continue @endif
                         @include('register.BASE.include.DX-bio-detail', [ 'eq' => $i, 'register' => $register ])
                     @endfor
                     </tbody>
@@ -294,6 +288,7 @@
 
         function submitAction(next = false) {
             let ajaxData = newFormData(form);
+            ajaxData.append('b_bio_cnt', $(form).find('.bio-detail-tr').length);
 
             if (next) {
                 ajaxData.append('next', true);

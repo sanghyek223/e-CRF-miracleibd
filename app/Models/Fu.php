@@ -22,29 +22,42 @@ class Fu extends Model
         'deleted_at' => 'datetime',
     ];
 
-    protected ?array $patientConfig = null;
-
     protected ?array $registerConfig = null;
+
+    protected ?array $fuConfig = null;
 
     protected static function booted()
     {
         parent::boot();
 
-        static::updating(function ($Fu) {
-            if (checkUrl() !== 'admin') {
-                // 마지막 수정자
-                $Fu->last_reg_id = thisUser()->uid;
+        static::created(function ($Fu) {
+
+            foreach ($Fu->allData() as $key => $model) {
+                $model->insert([
+                    'regist_num' => $Fu->regist_num,
+                    'FU_sid' => $Fu->sid,
+                ]);
+            }
+
+        });
+
+        // 삭제시
+        static::deleting(function ($Fu) {
+
+            // 연관 데이터 전체 삭제
+            foreach ($Fu->allData() as $tab => $model) {
+                $model->delete();
             }
         });
-    }
 
-    private function patientConfig()
-    {
-        if (is_null($this->patientConfig)) {
-            $this->patientConfig = config("site.patient");
-        }
+        // 복원시
+        static::restoring(function ($patient) {
 
-        return $this->patientConfig;
+            // 연관 데이터 전체 복원
+            foreach ($Fu->allData() as $tab => $model) {
+                $model->restore();
+            }
+        });
     }
 
     private function registerConfig()
@@ -56,13 +69,97 @@ class Fu extends Model
         return $this->registerConfig;
     }
 
+    private function fuConfig()
+    {
+        if (is_null($this->fuConfig)) {
+            $this->fuConfig = $this->registerConfig()['FU'];
+        }
+
+        return $this->fuConfig;
+    }
+
     public function setByData($data)
     {
+        $FU_visit_d = "{$data['FU_visit_d_y']}-{$data['FU_visit_d_m']}-{$data['FU_visit_d_d']}";
 
+        $this->FU_visit_d = $FU_visit_d;
+    }
+
+    public function additionalData() // 노출 정보 추가 가공
+    {
+        $FU_visit_d = empty($this->FU_visit_d) ? '' : explode('-', $this->FU_visit_d);
+
+        $this->FU_visit_d_y = $FU_visit_d[0] ?? '';
+        $this->FU_visit_d_m = $FU_visit_d[1] ?? '';
+        $this->FU_visit_d_d = $FU_visit_d[2] ?? '';
+
+        return $this;
     }
 
     public function patient()
     {
         return $this->belongsTo(Patient::class, 'regist_num', 'regist_num')->withTrashed();
+    }
+
+    public function FuBX()
+    {
+        return $this->hasOne(FuBX::class, 'FU_sid')->withTrashed();
+    }
+
+    public function FuENDO()
+    {
+        return $this->hasOne(FuENDO::class, 'FU_sid')->withTrashed();
+    }
+
+    public function FuIMG()
+    {
+        return $this->hasOne(FuIMG::class, 'FU_sid')->withTrashed();
+    }
+
+    public function FuLAB()
+    {
+        return $this->hasOne(FuLAB::class, 'FU_sid')->withTrashed();
+    }
+
+    public function allData()
+    {
+        return [
+            'BX' => $this->FuBX ?? (new FuBX()),
+            'ENDO' => $this->FuENDO ?? (new FuENDO()),
+            'IMG' => $this->FuIMG ?? (new FuIMG()),
+            'LAB' => $this->FuLAB ?? (new FuLAB()),
+        ];
+    }
+
+    public function getRegStatus($tab)
+    {
+        switch ($tab) {
+            case 'BX':
+                return $this->status_FU_Bx ?? 'N';
+
+            case 'ENDO':
+                return $this->status_FU_endo ?? 'N';
+
+            case 'IMG':
+                return $this->status_FU_img ?? 'N';
+
+            case 'LAB':
+                return $this->status_FU_lab ?? 'N';
+
+            default:
+                return '';
+        }
+    }
+
+    public function getRegStatusName($tab)
+    {
+        $status = $this->getRegStatus($tab);
+        return $this->registerConfig()['status'][$status]['name'] ?? '';
+    }
+
+    public function getRegStatusClass($tab)
+    {
+        $status = $this->getRegStatus($tab);
+        return $this->registerConfig()['status'][$status]['class'] ?? '';
     }
 }

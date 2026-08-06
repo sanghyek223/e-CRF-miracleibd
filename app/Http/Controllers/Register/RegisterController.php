@@ -27,12 +27,20 @@ class RegisterController extends Controller
 
     public function upsert(Request $request)
     {
-        $data = $this->patientServices->upsertService($request);
-        $FU_LIST = ($data['type'] === 'FU' && $data['tab'] === 'LIST');
+        if ($request->type === 'FU') {
+            return $this->FuUpsert($request);
+        }
 
-        return $FU_LIST
+        return view('register.upsert', $this->patientServices->upsertService($request));
+    }
+
+    private function FuUpsert(Request $request)
+    {
+        $data = $this->patientServices->FuUpsertService($request);
+
+        return ($request->tab === 'LIST')
             ? view('register.FU.LIST', $data)
-            : view('register.upsert', $data);
+            : view('register.FU.upsert', $data);
     }
 
     public function data(Request $request)

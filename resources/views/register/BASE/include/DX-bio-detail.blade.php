@@ -2,9 +2,11 @@
     $common_field = "b_bio{$eq}";
 
     $b_bio_text = $register->{$common_field . '_n'} ?? '';
-    $b_bio_date_y = $register->{$common_field . '_d_y'} ?? '';
-    $b_bio_date_m = $register->{$common_field . '_d_m'} ?? '';
-    $b_bio_date_d = $register->{$common_field . '_d_d'} ?? '';
+    $b_bio_date = explode('-', $register->{$common_field . '_d'} ?? '');
+
+    $b_bio_date_y = $b_bio_date[0] ?? '';
+    $b_bio_date_m = $b_bio_date[1] ?? '';
+    $b_bio_date_d = $b_bio_date[2] ?? '';
 @endphp
 
 <tr class="bio-detail-tr">

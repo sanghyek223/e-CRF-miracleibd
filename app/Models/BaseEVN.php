@@ -31,13 +31,15 @@ class BaseEVN extends Model
         parent::boot();
 
         static::saving(function ($BaseEVN) {
-            if (checkUrl() !== 'admin') {
+            if (!isAdmin()) {
                 // 마지막 수정자
                 $BaseEVN->last_reg_id = thisUser()->uid;
             }
+        });
 
-            $patient = $BaseEVN->patient;
-            $patient->updateStatusBASE();
+        static::saved(function ($BaseEVN) {
+            // saving 할때 하면 상태값 업데이트 반영안되서 저장 완료후
+            $BaseEVN->patient->updateStatusBASE();
         });
     }
 

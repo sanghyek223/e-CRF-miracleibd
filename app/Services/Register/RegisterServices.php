@@ -63,13 +63,36 @@ class RegisterServices extends AppServices
         $tabClass = "App\\Services\\Register\\{$type}\\{$type}Services";
 
         $patient = $this->whenPatient()->where('regist_num', $regist_num)->firstOrFail();
-        $register = (new $tabClass())->getData($request, $patient);
+        $data = (new $tabClass())->getData($request, $patient);
 
         $this->data['type'] = $type;
         $this->data['tab'] = $tab;
 
         $this->data['patient'] = $patient;
-        $this->data['register'] = $register;
+        $this->data['register'] = $data;
+
+        $this->data['regist_num'] = $regist_num;
+        $this->data['page_title'] = $registerConfig['type'][$type]['name'];
+
+        return $this->data;
+    }
+
+    public function FuUpsertService(Request $request)
+    {
+        $registerConfig = config('site.register');
+        $regist_num = $request->regist_num;
+        $type = $request->type;
+        $tab = $request->tab;
+
+        $tabClass = "App\\Services\\Register\\{$type}\\{$type}Services";
+
+        $patient = $this->whenPatient()->where('regist_num', $regist_num)->firstOrFail();
+        $this->data = (new $tabClass())->getData($request, $patient);
+
+        $this->data['type'] = $type;
+        $this->data['tab'] = $tab;
+
+        $this->data['patient'] = $patient;
 
         $this->data['regist_num'] = $regist_num;
         $this->data['page_title'] = $registerConfig['type'][$type]['name'];

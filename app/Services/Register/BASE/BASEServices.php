@@ -59,7 +59,7 @@ class BASEServices extends AppServices
         }
     }
 
-    private function getPatient($request)
+    private function getPatient(Request $request)
     {
         return (new \App\Services\Register\RegisterServices())->getPatient($request->regist_num);
     }
@@ -235,7 +235,7 @@ class BASEServices extends AppServices
 
             $this->dbCommit('영양 진자 설문 수정');
 
-            $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'NTR', 'regist_num' => $patient->regist_num]);
+            $nextRoute = route('register.upsert', ['type' => 'OUT', 'tab' => 'MED', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
                 ? $this->ajaxActionLocation('replace', $nextRoute)
                 : $this->ajaxActionLocation('reload');

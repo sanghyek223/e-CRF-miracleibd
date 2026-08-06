@@ -84,6 +84,9 @@ return [
         ],
     ],
 
+    'year_start' => 2000,
+    'year_end' => now()->year,
+
     'yn' => [
         '0' => 'No',
         '1' => 'Yes',
@@ -96,7 +99,7 @@ return [
 
     'BASE' => [
         'DX' => [
-            'ibd_type' => [ // IBD Type
+            'IBD_type' => [ // IBD Type
                 '1' => 'UC',
                 '2' => 'CD',
             ],
@@ -360,6 +363,148 @@ return [
                 '4' => '4회',
                 '5' => '5회 이상',
             ],
+        ],
+    ],
+
+    'OUT' => [
+        'MED' => [
+            'out_bio1_cat' => [ // 추가 투약 - 생물학적제제 – 1차 약제 종류
+                '1' => 'infliximab',
+                '2' => 'vedolizumab',
+                '3' => 'Ustekinumab',
+                '4' => 'tofacitinib',
+                '5' => 'filgotinib',
+                '6' => 'Upadacitinib',
+                '7' => 'ozanimod',
+                '8' => 'adalimumab',
+                '9' => 'Golimumab',
+                '10' => 'Risankizumab',
+                '11' => 'Vixarelimab',
+                '12' => 'mirikizumab',
+            ],
+
+            'out_bio2_cat' => [ // 추가 투약 - 생물학적제제 – 2차 약제 종류
+                '1' => 'infliximab',
+                '2' => 'vedolizumab',
+                '3' => 'Ustekinumab',
+                '4' => 'tofacitinib',
+                '5' => 'filgotinib',
+                '6' => 'Upadacitinib',
+                '7' => 'ozanimod',
+                '8' => 'adalimumab',
+                '9' => 'Golimumab',
+                '10' => 'Risankizumab',
+                '11' => 'Vixarelimab',
+                '12' => 'mirikizumab',
+            ],
+
+            'out_bio3_cat' => [ // 추가 투약 - 생물학적제제 – 3차 약제 종류
+                '1' => 'infliximab',
+                '2' => 'vedolizumab',
+                '3' => 'Ustekinumab',
+                '4' => 'tofacitinib',
+                '5' => 'filgotinib',
+                '6' => 'Upadacitinib',
+                '7' => 'ozanimod',
+                '8' => 'adalimumab',
+                '9' => 'Golimumab',
+                '10' => 'Risankizumab',
+                '11' => 'Vixarelimab',
+                '12' => 'mirikizumab',
+            ],
+
+            'out_bio4_cat' => [ // 추가 투약 - 생물학적제제 – 4차 약제 종류
+                '1' => 'infliximab',
+                '2' => 'vedolizumab',
+                '3' => 'Ustekinumab',
+                '4' => 'tofacitinib',
+                '5' => 'filgotinib',
+                '6' => 'Upadacitinib',
+                '7' => 'ozanimod',
+                '8' => 'adalimumab',
+                '9' => 'Golimumab',
+                '10' => 'Risankizumab',
+                '11' => 'Vixarelimab',
+                '12' => 'mirikizumab',
+            ],
+        ],
+
+        'OP' => [
+            'op_list_max' => 10,
+        ],
+
+        'V' => [
+            'v_list_max' => 10,
+
+            'out_visit_k' => [ // ER/Admission 구분
+                '1' => 'ER',
+                '2' => 'Admission',
+            ],
+        ],
+    ],
+
+    'FU' => [
+
+    ],
+
+    'END' => [
+        'ENDO' => [
+            'end_UC_l' => [ // UC - Location
+                '1' => 'E1 (proctitis)',
+                '2' => 'E2 (left-sided)',
+                '3' => 'E3 (extensive)',
+                '9' => 'Undeterminate',
+            ],
+
+            'end_UC_sens' => [ // UC - Severity
+                '1' => 'mild',
+                '2' => 'moderate',
+                '3' => 'severe',
+                '9' => 'Undeterminate',
+            ],
+
+            'end_CD_l' => [ // CD - Location
+                '1' => 'L1 (ileal)',
+                '2' => 'L2 (colonic)',
+                '3' => 'L3 (ileocolonic)',
+                '9' => 'Undeterminate',
+            ],
+
+            'end_CD_sens' => [ // CD - Severity
+                '1' => 'mild',
+                '2' => 'moderate',
+                '3' => 'severe',
+                '9' => 'Undeterminate',
+            ],
+
+            'end_CD_behav' => [ // CD - Behavior
+                '1' => 'B1',
+                '2' => 'B2 (stricturing)',
+                '3' => 'B3 (penetrating)',
+            ],
+        ],
+
+        'MED' => [
+            'end_bio_cat' => [ // 생물학제제 약제 종류
+                '1' => 'infliximab',
+                '2' => 'vedolizumab',
+                '3' => 'Ustekinumab',
+                '4' => 'tofacitinib',
+                '5' => 'filgotinib',
+                '6' => 'Upadacitinib',
+                '7' => 'ozanimod',
+                '8' => 'adalimumab',
+                '9' => 'Golimumab',
+                '10' => 'Risankizumab',
+                '11' => 'Vixarelimab',
+                '12' => 'mirikizumab',
+            ],
+        ],
+    ],
+
+    'FASTQ' => [
+        'UPLOAD' => [
+
         ],
     ],
 ];

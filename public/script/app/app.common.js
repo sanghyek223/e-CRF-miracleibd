@@ -1228,9 +1228,18 @@ const validateEssChk = () => {
 
         // select
         if (hasSelect) {
-            selectValid = $targets.filter('select').filter(function () {
-                return !isEmpty($(this).val());
-            }).length > 0;
+            const $selectTargets = $targets.filter('select');
+
+            selectValid = true;
+
+            $selectTargets.each(function () {
+                const value = $(this).val();
+
+                if (isEmpty(value)) {
+                    selectValid = false;
+                    return false;
+                }
+            });
         }
 
         // 존재하는 것만 AND 조건

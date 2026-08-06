@@ -22,29 +22,25 @@ class FASTQ extends Model
         'deleted_at' => 'datetime',
     ];
 
-    protected ?array $patientConfig = null;
-
     protected ?array $registerConfig = null;
+
+    protected ?array $fastqConfig = null;
 
     protected static function booted()
     {
         parent::boot();
 
-        static::updating(function ($FASTQ) {
-            if (checkUrl() !== 'admin') {
+        static::saving(function ($FASTQ) {
+            if (!isAdmin()) {
                 // 마지막 수정자
                 $FASTQ->last_reg_id = thisUser()->uid;
             }
         });
-    }
 
-    private function patientConfig()
-    {
-        if (is_null($this->patientConfig)) {
-            $this->patientConfig = config("site.patient");
-        }
-
-        return $this->patientConfig;
+        static::saved(function ($FASTQ) {
+            // saving 할때 하면 상태값 업데이트 반영안되서 저장 완료후
+            $FASTQ->patient->updateStatusFASTQ();
+        });
     }
 
     private function registerConfig()
@@ -56,13 +52,39 @@ class FASTQ extends Model
         return $this->registerConfig;
     }
 
+    private function fastqConfig()
+    {
+        if (is_null($this->fastqConfig)) {
+            $this->fastqConfig = $this->registerConfig()['FASTQ'];
+        }
+
+        return $this->fastqConfig;
+    }
+
     public function setByData($data)
     {
+        // 입력상태
+        $this->status = empty($data['status']) ? 'I' : 'C';
+    }
 
+    public function additionalData() // 노출 정보 추가 가공
+    {
+        return $this;
     }
 
     public function patient()
     {
         return $this->belongsTo(Patient::class, 'regist_num', 'regist_num')->withTrashed();
+    }
+
+    public function getRegStatusName()
+    {
+        return $this->registerConfig()['status'][$this->status ?? '']['name'] ?? '';
+    }
+
+    public function getRegStatusClass()
+    {
+        $status = $this->getRegStatus();
+        return $this->registerConfig()['status'][$this->status ?? '']['class'] ?? '';
     }
 }
