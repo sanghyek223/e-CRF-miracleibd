@@ -66,6 +66,24 @@ class EndMED extends Model
         $endConfig = $this->endConfig();
         $medConfig = $endConfig['MED'];
 
+        $this->end_med = $data['end_med'];
+        $this->end_5ASA = $data['end_5ASA'];
+        $this->end_aza = $data['end_aza'];
+        $this->end_MTX = $data['end_MTX'];
+        $this->end_tofa = $data['end_tofa'];
+        $this->end_oza = $data['end_oza'];
+        $this->end_st = $data['end_st'];
+
+        $this->end_bio = $data['end_bio'];
+        $this->end_bio_cat = ($this->end_bio == '1') ? $data['end_bio_cat'] : null;
+
+        $this->end_out_v_year = $data['end_out_v_year'];
+        $this->end_out_v_month = $data['end_out_v_month'];
+
+        $this->end_ER_adm_v = $data['end_ER_adm_v'];
+        $this->end_ER_adm_year = ($this->end_ER_adm_v == '1') ? $data['end_ER_adm_year'] : null;
+        $this->end_ER_adm_month = ($this->end_ER_adm_v == '1') ? $data['end_ER_adm_month'] : null;
+
         // 입력상태
         $this->status = empty($data['status']) ? 'I' : 'C';
     }

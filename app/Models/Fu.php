@@ -51,7 +51,7 @@ class Fu extends Model
         });
 
         // 복원시
-        static::restoring(function ($patient) {
+        static::restoring(function ($Fu) {
 
             // 연관 데이터 전체 복원
             foreach ($Fu->allData() as $tab => $model) {
@@ -106,6 +106,11 @@ class Fu extends Model
         return $this->hasOne(FuBX::class, 'FU_sid')->withTrashed();
     }
 
+    public function FuLAB()
+    {
+        return $this->hasOne(FuLAB::class, 'FU_sid')->withTrashed();
+    }
+
     public function FuENDO()
     {
         return $this->hasOne(FuENDO::class, 'FU_sid')->withTrashed();
@@ -116,18 +121,13 @@ class Fu extends Model
         return $this->hasOne(FuIMG::class, 'FU_sid')->withTrashed();
     }
 
-    public function FuLAB()
-    {
-        return $this->hasOne(FuLAB::class, 'FU_sid')->withTrashed();
-    }
-
     public function allData()
     {
         return [
             'BX' => $this->FuBX ?? (new FuBX()),
+            'LAB' => $this->FuLAB ?? (new FuLAB()),
             'ENDO' => $this->FuENDO ?? (new FuENDO()),
             'IMG' => $this->FuIMG ?? (new FuIMG()),
-            'LAB' => $this->FuLAB ?? (new FuLAB()),
         ];
     }
 

@@ -16,25 +16,50 @@ use Illuminate\Http\Request;
  */
 class FUServices extends AppServices
 {
-    public function getData(Request $request, $patient)
+    private function getPatient(Request $request)
     {
-        return match ($request->tab) {
-            'LIST' => $this->getFollowUpList($request, $patient),
-            'BX' => $patient->FuBX,
-            'LAB' => $patient->FuLAB,
-            'ENDO' => $patient->FuENDO,
-            'IMG' => $patient->FuIMG,
-            default => notFoundRedirect(),
-        };
+        return (new \App\Services\Register\RegisterServices())->getPatient($request->regist_num);
     }
 
-    private function getFollowUpList(Request $request, $patient)
+    private function getFuList($patient)
     {
-        $query = $patient->FuLIST()->whereNull('deleted_at');
+        return $patient->FuLIST()
+            ->whereNull('deleted_at')
+            ->orderByDesc('FU_visit_d');
+    }
 
-        $list = $query->orderByDesc('FU_visit_d')->paginate(20)->appends($request->query());
+    public function indexService(Request $request)
+    {
+        $patient = $this->getPatient($request);
+        $query = $this->getFuList($patient);
 
+        $list = $query->paginate(20)->appends($request->query());
+
+        $this->data['patient'] = $patient;
         $this->data['list'] = setListSeq($list);
+
+        return $this->data;
+    }
+
+    public function upsertService(Request $request)
+    {
+        $patient = $this->getPatient($request);
+        $FuList = $this->getFuList($patient)->get();
+        $Fu = $FuList->where('sid', $request->FU_sid)->firstOrFail();
+
+        $data = match ($request->tab) {
+            'BX' => $Fu->FuBX,
+            'LAB' => $Fu->FuLAB,
+            'ENDO' => $Fu->FuENDO,
+            'IMG' => $Fu->FuIMG,
+            default => notFoundRedirect(),
+        };
+
+        $this->data['patient'] = $patient;
+        $this->data['FuList'] = $FuList;
+        $this->data['Fu'] = $Fu;
+
+        $this->data['register'] = $data;
 
         return $this->data;
     }
@@ -57,14 +82,26 @@ class FUServices extends AppServices
             case 'Fu-delete':
                 return $this->FuDelete($request);
 
+            case 'BX-update':
+                return $this->BXUpdate($request);
+                
+            case 'LAB-update':
+                return $this->LABUpdate($request);
+
+            case 'ENDO-update':
+                return $this->ENDOUpdate($request);
+
+            case 'IMG-update':
+                return $this->IMGUpdate($request);
+
             default:
                 return notFoundRedirect();
         }
     }
 
-    private function getPatient(Request $request)
+    private function makeNextUrl($tab, $regist_num)
     {
-        return (new \App\Services\Register\RegisterServices())->getPatient($request->regist_num);
+        return route('register.FU.upsert', ['tab' => $tab, 'regist_num' => $regist_num]);
     }
 
     private function FuUpsert(Request $request)
@@ -77,6 +114,11 @@ class FUServices extends AppServices
 
         $this->setJsonData('data', [
             $this->ajaxActionData('#Fu-frm',  'sid', enCryptString($Fu->sid)),
+            $this->ajaxActionData('#Fu-frm',  'case', 'Fu-update'),
+        ]);
+
+        $this->setJsonData('html', [
+            $this->ajaxActionHtml('#Fu-submit-btn', '추적 수정'),
         ]);
 
         $this->setJsonData('input', [
@@ -96,7 +138,7 @@ class FUServices extends AppServices
         $Fu = $patient->FuLIST()->findOrFail($decrypt_sid);
         $Fu = $Fu->additionalData();
 
-        $view = view('register.FU.include.fu-list-del-confirm', ['Fu' => $Fu])->render();
+        $view = view('register.FU.include.fu-del-confirm', ['Fu' => $Fu])->render();
 
         return $this->returnJsonData('append', [
             $this->ajaxActionHtml('body', $view),
@@ -167,6 +209,114 @@ class FUServices extends AppServices
             return $this->returnJsonData('alert', [
                 'case' => true,
                 'msg' => '삭제 되었습니다',
+                'location' => $this->ajaxActionLocation('reload'),
+            ]);
+        } catch (\Exception $e) {
+            return $this->dbRollback($e);
+        }
+    }
+
+    private function BXUpdate(Request $request)
+    {
+        $this->transaction();
+
+        try {
+            $patient = $this->getPatient($request);
+            $decrypt_sid = deCryptString($request->sid);
+            $decrypt_FU_sid = deCryptString($request->FU_sid);
+
+            $Fu = $patient->FuLIST()->findOrFail($decrypt_FU_sid);
+
+            $bx = $Fu->FuBX()->findOrFail($decrypt_sid);
+            $bx->setByData($request);
+            $bx->update();
+
+            $this->dbCommit('Follow-up 검체 정보 수정');
+
+            return $this->returnJsonData('alert', [
+                'case' => true,
+                'msg' => '수정 되었습니다',
+                'location' => $this->ajaxActionLocation('reload'),
+            ]);
+        } catch (\Exception $e) {
+            return $this->dbRollback($e);
+        }
+    }
+
+    private function LABUpdate(Request $request)
+    {
+        $this->transaction();
+
+        try {
+            $patient = $this->getPatient($request);
+            $decrypt_sid = deCryptString($request->sid);
+            $decrypt_FU_sid = deCryptString($request->FU_sid);
+
+            $Fu = $patient->FuLIST()->findOrFail($decrypt_FU_sid);
+
+            $bx = $Fu->FuLAB()->findOrFail($decrypt_sid);
+            $bx->setByData($request);
+            $bx->update();
+
+            $this->dbCommit('Follow-up 검체 획득 시점 Lab 수정');
+
+            return $this->returnJsonData('alert', [
+                'case' => true,
+                'msg' => '수정 되었습니다',
+                'location' => $this->ajaxActionLocation('reload'),
+            ]);
+        } catch (\Exception $e) {
+            return $this->dbRollback($e);
+        }
+    }
+
+    private function ENDOUpdate(Request $request)
+    {
+        $this->transaction();
+
+        try {
+            $patient = $this->getPatient($request);
+            $decrypt_sid = deCryptString($request->sid);
+            $decrypt_FU_sid = deCryptString($request->FU_sid);
+
+            $Fu = $patient->FuLIST()->findOrFail($decrypt_FU_sid);
+
+            $bx = $Fu->FuENDO()->findOrFail($decrypt_sid);
+            $bx->setByData($request);
+            $bx->update();
+
+            $this->dbCommit('Follow-up  검체 획득 시점 검사  수정');
+
+            return $this->returnJsonData('alert', [
+                'case' => true,
+                'msg' => '수정 되었습니다',
+                'location' => $this->ajaxActionLocation('reload'),
+            ]);
+        } catch (\Exception $e) {
+            return $this->dbRollback($e);
+        }
+    }
+
+    private function IMGUpdate(Request $request)
+    {
+        $this->transaction();
+
+        try {
+            $patient = $this->getPatient($request);
+            $decrypt_sid = deCryptString($request->sid);
+            $decrypt_FU_sid = deCryptString($request->FU_sid);
+
+            $Fu = $patient->FuLIST()->findOrFail($decrypt_FU_sid);
+
+            $bx = $Fu->FuIMG()->findOrFail($decrypt_sid);
+            $bx->setByData($request);
+            $bx->update();
+
+            $this->dbCommit('Follow-up  검체 획득 시점 영상  수정');
+
+            return $this->returnJsonData('alert', [
+                'case' => true,
+                'msg' => '수정 되었습니다',
                 'location' => $this->ajaxActionLocation('reload'),
             ]);
         } catch (\Exception $e) {

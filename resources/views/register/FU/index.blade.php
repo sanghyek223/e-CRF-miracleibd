@@ -6,15 +6,15 @@
 @section('contents')
     <div class="contents inner-layer">
         <div class="sub-tit-wrap">
-            <h3 class="sub-tit">{{ $page_title }}</h3>
+            <h3 class="sub-tit">Follow-up</h3>
         </div>
 
         @include("register.include.info")
 
-        @include("register.include.tab", ['sub_tab_show' => false])
+        @include("register.FU.include.tab", ['tab' => $tab])
 
         <div class="sch-wrap type2">
-            <form id="Fu-frm" method="post">
+            <form id="Fu-frm" method="post" data-case="Fu-create">
                 <fieldset>
                     <legend class="hide"></legend>
 
@@ -36,8 +36,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn color-type2" id="Fu-create-btn">추적 등록</button>
-                    <button type="button" class="btn color-type2" id="Fu-update-btn">추적 수정</button>
+                    <button type="submit" class="btn color-type2" id="Fu-submit-btn">추적 등록</button>
                     <a href="javascript:location.reload();" class="btn color-type1">취소</a>
                 </fieldset>
             </form>
@@ -62,8 +61,7 @@
                         <tr>
                             <th scope="col">방문일</th>
 
-                            @foreach($registerConfig['tab']['FU'] as $key => $val)
-                                @if($key === 'LIST') @continue @endif
+                            @foreach($FU_sub_tabs as $key => $val)
                                 <th scope="col">{{ $val }}</th>
                             @endforeach
 
@@ -76,10 +74,9 @@
                             <tr data-sid="{{ enCryptString($row->sid) }}">
                                 <td>{{ $row->FU_visit_d ?? '' }}</td>
 
-                                @foreach($registerConfig['tab']['FU'] as $key => $val)
-                                    @if($key === 'LIST') @continue @endif
+                                @foreach($FU_sub_tabs as $key => $val)
                                     <td>
-                                        <a href="{{ route('register.upsert', ['type' => 'FU', 'tab' => $key, 'regist_num' => $patient->regist_num]) }}" class="btn btn-view" title="이동">VIEW</a>
+                                        <a href="{{ route('register.FU.upsert', ['tab' => $key, 'regist_num' => $patient->regist_num, 'FU_sid' => $row->sid]) }}" class="btn btn-view" title="이동">VIEW</a>
                                         <span class="state {{ $row->getRegStatusClass($key) }}"><b class="mark"></b></span>
                                     </td>
                                 @endforeach
@@ -105,7 +102,7 @@
 @section('addScript')
     <script>
         const form = '#Fu-frm';
-        const dataUrl = @json(route('register.data', ['type' => $type, 'regist_num' => $patient->regist_num]));
+        const dataUrl = @json(route('register.FU.data', ['tab' => $tab, 'regist_num' => $patient->regist_num]));
 
         const getPK = (_this) => {
             return $(_this).closest('tr').data('sid');
@@ -129,20 +126,11 @@
             callAjax(dataUrl, formSerialize(this));
         });
 
-        $(document).on('click', '#Fu-create-btn', function () {
-            $(form).data('case', 'Fu-create');
-            FuSubmit();
-        });
-
-        $(document).on('click', '#Fu-update-btn', function () {
-            $(form).data('case', 'Fu-update');
-            FuSubmit(true);
-        });
-
-        const FuSubmit = (update = false) => {
+        $(document).on('submit', form, function () {
+            const is_update = ($(form).data('case') === 'Fu-update');
             const sid = $(form).data('sid');
 
-            if (update) {
+            if (is_update) {
                 if (isEmpty(sid)) {
                     alert('수정 대상이 없습니다.');
                     return false;
@@ -179,6 +167,6 @@
             }
 
             callAjax(dataUrl, formSerialize(form));
-        }
+        });
     </script>
 @endsection

@@ -1,3 +1,9 @@
+@php
+    $labConfig = $registerConfig['FU']['LAB'];
+
+    $register = $register->additionalData(); // 데이터 가공 & 추가
+@endphp
+
 @include('register.include.status')
 
 <div class="table-wrap">
@@ -314,3 +320,21 @@
         </tbody>
     </table>
 </div>
+
+@push('register-script')
+    <script>
+        $(function () {
+            validateEssChk();
+        });
+
+        function submitAction(next = false) {
+            let ajaxData = newFormData(form);
+
+            if (next) {
+                ajaxData.append('next', true);
+            }
+
+            callMultiAjax(dataUrl, ajaxData);
+        }
+    </script>
+@endpush

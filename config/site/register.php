@@ -22,31 +22,31 @@ return [
         'BASE' => [
             'name' => "Baseline",
             'thead' => "Baseline",
-            'first_tab' => 'DX',
+            'route' => 'register.BASE.upsert',
         ],
 
         'OUT' => [
             'name' => "Outcome",
             'thead' => "Outcome",
-            'first_tab' => 'MED',
+            'route' => 'register.OUT.upsert',
         ],
 
         'FU' => [
             'name' => "Follow-up",
             'thead' => "Follow-up",
-            'first_tab' => 'LIST',
+            'route' => 'register.FU',
         ],
 
         'END' => [
             'name' => "End of Study (Last F/U)",
             'thead' => "End of Study<br>(Last F/U)",
-            'first_tab' => 'ENDO',
+            'route' => 'register.END.upsert',
         ],
 
         'FASTQ' => [
             'name' => "Microbiome Data Upload",
             'thead' => "Microbiome<br>Data Upload",
-            'first_tab' => 'UPLOAD',
+            'route' => 'register.FASTQ.upsert',
         ],
     ],
 
@@ -444,7 +444,222 @@ return [
     ],
 
     'FU' => [
+        'BX' => [
+            'FU_Bx_l' => [ // 조직 채취 부위
+                '1' => 'Rectum',
+                '2' => 'S colon',
+                '3' => 'D colon',
+                '4' => 'T colon',
+                '5' => 'A colon',
+                '6' => 'Cecum',
+                '7' => 'Terminal ileum',
+            ],
 
+            'FU_Bx_rec' => [ // Rectum 병리 결과 - 염증 여부 (내시경)
+                '0' => 'not inflammed',
+                '1' => 'inflammed',
+            ],
+
+            'FU_Bx_rec_r1' => [ // Rectum 병리 결과 - 병리결과1
+                '0' => 'inactive',
+                '1' => 'active',
+            ],
+
+            'FU_Bx_rec_r2' => [ // Rectum 병리 결과 - 병리결과2
+                '0' => 'no cryptitis',
+                '1' => 'cryptitis',
+            ],
+
+            'FU_Bx_rec_r3' => [ // Rectum 병리 결과 - 병리결과3
+                '0' => 'no crypt atrophy/architectural distortion',
+                '1' => 'crypt atrophy/architectural distortion',
+            ],
+
+            'FU_Bx_rec_r4' => [ // Rectum 병리 결과 - 병리결과4
+                '0' => 'no granuloma',
+                '1' => 'granuloma',
+            ],
+
+            'FU_Bx_SC' => [ // S colon - 염증 여부 (내시경)
+                '0' => 'not inflammed',
+                '1' => 'inflammed',
+            ],
+
+            'FU_Bx_SC_r1' => [ // S colon - 병리결과1
+                '0' => 'inactive',
+                '1' => 'active',
+            ],
+
+            'FU_Bx_SC_r2' => [ // S colon - 병리결과2
+                '0' => 'no cryptitis',
+                '1' => 'cryptitis',
+            ],
+
+            'FU_Bx_SC_r3' => [ // S colon - 병리결과3
+                '0' => 'no crypt atrophy/architectural distortion',
+                '1' => 'crypt atrophy/architectural distortion',
+            ],
+
+            'FU_Bx_SC_r4' => [ // S colon - 병리결과4
+                '0' => 'no granuloma',
+                '1' => 'granuloma',
+            ],
+
+            'FU_Bx_DC' => [ // D colon - 염증 여부 (내시경)
+                '0' => 'not inflammed',
+                '1' => 'inflammed',
+            ],
+
+            'FU_Bx_DC_r1' => [ // D colon - 병리결과1
+                '0' => 'inactive',
+                '1' => 'active',
+            ],
+
+            'FU_Bx_DC_r2' => [ // D colon - 병리결과2
+                '0' => 'no cryptitis',
+                '1' => 'cryptitis',
+            ],
+
+            'FU_Bx_DC_r3' => [ // D colon - 병리결과3
+                '0' => 'no crypt atrophy/architectural distortion',
+                '1' => 'crypt atrophy/architectural distortion',
+            ],
+
+            'FU_Bx_DC_r4' => [ // D colon - 병리결과4
+                '0' => 'no granuloma',
+                '1' => 'granuloma',
+            ],
+
+            'FU_Bx_TC' => [ // T colon - 염증 여부 (내시경)
+                '0' => 'not inflammed',
+                '1' => 'inflammed',
+            ],
+
+            'FU_Bx_TC_r1' => [ // T colon - 병리결과1
+                '0' => 'inactive',
+                '1' => 'active',
+            ],
+
+            'FU_Bx_TC_r2' => [ // T colon - 병리결과2
+                '0' => 'no cryptitis',
+                '1' => 'cryptitis',
+            ],
+
+            'FU_Bx_TC_r3' => [ // T colon - 병리결과3
+                '0' => 'no crypt atrophy/architectural distortion',
+                '1' => 'crypt atrophy/architectural distortion',
+            ],
+
+            'FU_Bx_TC_r4' => [ // T colon - 병리결과4
+                '0' => 'no granuloma',
+                '1' => 'granuloma',
+            ],
+
+            'FU_Bx_AC' => [ // A colon - 염증 여부 (내시경)
+                '0' => 'not inflammed',
+                '1' => 'inflammed',
+            ],
+
+            'FU_Bx_AC_r1' => [ // A colon - 병리결과1
+                '0' => 'inactive',
+                '1' => 'active',
+            ],
+
+            'FU_Bx_AC_r2' => [ // A colon - 병리결과2
+                '0' => 'no cryptitis',
+                '1' => 'cryptitis',
+            ],
+
+            'FU_Bx_AC_r3' => [ // A colon - 병리결과3
+                '0' => 'no crypt atrophy/architectural distortion',
+                '1' => 'crypt atrophy/architectural distortion',
+            ],
+
+            'FU_Bx_AC_r4' => [ // A colon - 병리결과4
+                '0' => 'no granuloma',
+                '1' => 'granuloma',
+            ],
+
+            'FU_Bx_cec' => [ // Cecum - 염증 여부 (내시경)
+                '0' => 'not inflammed',
+                '1' => 'inflammed',
+            ],
+
+            'FU_Bx_cec_r1' => [ // Cecum - 병리결과1
+                '0' => 'inactive',
+                '1' => 'active',
+            ],
+
+            'FU_Bx_cec_r2' => [ // Cecum - 병리결과2
+                '0' => 'no cryptitis',
+                '1' => 'cryptitis',
+            ],
+
+            'FU_Bx_cec_r3' => [ // Cecum - 병리결과3
+                '0' => 'no crypt atrophy/architectural distortion',
+                '1' => 'crypt atrophy/architectural distortion',
+            ],
+
+            'FU_Bx_cec_r4' => [ // Cecum - 병리결과4
+                '0' => 'no granuloma',
+                '1' => 'granuloma',
+            ],
+
+            'FU_Bx_TI' => [ // Terminal ileum - 염증 여부 (내시경)
+                '0' => 'not inflammed',
+                '1' => 'inflammed',
+            ],
+
+            'FU_Bx_TI_r1' => [ // Terminal ileum - 병리결과1
+                '0' => 'inactive',
+                '1' => 'active',
+            ],
+
+            'FU_Bx_TI_r2' => [ // Terminal ileum - 병리결과2
+                '0' => 'no cryptitis',
+                '1' => 'cryptitis',
+            ],
+
+            'FU_Bx_TI_r3' => [ // Terminal ileum - 병리결과3
+                '0' => 'no crypt atrophy/architectural distortion',
+                '1' => 'crypt atrophy/architectural distortion',
+            ],
+
+            'FU_Bx_TI_r4' => [ // Terminal ileum - 병리결과4
+                '0' => 'no granuloma',
+                '1' => 'granuloma',
+            ],
+
+
+            'FU_MES' => [ // Terminal ileum - 병리결과4
+                '0' => 'no granuloma',
+                '1' => 'granuloma',
+            ],
+
+
+            'FU_UCEIS' => [ // Terminal ileum - 병리결과4
+                '0' => 'no granuloma',
+                '1' => 'granuloma',
+            ],
+
+
+            'FU_SES_CD' => [ // Terminal ileum - 병리결과4
+                '0' => 'no granuloma',
+                '1' => 'granuloma',
+            ],
+        ],
+
+        'LAB' => [
+
+        ],
+
+        'ENDO' => [
+
+        ],
+
+        'IMG' => [
+
+        ],
     ],
 
     'END' => [
@@ -504,7 +719,12 @@ return [
 
     'FASTQ' => [
         'UPLOAD' => [
+            'directory' => "/FASTQ", // 업로드 경로
 
+            'file' => [
+                'FASTQ_f1' => 'FASTQ 파일 업로드 (1)',
+                'FASTQ_f2' => 'FASTQ 파일 업로드 (2)',
+            ],
         ],
     ],
 ];

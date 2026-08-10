@@ -50,7 +50,7 @@ class PatientServices extends AppServices
     private function setLocationAction($patient, $next = false)
     {
         if ($next) {
-            $replaceUrl = route('register.upsert', ['type' => 'BASE', 'tab' => 'DX', 'regist_num' => $patient->regist_num]);
+            $replaceUrl = route('register.BASE.upsert', ['tab' => 'DX', 'regist_num' => $patient->regist_num]);
             return $this->ajaxActionLocation('replace', $replaceUrl);
         }
 

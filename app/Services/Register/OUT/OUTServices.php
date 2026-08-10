@@ -14,14 +14,26 @@ use Illuminate\Http\Request;
  */
 class OUTServices extends AppServices
 {
-    public function getData(Request $request, $patient)
+    private function getPatient(Request $request)
     {
-        return match ($request->tab) {
+        return (new \App\Services\Register\RegisterServices())->getPatient($request->regist_num);
+    }
+
+    public function upsertService(Request $request)
+    {
+        $patient = $this->getPatient($request);
+
+        $data = match ($request->tab) {
             'MED' => $patient->OutMED,
             'OP' => $patient->OutOP,
             'V' => $patient->OutV,
             default => notFoundRedirect(),
         };
+
+        $this->data['patient'] = $patient;
+        $this->data['register'] = $data;
+
+        return $this->data;
     }
 
     public function dataAction(Request $request)
@@ -47,9 +59,9 @@ class OUTServices extends AppServices
         }
     }
 
-    private function getPatient(Request $request)
+    private function makeNextUrl($tab, $regist_num)
     {
-        return (new \App\Services\Register\RegisterServices())->getPatient($request->regist_num);
+        return route('register.OUT.upsert', ['tab' => $tab, 'regist_num' => $regist_num]);
     }
 
     private function OPListHtml(Request $request)
@@ -88,18 +100,13 @@ class OUTServices extends AppServices
             $med->setByData($request);
             $med->update();
 
-            $this->dbCommit('Medication 수정');
+            $this->dbCommit('Medication 저장');
 
-            $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'OP', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
-                ? $this->ajaxActionLocation('replace', $nextRoute)
+                ? $this->ajaxActionLocation('replace', $this->makeNextUrl('OP', $patient->regist_num))
                 : $this->ajaxActionLocation('reload');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }
@@ -117,18 +124,13 @@ class OUTServices extends AppServices
             $op->setByData($request);
             $op->update();
 
-            $this->dbCommit('Surgery 수정');
+            $this->dbCommit('Surgery 저장');
 
-            $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'V', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
-                ? $this->ajaxActionLocation('replace', $nextRoute)
+                ? $this->ajaxActionLocation('replace', $this->makeNextUrl('V', $patient->regist_num))
                 : $this->ajaxActionLocation('reload');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }
@@ -146,18 +148,14 @@ class OUTServices extends AppServices
             $v->setByData($request);
             $v->update();
 
-            $this->dbCommit('ER/Admission 수정');
+            $this->dbCommit('ER/Admission 저장');
 
-            $nextRoute = route('register.upsert', ['type' => 'FU', 'tab' => 'LIST', 'regist_num' => $patient->regist_num]);
+            $nextRoute = route('register.FU.upsert', ['tab' => 'LIST', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
                 ? $this->ajaxActionLocation('replace', $nextRoute)
                 : $this->ajaxActionLocation('reload');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }

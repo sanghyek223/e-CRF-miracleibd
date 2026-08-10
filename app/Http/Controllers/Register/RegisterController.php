@@ -12,12 +12,6 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->patientServices = (new \App\Services\Register\RegisterServices());
-
-        view()->share([
-            'main_key' => 'M2',
-            'patientConfig' => config('site.patient'),
-            'registerConfig' => config('site.register'),
-        ]);
     }
 
     public function index(Request $request)

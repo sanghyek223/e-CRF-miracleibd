@@ -15,16 +15,16 @@
         <tbody>
         <tr>
             <th scope="row">Registration No.</th>
-            <td>{{ $regist_num }}</td>
+            <td>{{ $patient->regist_num }}</td>
 
             <th scope="row">Initial</th>
             <td>{{ $patient->initial ?? '' }}</td>
 
             <th scope="row">성별/나이</th>
-            <td>{{ $patient->getSex() ?? '' }} / {{ $patient->age ?? '' }}</td>
+            <td>{{ $patient->getSex() ?? '' }} / {{ $patient->getAge() }}</td>
 
             <th scope="row">IBD Type</th>
-            <td></td>
+            <td>{{ $patient->getIBD() }}</td>
         </tr>
         </tbody>
     </table>

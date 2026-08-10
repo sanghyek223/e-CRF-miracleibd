@@ -89,16 +89,16 @@
 
                     <tbody>
                     @foreach($list as $patient)
-                        <tr data-sid="{{ enCryptString($patient->sid) }}" data-num="{{ $patient->regist_num }}">
+                        <tr data-sid="{{ enCryptString($patient->sid) }}" data-regist_num="{{ $patient->regist_num }}">
                             <td>{{ $patient->regist_num }}</td>
                             <td>{{ $patient->initial ?? '' }}</td>
                             <td>{{ $patient->org_name ?? '' }}</td>
-                            <td>{{ $patient->getSex() }} / {{ $patient->BaseDX->IBD_age ?? '-' }}</td>
-                            <td>{{ $patient->BaseDX->getIBD() }}</td>
+                            <td>{{ $patient->getSex() }} / {{ $patient->getAge() }}</td>
+                            <td>{{ $patient->getIBD() }}</td>
 
                             @foreach($registerConfig['type'] as $key => $val)
                                 <td>
-                                    <a href="{{ route('register.upsert', ['type' => $key, 'tab' => $val['first_tab'], 'regist_num' => $patient->regist_num]) }}" class="btn btn-view" title="이동">VIEW</a>
+                                    <a href="{{ route($val['route'], ['tab' => array_key_first($registerConfig['tab'][$key]), 'regist_num' => $patient->regist_num]) }}" class="btn btn-view" title="이동">VIEW</a>
                                     <span class="state {{ $patient->getRegStatusClass($key) }}"><b class="mark"></b></span>
                                 </td>
                             @endforeach
@@ -125,15 +125,11 @@
         const dataUrl = '{{ route('register.data') }}';
 
         $(document).on('click', '.btn-del', function () {
-            const sid = $(this).closest('tr').data('sid');
-            const num = $(this).closest('tr').data('num');
+            const data = $(this).closest('tr').data();
+            data.case = 'patient-delete';
 
-            if (confirm(`${num} 대상자를 삭제 하시겠습니까?`)) {
-                callAjax(dataUrl, {
-                    case: 'patient-delete',
-                    sid: sid,
-                    num: num,
-                });
+            if (confirm(`${data.regist_num} 대상자를 삭제 하시겠습니까?`)) {
+                callAjax(dataUrl, data);
             }
         });
     </script>

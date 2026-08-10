@@ -6,20 +6,20 @@
 @section('contents')
     <div class="contents inner-layer">
         <div class="sub-tit-wrap">
-            <h3 class="sub-tit">{{ $page_title }}</h3>
+            <h3 class="sub-tit">Outcome</h3>
         </div>
 
         @include("register.include.info")
 
-        @include("register.include.tab", ['sub_tab_show' => !($type === 'FASTQ' && $tab === 'UPLOAD')])
+        @include("register.include.tab", ['type' => 'OUT'])
 
         <div class="sub-conbox">
             <div class="write-form-wrap">
-                <form id="register-frm" method="post" data-sid="{{ enCryptString($register->sid ?? 0) }}" data-case="{{ $tab }}-update" data-regist_num="{{ $regist_num }}">
+                <form id="OUT-frm" method="post" data-sid="{{ enCryptString($register->sid ?? 0) }}" data-case="{{ $tab }}-update" data-regist_num="{{ $patient->regist_num }}">
                     <fieldset>
-                        <legend class="hide">{{ $page_title }}</legend>
+                        <legend class="hide">Outcome</legend>
 
-                        @include("register.{$type}.{$tab}")
+                        @include("register.OUT.form.{$tab}")
 
                         <div class="btn-wrap text-center">
                             <button type="submit" class="btn btn-type1 color-type2">저장</button>
@@ -34,9 +34,8 @@
 
 @section('addScript')
     <script>
-        const form = '#register-frm';
-        const birth = '{{ $patient->birth_d }}';
-        const dataUrl = @json(route('register.data', ['type' => $type]));
+        const form = '#OUT-frm';
+        const dataUrl = @json(route("register.OUT.data", ['tab' => $tab]));
 
         $(document).on('submit', form, function () {
             submitAction();

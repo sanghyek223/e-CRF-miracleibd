@@ -280,6 +280,7 @@
 
 @push('register-script')
     <script>
+        const birth = '{{ $patient->birth_d }}';
         const b_bio_max = @json($b_bio_max);
 
         $(function () {

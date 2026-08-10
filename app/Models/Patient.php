@@ -143,7 +143,7 @@ class Patient extends Model
         $this->birth_d_y = $birthArr[0] ?? '';
         $this->birth_d_m = $birthArr[1] ?? '';
         $this->birth_d_d = $birthArr[2] ?? '';
-        
+
         return $this;
     }
 
@@ -271,7 +271,7 @@ class Patient extends Model
         $allBaseData = $this->allData(['BASE']);
 
         foreach ($allBaseData['BASE'] as $key => $rowData) {
-            if ($rowData->status === 'I') {
+            if ($rowData->status !== 'C') {
                 $status = 'I';
                 break;
             }
@@ -288,7 +288,7 @@ class Patient extends Model
         $allBaseData = $this->allData(['OUT']);
 
         foreach ($allBaseData['OUT'] as $key => $rowData) {
-            if ($rowData->status === 'I') {
+            if ($rowData->status !== 'C') {
                 $status = 'I';
                 break;
             }
@@ -299,32 +299,13 @@ class Patient extends Model
         $this->saveQuietly();
     }
 
-    public function updateStatusFU()
-    {
-        $status = 'C';
-        $allBaseData = $this->allData(['FU']);
-
-        foreach ($allBaseData['FU'] as $key => $rowData) {
-            if ($key === 'LIST') continue;
-
-            if ($rowData->status === 'I') {
-                $status = 'I';
-                break;
-            }
-        }
-
-        // Follow-up 전체 입력 상태값 업데이트
-        $this->status_FU = $status;
-        $this->saveQuietly();
-    }
-
     public function updateStatusEND()
     {
         $status = 'C';
         $allBaseData = $this->allData(['END']);
 
         foreach ($allBaseData['END'] as $key => $rowData) {
-            if ($rowData->status === 'I') {
+            if ($rowData->status !== 'C') {
                 $status = 'I';
                 break;
             }
@@ -341,7 +322,7 @@ class Patient extends Model
         $allBaseData = $this->allData(['FASTQ']);
 
         foreach ($allBaseData['FASTQ'] as $key => $rowData) {
-            if ($rowData->status === 'I') {
+            if ($rowData->status !== 'C') {
                 $status = 'I';
                 break;
             }
@@ -359,6 +340,16 @@ class Patient extends Model
         return empty($str)
             ? ''
             : mb_substr($str, 0, -1, 'UTF-8');
+    }
+
+    public function getAge()
+    {
+        return $this->BaseDX->IBD_age ?? '-';
+    }
+
+    public function getIBD()
+    {
+        return $this->BaseDX->getIBD();
     }
 
     public function getRegStatus($type)

@@ -12,12 +12,24 @@ use Illuminate\Http\Request;
  */
 class FASTQServices extends AppServices
 {
-    public function getData(Request $request, $patient)
+    private function getPatient(Request $request)
     {
-        return match ($request->tab) {
+        return (new \App\Services\Register\RegisterServices())->getPatient($request->regist_num);
+    }
+
+    public function upsertService(Request $request)
+    {
+        $patient = $this->getPatient($request);
+
+        $data = match ($request->tab) {
             'UPLOAD' => $patient->FASTQ,
             default => notFoundRedirect(),
         };
+
+        $this->data['patient'] = $patient;
+        $this->data['register'] = $data;
+
+        return $this->data;
     }
 
     public function dataAction(Request $request)
@@ -29,11 +41,6 @@ class FASTQServices extends AppServices
             default:
                 return notFoundRedirect();
         }
-    }
-
-    private function getPatient(Request $request)
-    {
-        return (new \App\Services\Register\RegisterServices())->getPatient($request->regist_num);
     }
 
     private function UPLOADUpdate(Request $request)
@@ -48,18 +55,14 @@ class FASTQServices extends AppServices
             $FASTQ->setByData($request);
             $FASTQ->update();
 
-            $this->dbCommit('Microbiome Data Upload 수정');
+            $this->dbCommit('Microbiome Data Upload 저장');
 
-            $nextRoute = route('register', ['type' => 'BASE', 'tab' => 'DX', 'regist_num' => $patient->regist_num]);
+            $nextRoute = route('register.BASE.upsert', ['tab' => 'DX', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
                 ? $this->ajaxActionLocation('replace', $nextRoute)
                 : $this->ajaxActionLocation('reload');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }

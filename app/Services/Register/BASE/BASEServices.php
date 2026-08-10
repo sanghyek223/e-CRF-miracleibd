@@ -17,9 +17,16 @@ use Illuminate\Http\Request;
  */
 class BASEServices extends AppServices
 {
-    public function getData(Request $request, $patient)
+    private function getPatient(Request $request)
     {
-        return match ($request->tab) {
+        return (new \App\Services\Register\RegisterServices())->getPatient($request->regist_num);
+    }
+
+    public function upsertService(Request $request)
+    {
+        $patient = $this->getPatient($request);
+
+        $data = match ($request->tab) {
             'DX' => $patient->BaseDX,
             'ENDO' => $patient->BaseENDO,
             'IMG' => $patient->BaseIMG,
@@ -28,7 +35,13 @@ class BASEServices extends AppServices
             'EVN' => $patient->BaseEVN,
             default => notFoundRedirect(),
         };
+
+        $this->data['patient'] = $patient;
+        $this->data['register'] = $data;
+
+        return $this->data;
     }
+
 
     public function dataAction(Request $request)
     {
@@ -59,9 +72,9 @@ class BASEServices extends AppServices
         }
     }
 
-    private function getPatient(Request $request)
+    private function makeNextUrl($tab, $regist_num)
     {
-        return (new \App\Services\Register\RegisterServices())->getPatient($request->regist_num);
+        return route('register.BASE.upsert', ['tab' => $tab, 'regist_num' => $regist_num]);
     }
 
     private function DXBioDetailHtml(Request $request)
@@ -88,18 +101,13 @@ class BASEServices extends AppServices
             $dx->setByData($request);
             $dx->update();
 
-            $this->dbCommit('진단 시점 정보 수정');
+            $this->dbCommit('진단 시점 정보 저장');
 
-            $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'ENDO', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
-                ? $this->ajaxActionLocation('replace', $nextRoute)
+                ? $this->ajaxActionLocation('replace', $this->makeNextUrl('ENDO', $patient->regist_num))
                 : $this->ajaxActionLocation('reload');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }
@@ -117,18 +125,13 @@ class BASEServices extends AppServices
             $endo->setByData($request);
             $endo->update();
 
-            $this->dbCommit('진단 시점 검사 수정');
+            $this->dbCommit('진단 시점 검사 저장');
 
-            $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'IMG', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
-                ? $this->ajaxActionLocation('replace', $nextRoute)
+                ? $this->ajaxActionLocation('replace', $this->makeNextUrl('IMG', $patient->regist_num))
                 : $this->ajaxActionLocation('reload');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }
@@ -146,18 +149,13 @@ class BASEServices extends AppServices
             $img->setByData($request);
             $img->update();
 
-            $this->dbCommit('진단 시점 영상 수정');
+            $this->dbCommit('진단 시점 영상 저장');
 
-            $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'LAB', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
-                ? $this->ajaxActionLocation('replace', $nextRoute)
+                ? $this->ajaxActionLocation('replace', $this->makeNextUrl('LAB', $patient->regist_num))
                 : $this->ajaxActionLocation('reload');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }
@@ -175,18 +173,13 @@ class BASEServices extends AppServices
             $lab->setByData($request);
             $lab->update();
 
-            $this->dbCommit('진단 시점 Lab 수정');
+            $this->dbCommit('진단 시점 Lab 저장');
 
-            $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'NTR', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
-                ? $this->ajaxActionLocation('replace', $nextRoute)
+                ? $this->ajaxActionLocation('replace', $this->makeNextUrl('NTR', $patient->regist_num))
                 : $this->ajaxActionLocation('reload');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }
@@ -204,18 +197,13 @@ class BASEServices extends AppServices
             $ntr->setByData($request);
             $ntr->update();
 
-            $this->dbCommit('환경 인자 설문 수정');
+            $this->dbCommit('환경 인자 설문 저장');
 
-            $nextRoute = route('register.upsert', ['type' => $request->type, 'tab' => 'EVN', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
-                ? $this->ajaxActionLocation('replace', $nextRoute)
+                ? $this->ajaxActionLocation('replace', $this->makeNextUrl('EVN', $patient->regist_num))
                 : $this->ajaxActionLocation('reload');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }
@@ -233,18 +221,14 @@ class BASEServices extends AppServices
             $evn->setByData($request);
             $evn->update();
 
-            $this->dbCommit('영양 진자 설문 수정');
+            $this->dbCommit('영양 진자 설문 저장');
 
-            $nextRoute = route('register.upsert', ['type' => 'OUT', 'tab' => 'MED', 'regist_num' => $patient->regist_num]);
+            $nextRoute = route('register.OUT.upsert', ['tab' => 'MED', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
                 ? $this->ajaxActionLocation('replace', $nextRoute)
                 : $this->ajaxActionLocation('reload');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $location,
-            ]);
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }

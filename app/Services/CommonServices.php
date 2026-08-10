@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Board;
 use App\Models\BoardFile;
+use App\Models\FASTQ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
@@ -31,6 +32,23 @@ class CommonServices extends AppServices
         return [
             'filename' => $this->filenameRegx($file->getClientOriginalName()),
             'realfile' => '/storage/' . $file->storeAs($directory, $save_name, 'public')
+        ];
+    }
+
+    public function fileUploadService2($file, string $folder)
+    {
+        $directory = "uploads/" . $folder;
+
+        $ext = $file->getClientOriginalExtension();
+        $save_name = now()->timestamp . '_' . Str::random(10) . '.' . $ext;
+
+        // 파일 업로드
+        $path = $file->storeAs($directory, $save_name, 'public');
+
+        return [
+            'file_size'  => $file->getSize(), // bytes
+            'upload_name'  => $save_name,
+            'origin_name'  => $this->filenameRegx($file->getClientOriginalName()),
         ];
     }
 
@@ -66,6 +84,13 @@ class CommonServices extends AppServices
                 $boardFile->increment('download');
 
                 $this->data = ['realfile' => $boardFile->realfile, 'filename' => $boardFile->filename];
+                break;
+
+            case 'FASTQ':
+                $field = $request->field;
+                $FASTQ = FASTQ::findOrFail($sid);
+
+                $this->data = ['realfile' => $FASTQ->getUploadPath($field), 'filename' => $FASTQ->{$field . '_name_real'}];
                 break;
 
             default:
