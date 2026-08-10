@@ -43,7 +43,9 @@ class FuIMG extends Model
             // saving 할때 하면 상태값 업데이트 반영안되서 저장 완료후
             $Fu->update([
                 'status_FU_img' => $FuIMG->status,
-            ]);;
+            ]);
+
+            $Fu->updateFuStatus($Fu->patient);
         });
     }
 

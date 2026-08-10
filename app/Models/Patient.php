@@ -79,25 +79,6 @@ class Patient extends Model
 
             }
         });
-
-        // 복원시
-        static::restoring(function ($patient) {
-
-            // 연관 데이터 전체 복원
-            foreach ($patient->allData() as $type => $val) {
-
-                if ($type === 'FU') {
-                    $val['LIST']->each(function ($row) {
-                        $row->restore();
-                    });
-                } else {
-                    foreach ($val as $tab => $model) {
-                        $model->restore();
-                    }
-                }
-
-            }
-        });
     }
 
     private function patientConfig()
@@ -149,77 +130,77 @@ class Patient extends Model
 
     public function user() // 등록자
     {
-        return $this->belongsTo(User::class, 'reg_id', 'uid');
+        return $this->belongsTo(User::class, 'reg_id', 'uid')->withTrashed();
     }
 
     public function hospital()
     {
-        return $this->belongsTo(Hospital::class, 'org_code', 'org_code');
+        return $this->belongsTo(Hospital::class, 'org_code', 'org_code')->withTrashed();
     }
 
     public function BaseDX()
     {
-        return $this->hasOne(BaseDX::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(BaseDX::class, 'regist_num', 'regist_num');
     }
 
     public function BaseENDO()
     {
-        return $this->hasOne(BaseENDO::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(BaseENDO::class, 'regist_num', 'regist_num');
     }
 
     public function BaseEVN()
     {
-        return $this->hasOne(BaseEVN::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(BaseEVN::class, 'regist_num', 'regist_num');
     }
 
     public function BaseIMG()
     {
-        return $this->hasOne(BaseIMG::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(BaseIMG::class, 'regist_num', 'regist_num');
     }
 
     public function BaseLAB()
     {
-        return $this->hasOne(BaseLAB::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(BaseLAB::class, 'regist_num', 'regist_num');
     }
 
     public function BaseNTR()
     {
-        return $this->hasOne(BaseNTR::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(BaseNTR::class, 'regist_num', 'regist_num');
     }
 
     public function OutMED()
     {
-        return $this->hasOne(OutMED::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(OutMED::class, 'regist_num', 'regist_num');
     }
 
     public function OutOP()
     {
-        return $this->hasOne(OutOP::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(OutOP::class, 'regist_num', 'regist_num');
     }
 
     public function OutV()
     {
-        return $this->hasOne(OutV::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(OutV::class, 'regist_num', 'regist_num');
     }
 
     public function FuLIST()
     {
-        return $this->hasMany(Fu::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasMany(Fu::class, 'regist_num', 'regist_num');
     }
 
     public function EndENDO()
     {
-        return $this->hasOne(EndENDO::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(EndENDO::class, 'regist_num', 'regist_num');
     }
 
     public function EndMED()
     {
-        return $this->hasOne(EndMED::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(EndMED::class, 'regist_num', 'regist_num');
     }
 
     public function FASTQ()
     {
-        return $this->hasOne(FASTQ::class, 'regist_num', 'regist_num')->withTrashed();
+        return $this->hasOne(FASTQ::class, 'regist_num', 'regist_num');
     }
 
     public function allData($getTarget = [])

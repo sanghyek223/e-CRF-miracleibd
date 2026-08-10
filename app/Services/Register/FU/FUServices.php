@@ -21,17 +21,10 @@ class FUServices extends AppServices
         return (new \App\Services\Register\RegisterServices())->getPatient($request->regist_num);
     }
 
-    private function getFuList($patient)
-    {
-        return $patient->FuLIST()
-            ->whereNull('deleted_at')
-            ->orderByDesc('FU_visit_d');
-    }
-
     public function indexService(Request $request)
     {
         $patient = $this->getPatient($request);
-        $query = $this->getFuList($patient);
+        $query = $patient->FuLIST()->orderByDesc('FU_visit_d');
 
         $list = $query->paginate(20)->appends($request->query());
 
@@ -44,7 +37,7 @@ class FUServices extends AppServices
     public function upsertService(Request $request)
     {
         $patient = $this->getPatient($request);
-        $FuList = $this->getFuList($patient)->get();
+        $FuList = $patient->FuLIST()->orderByDesc('FU_visit_d')->get();
         $Fu = $FuList->where('sid', $request->FU_sid)->firstOrFail();
 
         $data = match ($request->tab) {

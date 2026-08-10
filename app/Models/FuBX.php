@@ -51,6 +51,8 @@ class FuBX extends Model
                     'FU_feces_dt' => $FuBX->FU_feces_dt, // 대변 검체 획득일 (자동연동)
                 ]);
             }
+
+            $Fu->updateFuStatus($Fu->patient);
         });
     }
 

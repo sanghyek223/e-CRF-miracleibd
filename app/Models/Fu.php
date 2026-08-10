@@ -49,15 +49,6 @@ class Fu extends Model
                 $model->delete();
             }
         });
-
-        // 복원시
-        static::restoring(function ($Fu) {
-
-            // 연관 데이터 전체 복원
-            foreach ($Fu->allData() as $tab => $model) {
-                $model->restore();
-            }
-        });
     }
 
     private function registerConfig()
@@ -103,22 +94,22 @@ class Fu extends Model
 
     public function FuBX()
     {
-        return $this->hasOne(FuBX::class, 'FU_sid')->withTrashed();
+        return $this->hasOne(FuBX::class, 'FU_sid');
     }
 
     public function FuLAB()
     {
-        return $this->hasOne(FuLAB::class, 'FU_sid')->withTrashed();
+        return $this->hasOne(FuLAB::class, 'FU_sid');
     }
 
     public function FuENDO()
     {
-        return $this->hasOne(FuENDO::class, 'FU_sid')->withTrashed();
+        return $this->hasOne(FuENDO::class, 'FU_sid');
     }
 
     public function FuIMG()
     {
-        return $this->hasOne(FuIMG::class, 'FU_sid')->withTrashed();
+        return $this->hasOne(FuIMG::class, 'FU_sid');
     }
 
     public function allData($getTarget = [])
@@ -131,20 +122,25 @@ class Fu extends Model
         ];
     }
 
-    public function updateStatusBASE()
+    public function updateFuStatus($patient)
     {
-        $status = 'C';
-        $allBaseData = $this->allData(['BASE']);
+        $list_count = $patient->FuLIST()->count();
 
-        foreach ($allBaseData['BASE'] as $key => $rowData) {
-            if ($rowData->status !== 'C') {
-                $status = 'I';
-                break;
-            }
+        if ($list_count === 0) {
+            $this->status_FU = 'N';
+        } else {
+
+            $complete_count = $patient->FuLIST()
+                ->Where('status_FU_Bx', 'C')
+                ->Where('status_FU_lab', 'C')
+                ->Where('status_FU_endo', 'C')
+                ->Where('status_FU_img', 'C')
+                ->count();
+
+            $this->status_FU = ($list_count === $complete_count) ? 'C' : 'I';
         }
 
-        // Baseline 전체 입력 상태값 업데이트
-        $this->status_Base = $status;
+        // Follow-up 전체 입력 상태값 업데이트
         $this->saveQuietly();
     }
 

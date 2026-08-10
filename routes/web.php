@@ -74,6 +74,7 @@ Route::middleware('auth.check')->group(function () {
     // 데이터 열람/신청
     Route::controller(\App\Http\Controllers\Data\DataController::class)->prefix('data')->group(function () {
         Route::get('/', 'index')->name('data');
+        Route::post('application', 'application')->name('data.application');
         Route::post('data', 'data')->name('data.data');
     });
 

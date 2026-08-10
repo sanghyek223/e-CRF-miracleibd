@@ -44,6 +44,8 @@ class FuENDO extends Model
             $Fu->update([
                 'status_FU_endo' => $FuENDO->status,
             ]);
+
+            $Fu->updateFuStatus($Fu->patient);
         });
     }
 

@@ -25,8 +25,8 @@
     <label class="checkbox-group">
         <input type="checkbox" id="{{ $id }}" name="{{ $field }}[]"
                {{ $attributes }}
-               @if($checked) checked @endif
+               @if($checked ?? false) checked @endif
                @isset($active) data-active="{{ $active ? 'true' : 'false' }}" @endisset
-               @isset($active2) data-active2="{{ $active2 ? 'true' : 'false' }}" @endisset> {!! $text !!}
+               @isset($active2) data-active2="{{ $active2 ? 'true' : 'false' }}" @endisset> {!! $text ?? '' !!}
     </label>
 </div>
