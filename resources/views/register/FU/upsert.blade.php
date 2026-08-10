@@ -18,7 +18,7 @@
 
             <div class="sub-conbox">
                 <div class="write-form-wrap">
-                    <form id="FU-frm" method="post" data-FU_sid="{{ enCryptString($Fu->sid) }}" data-sid="{{ enCryptString($register->sid ?? 0) }}" data-case="{{ $tab }}-update" data-regist_num="{{ $patient->regist_num }}">
+                    <form id="FU-frm" method="post" data-sid="{{ enCryptString($register->sid ?? 0) }}" data-case="{{ $tab }}-update" data-regist_num="{{ $patient->regist_num }}">
                         <fieldset>
                             <legend class="hide">Follow-up</legend>
 
@@ -39,7 +39,7 @@
 @section('addScript')
     <script>
         const form = '#FU-frm';
-        const dataUrl = @json(route("register.FU.data", ['tab' => $tab]));
+        const dataUrl = @json(route("register.FU.data", ['tab' => $tab, 'FU_sid' => enCryptString($Fu->sid)]));
 
         $(document).on('submit', form, function () {
             submitAction();

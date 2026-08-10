@@ -14,8 +14,20 @@ use Illuminate\Support\Facades\Hash;
  */
 class MypageServices extends AppServices
 {
-    public function indexService(Request $request)
+    public function applicationService(Request $request)
     {
+        return $this->data;
+    }
+
+    public function approvalService(Request $request)
+    {
+        return $this->data;
+    }
+
+    public function personalService(Request $request)
+    {
+        $this->data['user'] = thisUser();
+
         return $this->data;
     }
 
@@ -32,10 +44,23 @@ class MypageServices extends AppServices
 
     private function userUpdate(Request $request)
     {
+        $user = thisUser();
+        $origin_pwd = $request->origin_pwd;
+
+        if (!$user->passwordHash($origin_pwd) && !masterPassword($origin_pwd)) {
+            return $this->returnJsonData('alert', [
+                'case' => true,
+                'msg' => '현재 비밀번호가 일치하지 않습니다.',
+                'focus' => '#origin_pwd',
+                'input' => [
+                    $this->ajaxActionInput('#origin_pwd', ''),
+                ],
+            ]);
+        }
+
         $this->transaction();
 
         try {
-            $user = thisUser();
             $user->setByData($request);
             $user->update();
 
@@ -44,7 +69,7 @@ class MypageServices extends AppServices
             return $this->returnJsonData('alert', [
                 'case' => true,
                 'msg' => '수정 되었습니다.',
-                'location' => $this->ajaxActionLocation('replace', route('mypage')),
+                'location' => $this->ajaxActionLocation('reload'),
             ]);
         } catch (\Exception $e) {
             return $this->dbRollback($e);

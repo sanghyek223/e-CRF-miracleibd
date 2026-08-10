@@ -445,14 +445,14 @@ return [
 
     'FU' => [
         'BX' => [
-            'FU_Bx_l' => [ // 조직 채취 부위
-                '1' => 'Rectum',
-                '2' => 'S colon',
-                '3' => 'D colon',
-                '4' => 'T colon',
-                '5' => 'A colon',
-                '6' => 'Cecum',
-                '7' => 'Terminal ileum',
+            'FU_Bx' => [ // 조직 채취 부위 (checkbox key => 필드명, value => 1 고정)
+                'FU_Bx_Rectum' => 'Rectum',
+                'FU_Bx_Scolon' => 'S colon',
+                'FU_Bx_Dcolon' => 'D colon',
+                'FU_Bx_Tcolon' => 'T colon',
+                'FU_Bx_Acolon' => 'A colon',
+                'FU_Bx_cecum' => 'Cecum',
+                'FU_Bx_Terminal' => 'Terminal ileum',
             ],
 
             'FU_Bx_rec' => [ // Rectum 병리 결과 - 염증 여부 (내시경)
@@ -650,15 +650,144 @@ return [
         ],
 
         'LAB' => [
+            'FU_lab_CRP_cat' => [
+                '0' => '< 0.1',
+                '1' => '0.1 ~ 0.49',
+                '2' => '0.5 ~',
+                '9' => 'N/A (획득되지 않음)',
+            ],
 
+            'FU_lab_FC_cat' => [
+                '0' => '< 100',
+                '1' => '100 ~ 249',
+                '2' => '>= 250',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'FU_lab_IgG_cat1' => [
+                '0' => '0 ~ 4.9',
+                '1' => '5 ~ 14.9',
+                '2' => '15 ~',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'FU_lab_IgG_cat2' => [
+                '0' => '0 ~ 9.9',
+                '1' => '10 ~',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'FU_lab_IgA_cat1' => [
+                '0' => '0 ~ 4.9',
+                '1' => '5 ~ 14.9',
+                '2' => '15 ~',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'FU_lab_IgA_cat2' => [
+                '0' => '0 ~ 4.9',
+                '1' => '5 ~ 14.9',
+                '2' => '15 ~',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'FU_lab_ANCA' => [
+                '0' => '< 3.5, negative',
+                '1' => '> 5, positive',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'FU_lab_Cdiff_total' => [
+                '0' => 'negative',
+                '1' => 'positive',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'FU_lab_Cdiff_toxinA' => [
+                '0' => 'negative',
+                '1' => 'positive',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'FU_lab_Cdiff_toxinB' => [
+                '0' => 'negative',
+                '1' => 'positive',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'FU_lab_Cdiff_PCR' => [
+                '0' => 'negative',
+                '1' => 'positive',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'FU_bio_cat' => [
+                '1' => 'inflixima',
+                '2' => 'vedolizumab',
+                '3' => 'Ustekinumab',
+                '4' => 'tofacitinib',
+                '5' => 'fiigotinib',
+                '6' => 'Upadacitinib',
+                '7' => 'ozanimod',
+                '8' => 'adalimumab',
+                '9' => 'golimuma',
+                '10' => 'Risankizuma',
+                '11' => 'Vixarelimab',
+                '12' => 'mirikizuma',
+            ],
         ],
 
         'ENDO' => [
+            'FU_endo_sev' => [
+                '0' => 'inactive (remission)',
+                '1' => 'mild',
+                '2' => 'moderate',
+                '3' => 'severe',
+            ],
 
+            'FU_entero_sev' => [
+                '0' => 'inactive (remission)',
+                '1' => 'mild',
+                '2' => 'moderate',
+                '3' => 'severe',
+            ],
         ],
 
         'IMG' => [
+            'FU_img_sev' => [
+                '0' => 'No',
+                '1' => 'mild',
+                '2' => 'moderate',
+                '3' => 'severe',
+            ],
 
+            'FU_inv_seg' => [ // Involved segment (checkbox key => 필드명, value => 1 고정)
+                'FU_inv_seg1' => 'ileum',
+                'FU_inv_seg2' => 'terminal ileum',
+                'FU_inv_seg3' => 'IC valve',
+                'FU_inv_seg4' => 'Cecum',
+                'FU_inv_seg5' => 'A colon',
+                'FU_inv_seg6' => 'T colon',
+                'FU_inv_seg7' => 'D colon',
+                'FU_inv_seg8' => 'S colon',
+                'FU_inv_seg9' => 'Rectum',
+            ],
+
+            'FU_fistula' => [
+                '1' => 'Perianal',
+                '2' => 'Enteroenteric',
+                '3' => 'Enterocolic',
+            ],
+
+            'FU_stricture' => [
+                '0' => 'No',
+                '1' => 'Present',
+            ],
+
+            'FU_abscess' => [
+                '0' => 'No',
+                '1' => 'Present',
+            ],
         ],
     ],
 

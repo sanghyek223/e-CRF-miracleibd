@@ -41,7 +41,7 @@
             <th scope="row">
                 혈액 검체 획득일
             </th>
-            <td colspan="3" class="text-left">
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="form-group date">
                     <x-input.text field="FU_bl_d_y" :data="$register->FU_bl_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
                     <x-input.text field="FU_bl_d_m" :data="$register->FU_bl_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
@@ -98,17 +98,17 @@
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="checkbox-wrap">
-                    @foreach($bxConfig['FU_Bx_l'] as $key => $val)
-                        <x-input.checkbox field="FU_Bx_l" value="{{ $key }}" :text="$val" :data="$register->FU_Bx_l"/>
+                    @foreach($bxConfig['FU_Bx'] as $key => $val)
+                        <x-input.checkbox field="{{ $key }}" value="1" :text="$val" :data="$register->{$key}" class="FU_Bx"/>
                     @endforeach
                 </div>
             </td>
         </tr>
 
-        <tr class="Bx_l_1-tr" style="display: {{ $register->is_Bx_l_1 ? '' : 'none' }}">
+        <tr class="FU_Bx_Rectum-tr" style="display: {{ $register->is_Rectum ? '' : 'none' }}">
             <th colspan="4" scope="col" class="active">Rectum 병리 결과</th>
         </tr>
-        <tr class="Bx_l_1-tr" style="display: {{ $register->is_Bx_l_1 ? '' : 'none' }}">
+        <tr class="FU_Bx_Rectum-tr" style="display: {{ $register->is_Rectum ? '' : 'none' }}">
             <th scope="row">
                 염증 여부 (내시경)
             </th>
@@ -121,7 +121,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_1-tr" style="display: {{ $register->is_Bx_l_1 ? '' : 'none' }}">
+        <tr class="FU_Bx_Rectum-tr" style="display: {{ $register->is_Rectum ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 1
             </th>
@@ -145,7 +145,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_1-tr" style="display: {{ $register->is_Bx_l_1 ? '' : 'none' }}">
+        <tr class="FU_Bx_Rectum-tr" style="display: {{ $register->is_Rectum ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 3
             </th>
@@ -169,10 +169,10 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_2-tr" style="display: {{ $register->is_Bx_l_2 ? '' : 'none' }}">
+        <tr class="FU_Bx_Scolon-tr" style="display: {{ $register->is_Scolon ? '' : 'none' }}">
             <th colspan="4" scope="col" class="active">S colon 병리 결과</th>
         </tr>
-        <tr class="Bx_l_2-tr" style="display: {{ $register->is_Bx_l_2 ? '' : 'none' }}">
+        <tr class="FU_Bx_Scolon-tr" style="display: {{ $register->is_Scolon ? '' : 'none' }}">
             <th scope="row">
                 염증 여부 (내시경)
             </th>
@@ -185,7 +185,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_2-tr" style="display: {{ $register->is_Bx_l_2 ? '' : 'none' }}">
+        <tr class="FU_Bx_Scolon-tr" style="display: {{ $register->is_Scolon ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 1
             </th>
@@ -211,7 +211,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_2-tr" style="display: {{ $register->is_Bx_l_2 ? '' : 'none' }}">
+        <tr class="FU_Bx_Scolon-tr" style="display: {{ $register->is_Scolon ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 3
             </th>
@@ -235,10 +235,10 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_3-tr" style="display: {{ $register->is_Bx_l_3 ? '' : 'none' }}">
+        <tr class="FU_Bx_Dcolon-tr" style="display: {{ $register->is_Dcolon ? '' : 'none' }}">
             <th colspan="4" scope="col" class="active">D colon 병리 결과</th>
         </tr>
-        <tr class="Bx_l_3-tr" style="display: {{ $register->is_Bx_l_3 ? '' : 'none' }}">
+        <tr class="FU_Bx_Dcolon-tr" style="display: {{ $register->is_Dcolon ? '' : 'none' }}">
             <th scope="row">
                 염증 여부 (내시경)
             </th>
@@ -251,7 +251,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_3-tr" style="display: {{ $register->is_Bx_l_3 ? '' : 'none' }}">
+        <tr class="FU_Bx_Dcolon-tr" style="display: {{ $register->is_Dcolon ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 1
             </th>
@@ -275,7 +275,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_3-tr" style="display: {{ $register->is_Bx_l_3 ? '' : 'none' }}">
+        <tr class="FU_Bx_Dcolon-tr" style="display: {{ $register->is_Dcolon ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 3
             </th>
@@ -299,10 +299,10 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_4-tr" style="display: {{ $register->is_Bx_l_4 ? '' : 'none' }}">
+        <tr class="FU_Bx_Tcolon-tr" style="display: {{ $register->is_Tcolon ? '' : 'none' }}">
             <th colspan="4" scope="col" class="active">T colon 병리 결과</th>
         </tr>
-        <tr class="Bx_l_4-tr" style="display: {{ $register->is_Bx_l_4 ? '' : 'none' }}">
+        <tr class="FU_Bx_Tcolon-tr" style="display: {{ $register->is_Tcolon ? '' : 'none' }}">
             <th scope="row">
                 염증 여부 (내시경)
             </th>
@@ -315,7 +315,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_4-tr" style="display: {{ $register->is_Bx_l_4 ? '' : 'none' }}">
+        <tr class="FU_Bx_Tcolon-tr" style="display: {{ $register->is_Tcolon ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 1
             </th>
@@ -339,7 +339,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_4-tr" style="display: {{ $register->is_Bx_l_4 ? '' : 'none' }}">
+        <tr class="FU_Bx_Tcolon-tr" style="display: {{ $register->is_Tcolon ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 3
             </th>
@@ -363,10 +363,10 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_5-tr" style="display: {{ $register->is_Bx_l_5 ? '' : 'none' }}">
+        <tr class="FU_Bx_Acolon-tr" style="display: {{ $register->is_Acolon ? '' : 'none' }}">
             <th colspan="4" scope="col" class="active">A colon 병리 결과</th>
         </tr>
-        <tr class="Bx_l_5-tr" style="display: {{ $register->is_Bx_l_5 ? '' : 'none' }}">
+        <tr class="FU_Bx_Acolon-tr" style="display: {{ $register->is_Acolon ? '' : 'none' }}">
             <th scope="row">
                 염증 여부 (내시경)
             </th>
@@ -379,7 +379,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_5-tr" style="display: {{ $register->is_Bx_l_5 ? '' : 'none' }}">
+        <tr class="FU_Bx_Acolon-tr" style="display: {{ $register->is_Acolon ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 1
             </th>
@@ -403,7 +403,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_5-tr" style="display: {{ $register->is_Bx_l_5 ? '' : 'none' }}">
+        <tr class="FU_Bx_Acolon-tr" style="display: {{ $register->is_Acolon ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 3
             </th>
@@ -427,10 +427,10 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_6-tr" style="display: {{ $register->is_Bx_l_6 ? '' : 'none' }}">
+        <tr class="FU_Bx_cecum-tr" style="display: {{ $register->is_cecum ? '' : 'none' }}">
             <th colspan="4" scope="col" class="active">Cecum 병리 결과</th>
         </tr>
-        <tr class="Bx_l_6-tr" style="display: {{ $register->is_Bx_l_6 ? '' : 'none' }}">
+        <tr class="FU_Bx_cecum-tr" style="display: {{ $register->is_cecum ? '' : 'none' }}">
             <th scope="row">
                 염증 여부 (내시경)
             </th>
@@ -443,7 +443,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_6-tr" style="display: {{ $register->is_Bx_l_6 ? '' : 'none' }}">
+        <tr class="FU_Bx_cecum-tr" style="display: {{ $register->is_cecum ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 1
             </th>
@@ -467,7 +467,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_6-tr" style="display: {{ $register->is_Bx_l_6 ? '' : 'none' }}">
+        <tr class="FU_Bx_cecum-tr" style="display: {{ $register->is_cecum ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 3
             </th>
@@ -491,10 +491,10 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_7-tr" style="display: {{ $register->is_Bx_l_7 ? '' : 'none' }}">
+        <tr class="FU_Bx_Terminal-tr" style="display: {{ $register->is_Terminal ? '' : 'none' }}">
             <th colspan="4" scope="col" class="active">Terminal ileum 병리 결과</th>
         </tr>
-        <tr class="Bx_l_7-tr" style="display: {{ $register->is_Bx_l_7 ? '' : 'none' }}">
+        <tr class="FU_Bx_Terminal-tr" style="display: {{ $register->is_Terminal ? '' : 'none' }}">
             <th scope="row">
                 염증 여부 (내시경)
             </th>
@@ -507,7 +507,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_7-tr" style="display: {{ $register->is_Bx_l_7 ? '' : 'none' }}">
+        <tr class="FU_Bx_Terminal-tr" style="display: {{ $register->is_Terminal ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 1
             </th>
@@ -531,7 +531,7 @@
             </td>
         </tr>
 
-        <tr class="Bx_l_7-tr" style="display: {{ $register->is_Bx_l_7 ? '' : 'none' }}">
+        <tr class="FU_Bx_Terminal-tr" style="display: {{ $register->is_Terminal ? '' : 'none' }}">
             <th scope="row">
                 병리 결과 3
             </th>
@@ -624,10 +624,10 @@
             callMultiAjax(dataUrl, ajaxData);
         }
 
-        $(document).on('change', 'input[name=FU_Bx_l]', function () {
-            const value = $(this).val() || '';
+        $(document).on('change', `${form} .FU_Bx`, function () {
+            const name = $(this).attr('name');
             const checked = $(this).is(':checked');
-            const target = $(`.Bx_l_${value}-tr`);
+            const target = $(`.${name}-tr`);
 
             if (checked) {
                 target.show();
@@ -635,6 +635,8 @@
                 target.hide();
                 target.find('input[type=radio]').prop('checked', false);
             }
+
+            validateEssChk();
         });
     </script>
 @endpush

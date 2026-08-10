@@ -40,18 +40,24 @@ class User extends Authenticatable
         return getConfig('user');
     }
 
-    public function setByData($data)
+    public function setByAdminData($data)
     {
         if (empty($this->sid)) { /* 최초등록 */
-            $this->level = $data['level'];
+            $this->org_code = trim($data['org_code']);
             $this->uid = trim($data['uid']);
-
-            $this->password = $this->passwordChange($data['password']);
+            $this->name_kr = trim($data['name_kr']);
+            $this->passwordChange($this->uid);
         }
 
-        $this->name_kr = trim($data['name_kr']);
         $this->email = trim($data['email']);
-        $this->mobile = $data['mobile'];
+        $this->level = trim($data['level']);
+    }
+
+    public function setByData($data)
+    {
+        $this->email = trim($data['email']);
+        $this->passwordChange($data['new_pwd']);
+        $this->initial_password = null;
     }
 
     public function hospital()

@@ -150,7 +150,7 @@ class OUTServices extends AppServices
 
             $this->dbCommit('ER/Admission 저장');
 
-            $nextRoute = route('register.FU.upsert', ['tab' => 'LIST', 'regist_num' => $patient->regist_num]);
+            $nextRoute = route('register.FU', ['tab' => 'LIST', 'regist_num' => $patient->regist_num]);
             $location = ($request->next)
                 ? $this->ajaxActionLocation('replace', $nextRoute)
                 : $this->ajaxActionLocation('reload');

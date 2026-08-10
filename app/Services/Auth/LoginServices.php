@@ -52,11 +52,11 @@ class LoginServices extends AppServices
 //                ]);
 //            }
 
-//            if ($user->initial_password) {
+//            if (!empty($user->initial_password)) {
 //                return $this->returnJsonData('alert', [
 //                    'case' => true,
-//                    'msg' => errorMsg('initial_password'),
-//                    'location' => $this->ajaxActionLocation('replace', route('password')),
+//                    'msg' => '비밀번호를 변경 하셔야 이용 가능합니다.',
+//                    'location' => $this->ajaxActionLocation('replace', route('mypage.personal')),
 //                ]);
 //            }
 

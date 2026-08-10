@@ -121,7 +121,7 @@ class Fu extends Model
         return $this->hasOne(FuIMG::class, 'FU_sid')->withTrashed();
     }
 
-    public function allData()
+    public function allData($getTarget = [])
     {
         return [
             'BX' => $this->FuBX ?? (new FuBX()),
@@ -129,6 +129,23 @@ class Fu extends Model
             'ENDO' => $this->FuENDO ?? (new FuENDO()),
             'IMG' => $this->FuIMG ?? (new FuIMG()),
         ];
+    }
+
+    public function updateStatusBASE()
+    {
+        $status = 'C';
+        $allBaseData = $this->allData(['BASE']);
+
+        foreach ($allBaseData['BASE'] as $key => $rowData) {
+            if ($rowData->status !== 'C') {
+                $status = 'I';
+                break;
+            }
+        }
+
+        // Baseline 전체 입력 상태값 업데이트
+        $this->status_Base = $status;
+        $this->saveQuietly();
     }
 
     public function getRegStatus($tab)

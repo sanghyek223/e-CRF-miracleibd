@@ -19,9 +19,22 @@ class MypageController extends Controller
         ]);
     }
 
-    public function index(Request $request)
+    public function application(Request $request)
     {
-        return view('mypage.index', $this->mypageServices->indexService($request));
+        view()->share(['sub_key' => 'S1']);
+        return view('mypage.application.index', $this->mypageServices->applicationService($request));
+    }
+
+    public function approval(Request $request)
+    {
+        view()->share(['sub_key' => 'S2']);
+        return view('mypage.approval.index', $this->mypageServices->approvalService($request));
+    }
+
+    public function personal(Request $request)
+    {
+        view()->share(['sub_key' => 'S3']);
+        return view('mypage.personal', $this->mypageServices->personalService($request));
     }
 
     public function data(Request $request)

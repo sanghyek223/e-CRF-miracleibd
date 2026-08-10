@@ -99,9 +99,9 @@ class FUServices extends AppServices
         }
     }
 
-    private function makeNextUrl($tab, $regist_num)
+    private function makeNextUrl($tab, $regist_num, $FU_sid)
     {
-        return route('register.FU.upsert', ['tab' => $tab, 'regist_num' => $regist_num]);
+        return route('register.FU.upsert', ['tab' => $tab, 'regist_num' => $regist_num, 'FU_sid' => $FU_sid]);
     }
 
     private function FuUpsert(Request $request)
@@ -233,11 +233,11 @@ class FUServices extends AppServices
 
             $this->dbCommit('Follow-up 검체 정보 수정');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $this->ajaxActionLocation('reload'),
-            ]);
+            $location = ($request->next)
+                ? $this->ajaxActionLocation('replace', $this->makeNextUrl('LAB', $patient->regist_num, $Fu->sid))
+                : $this->ajaxActionLocation('reload');
+
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }
@@ -260,11 +260,11 @@ class FUServices extends AppServices
 
             $this->dbCommit('Follow-up 검체 획득 시점 Lab 수정');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $this->ajaxActionLocation('reload'),
-            ]);
+            $location = ($request->next)
+                ? $this->ajaxActionLocation('replace', $this->makeNextUrl('ENDO', $patient->regist_num, $Fu->sid))
+                : $this->ajaxActionLocation('reload');
+
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }
@@ -287,11 +287,11 @@ class FUServices extends AppServices
 
             $this->dbCommit('Follow-up  검체 획득 시점 검사  수정');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $this->ajaxActionLocation('reload'),
-            ]);
+            $location = ($request->next)
+                ? $this->ajaxActionLocation('replace', $this->makeNextUrl('IMG', $patient->regist_num, $Fu->sid))
+                : $this->ajaxActionLocation('reload');
+
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }
@@ -314,11 +314,12 @@ class FUServices extends AppServices
 
             $this->dbCommit('Follow-up  검체 획득 시점 영상  수정');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '수정 되었습니다',
-                'location' => $this->ajaxActionLocation('reload'),
-            ]);
+            $nextRoute = route('register.END.upsert', ['tab' => 'ENDO', 'regist_num' => $patient->regist_num]);
+            $location = ($request->next)
+                ? $this->ajaxActionLocation('replace', $nextRoute)
+                : $this->ajaxActionLocation('reload');
+
+            return $this->returnJsonData('location', $location);
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }

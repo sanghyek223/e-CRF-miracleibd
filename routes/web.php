@@ -21,7 +21,7 @@ Route::middleware('auth.check')->group(function () {
             'patientConfig' => config('site.patient'),
             'registerConfig' => config('site.register'),
         ]);
-
+        
         // 전체 대상자 리스트
         Route::controller(\App\Http\Controllers\Register\RegisterController::class)->group(function () {
             Route::get('/', 'index')->name('register');
@@ -71,9 +71,17 @@ Route::middleware('auth.check')->group(function () {
         });
     });
 
+    // 데이터 열람/신청
+    Route::controller(\App\Http\Controllers\Data\DataController::class)->prefix('data')->group(function () {
+        Route::get('/', 'index')->name('data');
+        Route::post('data', 'data')->name('data.data');
+    });
+
     // mypage
     Route::controller(\App\Http\Controllers\Mypage\MypageController::class)->prefix('mypage')->group(function () {
-        Route::get('/', 'index')->name('mypage');
+        Route::get('application', 'application')->name('mypage.application');
+        Route::get('approval', 'approval')->name('mypage.approval');
+        Route::get('personal', 'personal')->name('mypage.personal');
         Route::post('data', 'data')->name('mypage.data');
     });
 });

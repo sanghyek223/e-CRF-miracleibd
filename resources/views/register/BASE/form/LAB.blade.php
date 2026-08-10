@@ -29,7 +29,7 @@
                 <x-input.text field="b_lab_WBC" :data="$register->b_lab_WBC" :disabled="$register->is_WBC_na" class="form-item small text-center chk-active"/> x10³/mm³
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_WBC_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_WBC_na" :active="$register->is_WBC_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_WBC_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_WBC_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 
@@ -38,7 +38,7 @@
                 <x-input.text field="b_lab_Hb" :data="$register->b_lab_Hb" :disabled="$register->is_Hb_na" class="form-item small text-center chk-active"/> x10³/mm³
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_Hb_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_Hb_na" :active="$register->is_Hb_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_Hb_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_Hb_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -49,7 +49,7 @@
                 <x-input.text field="b_lab_ESR" :data="$register->b_lab_ESR" :disabled="$register->is_ESR_na" class="form-item small text-center chk-active"/> mm/hr
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_ESR_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_ESR_na" :active="$register->is_ESR_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_ESR_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_ESR_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 
@@ -58,7 +58,7 @@
                 <x-input.text field="b_lab_Alb" :data="$register->b_lab_Alb" :disabled="$register->is_Alb_na" class="form-item small text-center chk-active"/> g/dL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_Alb_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_Alb_na" :active="$register->is_Alb_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_Alb_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_Alb_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -69,7 +69,7 @@
                 <x-input.text field="b_lab_CRP" :data="$register->b_lab_CRP" :disabled="$register->is_CRP_na" class="form-item small text-center chk-active"/> mg/dL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_CRP_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_CRP_na" :active="$register->is_CRP_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_CRP_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_CRP_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 
@@ -78,7 +78,7 @@
                 <x-input.text field="b_lab_FC" :data="$register->b_lab_FC" :disabled="$register->is_FC_na" class="form-item small text-center chk-active"/> μg/g
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_FC_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_FC_na" :active="$register->is_FC_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_FC_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_FC_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -98,7 +98,7 @@
                 <x-input.text field="b_lab_IgG_QN" :data="$register->b_lab_IgG_QN" :disabled="$register->is_IgG_QN_na" class="form-item small text-center chk-active"/> Units
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_IgG_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_IgG_QN_na" :active="$register->is_IgG_QN_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_IgG_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_IgG_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -118,7 +118,7 @@
                 <x-input.text field="b_lab_IgA_QN" :data="$register->b_lab_IgA_QN" :disabled="$register->is_IgA_QN_na" class="form-item small text-center chk-active"/> Units
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_IgA_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_IgA_QN_na" :active="$register->is_IgA_QN_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_IgA_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_IgA_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -177,7 +177,7 @@
                 <x-input.text field="b_lab_ANCA_QN" :data="$register->b_lab_ANCA_QN" :disabled="$register->is_ANCA_QN_na" class="form-item small text-center chk-active"/> Units
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_ANCA_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_ANCA_QN_na" :active="$register->is_ANCA_QN_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_ANCA_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_ANCA_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -188,7 +188,7 @@
                 <x-input.text field="b_lab_VitD" :data="$register->b_lab_VitD" :disabled="$register->is_VitD_na" class="form-item small text-center chk-active"/> ng/mL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_VitD_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_VitD_na" :active="$register->is_VitD_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_VitD_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_VitD_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 
@@ -197,7 +197,7 @@
                 <x-input.text field="b_lab_folate" :data="$register->b_lab_folate" :disabled="$register->is_folate_na" class="form-item small text-center chk-active"/> ng/mL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_folate_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_folate_na" :active="$register->is_folate_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_folate_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_folate_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -208,7 +208,7 @@
                 <x-input.text field="b_lab_B12" :data="$register->b_lab_B12" :disabled="$register->is_B12_na" class="form-item small text-center chk-active"/> pg/mL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="b_lab_B12_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_B12_na" :active="$register->is_B12_na" class="target-active ESS-CHK-NONE"/>
+                    <x-input.radio field="b_lab_B12_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_B12_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 

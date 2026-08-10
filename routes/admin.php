@@ -24,7 +24,7 @@ Route::controller(\App\Http\Controllers\Admin\Log\LogController::class)->prefix(
 // 회원관리
 Route::controller(\App\Http\Controllers\Admin\Member\MemberController::class)->prefix('member')->group(function () {
     Route::get('/', 'index')->name('member');
-    Route::get('upsert/{sid}', 'upsert')->name('member.upsert');
+    Route::get('upsert/{sid?}', 'upsert')->name('member.upsert');
     Route::post('data', 'data')->name('member.data');
 });
 

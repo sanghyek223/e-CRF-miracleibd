@@ -25,9 +25,9 @@ return [
 
         'M3' => [
             'name' => '데이터 열람 / 신청',
-            'route' => null,
+            'route' => 'data',
             'param' => [],
-            'url' => 'javascript:void(0)',
+            'url' => null,
             'blank' => false,
             'dev' => false,
             'continue' => false,
@@ -35,9 +35,9 @@ return [
 
         'MYPAGE' => [
             'name' => '마이페이지',
-            'route' => null,
+            'route' => 'mypage.application',
             'param' => [],
-            'url' => 'javascript:void(0)',
+            'url' => null,
             'blank' => false,
             'dev' => false,
             'continue' => false,
@@ -45,6 +45,36 @@ return [
     ],
 
     'sub' => [
+        'MYPAGE' => [
+            'S1' => [
+                'name' => '신청 내역',
+                'route' => 'mypage.application',
+                'param' => [],
+                'url' => null,
+                'blank' => false,
+                'dev' => false,
+                'continue' => false,
+            ],
 
+            'S2' => [
+                'name' => '승인 내역',
+                'route' => 'mypage.approval',
+                'param' => [],
+                'url' => null,
+                'blank' => false,
+                'dev' => false,
+                'continue' => false,
+            ],
+
+            'S3' => [
+                'name' => '회원 정보',
+                'route' => 'mypage.personal',
+                'param' => [],
+                'url' => null,
+                'blank' => false,
+                'dev' => false,
+                'continue' => false,
+            ],
+        ],
     ],
 ];
