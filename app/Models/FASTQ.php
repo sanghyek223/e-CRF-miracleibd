@@ -67,13 +67,13 @@ class FASTQ extends Model
         $fastqConfig = $this->fastqConfig();
         $uploadConfig = $fastqConfig['UPLOAD'];
 
-        foreach($uploadConfig['file'] as $key => $val) {
+        foreach ($uploadConfig['file'] as $key => $val) {
             $file = $data->file($key) ?? null; // 첨부파일
             $fileDel = $data->{$key . '_del'} ?? ''; // 파일삭제
 
-            $fileSize = ($key . '_size'); // 파일 사이즈
-            $uploadName = ($key . '_name'); // 업로드 파일명
-            $originName = ($key . '_name_real'); // 원본 파일명
+            $fileSize = $uploadConfig['file'][$key]['file_size']; // 파일 사이즈
+            $originName = $uploadConfig['file'][$key]['origin_name']; // 원본 파일명
+            $uploadName = $uploadConfig['file'][$key]['upload_name']; // 업로드 파일명
 
             // 파일 삭제이면서 기존 첨부파일 있을경우 경로에 있는 실제 파일 삭제
             if (($fileDel == 'Y') && !is_null($this->{$uploadName})) {
@@ -98,8 +98,15 @@ class FASTQ extends Model
             }
         }
 
+        $file1 = $this->FASTQ_f1_name_real;
+        $file2 = $this->FASTQ_f2_name_real;
+
         // 입력상태
-        $this->status = empty($data['status']) ? 'I' : 'C';
+        $this->status = match (true) {
+            empty($file1) && empty($file2) => 'N',
+            empty($file1) || empty($file2) => 'I',
+            default => 'C',
+        };
     }
 
     public function additionalData() // 노출 정보 추가 가공
@@ -127,9 +134,46 @@ class FASTQ extends Model
     {
         $fastqConfig = $this->fastqConfig();
         $uploadConfig = $fastqConfig['UPLOAD'];
-        $uploadFIleName = $this->{$field . '_name'};
+        $uploadName = $this->{$uploadConfig['file'][$field]['upload_name']};
 
-        return "/storage/uploads/{$uploadConfig['directory']}/$uploadFIleName";
+        return "/storage/uploads/{$uploadConfig['directory']}/$uploadName";
+    }
+
+    public function scopeHasFile($query)
+    {
+        return $query->where(function ($sub) {
+            $sub->whereNotNull('FASTQ_f1_name_real')->where('FASTQ_f1_name_real', '!=', '');
+        })->orWhere(function ($sub) {
+            $sub->whereNotNull('FASTQ_f2_name_real')->where('FASTQ_f2_name_real', '!=', '');
+        });
+    }
+
+    public function getFileNameAll()
+    {
+        $fastqConfig = $this->fastqConfig();
+        $uploadConfig = $fastqConfig['UPLOAD'];
+
+        foreach ($uploadConfig['file'] as $key => $val) {
+            if (!empty($this->{$val['upload_name']})) {
+                $file_names[] = $this->{$val['upload_name']};
+            }
+        }
+
+        return $file_names ?? [];
+    }
+
+    public function getFileSizeAll()
+    {
+        $fastqConfig = $this->fastqConfig();
+        $uploadConfig = $fastqConfig['UPLOAD'];
+
+        $file_size = 0;
+
+        foreach ($uploadConfig['file'] as $key => $val) {
+            $file_size += (int)$this->{$val['file_size']} ?? 0;
+        }
+
+        return $file_size;
     }
 
     public function downloadUrl($fileName) // 첨부 파일 다운로드

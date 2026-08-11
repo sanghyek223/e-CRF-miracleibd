@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+
+class Application extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $primaryKey = 'sid';
+
+    protected $guarded = [];
+
+    protected $casts = [
+        'fastq_file' => 'array',
+        'search_params' => 'array',
+
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
+
+    protected ?array $dataConfig = null;
+
+    protected static function booted()
+    {
+        parent::boot();
+
+        static::creating(function ($application) {
+            $user = thisUser();
+
+            $application->u_sid = $user->sid;
+            $application->org_code = $user->org_code;
+        });
+    }
+
+    private function dataConfig()
+    {
+        if (is_null($this->dataConfig)) {
+            $this->dataConfig = config("site.data");
+        }
+
+        return $this->dataConfig;
+    }
+
+    public function setByData($data)
+    {
+        $dataConfig = $this->dataConfig();
+
+        // 데이터 다운로드 희망 날짜
+        $download_d = "{$data['download_d_y']}-{$data['download_d_m']}-{$data['download_d_d']}";
+        $download_d_replace = str_replace('-', '', $download_d);
+
+        if (empty($download_d_replace)) {
+            $download_d = '';
+        }
+
+        $this->application_org_code = $data['application_org_code'];
+
+        $this->applicant = $data['applicant'];
+        $this->reason = $data['reason'];
+
+        $this->download_d_s = $download_d;
+        $this->download_d_e = Carbon::parse($download_d)->addDays(7)->format('Y-m-d'); // 다운로드 기간 종료일 => 다운로드 시작일 +7일
+
+        $this->data_scope = $data['data_scope'];
+        
+        // IBD Type 분류별 정의
+        $is_data_scope_file = in_array($this->data_scope, $dataConfig['data_scope_file']);
+        $is_data_scope_row = in_array($this->data_scope, $dataConfig['data_scope_row']);
+
+        // FASTQ 파일 선택
+        $this->fastq_file = $is_data_scope_file ? $data['fastq_file'] : null;
+
+        // Raw data 선택
+        foreach ($dataConfig['backup1_field'] as $key => $val) {
+
+            if (empty($val['sub'])) {
+                $this->{$key} = $is_data_scope_row ? $data[$key] : 'N';
+            } else {
+
+                foreach ($val['sub'] as $sub_key => $sub_val) {
+                    $this->{$sub_key} = $is_data_scope_row ? $data[$sub_key] : 'N';
+                }
+            }
+        }
+
+        foreach ($dataConfig['backup2_field'] as $key => $val) {
+
+            if (empty($val['sub'])) {
+                $this->{$key} = $is_data_scope_row ? $data[$key] : 'N';
+            } else {
+
+                foreach ($val['sub'] as $sub_key => $sub_val) {
+                    $this->{$sub_key} = $is_data_scope_row ? $data[$sub_key] : 'N';
+                }
+            }
+        }
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'u_sid')->withTrashed();
+    }
+
+    public function hospital()
+    {
+        return $this->belongsTo(Hospital::class, 'org_code', 'org_code');
+    }
+
+    public function approvals() // 타 기관 데이터 신청 내역 승인 정보
+    {
+        return $this->hasMany(Approval::class, 'a_sid');
+    }
+
+    public function getConfirm()
+    {
+        return $this->dataConfig()['confirm'][$this->confirm ?? ''] ?? '';
+    }
+}

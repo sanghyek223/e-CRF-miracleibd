@@ -39,15 +39,18 @@ class Fu extends Model
                 ]);
             }
 
+            $Fu->updateFuStatus();
         });
 
         // 삭제시
-        static::deleting(function ($Fu) {
+        static::deleted(function ($Fu) {
 
             // 연관 데이터 전체 삭제
             foreach ($Fu->allData() as $tab => $model) {
                 $model->delete();
             }
+
+            $Fu->updateFuStatus();
         });
     }
 
@@ -122,14 +125,14 @@ class Fu extends Model
         ];
     }
 
-    public function updateFuStatus($patient)
+    public function updateFuStatus()
     {
+        $status = 'N';
+        $patient = $this->patient;
+
         $list_count = $patient->FuLIST()->count();
 
-        if ($list_count === 0) {
-            $this->status_FU = 'N';
-        } else {
-
+        if ($list_count !== 0) {
             $complete_count = $patient->FuLIST()
                 ->Where('status_FU_Bx', 'C')
                 ->Where('status_FU_lab', 'C')
@@ -137,11 +140,12 @@ class Fu extends Model
                 ->Where('status_FU_img', 'C')
                 ->count();
 
-            $this->status_FU = ($list_count === $complete_count) ? 'C' : 'I';
+            $status = ($list_count === $complete_count) ? 'C' : 'I';
         }
 
         // Follow-up 전체 입력 상태값 업데이트
-        $this->saveQuietly();
+        $patient->status_FU = $status;
+        $patient->saveQuietly();
     }
 
     public function getRegStatus($tab)

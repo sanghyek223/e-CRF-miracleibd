@@ -52,7 +52,7 @@ class FuBX extends Model
                 ]);
             }
 
-            $Fu->updateFuStatus($Fu->patient);
+            $Fu->updateFuStatus();
         });
     }
 

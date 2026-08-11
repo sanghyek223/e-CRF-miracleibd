@@ -45,7 +45,7 @@ class FuIMG extends Model
                 'status_FU_img' => $FuIMG->status,
             ]);
 
-            $Fu->updateFuStatus($Fu->patient);
+            $Fu->updateFuStatus();
         });
     }
 

@@ -75,6 +75,16 @@ class User extends Authenticatable
         return $this->hasMany(Patient::class, 'reg_id', 'uid');
     }
 
+    public function applications() // 타 기관 데이터 신청 정보
+    {
+        return $this->hasMany(Application::class, 'reg_id', 'uid');
+    }
+
+    public function approvals() // 타 기관 데이터 신청 내역 승인 정보 (나에게 신청한정보)
+    {
+        return $this->hasMany(Approval::class, 'org_code', 'org_code');
+    }
+
     public function passwordHash($password)
     {
         return Hash::check(trim($password), $this->password);

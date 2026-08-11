@@ -20,17 +20,17 @@
         <tbody>
         @foreach($uploadConfig['file'] as $key => $val)
             <tr>
-                <th scope="row">{{ $val }}</th>
+                <th scope="row">{{ $val['name'] }}</th>
                 <td colspan="3" class="text-left">
                     <div class="filebox">
                         <x-input.text field="{{ $key }}_name" class="upload-name form-item" placeholder="선택된 파일 없음" readonly/>
                         <label for="{{ $key }}" class="">파일 선택</label>
                         <x-input.file field="{{ $key }}" class="file-upload" accept=".jpg, .jpeg, .png, .gif"/>
 
-                        @if (!empty($register->{$key . "_name"}))
+                        @if (!empty($register->{$val['upload_name']}))
                             <div class="attach-file">
                                 <a href="{{ $register->downloadUrl($key) }}" class="link">
-                                    {{ $register->{$key . "_name_real"} }}
+                                    {{ $register->{$val['origin_name']} }}
                                 </a>
 
                                 <a href="javascript:void(0);" class="btn-file-delete text-red">X</a>

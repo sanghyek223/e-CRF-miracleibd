@@ -2,7 +2,8 @@
 
 namespace App\Services\Mypage;
 
-use App\Models\User;
+use App\Models\Approval;
+use App\Models\Application;
 use App\Services\AppServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +22,12 @@ class MypageServices extends AppServices
 
     public function approvalService(Request $request)
     {
+        $user = thisUser();
+        $approvals = $user->approvals;
+
+        $this->data['user'] = $user;
+        $this->data['approvals'] = $approvals;
+
         return $this->data;
     }
 

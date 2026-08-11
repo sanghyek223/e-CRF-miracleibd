@@ -851,8 +851,19 @@ return [
             'directory' => "/FASTQ", // 업로드 경로
 
             'file' => [
-                'FASTQ_f1' => 'FASTQ 파일 업로드 (1)',
-                'FASTQ_f2' => 'FASTQ 파일 업로드 (2)',
+                'FASTQ_f1' => [
+                    'name' =>'FASTQ 파일 업로드 (1)',
+                    'file_size' => 'FASTQ_f1_size',
+                    'origin_name' => 'FASTQ_f1_name',
+                    'upload_name' => 'FASTQ_f1_name_real',
+                ],
+
+                'FASTQ_f2' => [
+                    'name' =>'FASTQ 파일 업로드 (2)',
+                    'file_size' => 'FASTQ_f2_size',
+                    'origin_name' => 'FASTQ_f2_name',
+                    'upload_name' => 'FASTQ_f2_name_real',
+                ],
             ],
         ],
     ],

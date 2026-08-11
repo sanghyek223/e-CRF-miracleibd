@@ -70,59 +70,18 @@ if (!function_exists('isAdmin')) {
     }
 }
 
-// D-day
-if (!function_exists('DDay')) {
-    function DDay($date) // $date => Y-m-d 형태
+if (!function_exists('formatBytes')) {
+    function formatBytes($bytes, $precision = 2)
     {
-        $currentDate = \Carbon\Carbon::now();
-
-        // 같을때
-        if (\Carbon\Carbon::parse($date)->isSameDay($currentDate)) {
-            return "D-day";
+        if ($bytes <= 0) {
+            return '0 B';
         }
 
-        // 이전 날짜
-        if (\Carbon\Carbon::parse($date)->isBefore($currentDate)) {
-            return 'END';
-        }
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
-        $date = explode('-', $date);
-        $targetDate = \Carbon\Carbon::create($date[0], $date[1], $date[2]);
+        $i = floor(log($bytes, 1024));
 
-        $daysUntilTarget = $currentDate->diffInDays($targetDate) + 1;
-
-        if ($daysUntilTarget > 0) {
-            return "D-" . $daysUntilTarget;
-        }
-    }
-}
-
-// wiseu connection
-if (!function_exists('wiseuConnection')) {
-    function wiseuConnection()
-    {
-        $host = env('DB_HOST_WISEU');
-        $port = env('DB_PORT_WISEU', '1433');
-        $dbname = env('DB_DATABASE_WISEU');
-        $username = env('DB_USERNAME_WISEU');
-        $password = env('DB_PASSWORD_WISEU');
-
-        try {
-            $conn = new \PDO(
-                "dblib:host={$host}:{$port};dbname={$dbname};TrustServerCertificate=True",
-                $username,
-                $password,
-                [
-                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                    \PDO::SQLSRV_ATTR_ENCODING => \PDO::SQLSRV_ENCODING_UTF8
-                ]
-            );
-
-            return $conn;
-        } catch (\PDOException $e) {
-            // Log or handle the connection error
-            throw $e;
-        }
+        return round($bytes / pow(1024, $i), $precision) . ' ' . $units[$i];
     }
 }
 

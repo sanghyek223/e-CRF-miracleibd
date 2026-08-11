@@ -90,7 +90,10 @@ class CommonServices extends AppServices
                 $field = $request->field;
                 $FASTQ = FASTQ::findOrFail($sid);
 
-                $this->data = ['realfile' => $FASTQ->getUploadPath($field), 'filename' => $FASTQ->{$field . '_name_real'}];
+                $uploadConfig = config('site.register.FASTQ.UPLOAD');
+                $originName = $uploadConfig['file'][$field]['origin_name']; // 원본 파일명
+            
+                $this->data = ['realfile' => $FASTQ->getUploadPath($field), 'filename' => $FASTQ->{$originName}];
                 break;
 
             default:

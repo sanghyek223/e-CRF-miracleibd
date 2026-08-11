@@ -45,7 +45,7 @@ class FuLAB extends Model
                 'status_FU_lab' => $FuLAB->status,
             ]);
 
-            $Fu->updateFuStatus($Fu->patient);
+            $Fu->updateFuStatus();
         });
     }
 
