@@ -65,7 +65,7 @@ class User extends Authenticatable
         return $this->belongsTo(Hospital::class, 'org_code', 'org_code');
     }
 
-    public function patients() // 같은 병원에 속환 환자들
+    public function patients() // 같은 기관에 속환 환자들
     {
         return $this->hasMany(Patient::class, 'org_code', 'org_code');
     }
@@ -75,14 +75,19 @@ class User extends Authenticatable
         return $this->hasMany(Patient::class, 'reg_id', 'uid');
     }
 
-    public function applications() // 타 기관 데이터 신청 정보
+    public function approvals() // 다른 기관에서 데이터 열람 요청 정보
     {
-        return $this->hasMany(Application::class, 'reg_id', 'uid');
+        return $this->hasMany(Application::class, 'org_code', 'application_org_code');
     }
 
-    public function approvals() // 타 기관 데이터 신청 내역 승인 정보 (나에게 신청한정보)
+    public function applications() // 같은 기관에서 요청한 타 기관 데이터 요청 정보
     {
-        return $this->hasMany(Approval::class, 'org_code', 'org_code');
+        return $this->hasMany(Application::class, 'org_code', 'org_code');
+    }
+
+    public function myApplications() // 내가 요청한 타 기관 데이터 요청 정보
+    {
+        return $this->hasMany(Application::class, 'u_sid');
     }
 
     public function passwordHash($password)

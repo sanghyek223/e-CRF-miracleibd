@@ -50,6 +50,7 @@ class Application extends Model
     public function setByData($data)
     {
         $dataConfig = $this->dataConfig();
+        $search_params = json_decode($data->search_params, true);
 
         // 데이터 다운로드 희망 날짜
         $download_d = "{$data['download_d_y']}-{$data['download_d_m']}-{$data['download_d_d']}";
@@ -59,7 +60,7 @@ class Application extends Model
             $download_d = '';
         }
 
-        $this->application_org_code = $data['application_org_code'];
+        $this->application_org_code = $search_params['application_org_code'];
 
         $this->applicant = $data['applicant'];
         $this->reason = $data['reason'];
@@ -100,21 +101,23 @@ class Application extends Model
                 }
             }
         }
+
+        $this->search_params = $search_params;
     }
 
-    public function user()
+    public function user() // 신청자
     {
         return $this->belongsTo(User::class, 'u_sid')->withTrashed();
     }
 
-    public function hospital()
+    public function hospital() // 신청 기관
     {
         return $this->belongsTo(Hospital::class, 'org_code', 'org_code');
     }
 
-    public function approvals() // 타 기관 데이터 신청 내역 승인 정보
+    public function applicationHospital() // 데이터 요청 기관
     {
-        return $this->hasMany(Approval::class, 'a_sid');
+        return $this->belongsTo(Hospital::class, 'application_org_code', 'org_code');
     }
 
     public function getConfirm()

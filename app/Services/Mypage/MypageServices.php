@@ -2,7 +2,6 @@
 
 namespace App\Services\Mypage;
 
-use App\Models\Approval;
 use App\Models\Application;
 use App\Services\AppServices;
 use Illuminate\Http\Request;
@@ -17,6 +16,13 @@ class MypageServices extends AppServices
 {
     public function applicationService(Request $request)
     {
+        $user = thisUser();
+        $applications = $user->applications;
+        $confirm_counts = $applications->groupBy('confirm')->map->count();
+
+        $this->data['applications'] = $applications;
+        $this->data['confirm_counts'] = $confirm_counts;
+
         return $this->data;
     }
 

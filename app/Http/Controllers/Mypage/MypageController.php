@@ -14,8 +14,13 @@ class MypageController extends Controller
         $this->mypageServices = (new \App\Services\Mypage\MypageServices());
 
         view()->share([
-            'userConfig' => getConfig('user'),
             'main_key' => 'MYPAGE',
+            
+            'userConfig' => getConfig('user'),
+
+            'dataConfig' => config('site.data'),
+            'patientConfig' => config('site.patient'),
+            'registerConfig' => config('site.register'),
         ]);
     }
 

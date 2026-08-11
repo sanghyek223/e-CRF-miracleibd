@@ -161,7 +161,7 @@
                                     <tr>
                                         <td>
                                             <div class="checkbox-wrap text-center">
-                                                <x-input.checkbox id="fastq_file{{ $loop->iteration }}" field="fastq_file" :value="$row->sid" class="fastq-chk"/>
+                                                <x-input.checkbox3 id="fastq_file{{ $loop->iteration }}" field="fastq_file" :value="$row->sid" class="fastq-chk"/>
                                             </div>
                                         </td>
                                         <td>{{ $row->regist_num }}</td>
