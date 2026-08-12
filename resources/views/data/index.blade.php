@@ -25,9 +25,7 @@
 
                                 <tbody>
                                 <tr>
-                                    <th scope="row">
-                                        기관
-                                    </th>
+                                    <th scope="row">기관</th>
                                     <td colspan="3" class="text-left">
                                         <div class="checkbox-wrap">
                                             @foreach($hospitals as $row)
@@ -38,9 +36,7 @@
                                 </tr>
 
                                 <tr>
-                                    <th scope="row">
-                                        등록 날짜
-                                    </th>
+                                    <th scope="row">등록 날짜</th>
                                     <td colspan="3" class="text-left">
                                         <div class="form-group date">
                                             <x-input.text field="created_at_s" :data="request()->input('created_at_s', '')" class="form-item line short text-center"/>
@@ -55,9 +51,7 @@
                                 </tr>
 
                                 <tr>
-                                    <th scope="row">
-                                        성별
-                                    </th>
+                                    <th scope="row">성별</th>
                                     <td colspan="3" class="text-left">
                                         <div class="checkbox-wrap">
                                             @foreach($patientConfig['sex'] as $key => $val)
@@ -68,9 +62,7 @@
                                 </tr>
 
                                 <tr>
-                                    <th scope="row">
-                                        진단시 나이
-                                    </th>
+                                    <th scope="row">진단시 나이</th>
                                     <td colspan="3" class="text-left">
                                         <div class="form-group date">
                                             만 <x-input.text field="IBD_age_s" :data="request()->input('IBD_age_s', '')" class="form-item line small text-center"/> 세
@@ -81,9 +73,7 @@
                                 </tr>
 
                                 <tr>
-                                    <th scope="row">
-                                        IBD Type
-                                    </th>
+                                    <th scope="row">IBD Type</th>
                                     <td colspan="3" class="text-left">
                                         <div class="checkbox-wrap">
                                             @foreach($registerConfig['BASE']['DX']['IBD_type'] as $key => $val)
@@ -149,6 +139,7 @@
                         <div class="table-wrap">
                             @include('data.include.backup1-tbl')
                         </div>
+
                         <div class="btn-wrap text-center mt-20">
                             <a href="javascript:void(0);" class="btn btn-type1 color-type4">Excel 다운로드</a>
                         </div>
@@ -156,13 +147,26 @@
                         <div class="table-wrap mt-80">
                             @include('data.include.backup2-tbl')
                         </div>
+
                         <div class="btn-wrap text-center mt-20 mb-80">
                             <a href="javascript:void(0);" class="btn btn-type1 color-type4">Excel 다운로드</a>
                         </div>
                     </fieldset>
                 </form>
-                
-                @include('data.include.download-frm')
+
+                <form id="download-frm">
+                    <fieldset>
+                        <legend class="hide">데이터 열람 / 신청</legend>
+
+                        @include('data.include.download-tbl', ['patientsFASTQ' => $myPatientsFASTQ])
+
+                        <div class="btn-wrap text-center">
+                            <button type="submit" class="btn btn-type1 btn-line color-type2">선택 다운로드</button>
+                            <button type="submit" class="btn btn-type1 color-type2">전체 다운로드</button>
+                            <button type="submit" class="btn btn-type1 color-type6">다운로드 취소</button>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>
@@ -172,7 +176,6 @@
     <script>
         const dataUrl = @json(route('data.data'));
         const schForm = '#sch-frm';
-        const backupForm = '#backup-frm';
         const applicationForm = '#application-frm';
 
         /* 타기관 데이터 신청 */
@@ -207,93 +210,7 @@
                 })
             );
         });
-
-        /* 백업 */
-        // Backup1 ALL DATA
-        const backup1AllCheck = () => {
-            const target = $('#backup1-tbl').find('#backup1_all');
-            const allLength = $('#backup1-tbl').find('input[type=checkbox]').not('#backup1_all').length;
-            const checkedLength = $('#backup1-tbl').find('input[type=checkbox]:checked').not('#backup1_all').length;
-
-            target.prop('checked', (allLength === checkedLength));
-        }
-
-        $(document).on('change', `${backupForm} #backup1_all`, function () {
-            const checked = $(this).is(':checked');
-            const target = $('#backup1-tbl').find('input[type=checkbox]').not('#backup1_all');
-
-            target.prop('checked', checked);
-        });
-
-        // Baseline
-        $(document).on('change', `${backupForm} #backup1-tbl #backup1_BASE`, function () {
-            const checked = $(this).is(':checked');
-            const target = $('#backup1-tbl').find('.backup1-BASE');
-
-            target.prop('checked', checked);
-            backup1AllCheck();
-        });
-
-        $(document).on('change', `${backupForm} #backup1-tbl .backup1-BASE`, function () {
-            const target = $('#backup1-tbl').find('#backup1_BASE');
-            const allLength = $('#backup1-tbl').find('.backup1-BASE').length;
-            const checkedLength = $('#backup1-tbl').find('.backup1-BASE:checked').length;
-
-            target.prop('checked', (allLength === checkedLength));
-            backup1AllCheck();
-        });
-
-        // End of Study (Last F/U)
-        $(document).on('change', `${backupForm} #backup1-tbl #backup1_END`, function () {
-            const checked = $(this).is(':checked');
-            const target = $('#backup1-tbl').find('.backup1-END');
-
-            target.prop('checked', checked);
-            backup1AllCheck();
-        });
-
-        $(document).on('change', `${backupForm} #backup1-tbl .backup1-END`, function () {
-            const target = $('#backup1-tbl').find('#backup1_END');
-            const allLength = $('#backup1-tbl').find('.backup1-END').length;
-            const checkedLength = $('#backup1-tbl').find('.backup1-END:checked').length;
-
-            target.prop('checked', (allLength === checkedLength));
-            backup1AllCheck();
-        });
-
-        // Backup2 ALL DATA
-        const backup2AllCheck = () => {
-            const target = $('#backup2-tbl').find('#backup2_all');
-            const allLength = $('#backup2-tbl').find('input[type=checkbox]').not('#backup2_all').length;
-            const checkedLength = $('#backup2-tbl').find('input[type=checkbox]:checked').not('#backup2_all').length;
-
-            target.prop('checked', (allLength === checkedLength));
-        }
-
-        $(document).on('change', `${backupForm} #backup2_all`, function () {
-            const checked = $(this).is(':checked');
-            const target = $('#backup2-tbl').find('input[type=checkbox]').not('#backup2_all');
-
-            target.prop('checked', checked);
-        });
-
-        // Follow-up
-        $(document).on('change', `${backupForm} #backup2-tbl #backup2_FU`, function () {
-            const checked = $(this).is(':checked');
-            const target = $('#backup2-tbl').find('.backup2-FU');
-
-            target.prop('checked', checked);
-            backup2AllCheck();
-        });
-
-        $(document).on('change', `${backupForm} #backup2-tbl .backup2-FU`, function () {
-            const target = $('#backup2-tbl').find('#backup2_FU');
-            const allLength = $('#backup2-tbl').find('.backup2-FU').length;
-            const checkedLength = $('#backup2-tbl').find('.backup2-FU:checked').length;
-
-            target.prop('checked', (allLength === checkedLength));
-            backup2AllCheck();
-        });
     </script>
-    @stack('download-script')
+    @include('data.include.backup-tbl-script')
+    @include('data.include.download-tbl-script')
 @endsection

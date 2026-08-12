@@ -1,4 +1,4 @@
-<table class="cst-table" id="backup1-tbl">
+<table class="cst-table {{ $addClass ?? '' }}" id="backup1-tbl">
     <caption class="hide">백업</caption>
     <colgroup>
         <col style="width: 15%;">

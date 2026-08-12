@@ -28,7 +28,7 @@ class DataController extends Controller
 
     public function application(Request $request)
     {
-        return view('data.application.index', $this->dataServices->applicationService($request));
+        return view('data.application', $this->dataServices->applicationService($request));
     }
 
     public function data(Request $request)

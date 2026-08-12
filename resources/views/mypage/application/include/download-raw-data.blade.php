@@ -1,0 +1,27 @@
+<div class="subcon-tab-conbox"  id="raw-data-conbox" @if($data_scope_type['data_scope_file']) style="display: none;" @endif>
+    <div class="table-wrap">
+        @include('data.include.backup1-tbl', [
+            'backup1_count' => $patients_count,
+            'addClass' => 'type-regist mypage-tbl'
+        ])
+    </div>
+
+    <div class="btn-wrap text-center mt-20">
+        <a href="javascript:void(0);" class="btn btn-type1 color-type4">Excel 다운로드</a>
+    </div>
+
+    <div class="table-wrap mt-60">
+        @include('data.include.backup2-tbl', [
+            'backup2_count' => $followup_count,
+            'addClass' => 'type-regist mypage-tbl'
+        ])
+    </div>
+
+    <div class="btn-wrap text-center mt-20">
+        <a href="javascript:void(0);" class="btn btn-type1 color-type4">Excel 다운로드</a>
+    </div>
+</div>
+
+@push('raw-data-script')
+    @include('data.include.backup-tbl-script')
+@endpush

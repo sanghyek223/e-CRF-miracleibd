@@ -155,14 +155,28 @@ class FASTQ extends Model
 
         foreach ($uploadConfig['file'] as $key => $val) {
             if (!empty($this->{$val['upload_name']})) {
-                $file_names[] = $this->{$val['upload_name']};
+                $file_name[] = $this->{$val['upload_name']};
             }
         }
 
-        return $file_names ?? [];
+        return $file_name ?? [];
     }
 
     public function getFileSizeAll()
+    {
+        $fastqConfig = $this->fastqConfig();
+        $uploadConfig = $fastqConfig['UPLOAD'];
+
+        foreach ($uploadConfig['file'] as $key => $val) {
+            if (!empty($this->{$val['upload_name']})) {
+                $file_size[] = $this->{$val['file_size']};
+            }
+        }
+
+        return $file_size ?? [];
+    }
+
+    public function getFileSizeSum()
     {
         $fastqConfig = $this->fastqConfig();
         $uploadConfig = $fastqConfig['UPLOAD'];

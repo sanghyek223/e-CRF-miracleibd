@@ -30,6 +30,12 @@ class MypageController extends Controller
         return view('mypage.application.index', $this->mypageServices->applicationService($request));
     }
 
+    public function applicationDownload(Request $request)
+    {
+        view()->share(['sub_key' => 'S1']);
+        return view('mypage.application.download', $this->mypageServices->applicationDownloadService($request));
+    }
+
     public function approval(Request $request)
     {
         view()->share(['sub_key' => 'S2']);

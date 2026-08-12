@@ -13,16 +13,7 @@
             <div class="left-side-blank"></div>
             <div class="sub-conbox">
                 <div class="write-form-wrap">
-                    <div class="table-contop">
-                        <ul class="detail-list">
-                            <li>전체 신청: <strong class="text-blue">{{ $applications->count() }}</strong> 건</li>
-                            @foreach($dataConfig['confirm'] as $key => $val)
-                                <li>
-                                    {{ $val }}: <strong class="{{ $key == 'C' ? 'text-red2' : 'text-blue' }}">{{ number_format($confirm_counts[$key] ?? 0) }}</strong> 건
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    @include('mypage.include.detail-list')
 
                     <div class="table-wrap">
                         <table class="cst-table type-regist mypage-tbl">
@@ -48,34 +39,35 @@
                             </thead>
 
                             <tbody>
-                            @foreach($applications as $row)
+                            @forelse($list as $row)
                                 <tr>
+                                    <td>{{ $row->getApplicationHosName() }}</td>
+                                    <td>{{ $row->created_at->format('Y-m-d') }}</td>
+                                    <td>{{ $row->getDataScope() }}</td>
+                                    <td>{{ $row->dataSearchCount() }}</td>
                                     <td>
-                                        A기관
-                                    </td>
-                                    <td>
-                                        2026-01-01
-                                    </td>
-                                    <td>
-                                        FASTQ + Raw
-                                    </td>
-                                    <td>
-                                        3건
-                                    </td>
-                                    <td>
-                                        <span class="state complete">승인 완료</span>
+                                        <span class="state {{ $row->getConfirmClass() }}">{{ $row->getConfirm() }}</span>
                                     </td>
                                     <td class="text-center">
-                                        <div class="btn-wrap">
-                                            <a href="#n" class="btn btn-small color-type2" title="다운로드 상세">다운로드 상세</a>
-                                        </div>
-                                        <div class="mt-5">(기한: 02.17~02.24)</div>
+                                            <div class="btn-wrap">
+                                                <a href="{{ route('mypage.application.download', ['sid' => $row->sid]) }}" class="btn btn-small color-type2" title="다운로드 상세">다운로드 상세</a>
+                                            </div>
+
+                                            <div class="mt-5">(기한: {{ $row->download_d_s->format('m.d') }}~{{ $row->download_d_e->format('m.d') }})</div>
+                                        @if($row->confirmComplete())
+                                        @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="6">신청 내역이 없습니다.</td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
+
+                    {{ $list->links('pagination::custom') }}
                 </div>
             </div>
         </div>
@@ -83,4 +75,7 @@
 @endsection
 
 @section('addScript')
+    <script>
+        const dataUrl = '{{ route('mypage.data') }}';
+    </script>
 @endsection

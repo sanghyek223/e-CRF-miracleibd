@@ -80,7 +80,11 @@ Route::middleware('auth.check')->group(function () {
 
     // mypage
     Route::controller(\App\Http\Controllers\Mypage\MypageController::class)->prefix('mypage')->group(function () {
-        Route::get('application', 'application')->name('mypage.application');
+        Route::prefix('application')->group(function () {
+            Route::get('/', 'application')->name('mypage.application');
+            Route::get('download/{sid}', 'applicationDownload')->name('mypage.application.download');
+        });
+
         Route::get('approval', 'approval')->name('mypage.approval');
         Route::get('personal', 'personal')->name('mypage.personal');
         Route::post('data', 'data')->name('mypage.data');

@@ -2,10 +2,10 @@
 
 namespace App\Services\Mypage;
 
+use App\Models\Patient;
 use App\Models\Application;
 use App\Services\AppServices;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -16,23 +16,51 @@ class MypageServices extends AppServices
 {
     public function applicationService(Request $request)
     {
+        $paginate = 20;
         $user = thisUser();
-        $applications = $user->applications;
-        $confirm_counts = $applications->groupBy('confirm')->map->count();
+        $query = $user->applications();
 
-        $this->data['applications'] = $applications;
+        $list = (clone $query)->paginate($paginate)->appends($request->query());
+        $confirm_counts = $query->selectRaw('confirm, count(*) as total')->groupBy('confirm')->pluck('total', 'confirm');
+
+        $this->data['list'] = setListSeq($list);
         $this->data['confirm_counts'] = $confirm_counts;
+
+        return $this->data;
+    }
+
+    public function applicationDownloadService(Request $request)
+    {
+        $user = thisUser();
+
+        $application = $user->applications()->findOrFail($request->sid);
+        $patients = $application->dataSearchPatients();
+        $patientsFASTQ = $application->dataSearchFASTQ();
+
+        $this->data['application'] = $application;
+
+        $this->data['patients'] = $patients;
+        $this->data['patientsFASTQ'] = $patientsFASTQ;
+
+        $this->data['FASTQ_count'] = $patientsFASTQ->count();
+        $this->data['patients_count'] = $patients->count();
+        $this->data['followup_count'] = $patients->sum('Fu_count');
+        $this->data['data_scope_type'] = $application->getDataScopeType();
 
         return $this->data;
     }
 
     public function approvalService(Request $request)
     {
+        $paginate = 20;
         $user = thisUser();
-        $approvals = $user->approvals;
+        $query = $user->applications();
 
-        $this->data['user'] = $user;
-        $this->data['approvals'] = $approvals;
+        $list = (clone $query)->paginate($paginate)->appends($request->query());
+        $confirm_counts = $query->selectRaw('confirm, count(*) as total')->groupBy('confirm')->pluck('total', 'confirm');
+
+        $this->data['list'] = setListSeq($list);
+        $this->data['confirm_counts'] = $confirm_counts;
 
         return $this->data;
     }

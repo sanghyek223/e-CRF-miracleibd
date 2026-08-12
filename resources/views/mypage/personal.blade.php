@@ -44,7 +44,7 @@
 
                                         <th scope="row">현재 비밀번호</th>
                                         <td class="text-left">
-                                            <x-input.text field="origin_pwd" class="form-item full" nonespace/>
+                                            <x-input.password field="origin_pwd" class="form-item full" nonespace/>
                                         </td>
                                     </tr>
 
@@ -53,13 +53,13 @@
                                             새 비밀번호<br><span class="text-red2">(8자리 이상, 3자리 조합 필수)</span>
                                         </th>
                                         <td class="text-left">
-                                            <x-input.text field="new_pwd" class="form-item full" nonespace/>
+                                            <x-input.password field="new_pwd" class="form-item full" nonespace/>
                                             <p class="mt-10 text-blue">영문 대소문자/숫자/특수문자 중 3종 포함</p>
                                         </td>
 
                                         <th scope="row">새 비밀번호 확인</th>
                                         <td class="text-left">
-                                            <x-input.text field="new_pwd_confirm" class="form-item full" nonespace/>
+                                            <x-input.password field="new_pwd_confirm" class="form-item full" nonespace/>
                                         </td>
                                     </tr>
                                     </tbody>

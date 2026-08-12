@@ -454,4 +454,35 @@ class Patient extends Model
         $status = $this->getRegTabStatus($type, $tab);
         return $this->registerConfig()['status'][$status]['class'] ?? '';
     }
+
+    public function scopeHasDataSearch($query, $search_params) // 데이터 열람신청 or 신청정보 확인시 검색 쿼리용
+    {
+        $query->with('FASTQ')->withCount('FuLIST as Fu_count');
+
+        if (!empty($search_params['created_at_s'])) {
+            $query->whereDate('created_at', '>=', $search_params['created_at_s']);
+        }
+
+        if (!empty($search_params['created_at_e'])) {
+            $query->whereDate('created_at', '<=', $search_params['created_at_e']);
+        }
+
+        if (!empty($search_params['sex'])) {
+            $query->whereIn('sex', $search_params['sex']);
+        }
+
+        $query->whereHas('BaseDX', function ($q) use ($search_params) {
+            if (!empty($search_params['IBD_age_s'])) {
+                $q->where('IBD_age', '>=', $search_params['IBD_age_s']);
+            }
+
+            if (!empty($search_params['IBD_age_e'])) {
+                $q->where('IBD_age', '<=', $search_params['IBD_age_e']);
+            }
+
+            if (!empty($search_params['IBD_type'])) {
+                $q->whereIn('IBD_type', $search_params['IBD_type']);
+            }
+        });
+    }
 }

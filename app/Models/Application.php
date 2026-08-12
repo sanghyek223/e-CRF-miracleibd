@@ -19,6 +19,9 @@ class Application extends Model
         'fastq_file' => 'array',
         'search_params' => 'array',
 
+        'download_d_s' => 'date',
+        'download_d_e' => 'date',
+
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -115,13 +118,93 @@ class Application extends Model
         return $this->belongsTo(Hospital::class, 'org_code', 'org_code');
     }
 
-    public function applicationHospital() // 데이터 요청 기관
+    public function applicationHospital() // 데이터 열람 신청한 기관
     {
         return $this->belongsTo(Hospital::class, 'application_org_code', 'org_code');
+    }
+
+    public function getHosName() // 신청 기관명
+    {
+        return $this->hospital->org_name ?? '';
+    }
+
+    public function getApplicationHosName() // 데이터 열람 신청한 기관명
+    {
+        return $this->applicationHospital->org_name ?? '';
+    }
+
+    public function getDataScope()
+    {
+        return $this->dataConfig()['data_scope'][$this->data_scope ?? ''] ?? '';
+    }
+
+    public function getDataScopeType()
+    {
+        $dataConfig = $this->dataConfig();
+
+        return [
+            'data_scope_file' => in_array($this->data_scope, $dataConfig['data_scope_file']),
+            'data_scope_row' => in_array($this->data_scope, $dataConfig['data_scope_row']),
+        ];
+    }
+
+    public function getDownloadDate($format = 'Y-m-d')
+    {
+        $download_d_s = $this->download_d_s->format($format);
+        $download_d_e = $this->download_d_e->format($format);
+
+        return "{$download_d_s} ~ {$download_d_e}";
     }
 
     public function getConfirm()
     {
         return $this->dataConfig()['confirm'][$this->confirm ?? ''] ?? '';
+    }
+
+    public function getConfirmClass()
+    {
+        switch ($this->confirm) {
+            case 'C': // 반려
+                return 'reject';
+
+            case 'Y': // 승인
+                return 'complete';
+
+            default: // 대기
+                return 'ing';
+        }
+    }
+
+    public function confirmComplete()
+    {
+        return ($this->confirm === 'Y');
+    }
+
+    public function dataSearchDefaultQuery()
+    {
+        return Patient::where('org_code', $this->application_org_code)->hasDataSearch($this->search_params);
+    }
+
+    public function dataSearchCount() // 데이터 열람신청 or 신청정보 로 확인하는 신청 건수
+    {
+        return $this->dataSearchDefaultQuery()->count();
+    }
+
+    public function dataSearchPatients() // 데이터 열람신청 or 신청정보 로 확인하는 신청 환자들
+    {
+        return $this->dataSearchDefaultQuery()->get();
+    }
+
+    public function dataSearchFASTQCount() // 데이터 열람신청 or 신청정보 로 확인하는 신청 환자들 중 FASTQ 파일 다운로드 신청 건수
+    {
+        return count($this->fastq_file ?? []);
+    }
+
+    public function dataSearchFASTQ() // 데이터 열람신청 or 신청정보 로 확인하는 신청 환자들 중 FASTQ 파일 다운로드 신청 환자
+    {
+        return $this->dataSearchDefaultQuery()
+            ->withWhereHas('FASTQ', function ($q) {
+                $q->hasFile()->whereIn('sid', $this->fastq_file);
+            })->get();
     }
 }
