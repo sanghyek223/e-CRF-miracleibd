@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'search_params' => [
+    'search_params' => [ // 데이터 열람 / 신청시 검색 조건
         'created_at' => '등록 날짜',
         'sex' => '성별',
         'IBD_age' => '진단시 나이',
@@ -11,7 +11,7 @@ return [
     'confirm' => [
         'N' => '승인 대기',
         'Y' => '승인 완료',
-        'C' => '반려',
+        'R' => '반려',
     ],
 
     'data_scope' => [
@@ -35,7 +35,7 @@ return [
                 'backup1_BASE_ENDO' => '진단 시점 검사',
                 'backup1_BASE_IMG' => '진단 시점 영상',
                 'backup1_BASE_LAB' => '진단 시점 Lab',
-                'backup1_BASE_NTR' => '영양 치료',
+                'backup1_BASE_NTR' => '영양 인자 설문',
                 'backup1_BASE_EVN' => '환경 인자 설문',
             ],
         ],

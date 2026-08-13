@@ -21,7 +21,8 @@ class Application extends Model
 
         'download_d_s' => 'date',
         'download_d_e' => 'date',
-
+        'confirm_at' => 'datetime',
+        
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -38,6 +39,17 @@ class Application extends Model
 
             $application->u_sid = $user->sid;
             $application->org_code = $user->org_code;
+        });
+
+        static::saving(function ($application) {
+            $user = thisUser();
+
+            if ($application->isDirty('confirm')) {
+                $is_ready = ($application->confirm == 'N');
+
+                $application->confirm_at = ($is_ready) ? null : now();
+                $application->application_u_sid = ($is_ready) ? null : $user->sid;
+            }
         });
     }
 
@@ -72,7 +84,7 @@ class Application extends Model
         $this->download_d_e = Carbon::parse($download_d)->addDays(7)->format('Y-m-d'); // 다운로드 기간 종료일 => 다운로드 시작일 +7일
 
         $this->data_scope = $data['data_scope'];
-        
+
         // IBD Type 분류별 정의
         $is_data_scope_file = in_array($this->data_scope, $dataConfig['data_scope_file']);
         $is_data_scope_row = in_array($this->data_scope, $dataConfig['data_scope_row']);
@@ -108,9 +120,19 @@ class Application extends Model
         $this->search_params = $search_params;
     }
 
-    public function user() // 신청자
+    public function user() // 실제 데이터 열람 신청 신청한 회원
     {
         return $this->belongsTo(User::class, 'u_sid')->withTrashed();
+    }
+
+    public function applicationUser() // 데이터 열람 신청 confirm 한 사용자
+    {
+        return $this->belongsTo(User::class, 'application_u_sid')->withTrashed();
+    }
+
+    public function getApplicationUserName()
+    {
+        return $this->applicationUser->name_kr;
     }
 
     public function hospital() // 신청 기관
@@ -148,14 +170,6 @@ class Application extends Model
         ];
     }
 
-    public function getDownloadDate($format = 'Y-m-d')
-    {
-        $download_d_s = $this->download_d_s->format($format);
-        $download_d_e = $this->download_d_e->format($format);
-
-        return "{$download_d_s} ~ {$download_d_e}";
-    }
-
     public function getConfirm()
     {
         return $this->dataConfig()['confirm'][$this->confirm ?? ''] ?? '';
@@ -164,7 +178,7 @@ class Application extends Model
     public function getConfirmClass()
     {
         switch ($this->confirm) {
-            case 'C': // 반려
+            case 'R': // 반려
                 return 'reject';
 
             case 'Y': // 승인
@@ -178,6 +192,51 @@ class Application extends Model
     public function confirmComplete()
     {
         return ($this->confirm === 'Y');
+    }
+
+    public function confirmReject()
+    {
+        return ($this->confirm === 'R');
+    }
+
+    public function confirmReady()
+    {
+        return ($this->confirm === 'N');
+    }
+
+    public function getDownloadDate($format = 'Y-m-d')
+    {
+        $download_d_s = $this->download_d_s->format($format);
+        $download_d_e = $this->download_d_e->format($format);
+
+        return "{$download_d_s} ~ {$download_d_e}";
+    }
+
+    public function isDownloadPeriod()
+    {
+        $now = now();
+        $start = $this->download_d_s->copy()->startOfDay();
+        $end = $this->download_d_e->copy()->endOfDay();
+
+//        if ($now->between($start, $end)) {
+//            return '다운로드 기간';
+//        } elseif ($now->lt($start)) {
+//            return '예정';
+//        } else {
+//            return '종료';
+//        }
+
+        return $now->between($start, $end);
+    }
+
+    public function isDownload()
+    {
+        return ($this->download === 0 ? 'X' : 'O');
+    }
+
+    public function isDownloadClass()
+    {
+        return ($this->download === 0 ? 'text-red' : 'text-skyblue');
     }
 
     public function dataSearchDefaultQuery()

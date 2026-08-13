@@ -5,7 +5,10 @@ namespace App\Services\Data;
 use App\Models\Patient;
 use App\Models\Hospital;
 use App\Models\Application;
+use App\Exports\Backup1Excel;
+use App\Exports\Backup2Excel;
 use App\Services\AppServices;
+use App\Services\CommonServices;
 use Illuminate\Http\Request;
 
 /**
@@ -20,24 +23,38 @@ class DataServices extends AppServices
         $my_org_code = $user->org_code;
         $search_params = $request->all();
 
-        $hospitals = Hospital::orderBy('org_name')->get();
-        $query = Patient::selectRaw('org_code, count(*) as total')->hasDataSearch($search_params);
+        // 나의 (같은 기관 코드) 환자 리스트
+        $myQuery = $user->patients()->hasDataSearch($search_params);
+        $myPatients = (clone $myQuery)->get();
+        $myPatientsFASTQ = $myQuery->withWhereHas('FASTQ', fn($q) => $q->hasFile())->get();
 
-        // 본인 기관 제외
-//        $hospitals = Hospital::orderBy('org_name')->where('org_code', '!= ', $my_org_code)->get();
-//        $query = Patient::where('org_code', '!= ', $my_org_code)->hasDataSearch($search_params);
+        if ($request->excel) {
+
+            $fileName = now()->format('YmdHis');
+            $this->data['patients'] = $myPatients;
+
+            $export = ($request->backup === 'backup1')
+                ? new Backup1Excel($this->data)
+                : new Backup2Excel($this->data);
+
+            if (isDev()) {
+                $previewData = $export->getPreviewData();
+                return view($previewData['viewPage'], $previewData['exportData']);
+            }
+
+            return (new CommonServices())->excelDownload($export, $fileName);
+        }
+
+        // 본인 기관 제외 열람 신청 할 기관 및 데이터
+        $hospitals = Hospital::orderBy('org_name')->where('org_code', '!=', $my_org_code)->get();
+        $query = Patient::where('org_code', '!=', $my_org_code)->hasDataSearch($search_params);
 
         if (!empty($search_params['org_code'])) {
             $query->whereIn('org_code', $search_params['org_code']);
         }
 
         // 검색 데이터 기준 group data count
-        $data = $query->groupBy('org_code')->get()->keyBy('org_code');
-
-        // 나의 (같은 기관 코드) 환자 리스트
-        $myQuery = $user->patients()->hasDataSearch([]);
-        $myPatients = (clone $myQuery)->get();
-        $myPatientsFASTQ = $myQuery->withWhereHas('FASTQ', fn($q) => $q->hasFile())->get();
+        $data = $query->selectRaw('org_code, count(*) as total')->groupBy('org_code')->pluck('total', 'org_code');
 
         $this->data['data'] = $data;
         $this->data['hospitals'] = $hospitals;

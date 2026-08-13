@@ -75,6 +75,7 @@ Route::middleware('auth.check')->group(function () {
     Route::controller(\App\Http\Controllers\Data\DataController::class)->prefix('data')->group(function () {
         Route::get('/', 'index')->name('data');
         Route::post('application', 'application')->name('data.application');
+        Route::get('{backup}/excel', 'excel')->where('backup', 'backup1|backup2')->name('data.backup');
         Route::post('data', 'data')->name('data.data');
     });
 
@@ -83,9 +84,14 @@ Route::middleware('auth.check')->group(function () {
         Route::prefix('application')->group(function () {
             Route::get('/', 'application')->name('mypage.application');
             Route::get('download/{sid}', 'applicationDownload')->name('mypage.application.download');
+            Route::get('download/{sid}/{backup}/excel', 'applicationDownloadExcel')->where('backup', 'backup1|backup2')->name('mypage.application.download.backup');
         });
 
-        Route::get('approval', 'approval')->name('mypage.approval');
+        Route::prefix('approval')->group(function () {
+            Route::get('/', 'approval')->name('mypage.approval');
+            Route::get('detail/{sid}', 'approvalDetail')->name('mypage.approval.detail');
+        });
+
         Route::get('personal', 'personal')->name('mypage.personal');
         Route::post('data', 'data')->name('mypage.data');
     });

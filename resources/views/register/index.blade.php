@@ -29,7 +29,7 @@
 
                     <div class="form-group">
                         <span class="text">Registration No :</span>
-                        <input type="text" name="regist_num" id="regist_num" class="form-item" value="{{ request()->input('regist_num', '') }}">
+                        <x-input.text field="regist_num" :data="request()?->regist_num" class="form-item"/>
                     </div>
 
                     <button type="submit" class="btn btn-sch">검색</button>

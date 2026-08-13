@@ -17,7 +17,7 @@ Route::controller(\App\Http\Controllers\Admin\Main\MainController::class)->group
 // 회원관리
 Route::controller(\App\Http\Controllers\Admin\Log\LogController::class)->prefix('log')->group(function () {
     Route::get('/', 'index')->name('log');
-    Route::get('upsert/{sid}', 'upsert')->name('log.upsert');
+    Route::get('detail/{sid}', 'detail')->name('log.detail');
     Route::post('data', 'data')->name('log.data');
 });
 

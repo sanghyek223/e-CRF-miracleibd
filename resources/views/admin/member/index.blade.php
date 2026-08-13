@@ -94,7 +94,7 @@
                             <td>{{ $row->created_at }}</td>
                             <td>
                                 <div class="btn-wrap">
-                                    <a href="{{ route('member.upsert', ['sid' => $row->sid]) }}" class="btn btn-modity call-popup" data-name="member-upsert" data-width="1200" data-height="400" title="수정">
+                                    <a href="{{ route('member.upsert', ['sid' => $row->sid]) }}" class="btn btn-modity call-popup" data-name="member-upsert" data-width="1000" data-height="330" title="수정">
                                         <img src="/assets/image/icon/icon_edit.png" alt="수정">
                                     </a>
 
@@ -112,7 +112,7 @@
             {{ $list->links('pagination::custom') }}
 
             <div class="btn-wrap text-right mt-20">
-                <a href="{{ route('member.upsert') }}" class="btn btn-type1 color-type2 call-popup" data-name="member-upsert" data-width="1200" data-height="400">
+                <a href="{{ route('member.upsert') }}" class="btn btn-type1 color-type2 call-popup" data-name="member-upsert" data-width="1000" data-height="330">
                     등록
                 </a>
             </div>
@@ -127,6 +127,15 @@
         const getPK = (_this) => {
             return $(_this).closest('tr').data('sid');
         }
+
+        $(document).on('change', '.select-level', function () {
+            callAjax(dataUrl, {
+                case: 'db-change',
+                field: 'level',
+                value: $(this).val(),
+                sid: getPK(this),
+            });
+        });
 
         $(document).on('click', '.member-delete', function () {
             const sid = getPK(this);

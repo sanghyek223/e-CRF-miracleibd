@@ -49,6 +49,11 @@ class BaseDX extends Model
         static::saved(function ($BaseDX) {
             // saving 할때 하면 상태값 업데이트 반영안되서 저장 완료후
             $BaseDX->patient->updateStatusBASE();
+
+            // IBD_type 이 변경되었고, 이전 값이 null 이 아닐 때만 실행
+            if ($BaseDX->wasChanged('IBD_type') && !is_null($BaseDX->getOriginal('IBD_type'))) {
+                $BaseDX->changeIBDType();
+            }
         });
     }
 
@@ -68,6 +73,14 @@ class BaseDX extends Model
         }
 
         return $this->baseConfig;
+    }
+
+    public function getExcelField()
+    {
+        $except = ['sid', 'last_reg_id', 'regist_num', 'status', 'created_at', 'updated_at', 'deleted_at'];
+        $columns = \Illuminate\Support\Facades\Schema::getColumnListing($this->getTable());
+
+        return array_values(array_diff($columns, $except));
     }
 
     public function setByData($data)
@@ -160,6 +173,60 @@ class BaseDX extends Model
         $this->is_bio = (($this->b_bio ?? '') == '1' && $this->is_med);
 
         return $this;
+    }
+
+    public function changeIBDType()
+    {
+        // IBD_type 이 변경되면 영향 받는 데이터 초긱화
+        $patient = $this->patient;
+
+        // BaseENDO
+        $baseENDO = $patient->BaseENDO;
+
+        if ($baseENDO && $baseENDO->status !== 'N') {
+            $baseENDO->fill([
+                'b_MES' => null,
+                'b_SES_CD' => null,
+                'status' => 'I',
+            ]);
+
+            $baseENDO->save();
+        }
+
+        // EndENDO
+        $endENDO = $patient->EndENDO;
+
+        if ($endENDO && $endENDO->status !== 'N') {
+            $endENDO->fill([
+                'end_UC_l' => null,
+                'end_UC_sens' => null,
+                'end_CD_l' => null,
+                'end_CD_L4' => null,
+                'end_CD_sens' => null,
+                'end_CD_behav' => null,
+                'end_CD_PA_modi' => null,
+                'status' => 'I',
+            ]);
+
+            $endENDO->save();
+        }
+
+        // FuLIST => FuBX
+        $patient->FuLIST()->with('FuBx')->get()
+            ->each(function ($Fu) {
+                $FuBx = $Fu->FuBx;
+
+                if ($FuBx && $FuBx->status !== 'N') {
+                    $FuBx->fill([
+                        'FU_MES' => null,
+                        'FU_UCEIS' => null,
+                        'FU_SES_CD' => null,
+                        'status' => 'I',
+                    ]);
+
+                    $FuBx->save();
+                }
+            });
     }
 
     public function patient()

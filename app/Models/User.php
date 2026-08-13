@@ -77,7 +77,7 @@ class User extends Authenticatable
 
     public function approvals() // 다른 기관에서 데이터 열람 요청 정보
     {
-        return $this->hasMany(Application::class, 'org_code', 'application_org_code');
+        return $this->hasMany(Application::class, 'application_org_code', 'org_code');
     }
 
     public function applications() // 같은 기관에서 요청한 타 기관 데이터 요청 정보

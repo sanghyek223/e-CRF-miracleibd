@@ -6,6 +6,7 @@
 </head>
 
 <body>
+
 <div class="wrap admin">
     @include('admin.layouts.include.header')
 

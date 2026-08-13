@@ -62,6 +62,14 @@ class FASTQ extends Model
         return $this->fastqConfig;
     }
 
+    public function getExcelField()
+    {
+        $except = ['id', 'created_at', 'updated_at', 'deleted_at'];
+        $columns = \Illuminate\Support\Facades\Schema::getColumnListing($this->getTable());
+
+        return array_values(array_diff($columns, $except));
+    }
+
     public function setByData($data)
     {
         $fastqConfig = $this->fastqConfig();

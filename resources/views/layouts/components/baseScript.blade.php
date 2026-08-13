@@ -32,5 +32,21 @@
                 callAjax('{{ route('logout') }}', {});
             }
         }
+
+        function setCookie24(name, value, expiredays) {
+            var todayDate = new Date();
+
+            todayDate.setDate(todayDate.getDate() + expiredays);
+
+            document.cookie = name + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
+        }
+
+        $(document).on('click', '.approval-today-close', function () {
+            const layer = $(this).closest('.popup-wrap');
+
+            setCookie24(layer.attr('id'), 'done', 1);
+
+            layer.remove();
+        });
     </script>
 @endif

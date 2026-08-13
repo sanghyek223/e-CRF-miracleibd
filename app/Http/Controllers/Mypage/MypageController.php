@@ -36,10 +36,22 @@ class MypageController extends Controller
         return view('mypage.application.download', $this->mypageServices->applicationDownloadService($request));
     }
 
+    public function applicationDownloadExcel(Request $request)
+    {
+        $request->merge(['excel' => true]);
+        return $this->mypageServices->applicationDownloadService($request);
+    }
+
     public function approval(Request $request)
     {
         view()->share(['sub_key' => 'S2']);
         return view('mypage.approval.index', $this->mypageServices->approvalService($request));
+    }
+
+    public function approvalDetail(Request $request)
+    {
+        view()->share(['sub_key' => 'S2']);
+        return view('mypage.approval.detail', $this->mypageServices->approvalDetailService($request));
     }
 
     public function personal(Request $request)

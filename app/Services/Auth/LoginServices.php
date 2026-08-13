@@ -40,17 +40,17 @@ class LoginServices extends AppServices
             $user->login_at = now();
             $user->update();
 
-//            $password_day = 60; // 비밀번호 변경일 기준
-//            $password_at = $user->password_at ?? $user->created_at; // 비밀번호 변경시간
-//
-//            // 비밀번호 변경 해야함
-//            if (Carbon::parse($password_at)->lessThan(now()->subDays($password_day))) {
-//                return $this->returnJsonData('alert', [
-//                    'case' => true,
-//                    'msg' => '비밀번호를 변경 해주세요.',
-//                    'location' => $this->ajaxActionLocation('replace', route('mypage')),
-//                ]);
-//            }
+            $password_day = 180; // 비밀번호 변경일 기준
+            $password_at = $user->password_at ?? $user->created_at; // 비밀번호 변경시간
+
+            // 비밀번호 변경 해야함
+            if (Carbon::parse($password_at)->lessThan(now()->subDays($password_day))) {
+                return $this->returnJsonData('alert', [
+                    'case' => true,
+                    'msg' => "비밀번호를 변경하신 지 {$password_day}일이 경과 하셨습니다.\n안전한 데이터 관리를 위해 비밀번호 변경이 필요합니다.",
+                    'location' => $this->ajaxActionLocation('replace', route('mypage.personal')),
+                ]);
+            }
 
 //            if (!empty($user->initial_password)) {
 //                return $this->returnJsonData('alert', [
@@ -83,6 +83,6 @@ class LoginServices extends AppServices
 
         auth('web')->logout();
 
-        return $this->returnJsonData('location', $this->ajaxActionLocation('replace', getDefaultUrl()));
+        return $this->returnJsonData('location', $this->ajaxActionLocation('replace', url('/')));
     }
 }

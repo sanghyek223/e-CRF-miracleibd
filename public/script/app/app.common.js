@@ -1605,3 +1605,8 @@ $(document).on('click', '.NONE-CLICK', function (e) {
     validateEssChk();
     return false;
 });
+
+// 레이어 팝업 닫기
+$(document).on('click', '.layer-close', function () {
+    $(this).closest('.popup-wrap').remove();
+});

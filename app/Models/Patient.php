@@ -99,6 +99,16 @@ class Patient extends Model
         return $this->registerConfig;
     }
 
+    public function getExcelField()
+    {
+        return [
+            'regist_num',
+            'sex',
+            'birth_d',
+            'arrival_chk',
+        ];
+    }
+
     public function setByData($data)
     {
         if (empty($this->sid)) {

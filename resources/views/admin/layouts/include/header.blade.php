@@ -25,8 +25,8 @@
         <nav id="gnb">
             <ul class="gnb-menu">
                 @foreach($menu['main'] as $key => $val)
-                    @if($val['continue']) @continue @endif
-                    @if($val['dev'] && !isDev()) @continue @endif
+                    @continue($val['continue'])
+                    @continue($val['dev'] && !isDev())
                     <li @class(['on' => $key === ($main_key ?? '')])>
                         <a href="{{ empty($val['url']) ? route($val['route'], $val['param']) : $val['url'] }}" @if($val['blank']) target="_blank" @endif>
                             {{ $val['name'] }}

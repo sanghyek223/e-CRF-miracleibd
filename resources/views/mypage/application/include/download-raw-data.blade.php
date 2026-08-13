@@ -6,9 +6,13 @@
         ])
     </div>
 
-    <div class="btn-wrap text-center mt-20">
-        <a href="javascript:void(0);" class="btn btn-type1 color-type4">Excel 다운로드</a>
-    </div>
+    @if($application->isDownloadPeriod())
+        <div class="btn-wrap text-center mt-20">
+            <a href="{{ route('mypage.application.download.backup', ['sid' => $application->sid, 'backup' => 'backup1']) }}" class="btn btn-type1 color-type4 excel-backup1">
+                Excel 다운로드
+            </a>
+        </div>
+    @endif
 
     <div class="table-wrap mt-60">
         @include('data.include.backup2-tbl', [
@@ -17,9 +21,13 @@
         ])
     </div>
 
-    <div class="btn-wrap text-center mt-20">
-        <a href="javascript:void(0);" class="btn btn-type1 color-type4">Excel 다운로드</a>
-    </div>
+    @if($application->isDownloadPeriod())
+        <div class="btn-wrap text-center mt-20">
+            <a href="{{ route('mypage.application.download.backup', ['sid' => $application->sid, 'backup' => 'backup2']) }}" class="btn btn-type1 color-type4 excel-backup2">
+                Excel 다운로드
+            </a>
+        </div>
+    @endif
 </div>
 
 @push('raw-data-script')

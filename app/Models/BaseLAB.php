@@ -61,6 +61,14 @@ class BaseLAB extends Model
         return $this->baseConfig;
     }
 
+    public function getExcelField()
+    {
+        $except = ['sid', 'last_reg_id', 'regist_num', 'status', 'created_at', 'updated_at', 'deleted_at'];
+        $columns = \Illuminate\Support\Facades\Schema::getColumnListing($this->getTable());
+
+        return array_values(array_diff($columns, $except));
+    }
+
     public function setByData($data)
     {
         $this->b_lab_WBC_na = $data['b_lab_WBC_na'];

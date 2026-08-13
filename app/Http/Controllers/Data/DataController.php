@@ -31,6 +31,12 @@ class DataController extends Controller
         return view('data.application', $this->dataServices->applicationService($request));
     }
 
+    public function excel(Request $request)
+    {
+        $request->merge(['excel' => true]);
+        return $this->dataServices->indexService($request);
+    }
+
     public function data(Request $request)
     {
         return $this->dataServices->dataAction($request);

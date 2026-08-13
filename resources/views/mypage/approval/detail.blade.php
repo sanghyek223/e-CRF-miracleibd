@@ -13,27 +13,33 @@
             <div class="left-side-blank"></div>
             <div class="sub-conbox">
                 <div class="write-form-wrap">
-                    <form id="download-frm" method="post" data-sid="{{ $application->sid }}">
+                    <form id="detail-frm" method="post" data-sid="{{ $approval->sid }}">
                         <fieldset>
-                            <legend class="hide">마이페이지 | 신청 내역</legend>
+                            <legend class="hide">마이페이지 | 승인 내역</legend>
 
                             <div class="sub-tit-wrap">
-                                <h4 class="sub-contit">다운로드 상세</h4>
+                                <h4 class="sub-contit">승인 내역</h4>
                             </div>
 
                             <div class="bg-box type-info text-center">
                                 <ul class="list-type list-type-dot">
-                                    <li><span>신청기관</span> {{ $application->getApplicationHosName() }}</li>
-                                    <li><span>데이터 범위</span> {{ $application->getDataScope() }}</li>
+                                    <li><span>신청기관</span> {{ $approval->getApplicationHosName() }}</li>
+                                    <li><span>데이터 범위</span> {{ $approval->getDataScope() }}</li>
                                     <li><span>총 대상자</span> {{ number_format($patients_count) }}명</li>
-                                    <li><span>기한</span> ~ {{ $application->download_d_e->format('Y.m.d') }}</li>
+                                    <li><span>기한</span> ~ {{ $approval->download_d_e->format('Y.m.d') }}</li>
                                 </ul>
                             </div>
 
                             <div class="subcon-tab-wrap">
                                 <ul class="subcon-tab-menu">
+                                    <li class="on">
+                                        <a href="javascript:void(0);" class="tab-menu-link" data-scope="patient">
+                                            대상자 목록 ({{ number_format($patients_count) }}명)
+                                        </a>
+                                    </li>
+
                                     @if($data_scope_type['data_scope_file'])
-                                        <li class="on">
+                                        <li>
                                             <a href="javascript:void(0);" class="tab-menu-link" data-scope="FASTQ">
                                                 FASTQ ({{ number_format($patients_count) }}건)
                                             </a>
@@ -41,7 +47,7 @@
                                     @endif
 
                                     @if($data_scope_type['data_scope_row'])
-                                        <li @class(['on' => !$data_scope_type['data_scope_file']])>
+                                        <li>
                                             <a href="javascript:void(0);" class="tab-menu-link" data-scope="raw-data">
                                                 Raw Data ({{ number_format($patients_count) }}건)
                                             </a>
@@ -50,12 +56,14 @@
                                 </ul>
                             </div>
 
+                            @include('mypage.approval.include.detail-patient')
+
                             @if($data_scope_type['data_scope_file'])
-                                @include('mypage.application.include.download-FASTQ')
+                                @include('mypage.approval.include.detail-FASTQ')
                             @endif
 
                             @if($data_scope_type['data_scope_row'])
-                                @include('mypage.application.include.download-raw-data')
+                                @include('mypage.approval.include.detail-raw-data')
                             @endif
                         </fieldset>
                     </form>
@@ -67,7 +75,7 @@
 
 @section('addScript')
     <script>
-        const form = '#download-frm';
+        const form = '#detail-frm';
         const dataUrl = '{{ route('mypage.data') }}';
 
         $(document).on('click', '.tab-menu-link', function () {
@@ -86,7 +94,9 @@
                 }
             });
         });
+
+        $(document).on('click', '.approval-confirm', function () {
+            location.replace('{{ $approval_list_url }}');
+        });
     </script>
-    @stack('FASTQ-script')
-    @stack('raw-data-script')
 @endsection

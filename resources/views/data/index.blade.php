@@ -39,12 +39,12 @@
                                     <th scope="row">등록 날짜</th>
                                     <td colspan="3" class="text-left">
                                         <div class="form-group date">
-                                            <x-input.text field="created_at_s" :data="request()->input('created_at_s', '')" class="form-item line short text-center"/>
+                                            <x-input.text field="created_at_s" :data="request()->input('created_at_s', '')" class="form-item line short text-center" readonly/>
                                             <img src="/assets/image/icon/ic_cal.png" alt="" class="target-datepicker" data-target="created_at_s">
 
                                             <span>~</span>
 
-                                            <x-input.text field="created_at_e" :data="request()->input('created_at_e', '')" class="form-item line short text-center"/>
+                                            <x-input.text field="created_at_e" :data="request()->input('created_at_e', '')" class="form-item line short text-center" readonly/>
                                             <img src="/assets/image/icon/ic_cal.png" alt="" class="target-datepicker" data-target="created_at_e">
                                         </div>
                                     </td>
@@ -105,7 +105,7 @@
                         <ul class="data-sch-result">
                             @foreach($hospitals as $row)
                                 @php
-                                    $groupCnt = $data[$row->org_code]->total ?? 0;
+                                    $groupCnt = $data[$row->org_code] ?? 0;
                                     $noneData = ($groupCnt === 0);
                                 @endphp
                                 <li @class(['no-data' => $noneData, 'NONE-CLICK' => $noneData])>
@@ -141,7 +141,9 @@
                         </div>
 
                         <div class="btn-wrap text-center mt-20">
-                            <a href="javascript:void(0);" class="btn btn-type1 color-type4">Excel 다운로드</a>
+                            <a href="{{ route('data.backup', ['backup' => 'backup1']) }}" class="btn btn-type1 color-type4 excel-backup1">
+                                Excel 다운로드
+                            </a>
                         </div>
 
                         <div class="table-wrap mt-80">
@@ -149,7 +151,9 @@
                         </div>
 
                         <div class="btn-wrap text-center mt-20 mb-80">
-                            <a href="javascript:void(0);" class="btn btn-type1 color-type4">Excel 다운로드</a>
+                            <a href="{{ route('data.backup', ['backup' => 'backup2']) }}" class="btn btn-type1 color-type4 excel-backup2">
+                                Excel 다운로드
+                            </a>
                         </div>
                     </fieldset>
                 </form>

@@ -71,7 +71,7 @@ class Fu extends Model
 
         return $this->fuConfig;
     }
-
+    
     public function setByData($data)
     {
         $FU_visit_d = "{$data['FU_visit_d_y']}-{$data['FU_visit_d_m']}-{$data['FU_visit_d_d']}";

@@ -101,4 +101,67 @@
         target.prop('checked', (allLength === checkedLength));
         backup2AllCheck();
     });
+
+    $(document).on('change', `#backup2-tbl .backup2-FU`, function () {
+        const target = $('#backup2-tbl').find('#backup2_FU');
+        const allLength = $('#backup2-tbl').find('.backup2-FU').length;
+        const checkedLength = $('#backup2-tbl').find('.backup2-FU:checked').length;
+
+        target.prop('checked', (allLength === checkedLength));
+        backup2AllCheck();
+    });
+
+    $(document).on('click', '.excel-backup1', function (e) {
+        e.preventDefault();
+
+        const excel_link = $(this).attr('href');
+        const checked_values = {};
+
+        // 체크된 값들만 배열로 추출
+        $('#backup1-tbl').find('input[type=checkbox]:checked').not('#backup1_all').each(function() {
+            checked_values[$(this).attr('name')] = $(this).val();
+        });
+
+        if (Object.keys(checked_values).length === 0) {
+            alert('선택된 항목이 없습니다.');
+            return;
+        }
+
+        // URL에 파라미터 추가 (기존 쿼리스트링 있는지 여부에 따라 ? 또는 & 분기)
+        const separator = excel_link.includes('?') ? '&' : '?';
+
+        // 쿼리스트링으로 변환
+        const query = Object.entries(checked_values)
+            .map(([name, value]) => `${encodeURIComponent(name)}=${encodeURIComponent(value)}`)
+            .join('&');
+
+        location.href = excel_link + separator + query;
+    });
+
+    $(document).on('click', '.excel-backup2', function (e) {
+        e.preventDefault();
+
+        const excel_link = $(this).attr('href');
+        const checked_values = {};
+
+        // 체크된 값들만 배열로 추출
+        $('#backup2-tbl').find('input[type=checkbox]:checked').not('#backup2_all').each(function() {
+            checked_values[$(this).attr('name')] = $(this).val();
+        });
+
+        if (Object.keys(checked_values).length === 0) {
+            alert('선택된 항목이 없습니다.');
+            return;
+        }
+
+        // URL에 파라미터 추가 (기존 쿼리스트링 있는지 여부에 따라 ? 또는 & 분기)
+        const separator = excel_link.includes('?') ? '&' : '?';
+
+        // 쿼리스트링으로 변환
+        const query = Object.entries(checked_values)
+            .map(([name, value]) => `${encodeURIComponent(name)}=${encodeURIComponent(value)}`)
+            .join('&');
+
+        location.href = excel_link + separator + query;
+    });
 </script>

@@ -61,6 +61,14 @@ class EndENDO extends Model
         return $this->endConfig;
     }
 
+    public function getExcelField()
+    {
+        $except = ['sid', 'last_reg_id', 'regist_num', 'status', 'created_at', 'updated_at', 'deleted_at'];
+        $columns = \Illuminate\Support\Facades\Schema::getColumnListing($this->getTable());
+
+        return array_values(array_diff($columns, $except));
+    }
+    
     public function setByData($data)
     {
         $endConfig = $this->endConfig();

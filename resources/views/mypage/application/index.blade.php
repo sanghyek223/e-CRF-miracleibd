@@ -40,7 +40,7 @@
 
                             <tbody>
                             @forelse($list as $row)
-                                <tr>
+                                <tr data-sid="{{ enCryptString($row->sid) }}">
                                     <td>{{ $row->getApplicationHosName() }}</td>
                                     <td>{{ $row->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $row->getDataScope() }}</td>
@@ -49,12 +49,16 @@
                                         <span class="state {{ $row->getConfirmClass() }}">{{ $row->getConfirm() }}</span>
                                     </td>
                                     <td class="text-center">
+                                        @if($row->confirmComplete())
                                             <div class="btn-wrap">
                                                 <a href="{{ route('mypage.application.download', ['sid' => $row->sid]) }}" class="btn btn-small color-type2" title="다운로드 상세">다운로드 상세</a>
                                             </div>
 
-                                            <div class="mt-5">(기한: {{ $row->download_d_s->format('m.d') }}~{{ $row->download_d_e->format('m.d') }})</div>
-                                        @if($row->confirmComplete())
+                                            <div class="mt-5">(기한: {{ $row->download_d_s->format('y.m.d') }} ~ {{ $row->download_d_e->format('y.m.d') }})</div>
+                                        @elseif($row->confirm === 'R')
+                                            <div class="btn-wrap">
+                                                <a href="javascript:void(0);" class="btn btn-small color-type1 reject-reason">사유 보기</a>
+                                            </div>
                                         @endif
                                     </td>
                                 </tr>
@@ -77,5 +81,14 @@
 @section('addScript')
     <script>
         const dataUrl = '{{ route('mypage.data') }}';
+
+        $(document).on('click', '.reject-reason', function () {
+            const _this = $(this);
+
+            callAjax(dataUrl, {
+                'case': 'application-reject-reason',
+                'sid': _this.closest('tr').data('sid'),
+            });
+        });
     </script>
 @endsection

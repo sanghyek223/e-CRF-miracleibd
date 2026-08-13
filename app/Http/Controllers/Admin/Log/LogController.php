@@ -15,6 +15,7 @@ class LogController extends Controller
 
         view()->share([
             'main_key' => 'M1',
+            'dataConfig' => config('site.data'),
         ]);
     }
 
@@ -23,9 +24,9 @@ class LogController extends Controller
         return view('admin.log.index', $this->logServices->indexService($request));
     }
 
-    public function upsert(Request $request)
+    public function detail(Request $request)
     {
-        return view('admin.log.upsert', $this->logServices->upsertService($request));
+        return view('admin.log.detail', $this->logServices->detailService($request));
     }
 
     public function data(Request $request)
