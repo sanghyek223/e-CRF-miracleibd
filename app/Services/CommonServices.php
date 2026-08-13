@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
  */
 class CommonServices extends AppServices
 {
-    private function filenameRegx(string $filename): string
+    public function filenameRegx(string $filename): string
     {
         // 파일명에 허용되지않는 특수문자 제거
         return preg_replace("/[ #\&\+\-%@=\/\\\:;,\'\"\^`~\_|\!\?\*$#<>()\[\]\{\}]/i", ' ', $filename);

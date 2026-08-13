@@ -162,8 +162,8 @@ class FASTQ extends Model
         $uploadConfig = $fastqConfig['UPLOAD'];
 
         foreach ($uploadConfig['file'] as $key => $val) {
-            if (!empty($this->{$val['upload_name']})) {
-                $file_name[] = $this->{$val['upload_name']};
+            if (!empty($this->{$val['origin_name']})) {
+                $file_name[] = $this->{$val['origin_name']};
             }
         }
 

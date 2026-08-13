@@ -31,7 +31,13 @@ class DataController extends Controller
         return view('data.application', $this->dataServices->applicationService($request));
     }
 
-    public function excel(Request $request)
+    public function downloadFASTQ(Request $request)
+    {
+        $request->merge(['FASTQ_download' => true]);
+        return $this->dataServices->indexService($request);
+    }
+
+    public function downloadExcel(Request $request)
     {
         $request->merge(['excel' => true]);
         return $this->dataServices->indexService($request);

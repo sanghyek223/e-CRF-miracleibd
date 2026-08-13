@@ -141,7 +141,7 @@
                         </div>
 
                         <div class="btn-wrap text-center mt-20">
-                            <a href="{{ route('data.backup', ['backup' => 'backup1']) }}" class="btn btn-type1 color-type4 excel-backup1">
+                            <a href="{{ route('data.download.excel', ['backup' => 'backup1']) }}" class="btn btn-type1 color-type4 excel-backup1">
                                 Excel 다운로드
                             </a>
                         </div>
@@ -151,7 +151,7 @@
                         </div>
 
                         <div class="btn-wrap text-center mt-20 mb-80">
-                            <a href="{{ route('data.backup', ['backup' => 'backup2']) }}" class="btn btn-type1 color-type4 excel-backup2">
+                            <a href="{{ route('data.download.excel', ['backup' => 'backup2']) }}" class="btn btn-type1 color-type4 excel-backup2">
                                 Excel 다운로드
                             </a>
                         </div>
@@ -165,9 +165,9 @@
                         @include('data.include.download-tbl', ['patientsFASTQ' => $myPatientsFASTQ])
 
                         <div class="btn-wrap text-center">
-                            <button type="submit" class="btn btn-type1 btn-line color-type2">선택 다운로드</button>
-                            <button type="submit" class="btn btn-type1 color-type2">전체 다운로드</button>
-                            <button type="submit" class="btn btn-type1 color-type6">다운로드 취소</button>
+                            <a href="{{ route('data.download.FASTQ', ['download' => 'choice']) }}" class="btn btn-type1 btn-line color-type2 FASTQ-choice-download">선택 다운로드</a>
+                            <a href="{{ route('data.download.FASTQ', ['download' => 'all']) }}" class="btn btn-type1 color-type2 FASTQ-all-download">전체 다운로드</a>
+                            <a href="javascript:void(0);" class="btn btn-type1 color-type6 FASTQ-cancel-download">다운로드 취소</a>
                         </div>
                     </fieldset>
                 </form>

@@ -41,6 +41,25 @@ class MypageServices extends AppServices
         $patients = $application->dataSearchPatients();
         $patientsFASTQ = $application->dataSearchFASTQ();
 
+        if ($request->FASTQ_download) {
+
+            if (!$application->isDownloadPeriod()) {
+                return redirect()->back()->with(['msg' => '다운로드 기간이 아닙니다.']);
+            }
+
+            $filename = now()->format('YmdHis') . '.zip';
+
+            if ($request->download !== 'all') {
+                foreach ($request->FILE_KEY ?? [] as $key => $val) {
+                    $FILE_KEY[] = deCryptString($val);
+                }
+
+                $patientsFASTQ = $patientsFASTQ->whereIn('sid', $FILE_KEY)->values();
+            }
+
+            return (new \App\Services\Data\DataServices())->FASTQZipDownload($patientsFASTQ, $filename);
+        }
+
         if ($request->excel) {
 
             if (!$application->isDownloadPeriod()) {

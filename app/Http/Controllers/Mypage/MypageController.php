@@ -36,6 +36,12 @@ class MypageController extends Controller
         return view('mypage.application.download', $this->mypageServices->applicationDownloadService($request));
     }
 
+    public function applicationDownloadFASTQ(Request $request)
+    {
+        $request->merge(['FASTQ_download' => true]);
+        return $this->mypageServices->applicationDownloadService($request);
+    }
+
     public function applicationDownloadExcel(Request $request)
     {
         $request->merge(['excel' => true]);

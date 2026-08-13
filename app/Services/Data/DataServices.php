@@ -10,6 +10,7 @@ use App\Exports\Backup2Excel;
 use App\Services\AppServices;
 use App\Services\CommonServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 /**
  * Class DataServices
@@ -27,6 +28,20 @@ class DataServices extends AppServices
         $myQuery = $user->patients()->hasDataSearch($search_params);
         $myPatients = (clone $myQuery)->get();
         $myPatientsFASTQ = $myQuery->withWhereHas('FASTQ', fn($q) => $q->hasFile())->get();
+
+        if ($request->FASTQ_download) {
+            $filename = now()->format('YmdHis') . '.zip';
+
+            if ($request->download !== 'all') {
+                foreach ($request->FILE_KEY ?? [] as $key => $val) {
+                    $FILE_KEY[] = deCryptString($val);
+                }
+
+                $myPatientsFASTQ = $myPatientsFASTQ->whereIn('sid', $FILE_KEY)->values();
+            }
+
+            return $this->FASTQZipDownload($myPatientsFASTQ, $filename);
+        }
 
         if ($request->excel) {
 
@@ -111,6 +126,17 @@ class DataServices extends AppServices
         $this->data['backup2_count'] = $patients->sum('Fu_count');
 
         return $this->data;
+    }
+
+    public function FASTQZipDownload($patients, $filename)
+    {
+        $jobId = (string) Str::uuid();
+
+        \Illuminate\Support\Facades\Cache::put("zip_progress_{$jobId}", ['status' => 'processing', 'percent' => 0], now()->addHours(1));
+
+        \App\Jobs\FASTQZipDownloadJob::dispatch($jobId, $patients, $filename);
+
+        return response()->json(['job_id' => $jobId]);
     }
 
     public function dataAction(Request $request)

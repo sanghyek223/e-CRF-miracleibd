@@ -6,9 +6,9 @@
 
     @if($application->isDownloadPeriod())
         <div class="btn-wrap text-center">
-            <button type="button" class="btn btn-type1 btn-line color-type2">선택 다운로드</button>
-            <button type="button" class="btn btn-type1 color-type2">전체 다운로드</button>
-            <button type="button" class="btn btn-type1 color-type6">다운로드 취소</button>
+            <a href="{{ route('mypage.application.download.FASTQ', ['sid' => $application->sid, 'download' => 'choice']) }}" class="btn btn-type1 btn-line color-type2 FASTQ-choice-download">선택 다운로드</a>
+            <a href="{{ route('mypage.application.download.FASTQ', ['sid' => $application->sid, 'download' => 'all']) }}" class="btn btn-type1 color-type2 FASTQ-all-download">전체 다운로드</a>
+            <a href="javascript:void(0);" class="btn btn-type1 color-type6 FASTQ-cancel-download">다운로드 취소</a>
         </div>
     @endif
 </div>
