@@ -11,6 +11,8 @@ use App\Services\AppServices;
 use App\Services\CommonServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class DataServices
@@ -30,7 +32,6 @@ class DataServices extends AppServices
         $myPatientsFASTQ = $myQuery->withWhereHas('FASTQ', fn($q) => $q->hasFile())->get();
 
         if ($request->FASTQ_download) {
-            $filename = now()->format('YmdHis') . '.zip';
 
             if ($request->download !== 'all') {
                 foreach ($request->FILE_KEY ?? [] as $key => $val) {
@@ -40,7 +41,13 @@ class DataServices extends AppServices
                 $myPatientsFASTQ = $myPatientsFASTQ->whereIn('sid', $FILE_KEY)->values();
             }
 
-            return $this->FASTQZipDownload($myPatientsFASTQ, $filename);
+            $download_info = [
+                'download_type' => $request->download_type,
+                'patients' => $myPatientsFASTQ,
+                'filename' => (now()->format('YmdHis') . '.zip'),
+            ];
+
+            return $this->FASTQDownloadProcess($download_info);
         }
 
         if ($request->excel) {
@@ -128,15 +135,93 @@ class DataServices extends AppServices
         return $this->data;
     }
 
-    public function FASTQZipDownload($patients, $filename)
+    public function FASTQDownloadProcess($download_info)
     {
-        $jobId = (string) Str::uuid();
+        if ($download_info['patients']->count() === 0) {
+            return $this->returnJsonData('alert', [
+                'case' => true,
+                'msg' => '다운로드할 항목이 없습니다.',
+                'location' => $this->ajaxActionLocation('reload'),
+            ]);
+        }
 
-        \Illuminate\Support\Facades\Cache::put("zip_progress_{$jobId}", ['status' => 'processing', 'percent' => 0], now()->addHours(1));
+        $job_id = (string)Str::uuid();
 
-        \App\Jobs\FASTQZipDownloadJob::dispatch($jobId, $patients, $filename);
+        $zipDirectory = storage_path('app/zipArchive');
 
-        return response()->json(['job_id' => $jobId]);
+        if (!File::exists($zipDirectory)) {
+            File::makeDirectory($zipDirectory, 0755, true);
+        }
+
+        $zipFileName = (new CommonServices())->filenameRegx($download_info['filename']);
+        $zipRealPath = "{$zipDirectory}/{$zipFileName}";
+
+        $zip = new \ZipArchive();
+
+        $open = $zip->open($zipRealPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        if ($open !== true) {
+            return $this->returnJsonData('alert', [
+                'case' => true,
+                'msg' => "Zip 파일 생성 실패 (code: {$open})",
+                'location' => $this->ajaxActionLocation('reload'),
+            ]);
+        }
+
+        // 파일 등록 + 전체 용량 계산
+        $total_size = 0;
+        $file_count = 0;
+        $uploadConfig = config('site.register.FASTQ.UPLOAD');
+
+        foreach ($download_info['patients'] as $patient) {
+            $FASTQ = $patient->FASTQ;
+            $dir_name = $patient->regist_num;
+
+            foreach ($uploadConfig['file'] as $key => $val) {
+                if (!empty($FASTQ->{$val['upload_name']})) {
+                    $path = public_path($FASTQ->getUploadPath($key));
+
+                    if (File::exists($path)) {
+                        $zip->addFile($path, $dir_name . '/' . $FASTQ->{$val['origin_name']});
+                        $total_size += File::size($path);
+                        $file_count++;
+                    }
+                }
+            }
+        }
+
+        $zip->close();
+
+        $progressView = view('data.include.download-progress', [
+            'file_count' => $file_count,
+            'total_size' => $total_size,
+        ])->render();
+
+        $this->setJsonData('log', '압축 완료.');
+
+        $this->setJsonData('file_data', [
+            'job_id' => $job_id,
+            'file_name' => $zipFileName,
+            'download_type' => $download_info['download_type'],
+        ]);
+
+        $this->setJsonData('remove', [
+            $this->ajaxActionHtml('.progress-div-info', $progressView),
+        ]);
+
+        $this->setJsonData('before', [
+            $this->ajaxActionHtml('.download-FASTQ-tbl-wrap', $progressView),
+        ]);
+
+        Cache::put("fastq_progress_{$job_id}", [
+            'u_sid' => thisPK(), // 본인 요청 환인용
+            'status' => 'done',
+            'file_name' => $zipFileName,
+            'real_path' => $zipRealPath,
+            'download_type' => $download_info['download_type'],
+        ], now()->addHours(3));
+
+        return $this->returnJson();
     }
 
     public function dataAction(Request $request)

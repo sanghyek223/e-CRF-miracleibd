@@ -76,8 +76,8 @@ Route::middleware('auth.check')->group(function () {
         Route::get('/', 'index')->name('data');
         Route::post('application', 'application')->name('data.application');
 
-        Route::get('download/{download}/FASTQ', 'downloadFASTQ')->where('download', 'all|choice')->name('data.download.FASTQ');
         Route::get('download/{backup}/excel', 'downloadExcel')->where('backup', 'backup1|backup2')->name('data.download.excel');
+        Route::post('download/{download}/FASTQ', 'downloadFASTQ')->where('download', 'all|choice')->name('data.download.FASTQ');
 
         Route::post('data', 'data')->name('data.data');
     });
@@ -88,8 +88,8 @@ Route::middleware('auth.check')->group(function () {
             Route::get('/', 'application')->name('mypage.application');
             Route::get('download/{sid}', 'applicationDownload')->name('mypage.application.download');
 
-            Route::get('download/{sid}/{download}/FASTQ', 'applicationDownloadFASTQ')->where('download', 'all|choice')->name('mypage.application.download.FASTQ');
             Route::get('download/{sid}/{backup}/excel', 'applicationDownloadExcel')->where('backup', 'backup1|backup2')->name('mypage.application.download.excel');
+            Route::post('download/{sid}/{download}/FASTQ', 'applicationDownloadFASTQ')->where('download', 'all|choice')->name('mypage.application.download.FASTQ');
         });
 
         Route::prefix('approval')->group(function () {

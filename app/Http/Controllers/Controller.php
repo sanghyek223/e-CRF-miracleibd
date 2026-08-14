@@ -42,14 +42,43 @@ class Controller extends BaseController
             : $this->CommonServices->zipDownloadService($request);
     }
 
-    public function FASTQZipDownload($jobId)
+    public function FASTQDownload(Request $request)
     {
-        $progress = Cache::get("zip_progress_{$jobId}");
+        $job_id = $request->job_id;
 
-        abort_unless($progress && $progress['status'] === 'done', 404);
-        abort_unless(File::exists($progress['real_path']), 404);
+        $progress = Cache::get("fastq_progress_{$job_id}");
 
-        return response()->download($progress['real_path'])->deleteFileAfterCallback();
+        // job 이 없거나, 완료 상태가 아니면
+        if (!$progress || $progress['status'] !== 'done') {
+            return response()->json([
+                'success' => false,
+                'message' => "다운로드 요청이 만료 되었거나.\n압축이 완료되지 않았습니다.",
+            ], 400);
+        }
+
+        // 본인 요청 확인
+        if ($progress['u_sid'] !== thisPK()) {
+            return response()->json([
+                'success' => false,
+                'message' => '다운로드 권한이 없습니다.',
+            ], 403);
+        }
+
+        // 실제 파일이 디스크에 존재하는지 재확인
+        if (!File::exists($progress['real_path'])) {
+            return response()->json([
+                'success' => false,
+                'message' => '파일을 찾을 수 없습니다.',
+            ], 404);
+        }
+
+        ini_set('memory_limit', '-1'); // 무제한
+        set_time_limit(0); // 실행시간 무제한
+
+        // 전체 다운로드 라면 압축 zip 파일 삭제
+        $is_zip = ($progress['download_type'] == 'all');
+        
+        return response()->download($progress['real_path'], $progress['file_name'])->deleteFileAfterSend($is_zip);
     }
 
     public function captchaMake(Request $request)

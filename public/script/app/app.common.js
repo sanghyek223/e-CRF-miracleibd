@@ -413,15 +413,17 @@ const callMultiAjax = (url, obj, isDebug = false) => {
 
 // callback ajax
 const callbackAjax = (url, obj, callback, isDebug = false) => {
+    const spinnerText = (obj.spinner_text) ? obj.spinner_text : '';
+
     $.ajax({
         type: "POST",
         url: url,
         data: encryptData(obj),
         beforeSend: function () {
-            spinnerShow();
+            spinnerShow(obj.spinner_text || '');
         },
         complete: function () {
-            spinnerHide();
+            spinnerHide(spinnerText);
         },
         success: function (data) {
             if (isDebug) console.log(data);
@@ -436,6 +438,10 @@ const callbackAjax = (url, obj, callback, isDebug = false) => {
 
 // callback multi-part ajax (file 전송시 or 배열값 전송시)
 const callbackMultiAjax = (url, obj, callback, isDebug = false) => {
+    // obj(FormData) 안에 spinner_text 필드가 있는지 확인
+    const hasSpinnerText = obj instanceof FormData && obj.has('spinner_text');
+    const spinnerText = hasSpinnerText ? obj.get('spinner_text') : '';
+
     $.ajax({
         type: "POST",
         processData: false,
@@ -443,7 +449,7 @@ const callbackMultiAjax = (url, obj, callback, isDebug = false) => {
         url: url,
         data: encryptMultiData(obj),
         beforeSend: function () {
-            spinnerShow();
+            spinnerShow(spinnerText);
         },
         complete: function () {
             spinnerHide();
@@ -629,13 +635,18 @@ const ajaxErrorData = (obj) => {
 }
 
 // ajax loading spinner Show
-const spinnerShow = () => {
+const spinnerShow = (text = '') => {
+    if (!isEmpty(text )) {
+        $("#spinner-div .spinner-text").html(text);
+    }
+
     $("#spinner-div").show();
 }
 
 // ajax loading spinner Hide
 const spinnerHide = () => {
     $("#spinner-div").hide();
+    $("#spinner-div .spinner-text").html('');
 }
 
 // add html

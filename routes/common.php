@@ -13,6 +13,8 @@ Route::controller(\App\Http\Controllers\Controller::class)->prefix('common')->gr
      * sid => sid 값 enCryptString(sid) 로 암호화해서 전송
      */
 
+    Route::get('FASTQ/download/{job_id}', 'FASTQDownload')->name("FASTQDownload");
+
     Route::get('fileDownload/{type}/{tbl}/{sid}', 'fileDownload')->where('type', 'only|zip')->name("download");
     Route::post('captcha-make', 'captchaMake')->name("captcha.make");
     Route::post('tinyUpload', 'tinyUpload')->name("tinyUpload");

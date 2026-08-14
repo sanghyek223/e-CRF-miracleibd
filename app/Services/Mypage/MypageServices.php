@@ -47,8 +47,6 @@ class MypageServices extends AppServices
                 return redirect()->back()->with(['msg' => '다운로드 기간이 아닙니다.']);
             }
 
-            $filename = now()->format('YmdHis') . '.zip';
-
             if ($request->download !== 'all') {
                 foreach ($request->FILE_KEY ?? [] as $key => $val) {
                     $FILE_KEY[] = deCryptString($val);
@@ -57,7 +55,13 @@ class MypageServices extends AppServices
                 $patientsFASTQ = $patientsFASTQ->whereIn('sid', $FILE_KEY)->values();
             }
 
-            return (new \App\Services\Data\DataServices())->FASTQZipDownload($patientsFASTQ, $filename);
+            $download_info = [
+                'download_type' => $request->download_type,
+                'patients' => $patientsFASTQ,
+                'filename' => (now()->format('YmdHis') . '.zip'),
+            ];
+
+            return (new \App\Services\Data\DataServices())->FASTQDownloadProcess($download_info);
         }
 
         if ($request->excel) {
