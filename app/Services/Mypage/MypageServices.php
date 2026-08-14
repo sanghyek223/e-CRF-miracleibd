@@ -44,10 +44,17 @@ class MypageServices extends AppServices
         if ($request->FASTQ_download) {
 
             if (!$application->isDownloadPeriod()) {
-                return redirect()->back()->with(['msg' => '다운로드 기간이 아닙니다.']);
+                return response()->json([
+                    'success' => false,
+                    'code' => 'DOWNLOAD_PERIOD_EXPIRED',
+                    'message' => '다운로드 기간이 종료되었습니다.',
+                ], 403);
             }
 
-            if ($request->download !== 'all') {
+            $filename = (now()->format('YmdHis') . '.zip');
+            $download_type = $request->download_type;
+
+            if ($download_type !== 'all') {
                 $FILE_KEY = $request->FILE_KEY;
                 $decrypt_FILE_KEY = deCryptString($FILE_KEY);
 
@@ -55,10 +62,8 @@ class MypageServices extends AppServices
             }
 
             $download_info = [
-                'download_type' => $request->download_type,
-                'FILE_KEY' => $FILE_KEY ?? '', // 단일 다운로드일떄
                 'patients' => $patientsFASTQ,
-                'filename' => (now()->format('YmdHis') . '.zip'),
+                'filename' => $filename,
             ];
 
             return (new \App\Services\Data\DataServices())->FASTQDownloadProcess($download_info);
