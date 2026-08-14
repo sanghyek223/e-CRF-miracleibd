@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
+use STS\ZipStream\Facades\Zip;
 
 /**
  * Class DataServices
@@ -33,18 +34,20 @@ class DataServices extends AppServices
 
         if ($request->FASTQ_download) {
 
-            if ($request->download !== 'all') {
-                foreach ($request->FILE_KEY ?? [] as $key => $val) {
-                    $FILE_KEY[] = deCryptString($val);
-                }
+            $filename = (now()->format('YmdHis') . '.zip');
+            $download_type = $request->download_type;
 
-                $myPatientsFASTQ = $myPatientsFASTQ->whereIn('sid', $FILE_KEY)->values();
+            if ($download_type !== 'all') {
+                $FILE_KEY = $request->FILE_KEY;
+                $decrypt_FILE_KEY = deCryptString($FILE_KEY);
+
+                $myPatientsFASTQ = $myPatientsFASTQ->where('sid', $decrypt_FILE_KEY)->values();
             }
 
             $download_info = [
-                'download_type' => $request->download_type,
+                'download_type' => $download_type,
                 'patients' => $myPatientsFASTQ,
-                'filename' => (now()->format('YmdHis') . '.zip'),
+                'filename' => $filename,
             ];
 
             return $this->FASTQDownloadProcess($download_info);
@@ -52,7 +55,7 @@ class DataServices extends AppServices
 
         if ($request->excel) {
 
-            $fileName = now()->format('YmdHis');
+            $filename = now()->format('YmdHis');
             $this->data['patients'] = $myPatients;
 
             $export = ($request->backup === 'backup1')
@@ -64,7 +67,7 @@ class DataServices extends AppServices
                 return view($previewData['viewPage'], $previewData['exportData']);
             }
 
-            return (new CommonServices())->excelDownload($export, $fileName);
+            return (new CommonServices())->excelDownload($export, $filename);
         }
 
         // 본인 기관 제외 열람 신청 할 기관 및 데이터
@@ -136,6 +139,31 @@ class DataServices extends AppServices
     }
 
     public function FASTQDownloadProcess($download_info)
+    {
+        $filename = (new CommonServices())->filenameRegx($download_info['filename']);
+        $uploadConfig = config('site.register.FASTQ.UPLOAD');
+
+        $zip = Zip::create($filename);
+
+        foreach ($download_info['patients'] as $patient) {
+            $FASTQ = $patient->FASTQ;
+            $dir_name = $patient->regist_num;
+
+            foreach ($uploadConfig['file'] as $key => $val) {
+                if (!empty($FASTQ->{$val['upload_name']})) {
+                    $path = public_path($FASTQ->getUploadPath($key));
+
+                    if (File::exists($path)) {
+                        $zip->add($path, $dir_name . '/' . $FASTQ->{$val['origin_name']});
+                    }
+                }
+            }
+        }
+
+        return $zip;
+    }
+
+    public function FASTQDownloadProcessBack($download_info)
     {
         if ($download_info['patients']->count() === 0) {
             return $this->returnJsonData('alert', [
@@ -209,9 +237,13 @@ class DataServices extends AppServices
             $this->ajaxActionHtml('.progress-div-info', $progressView),
         ]);
 
-        $this->setJsonData('before', [
-            $this->ajaxActionHtml('.download-FASTQ-tbl-wrap', $progressView),
-        ]);
+        if ($download_info['download_type'] === 'all') {
+            $this->setJsonData('before', [
+                $this->ajaxActionHtml('.download-FASTQ-tbl-wrap', $progressView),
+            ]);
+        } else {
+            $this->setJsonData('choice_progress', $progressView);
+        }
 
         Cache::put("fastq_progress_{$job_id}", [
             'u_sid' => thisPK(), // 본인 요청 환인용

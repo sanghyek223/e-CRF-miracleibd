@@ -12,7 +12,8 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
-        "mews/purifier": "^3.4"
+        "mews/purifier": "^3.4",
+        "stechstudio/laravel-zipstream": "^5.10"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",

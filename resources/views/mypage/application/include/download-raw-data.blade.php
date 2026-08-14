@@ -31,5 +31,5 @@
 </div>
 
 @push('raw-data-script')
-    @include('data.include.backup-tbl-script')
+    <script src="{{ asset('script/data-backup.js') }}"></script>
 @endpush

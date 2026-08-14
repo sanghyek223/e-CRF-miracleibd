@@ -4,14 +4,14 @@
     $FASTQ_LOOP = 1;
 @endphp
 
-<div class="table-wrap download-FASTQ-tbl-wrap">
+<div class="table-wrap" id="download-FASTQ-tbl-wrap">
     <table class="cst-table {{ $addClass ?? '' }}" id="download-tbl">
         <caption class="hide">신청내역 다운로드 상세</caption>
 
         <colgroup>
-            <col style="width:12%">
-            <col style="width:14%">
-            <col style="width:24%;">
+            <col style="width:8%">
+            <col style="width:13%">
+            <col style="width:25%;">
             <col style="width:12%;">
             <col style="width:auto;">
         </colgroup>
@@ -41,7 +41,11 @@
                 <td>{{ $row->regist_num }}</td>
                 <td>{!! implode('<br>', $row->FASTQ->getFileNameAll()) !!}</td>
                 <td>{{ formatBytes(array_sum($row->FASTQ->getFileSizeAll())) }}</td>
-                <td class="progress-state"></td>
+                <td class="progress-state">
+                    <a href="{{ route('data.download.FASTQ', ['download_type' => 'choice']) }}" class="btn btn-type1 btn-line color-type3 FASTQ-one-download"><span class="icon mr-10">
+                        <img src="/assets/image/icon/ic_download.png" alt=""></span>다운로드
+                    </a>
+                </td>
             </tr>
         @empty
             <tr>
@@ -55,3 +59,18 @@
         *압축 파일(.zip) 형태로 제공됩니다.
     </p>
 </div>
+
+<template id="progress-template">
+    <div class="bg-box type-info progress-div-info">
+        <div class="progress-wrap mb-0">
+            <div class="download-progress-bar">
+                <progress max="100" value="0" class="all"></progress>
+                <div class="value-wrap">
+                    <p data-value="0" class="value"></p>
+                </div>
+            </div>
+
+            <div class="desc progress-desc"></div>
+        </div>
+    </div>
+</template>

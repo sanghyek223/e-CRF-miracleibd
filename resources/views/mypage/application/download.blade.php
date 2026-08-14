@@ -87,6 +87,7 @@
             });
         });
     </script>
+    
     @stack('FASTQ-script')
     @stack('raw-data-script')
 @endsection

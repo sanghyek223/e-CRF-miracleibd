@@ -14,5 +14,6 @@
 </div>
 
 @push('FASTQ-script')
-    @include('data.include.download-tbl-script')
+    <script src="https://cdn.jsdelivr.net/npm/streamsaver@2.0.6/StreamSaver.min.js"></script>
+    <script src="{{ asset('script/data-download.js') }}"></script>
 @endpush

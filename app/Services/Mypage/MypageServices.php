@@ -48,15 +48,15 @@ class MypageServices extends AppServices
             }
 
             if ($request->download !== 'all') {
-                foreach ($request->FILE_KEY ?? [] as $key => $val) {
-                    $FILE_KEY[] = deCryptString($val);
-                }
+                $FILE_KEY = $request->FILE_KEY;
+                $decrypt_FILE_KEY = deCryptString($FILE_KEY);
 
-                $patientsFASTQ = $patientsFASTQ->whereIn('sid', $FILE_KEY)->values();
+                $patientsFASTQ = $patientsFASTQ->where('sid', $decrypt_FILE_KEY)->values();
             }
 
             $download_info = [
                 'download_type' => $request->download_type,
+                'FILE_KEY' => $FILE_KEY ?? '', // 단일 다운로드일떄
                 'patients' => $patientsFASTQ,
                 'filename' => (now()->format('YmdHis') . '.zip'),
             ];

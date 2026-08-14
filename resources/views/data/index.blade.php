@@ -165,8 +165,8 @@
                         @include('data.include.download-tbl', ['patientsFASTQ' => $myPatientsFASTQ])
 
                         <div class="btn-wrap text-center">
-                            <a href="{{ route('data.download.FASTQ', ['download' => 'choice']) }}" class="btn btn-type1 btn-line color-type2 FASTQ-choice-download">선택 다운로드</a>
-                            <a href="{{ route('data.download.FASTQ', ['download' => 'all']) }}" class="btn btn-type1 color-type2 FASTQ-all-download">전체 다운로드</a>
+                            <a href="{{ route('data.download.FASTQ', ['download_type' => 'choice']) }}" class="btn btn-type1 btn-line color-type2 FASTQ-choice-download">선택 다운로드</a>
+                            <a href="{{ route('data.download.FASTQ', ['download_type' => 'all']) }}" class="btn btn-type1 color-type2 FASTQ-all-download">전체 다운로드</a>
                             <a href="javascript:void(0);" class="btn btn-type1 color-type6 FASTQ-cancel-download">다운로드 취소</a>
                         </div>
                     </fieldset>
@@ -215,6 +215,9 @@
             );
         });
     </script>
-    @include('data.include.backup-tbl-script')
-    @include('data.include.download-tbl-script')
+    
+    <script src="{{ asset('script/data-backup.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/streamsaver@2.0.6/StreamSaver.min.js"></script>
+    <script src="{{ asset('script/data-download.js') }}"></script>
 @endsection
