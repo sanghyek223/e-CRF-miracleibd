@@ -35,9 +35,8 @@ class DataServices extends AppServices
         if ($request->FASTQ_download) {
 
             $filename = (now()->format('YmdHis') . '.zip');
-            $download_type = $request->download_type;
 
-            if ($download_type !== 'all') {
+            if ($request->download_type !== 'all') {
                 $FILE_KEY = $request->FILE_KEY;
                 $decrypt_FILE_KEY = deCryptString($FILE_KEY);
 

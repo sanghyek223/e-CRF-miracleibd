@@ -52,9 +52,8 @@ class MypageServices extends AppServices
             }
 
             $filename = (now()->format('YmdHis') . '.zip');
-            $download_type = $request->download_type;
 
-            if ($download_type !== 'all') {
+            if ($request->download_type !== 'all') {
                 $FILE_KEY = $request->FILE_KEY;
                 $decrypt_FILE_KEY = deCryptString($FILE_KEY);
 
@@ -66,6 +65,8 @@ class MypageServices extends AppServices
                 'filename' => $filename,
             ];
 
+            // 다운로드 증가
+            $application->increment('download');
             return (new \App\Services\Data\DataServices())->FASTQDownloadProcess($download_info);
         }
 
@@ -87,6 +88,7 @@ class MypageServices extends AppServices
                 return view($previewData['viewPage'], $previewData['exportData']);
             }
 
+            // 다운로드 증가
             $application->increment('download');
             return (new CommonServices())->excelDownload($export, $fileName);
         }

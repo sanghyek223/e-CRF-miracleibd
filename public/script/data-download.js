@@ -27,6 +27,8 @@ $(document).on('click', '.FASTQ-one-download', function (e) {
     const download_link = $(this).attr('href');
     const choiceTarget = $(this).closest('tr').find('.FASTQ-chk');
 
+    choiceTarget.prop('checked', true).trigger('change');
+    
     downloadFASTQRow(download_link, choiceTarget.val(), choiceTarget.attr('id'));
 });
 
@@ -53,11 +55,14 @@ $(document).on('click', '.FASTQ-all-download', function (e) {
     e.preventDefault();
 
     const download_link = $(this).attr('href');
+    const choiceTarget = $('#download-tbl').find('.FASTQ-chk');
 
-    if ($('#download-tbl').find('.FASTQ-chk').length === 0) {
+    if (choiceTarget.length === 0) {
         alert('다운로드 가능한 항목이 없습니다.');
         return;
     }
+
+    choiceTarget.prop('checked', true).trigger('change');
 
     downloadFASTQAll(download_link, 'PROGRESS-ALL');
 });
