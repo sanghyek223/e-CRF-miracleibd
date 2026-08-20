@@ -46,7 +46,7 @@
                                         </li>
                                     @endif
 
-                                    @if($data_scope_type['data_scope_row'])
+                                    @if($data_scope_type['data_scope_raw'])
                                         <li>
                                             <a href="javascript:void(0);" class="tab-menu-link" data-scope="raw-data">
                                                 Raw Data ({{ number_format($patients_count) }}건)
@@ -62,7 +62,7 @@
                                 @include('mypage.approval.include.detail-FASTQ')
                             @endif
 
-                            @if($data_scope_type['data_scope_row'])
+                            @if($data_scope_type['data_scope_raw'])
                                 @include('mypage.approval.include.detail-raw-data')
                             @endif
                         </fieldset>
@@ -99,4 +99,7 @@
             location.replace('{{ $approval_list_url }}');
         });
     </script>
+
+    @stack('FASTQ-script')
+    @stack('raw-data-script')
 @endsection

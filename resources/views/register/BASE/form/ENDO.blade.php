@@ -138,6 +138,56 @@
             callMultiAjax(dataUrl, ajaxData);
         }
 
+        $(document).on('change', '#b_MES', function () {
+            const value = $(this).val();
+            const target = 'input[name=b_endo_sev]';
+
+            (isEmpty(value))
+                ? $(form).find(`${target}`).prop('checked', false)
+                : $(form).find(`${target}[value=${value}]`).prop('checked', true);
+
+            validateEssChk();
+        });
+
+        $(document).on('change', '#b_SES_CD', function () {
+            const value = $(this).val();
+            const target = 'input[name=b_endo_sev]';
+
+            console.log(value);
+
+            if (isEmpty(value)) {
+                $(form).find(`${target}`).prop('checked', false);
+            } else {
+
+                switch (value) {
+                    case '0':
+                    case '1':
+                    case '2':
+                        $(form).find(`${target}[value=0]`).prop('checked', true);
+                        break;
+
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                        $(form).find(`${target}[value=1]`).prop('checked', true);
+                        break;
+
+                    case '7':
+                    case '8':
+                    case '9':
+                        $(form).find(`${target}[value=2]`).prop('checked', true);
+                        break;
+
+                    default:
+                        $(form).find(`${target}[value=3]`).prop('checked', true);
+                        break;
+                }
+            }
+
+            validateEssChk();
+        });
+
         $(document).on('change', `${form} #b_endo_d_uk, ${form} #b_entero_d_uk`, function () {
             const checked = $(this).is(':checked');
             const target = $(this).closest('td').find('.target-replace-datepicker');

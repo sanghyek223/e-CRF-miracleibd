@@ -75,12 +75,14 @@ class EndMED extends Model
         $medConfig = $endConfig['MED'];
 
         $this->end_med = $data['end_med'];
-        $this->end_5ASA = $data['end_5ASA'];
-        $this->end_aza = $data['end_aza'];
-        $this->end_MTX = $data['end_MTX'];
-        $this->end_tofa = $data['end_tofa'];
-        $this->end_oza = $data['end_oza'];
-        $this->end_st = $data['end_st'];
+        $is_med_y = ($this->end_med == '1');
+
+        $this->end_5ASA = ($is_med_y) ? $data['end_5ASA'] : null;
+        $this->end_aza = ($is_med_y) ? $data['end_aza'] : null;
+        $this->end_MTX = ($is_med_y) ? $data['end_MTX'] : null;
+        $this->end_tofa = ($is_med_y) ? $data['end_tofa'] : null;
+        $this->end_oza = ($is_med_y) ? $data['end_oza'] : null;
+        $this->end_st = ($is_med_y) ? $data['end_st'] : null;
 
         $this->end_bio = $data['end_bio'];
         $this->end_bio_cat = ($this->end_bio == '1') ? $data['end_bio_cat'] : null;
@@ -98,6 +100,8 @@ class EndMED extends Model
 
     public function additionalData() // 노출 정보 추가 가공
     {
+        $this->is_med_y = ($this->end_med == '1'); // 약물 투약 여부 - 예
+
         $this->is_bio_y = ($this->end_bio == '1'); // 생물학제제 투약 여부 - 예
         $this->is_ER_adm_v_y = ($this->end_ER_adm_v == '1'); // 입원 또는 응급실 방문 - 예
 

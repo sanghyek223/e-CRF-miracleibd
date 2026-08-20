@@ -125,7 +125,9 @@
                             </td>
                             <td>
                                 {{ $row->getApplicationHosName() }}
-                                <br>({{ $row->getApplicationUserName() }})
+                                @if(!$row->confirmReady())
+                                    <br>({{ $row->getApplicationUserName() }})
+                                @endif
                             </td>
                             <td>{{ $row->created_at }}</td>
                             <td>{{ $row->confirm_at ?? '' }}</td>

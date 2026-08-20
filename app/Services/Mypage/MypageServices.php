@@ -173,6 +173,9 @@ class MypageServices extends AppServices
             case 'approval-confirm-layer':
                 return $this->approvalConfirmLayer($request);
 
+            case 'approval-confirm':
+                return $this->approvalConfirm($request);
+
             case 'approval-approve':
                 return $this->approvalApprove($request);
 
@@ -218,7 +221,7 @@ class MypageServices extends AppServices
         ]);
     }
 
-    private function approvalApprove(Request $request)
+    private function approvalConfirm(Request $request)
     {
         $this->transaction();
 
@@ -227,12 +230,18 @@ class MypageServices extends AppServices
             $decrypt_sid = deCryptString($request->sid);
             $approval = $user->approvals()->findOrFail($decrypt_sid);
 
-            $approval->download_d_s = $request->download_d_s;
-            $approval->download_d_e = $request->download_d_e;
-            $approval->confirm = 'Y';
+            $confirm = $request->confirm;
+            if ($request->confirm == 'Y') {
+                $approval->download_d_s = $request->download_d_s;
+                $approval->download_d_e = $request->download_d_e;
+            } else {
+                $approval->reject_reason = $request->reject_reason;
+            }
+
+            $approval->confirm = $confirm;
             $approval->update();
 
-            $this->dbCommit('데이터 열람 신청 승인');
+            $this->dbCommit('데이터 열람 신청 요청 처리');
 
             return $this->returnJsonData('alert', [
                 'case' => true,
@@ -244,30 +253,56 @@ class MypageServices extends AppServices
         }
     }
 
-    private function approvalReject(Request $request)
-    {
-        $this->transaction();
-
-        try {
-            $user = thisUser();
-            $decrypt_sid = deCryptString($request->sid);
-            $approval = $user->approvals()->findOrFail($decrypt_sid);
-
-            $approval->reject_reason = $request->reject_reason;
-            $approval->confirm = 'R';
-            $approval->update();
-
-            $this->dbCommit('데이터 열람 신청 반려');
-
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '반려 되었습니다.',
-                'location' => $this->ajaxActionLocation('reload'),
-            ]);
-        } catch (\Exception $e) {
-            return $this->dbRollback($e);
-        }
-    }
+//    private function approvalApprove(Request $request)
+//    {
+//        $this->transaction();
+//
+//        try {
+//            $user = thisUser();
+//            $decrypt_sid = deCryptString($request->sid);
+//            $approval = $user->approvals()->findOrFail($decrypt_sid);
+//
+//            $approval->download_d_s = $request->download_d_s;
+//            $approval->download_d_e = $request->download_d_e;
+//            $approval->confirm = 'Y';
+//            $approval->update();
+//
+//            $this->dbCommit('데이터 열람 신청 승인');
+//
+//            return $this->returnJsonData('alert', [
+//                'case' => true,
+//                'msg' => '승인 되었습니다.',
+//                'location' => $this->ajaxActionLocation('reload'),
+//            ]);
+//        } catch (\Exception $e) {
+//            return $this->dbRollback($e);
+//        }
+//    }
+//
+//    private function approvalReject(Request $request)
+//    {
+//        $this->transaction();
+//
+//        try {
+//            $user = thisUser();
+//            $decrypt_sid = deCryptString($request->sid);
+//            $approval = $user->approvals()->findOrFail($decrypt_sid);
+//
+//            $approval->reject_reason = $request->reject_reason;
+//            $approval->confirm = 'R';
+//            $approval->update();
+//
+//            $this->dbCommit('데이터 열람 신청 반려');
+//
+//            return $this->returnJsonData('alert', [
+//                'case' => true,
+//                'msg' => '반려 되었습니다.',
+//                'location' => $this->ajaxActionLocation('reload'),
+//            ]);
+//        } catch (\Exception $e) {
+//            return $this->dbRollback($e);
+//        }
+//    }
 
     private function approvalRejectCancel(Request $request)
     {

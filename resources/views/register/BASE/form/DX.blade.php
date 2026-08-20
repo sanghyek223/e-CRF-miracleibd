@@ -200,7 +200,7 @@
                 </div>
             </td>
 
-            <th scope="row">Tofactinibs</th>
+            <th scope="row">Tofacitinib</th>
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
@@ -220,7 +220,7 @@
                 </div>
             </td>
 
-            <th scope="row">Steriod</th>
+            <th scope="row">Steroid</th>
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)

@@ -21,7 +21,7 @@
                     <div class="login-input-wrap">
                         <div class="login-input">
                             <input type="text" name="uid" id="uid" class="form-item" placeholder="아이디를" noneSpace>
-                            <input type="password" name="password" id="password" class="form-item" placeholder="비밀번호를" noneSpace>
+                            <input type="password" name="password" id="password" class="form-item" placeholder="비밀번호" noneSpace>
                         </div>
 
                         <button type="submit" class="btn btn-login">로그인</button>

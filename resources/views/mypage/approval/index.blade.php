@@ -63,8 +63,9 @@
                                         @switch($row->confirm)
                                             @case('N' /* 승인 대기 */)
                                                 <div class="btn-wrap">
-                                                    <a href="javascript:void(0);" class="btn btn-small color-type2 confirm-layer" title="승인" data-layer="approve">승인</a>
-                                                    <a href="javascript:void(0);" class="btn btn-small color-type6 confirm-layer" title="반려" data-layer="reject">반려</a>
+                                                    <a href="javascript:void(0);" class="btn btn-small color-type2 confirm-layer" title="관리" data-layer="select">신청 관리</a>
+{{--                                                    <a href="javascript:void(0);" class="btn btn-small color-type2 confirm-layer" title="승인" data-layer="approve">승인</a>--}}
+{{--                                                    <a href="javascript:void(0);" class="btn btn-small color-type6 confirm-layer" title="반려" data-layer="reject">반려</a>--}}
                                                 </div>
                                                 @break
 
@@ -96,6 +97,7 @@
 @section('addScript')
     <script>
         const dataUrl = '{{ route('mypage.data') }}';
+        const confirmForm = '#confirm-frm';
         const approveForm = '#approval-approve-frm';
         const rejectForm = '#approval-reject-frm';
 
@@ -126,6 +128,72 @@
                     'sid': _this.closest('tr').data('sid'),
                 });
             }
+        });
+
+        $(document).on('change', `${confirmForm} input[name=confirm]`, function () {
+            const value = $(confirmForm).find('input[name=confirm]:checked').val() || '';
+            console.log(value)
+            const y_target = $(confirmForm).find('.confirm-y-box');
+            const n_target = $(confirmForm).find('.confirm-n-box');
+
+            switch (value) {
+                case 'Y':
+                    y_target.show();
+
+                    n_target.hide();
+                    n_target.find('textarea').val('');
+                    break;
+
+                case 'R':
+                    n_target.show();
+                    y_target.hide();
+                    break;
+
+                default:
+                    y_target.hide();
+                    n_target.hide();
+                    n_target.find('textarea').val('');
+                    break;
+            }
+        });
+
+        $(document).on('submit', confirmForm, function () {
+            const confirm = $(confirmForm).find('input[name=confirm]');
+            const confirm_val = $(confirmForm).find('input[name=confirm]:checked').val();
+            if (!confirm.is(':checked')) {
+                alert('처리 상태를 선택해주세요.');
+                confirm.eq(0).focus();
+                return false;
+            }
+
+            if (confirm_val == 'Y') {
+
+                const download_d_s = $(confirmForm).find('#download_d_s');
+                if (isEmpty(download_d_s.val())) {
+                    alert('다운로드 허용 기간(시작 일자)를 입력해주세요.');
+                    download_d_s.focus();
+                    return false;
+                }
+
+                const download_d_e = $(confirmForm).find('#download_d_e');
+                if (isEmpty(download_d_e.val())) {
+                    alert('다운로드 허용 기간(종료 일자)를 입력해주세요.');
+                    download_d_e.focus();
+                    return false;
+                }
+            }
+
+            if (confirm_val == 'R') {
+
+                const reject_reason = $(confirmForm).find('#reject_reason');
+                if (isEmpty(reject_reason.val())) {
+                    alert('반려 사유를 입력해주세요.');
+                    reject_reason.focus();
+                    return false;
+                }
+            }
+
+            callAjax(dataUrl, formSerialize(confirmForm));
         });
 
         $(document).on('submit', approveForm, function () {

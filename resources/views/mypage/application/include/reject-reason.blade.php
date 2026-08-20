@@ -27,7 +27,7 @@
 
                             <tr>
                                 <th scope="row">승인 기관</th>
-                                <td colspan="3" class="text-left">{{ $application->applicationUserName() }} ({{ $application->getApplicationHosName() }})</td>
+                                <td colspan="3" class="text-left">{{ $application->getApplicationUserName() }} ({{ $application->getApplicationHosName() }})</td>
                             </tr>
 
                             <tr>

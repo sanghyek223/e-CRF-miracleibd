@@ -23,7 +23,9 @@
 
                         <div class="btn-wrap text-center">
                             <button type="submit" class="btn btn-type1 color-type2">저장</button>
-                            <button type="button" class="btn btn-type1 color-type1" id="next-submit">저장 후 다음정보 등록</button>
+                            @if($tab != 'V')
+                                <button type="button" class="btn btn-type1 color-type1" id="next-submit">저장 후 다음정보 등록</button>
+                            @endif
                         </div>
                     </fieldset>
                 </form>

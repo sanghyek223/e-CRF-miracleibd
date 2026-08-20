@@ -14,14 +14,21 @@ return [
         'R' => '반려',
     ],
 
+    'confirm_select' => [
+        'Y' => '승인',
+        'R' => '반려',
+    ],
+
     'data_scope' => [
         'A' => 'FASTQ 파일',
-        'B' => 'row data',
-        'Z' => 'FASTQ 파일 + row data',
+        'B' => 'raw data',
+        'Z' => 'FASTQ 파일 + raw data',
     ],
 
     'data_scope_file' => ['A', 'Z'], // FASTQ 파일 선택
-    'data_scope_row' => ['B', 'Z'], // Raw data 선택
+    'data_scope_raw' => ['B', 'Z'], // Raw data 선택
+
+    'download_edate_plus' => 7, // 다운로드 종료일 시작 일로 부터 + 게산용
 
     'backup1_field' => [
         'backup1_DEFAULT' => [

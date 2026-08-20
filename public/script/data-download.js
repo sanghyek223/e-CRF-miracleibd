@@ -1,4 +1,6 @@
 let activeControllers = []; // AbortController 목록 (취소용)
+let isAllDownloading = false; // 전체 다운로드 진행 여부
+const activeRowDownloads = new Set(); // 현재 다운로드 중인 TARGET_ID 저장
 const DEFAULT_FILENAME = 'FASTQ_DOWNLOAD.zip';
 
 $(document).on('change', '#download-tbl #FASTQ_all', function () {
@@ -21,19 +23,39 @@ $(document).on('click', '.FASTQ-cancel-download', function () {
     activeControllers = [];
 });
 
+// 단일 다운로드
 $(document).on('click', '.FASTQ-one-download', function (e) {
     e.preventDefault();
 
+    if (isAllDownloading) {
+        alert('전체 다운로드가 진행 중입니다.');
+        return;
+    }
+
     const download_link = $(this).attr('href');
     const choiceTarget = $(this).closest('tr').find('.FASTQ-chk');
+    const TARGET_ID = choiceTarget.attr('id');
+
+    // 이미 다운로드 중인 항목일 경우 차단
+    if (activeRowDownloads.has(TARGET_ID)) {
+        alert('이미 다운로드가 진행 중인 항목입니다.');
+        return;
+    }
 
     choiceTarget.prop('checked', true).trigger('change');
-    
-    downloadFASTQRow(download_link, choiceTarget.val(), choiceTarget.attr('id'));
+
+    downloadFASTQRow(download_link, choiceTarget.val(), TARGET_ID);
 });
 
+// 선택 다운로드
 $(document).on('click', '.FASTQ-choice-download', function (e) {
     e.preventDefault();
+
+    // 전체 다운로드 중일 경우 차단
+    if (isAllDownloading) {
+        alert('전체 다운로드가 진행 중입니다.');
+        return;
+    }
 
     const download_link = $(this).attr('href');
     const choiceTarget = $('#download-tbl').find('.FASTQ-chk:checked');
@@ -43,16 +65,40 @@ $(document).on('click', '.FASTQ-choice-download', function (e) {
         return;
     }
 
-    // 병렬 실행
-    choiceTarget.each(function(index, item) {
+    // 이미 다운로드 중인 항목 필터링 (제외)
+    const targetsToDownload = choiceTarget.filter(function () {
+        const TARGET_ID = $(this).attr('id');
+        return !activeRowDownloads.has(TARGET_ID);
+    });
+
+    if (targetsToDownload.length === 0) {
+        alert('선택한 모든 항목이 이미 다운로드 중입니다.');
+        return;
+    }
+
+    // 병렬 실행 (중복 제외된 항목만)
+    targetsToDownload.each(function (index, item) {
         const FILE_KEY = $(item).val();
         const TARGET_ID = $(item).attr('id');
         downloadFASTQRow(download_link, FILE_KEY, TARGET_ID);
     });
 });
 
+// 전체 다운로드
 $(document).on('click', '.FASTQ-all-download', function (e) {
     e.preventDefault();
+
+    // 전체 다운로드가 이미 진행 중인 경우 차단
+    if (isAllDownloading) {
+        alert('이미 전체 다운로드가 진행 중입니다.');
+        return;
+    }
+
+    // 개별/선택 다운로드가 이미 진행 중인 경우 차단
+    if (activeRowDownloads.size > 0) {
+        alert('개별/선택 다운로드가 진행 중입니다. 완료 후 다시 시도해 주세요.');
+        return;
+    }
 
     const download_link = $(this).attr('href');
     const choiceTarget = $('#download-tbl').find('.FASTQ-chk');
@@ -69,26 +115,46 @@ $(document).on('click', '.FASTQ-all-download', function (e) {
 
 // 개별 행 다운로드
 async function downloadFASTQRow(download_link, FILE_KEY, TARGET_ID) {
-    const progressInfo = getProgressBox(`PROGRESS-ROW-${TARGET_ID}`);
-    $('#' + TARGET_ID).closest('tr').find('.progress-state').html(progressInfo['progress']);
+    if (activeRowDownloads.has(TARGET_ID)) return;
 
-    const url = download_link + (download_link.includes('?') ? '&' : '?') + 'FILE_KEY=' + encodeURIComponent(FILE_KEY);
-    const $box = $('#' + progressInfo['id']);
+    // 상태 등록
+    activeRowDownloads.add(TARGET_ID);
 
-    await runDownloadProcess(url, $box);
+    try {
+        const progressInfo = getProgressBox(`PROGRESS-ROW-${TARGET_ID}`);
+        $('#' + TARGET_ID).closest('tr').find('.progress-state').html(progressInfo['progress']);
+
+        const url = download_link + (download_link.includes('?') ? '&' : '?') + 'FILE_KEY=' + encodeURIComponent(FILE_KEY);
+        const $box = $('#' + progressInfo['id']);
+
+        await runDownloadProcess(url, $box);
+    } finally {
+        // 다운로드 완료/취소/에러 상관없이 상태 해제
+        activeRowDownloads.delete(TARGET_ID);
+    }
 }
 
 // 전체 다운로드
 async function downloadFASTQAll(download_link, PROGRESS_ID) {
-    const progressInfo = getProgressBox(PROGRESS_ID);
-    progressInfo['progress'].insertBefore('#download-FASTQ-tbl-wrap');
+    if (isAllDownloading) return;
 
-    const $box = $('#' + progressInfo['id']);
+    // 상태 등록
+    isAllDownloading = true;
 
-    await runDownloadProcess(download_link, $box);
+    try {
+        const progressInfo = getProgressBox(PROGRESS_ID);
+        progressInfo['progress'].insertBefore('#download-FASTQ-tbl-wrap');
+
+        const $box = $('#' + progressInfo['id']);
+
+        await runDownloadProcess(download_link, $box);
+    } finally {
+        // 다운로드 완료/취소/에러 상관없이 상태 해제
+        isAllDownloading = false;
+    }
 }
 
-// 공통 다운로드 실행 로직 (StreamSaver로 디스크에 바로 스트리밍 - 대용량 대응)
+// 공통 다운로드 실행 로직
 async function runDownloadProcess(download_link, $box) {
     const progress = $box.find('progress.all');
     const progressVal = $box.find('.value');
@@ -113,7 +179,6 @@ async function runDownloadProcess(download_link, $box) {
         const filename = getFilename(response, DEFAULT_FILENAME);
         const total = parseInt(response.headers.get('Content-Length'), 10);
 
-        // 메모리에 쌓지 않고 바로 디스크로 흘려보내는 스트림 생성
         fileStream = streamSaver.createWriteStream(filename, {
             size: total || undefined,
         });
@@ -126,7 +191,7 @@ async function runDownloadProcess(download_link, $box) {
             const { done, value } = await reader.read();
             if (done) break;
 
-            await writer.write(value); // 청크를 즉시 디스크에 기록 (메모리 누적 없음)
+            await writer.write(value);
             loaded += value.length;
 
             const percent = total ? Math.round((loaded / total) * 100) : 0;
@@ -148,7 +213,6 @@ async function runDownloadProcess(download_link, $box) {
         progressDesc.text('다운로드 완료');
 
     } catch (err) {
-        // 취소/에러 시 스트림 정리
         if (writer) {
             try { await writer.abort(); } catch (e) { /* 이미 닫혔으면 무시 */ }
         }
@@ -166,12 +230,11 @@ async function runDownloadProcess(download_link, $box) {
 
 /* ======================= Helper 함수 ============================ */
 
-// progress box 호출
 function getProgressBox(PROGRESS_ID) {
-    $('#' + PROGRESS_ID).remove(); // 기존 것 있으면 제거
+    $('#' + PROGRESS_ID).remove();
 
-    const progress = $($('#progress-template').html()); // 호출
-    progress.attr('id', PROGRESS_ID); // id 추가
+    const progress = $($('#progress-template').html());
+    progress.attr('id', PROGRESS_ID);
 
     return {
         id: PROGRESS_ID,
@@ -179,7 +242,6 @@ function getProgressBox(PROGRESS_ID) {
     };
 }
 
-// reponse 에서 실제 파일명 가져오기
 function getFilename(response, fallback) {
     const disposition = response.headers.get('Content-Disposition');
     if (!disposition) return fallback;
@@ -193,14 +255,12 @@ function getFilename(response, fallback) {
     return fallback;
 }
 
-// 시간 변환
 function formatTime(sec) {
     if (!isFinite(sec) || sec < 0) return '--';
     const m = Math.floor(sec / 60), s = Math.floor(sec % 60);
     return (m > 0 ? m + '분 ' : '') + s + '초';
 }
 
-// Bytes 변환
 function formatBytes(bytes) {
     if (!bytes) return '0 B';
     const k = 1024, sizes = ['B', 'KB', 'MB', 'GB'];
@@ -208,7 +268,6 @@ function formatBytes(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
 }
 
-// 속도/남은시간 계산기 (각 다운로드마다 독립 인스턴스로 사용)
 function createSpeedTracker() {
     let lastTime = performance.now();
     let lastLoaded = 0;

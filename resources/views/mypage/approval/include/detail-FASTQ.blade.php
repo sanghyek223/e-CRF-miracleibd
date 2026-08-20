@@ -43,3 +43,8 @@
         <a href="javascript:void(0);" class="btn btn-type1 color-type5 approval-confirm">확인</a>
     </div>
 </div>
+
+@push('FASTQ-script')
+    <script src="https://cdn.jsdelivr.net/npm/streamsaver@2.0.6/StreamSaver.min.js"></script>
+    <script src="{{ asset('script/data-download.js') }}"></script>
+@endpush

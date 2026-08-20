@@ -191,11 +191,9 @@
             </th>
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    <div class="radio-wrap">
-                        @foreach($bxConfig['FU_Bx_SC_r1'] as $key => $val)
-                            <x-input.radio field="FU_Bx_SC_r1" value="{{ $key }}" :text="$val" :data="$register->FU_Bx_SC_r1"/>
-                        @endforeach
-                    </div>
+                    @foreach($bxConfig['FU_Bx_SC_r1'] as $key => $val)
+                        <x-input.radio field="FU_Bx_SC_r1" value="{{ $key }}" :text="$val" :data="$register->FU_Bx_SC_r1"/>
+                    @endforeach
                 </div>
             </td>
 

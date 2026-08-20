@@ -30,6 +30,7 @@
                {{ $attributes }}
                @if($checked) checked @endif
                @isset($active) data-active="{{ $active ? 'true' : 'false' }}" @endisset
-               @isset($active2) data-active2="{{ $active2 ? 'true' : 'false' }}" @endisset> {!! $text ?? '' !!}
+               @isset($active2) data-active2="{{ $active2 ? 'true' : 'false' }}" @endisset
+               @if (isset($click) && $click === false) onclick="return false;" @endif> {!! $text ?? '' !!}
     </label>
 </div>

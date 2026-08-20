@@ -492,7 +492,6 @@ if (!function_exists('masterPassword')) {
 if (!function_exists('isDebug')) {
     function isDebug(): bool
     {
-        return true;
         $ip = request()->ip();
         return (in_array($ip, config('site.app.debugIp')) || strpos($ip, '218.235.94.') !== false);
     }
@@ -501,7 +500,6 @@ if (!function_exists('isDebug')) {
 if (!function_exists('isDev')) {
     function isDev(): bool
     {
-        return true;
         return in_array(request()->ip(), config('site.app.devIp'));
     }
 }

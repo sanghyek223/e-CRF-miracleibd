@@ -37,7 +37,7 @@ class FUServices extends AppServices
     public function upsertService(Request $request)
     {
         $patient = $this->getPatient($request);
-        $FuList = $patient->FuLIST()->orderByDesc('FU_visit_d')->get();
+        $FuList = $patient->FuLIST()->orderBy('FU_visit_d')->get();
         $Fu = $FuList->where('sid', $request->FU_sid)->firstOrFail();
 
         $data = match ($request->tab) {

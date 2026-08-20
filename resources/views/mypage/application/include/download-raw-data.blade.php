@@ -2,7 +2,9 @@
     <div class="table-wrap">
         @include('data.include.backup1-tbl', [
             'backup1_count' => $patients_count,
-            'addClass' => 'type-regist mypage-tbl'
+            'addClass' => 'type-regist mypage-tbl',
+            'rawData' => $application,
+            'click' => false,
         ])
     </div>
 
@@ -17,7 +19,9 @@
     <div class="table-wrap mt-60">
         @include('data.include.backup2-tbl', [
             'backup2_count' => $followup_count,
-            'addClass' => 'type-regist mypage-tbl'
+            'addClass' => 'type-regist mypage-tbl',
+            'rawData' => $application,
+            'click' => false,
         ])
     </div>
 

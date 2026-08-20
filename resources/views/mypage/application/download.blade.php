@@ -40,7 +40,7 @@
                                         </li>
                                     @endif
 
-                                    @if($data_scope_type['data_scope_row'])
+                                    @if($data_scope_type['data_scope_raw'])
                                         <li @class(['on' => !$data_scope_type['data_scope_file']])>
                                             <a href="javascript:void(0);" class="tab-menu-link" data-scope="raw-data">
                                                 Raw Data ({{ number_format($patients_count) }}건)
@@ -54,7 +54,7 @@
                                 @include('mypage.application.include.download-FASTQ')
                             @endif
 
-                            @if($data_scope_type['data_scope_row'])
+                            @if($data_scope_type['data_scope_raw'])
                                 @include('mypage.application.include.download-raw-data')
                             @endif
                         </fieldset>

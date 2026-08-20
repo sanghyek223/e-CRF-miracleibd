@@ -27,7 +27,7 @@
             <th scope="row">
                 약물 투약 여부
             </th>
-            <td class="text-left ESS-CHK">
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
                         <x-input.radio field="end_med" value="{{ $key }}" :text="$val" :data="$register->end_med"/>
@@ -36,7 +36,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="med-tr" style="display: {{ $register->is_med_y ? '' : 'none' }}">
             <th scope="row">
                 5-ASA
             </th>
@@ -60,7 +60,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="med-tr" style="display: {{ $register->is_med_y ? '' : 'none' }}">
             <th scope="row">
                 Methotrexate
             </th>
@@ -73,7 +73,7 @@
             </td>
 
             <th scope="row">
-                Tofactinibs
+                Tofacitinib
             </th>
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -84,7 +84,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="med-tr" style="display: {{ $register->is_med_y ? '' : 'none' }}">
             <th scope="row">
                 Ozanimod
             </th>
@@ -97,7 +97,7 @@
             </td>
 
             <th scope="row">
-                Steriod
+                Steroid
             </th>
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -112,7 +112,7 @@
             <th scope="row">
                 생물학제제 투약 여부
             </th>
-            <td class="text-left ESS-CHK">
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
                         <x-input.radio field="end_bio" value="{{ $key }}" :text="$val" :data="$register->end_bio"/>
@@ -161,7 +161,7 @@
             <th scope="row">
                 입원 또는 응급실 방문
             </th>
-            <td class="text-left ESS-CHK">
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
                         <x-input.radio field="end_ER_adm_v" value="{{ $key }}" :text="$val" :data="$register->end_ER_adm_v"/>
@@ -211,6 +211,20 @@
 
             callMultiAjax(dataUrl, ajaxData);
         }
+
+        $(document).on('change', `${form} input[name=end_med]`, function () {
+            const value = $(form).find('input[name=end_med]:checked').val() || '';
+            const target = $(form).find('.med-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.find('input[type=radio]').prop('checked', false);
+                target.hide();
+            }
+
+            validateEssChk();
+        });
 
         $(document).on('change', `${form} input[name=end_bio]`, function () {
             const value = $(form).find('input[name=end_bio]:checked').val() || '';

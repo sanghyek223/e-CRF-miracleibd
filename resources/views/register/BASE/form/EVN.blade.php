@@ -52,7 +52,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap survey-info-tbl" style="display: {{ $register->is_survey_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Baseline | 환경 인자 설문</caption>
         <colgroup>
@@ -130,7 +130,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap survey-info-tbl" style="display: {{ $register->is_survey_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Baseline | 환경 인자 설문</caption>
         <colgroup>
@@ -179,7 +179,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap survey-info-tbl" style="display: {{ $register->is_survey_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Baseline | 환경 인자 설문</caption>
         <colgroup>
@@ -238,7 +238,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap survey-info-tbl" style="display: {{ $register->is_survey_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Baseline | 환경 인자 설문</caption>
         <colgroup>
@@ -354,7 +354,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap survey-info-tbl" style="display: {{ $register->is_survey_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Baseline | 환경 인자 설문</caption>
         <colgroup>
@@ -455,7 +455,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap survey-info-tbl" style="display: {{ $register->is_survey_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Baseline | 환경 인자 설문</caption>
         <colgroup>
@@ -519,7 +519,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap survey-info-tbl" style="display: {{ $register->is_survey_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Baseline | 환경 인자 설문</caption>
         <colgroup>
@@ -606,7 +606,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap survey-info-tbl" style="display: {{ $register->is_survey_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Baseline | 환경 인자 설문</caption>
         <colgroup>
@@ -648,7 +648,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap survey-info-tbl" style="display: {{ $register->is_survey_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Baseline | 환경 인자 설문</caption>
         <colgroup>
@@ -736,6 +736,35 @@
 
             callMultiAjax(dataUrl, ajaxData);
         }
+
+        $(document).on('change', `${form} input[name=b_EVN_survey]`, function () {
+            const value = $(form).find('input[name=b_EVN_survey]:checked').val() || '';
+            const target = $(form).find('.survey-date');
+            const target_text = target.find('input[type=text]');
+            const target_checkbox = target.find('#b_EVN_survey_d_uk');
+            const target_calendar = target.find('.target-replace-datepicker');
+            const target_tbl = $(form).find('.survey-info-tbl');
+
+            if (value == '1') {
+                target_text.removeAttr('disabled');
+                target_checkbox.removeClass('NONE-CLICK');
+                target_calendar.show();
+                target_tbl.show();
+            } else {
+                target_text.val('');
+                target_calendar.hide();
+                target_text.attr('disabled', true);
+                target_checkbox.prop('checked', false);
+                target_checkbox.addClass('NONE-CLICK');
+
+                target_tbl.hide();
+                target_tbl.find('input[type=text]').val('');
+                target_tbl.find('input[type=radio]').prop('checked', false).trigger('change');
+                target_tbl.find('input[type=checkbox]').prop('checked', false).trigger('change');
+            }
+
+            validateEssChk();
+        });
 
         $(document).on('change', `${form} input[name=b_EVN_survey]`, function () {
             const value = $(form).find('input[name=b_EVN_survey]:checked').val() || '';

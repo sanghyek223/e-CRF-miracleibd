@@ -14,7 +14,7 @@ class RegisterServices extends AppServices
 {
     public function getPatient($regist_num)
     {
-        return thisUser()->patients->where('regist_num', $regist_num)->firstOrFail();
+        return (new \App\Services\Patient\PatientServices())->whenPatient()->where('regist_num', $regist_num)->firstOrFail();
     }
 
     public function indexService(Request $request)

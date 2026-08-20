@@ -25,7 +25,7 @@
         <tbody>
         <tr>
             <th scope="row">
-                설문 진행 유무
+                투약 여부
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -36,21 +36,21 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="bio1-tr" style="display: {{ $register->is_bio1_y ? '' : 'none' }}">
             <th scope="row">
                 투약 시작일
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="form-group date bio1-date">
-                    <x-input.text field="out_bio1_d_y" :data="$register->out_bio1_d_y" :disabled="!$register->is_bio1_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
-                    <x-input.text field="out_bio1_d_m" :data="$register->out_bio1_d_m" :disabled="!$register->is_bio1_y" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
-                    <x-input.text field="out_bio1_d_d" :data="$register->out_bio1_d_d" :disabled="!$register->is_bio1_y" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
-                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="out_bio1_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_bio1_y ? '' : 'none' }}">
+                    <x-input.text field="out_bio1_d_y" :data="$register->out_bio1_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="out_bio1_d_m" :data="$register->out_bio1_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="out_bio1_d_d" :data="$register->out_bio1_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="out_bio1_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
         </tr>
 
-        <tr>
+        <tr class="bio1-tr" style="display: {{ $register->is_bio1_y ? '' : 'none' }}">
             <th scope="row">
                 약제 종류
             </th>
@@ -85,7 +85,7 @@
         <tbody>
         <tr>
             <th scope="row">
-                설문 진행 유무
+                투약 여부
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -96,21 +96,21 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="bio2-tr" style="display: {{ $register->is_bio2_y ? '' : 'none' }}">
             <th scope="row">
                 투약 시작일
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="form-group date bio2-date">
-                    <x-input.text field="out_bio2_d_y" :data="$register->out_bio2_d_y" :disabled="!$register->is_bio2_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
-                    <x-input.text field="out_bio2_d_m" :data="$register->out_bio2_d_m" :disabled="!$register->is_bio2_y" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
-                    <x-input.text field="out_bio2_d_d" :data="$register->out_bio2_d_d" :disabled="!$register->is_bio2_y" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
-                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="out_bio2_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_bio2_y ? '' : 'none' }}">
+                    <x-input.text field="out_bio2_d_y" :data="$register->out_bio2_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="out_bio2_d_m" :data="$register->out_bio2_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="out_bio2_d_d" :data="$register->out_bio2_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="out_bio2_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
         </tr>
 
-        <tr>
+        <tr class="bio2-tr" style="display: {{ $register->is_bio2_y ? '' : 'none' }}">
             <th scope="row">
                 약제 종류
             </th>
@@ -145,7 +145,7 @@
         <tbody>
         <tr>
             <th scope="row">
-                설문 진행 유무
+                투약 여부
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -156,21 +156,21 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="bio3-tr" style="display: {{ $register->is_bio3_y ? '' : 'none' }}">
             <th scope="row">
                 투약 시작일
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="form-group date bio3-date">
-                    <x-input.text field="out_bio3_d_y" :data="$register->out_bio3_d_y" :disabled="!$register->is_bio3_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
-                    <x-input.text field="out_bio3_d_m" :data="$register->out_bio3_d_m" :disabled="!$register->is_bio3_y" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
-                    <x-input.text field="out_bio3_d_d" :data="$register->out_bio3_d_d" :disabled="!$register->is_bio3_y" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
-                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="out_bio3_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_bio3_y ? '' : 'none' }}">
+                    <x-input.text field="out_bio3_d_y" :data="$register->out_bio3_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="out_bio3_d_m" :data="$register->out_bio3_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="out_bio3_d_d" :data="$register->out_bio3_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="out_bio3_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
         </tr>
 
-        <tr>
+        <tr class="bio3-tr" style="display: {{ $register->is_bio3_y ? '' : 'none' }}">
             <th scope="row">
                 약제 종류
             </th>
@@ -205,7 +205,7 @@
         <tbody>
         <tr>
             <th scope="row">
-                설문 진행 유무
+                투약 여부
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -216,21 +216,21 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="bio4-tr" style="display: {{ $register->is_bio4_y ? '' : 'none' }}">
             <th scope="row">
                 투약 시작일
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="form-group date bio4-date">
-                    <x-input.text field="out_bio4_d_y" :data="$register->out_bio4_d_y" :disabled="!$register->is_bio4_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
-                    <x-input.text field="out_bio4_d_m" :data="$register->out_bio4_d_m" :disabled="!$register->is_bio4_y" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
-                    <x-input.text field="out_bio4_d_d" :data="$register->out_bio4_d_d" :disabled="!$register->is_bio4_y" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
-                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="out_bio4_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_bio4_y ? '' : 'none' }}">
+                    <x-input.text field="out_bio4_d_y" :data="$register->out_bio4_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="out_bio4_d_m" :data="$register->out_bio4_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="out_bio4_d_d" :data="$register->out_bio4_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="out_bio4_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
         </tr>
 
-        <tr>
+        <tr class="bio4-tr" style="display: {{ $register->is_bio4_y ? '' : 'none' }}">
             <th scope="row">
                 약제 종류
             </th>
@@ -264,17 +264,14 @@
 
         $(document).on('change', `${form} input[name=out_bio1]`, function () {
             const value = $(form).find('input[name=out_bio1]:checked').val() || '';
-            const target = $(form).find('.bio1-date');
-            const target_text = target.find('input[type=text]');
-            const target_calendar = target.find('.target-replace-datepicker');
+            const target = $(form).find('.bio1-tr');
 
             if (value == '1') {
-                target_text.removeAttr('disabled');
-                target_calendar.show();
+                target.show();
             } else {
-                target_text.val('');
-                target_text.attr('disabled', true);
-                target_calendar.hide();
+                target.hide();
+                target.find('input[type=text]').val('');
+                target.find('input[type=radio]').prop('checked', false);
             }
 
             validateEssChk();
@@ -282,17 +279,14 @@
 
         $(document).on('change', `${form} input[name=out_bio2]`, function () {
             const value = $(form).find('input[name=out_bio2]:checked').val() || '';
-            const target = $(form).find('.bio2-date');
-            const target_text = target.find('input[type=text]');
-            const target_calendar = target.find('.target-replace-datepicker');
+            const target = $(form).find('.bio2-tr');
 
             if (value == '1') {
-                target_text.removeAttr('disabled');
-                target_calendar.show();
+                target.show();
             } else {
-                target_text.val('');
-                target_text.attr('disabled', true);
-                target_calendar.hide();
+                target.hide();
+                target.find('input[type=text]').val('');
+                target.find('input[type=radio]').prop('checked', false);
             }
 
             validateEssChk();
@@ -300,17 +294,14 @@
 
         $(document).on('change', `${form} input[name=out_bio3]`, function () {
             const value = $(form).find('input[name=out_bio3]:checked').val() || '';
-            const target = $(form).find('.bio3-date');
-            const target_text = target.find('input[type=text]');
-            const target_calendar = target.find('.target-replace-datepicker');
+            const target = $(form).find('.bio3-tr');
 
             if (value == '1') {
-                target_text.removeAttr('disabled');
-                target_calendar.show();
+                target.show();
             } else {
-                target_text.val('');
-                target_text.attr('disabled', true);
-                target_calendar.hide();
+                target.hide();
+                target.find('input[type=text]').val('');
+                target.find('input[type=radio]').prop('checked', false);
             }
 
             validateEssChk();
@@ -318,17 +309,14 @@
 
         $(document).on('change', `${form} input[name=out_bio4]`, function () {
             const value = $(form).find('input[name=out_bio4]:checked').val() || '';
-            const target = $(form).find('.bio4-date');
-            const target_text = target.find('input[type=text]');
-            const target_calendar = target.find('.target-replace-datepicker');
+            const target = $(form).find('.bio4-tr');
 
             if (value == '1') {
-                target_text.removeAttr('disabled');
-                target_calendar.show();
+                target.show();
             } else {
-                target_text.val('');
-                target_text.attr('disabled', true);
-                target_calendar.hide();
+                target.hide();
+                target.find('input[type=text]').val('');
+                target.find('input[type=radio]').prop('checked', false);
             }
 
             validateEssChk();

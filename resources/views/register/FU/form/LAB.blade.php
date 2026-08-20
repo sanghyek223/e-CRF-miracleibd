@@ -36,7 +36,7 @@
                 <x-input.text field="FU_lab_WBC" :data="$register->FU_lab_WBC" :disabled="$register->is_WBC_na" class="form-item small text-center chk-active"/> x10³/mm³
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_WBC_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_WBC_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_WBC_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_WBC_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -49,7 +49,7 @@
                 <x-input.text field="FU_lab_Hb" :data="$register->FU_lab_Hb" :disabled="$register->is_Hb_na" class="form-item small text-center chk-active"/> g/dL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_Hb_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_Hb_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_Hb_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_Hb_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 
@@ -60,7 +60,7 @@
                 <x-input.text field="FU_lab_ESR" :data="$register->FU_lab_ESR" :disabled="$register->is_ESR_na" class="form-item small text-center chk-active"/> g/dL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_ESR_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_ESR_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_ESR_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_ESR_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -73,7 +73,7 @@
                 <x-input.text field="FU_lab_CRP" :data="$register->FU_lab_CRP" :disabled="$register->is_CRP_na" class="form-item small text-center chk-active"/> mg/dL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_CRP_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_CRP_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_CRP_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_CRP_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 
@@ -97,7 +97,7 @@
                 <x-input.text field="FU_lab_alb" :data="$register->FU_lab_alb" :disabled="$register->is_alb_na" class="form-item small text-center chk-active"/> g/dL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_alb_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_alb_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_alb_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_alb_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 
@@ -108,7 +108,7 @@
                 <x-input.text field="FU_lab_FC" :data="$register->FU_lab_FC" :disabled="$register->is_FC_na" class="form-item small text-center chk-active"/> μg/g
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_FC_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_FC_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_FC_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_FC_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -132,7 +132,7 @@
                 <x-input.text field="FU_lab_IgG_QN" :data="$register->FU_lab_IgG_QN" :disabled="$register->is_IgG_QN_na" class="form-item small text-center chk-active"/> Units
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_IgG_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_IgG_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_IgG_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_IgG_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -169,7 +169,7 @@
                 <x-input.text field="FU_lab_IgG_QN" :data="$register->FU_lab_IgA_QN" :disabled="$register->is_IgA_QN_na" class="form-item small text-center chk-active"/> Units
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_IgA_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_IgA_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_IgA_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_IgA_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 
@@ -217,7 +217,7 @@
                 <x-input.text field="FU_lab_ANCA_total" :data="$register->FU_lab_ANCA_total" :disabled="$register->is_ANCA_total_na" class="form-item small text-center chk-active"/> Units
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_ANCA_total_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_ANCA_total_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_ANCA_total_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_ANCA_total_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 
@@ -228,7 +228,7 @@
                 <x-input.text field="FU_lab_PR3_QN" :data="$register->FU_lab_PR3_QN" :disabled="$register->is_PR3_QN_na" class="form-item small text-center chk-active"/> Units
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_PR3_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_PR3_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_PR3_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_PR3_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -241,7 +241,7 @@
                 <x-input.text field="FU_lab_MPO_QN" :data="$register->FU_lab_MPO_QN" :disabled="$register->is_MPO_QN_na" class="form-item small text-center chk-active"/> Units
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_MPO_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_MPO_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_MPO_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_MPO_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
 
@@ -276,7 +276,7 @@
                 <x-input.text field="FU_lab_Cdiff_toxinA_QN" :data="$register->FU_lab_Cdiff_toxinA_QN" :disabled="$register->is_Cdiff_toxinA_QN_na" class="form-item small text-center chk-active"/> ng/mL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_Cdiff_toxinA_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_Cdiff_toxinA_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_Cdiff_toxinA_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_Cdiff_toxinA_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -300,7 +300,7 @@
                 <x-input.text field="FU_lab_Cdiff_toxinB_QN" :data="$register->FU_lab_Cdiff_toxinB_QN" :disabled="$register->is_Cdiff_toxinB_QN_na" class="form-item small text-center chk-active"/> ng/mL
 
                 <div class="radio-wrap inline ml-10">
-                    <x-input.radio field="FU_lab_Cdiff_toxinB_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_Cdiff_toxinB_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
+                    <x-input.checkbox field="FU_lab_Cdiff_toxinB_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_Cdiff_toxinB_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>
                 </div>
             </td>
         </tr>
@@ -336,7 +336,7 @@
                 생물학제제 약제 종류
             </th>
             <td colspan="3" class="text-left ESS-CHK">
-                <div class="radio-wrap">
+                <div class="radio-wrap n4">
                     @foreach($labConfig['FU_bio_cat'] as $key => $val)
                         <x-input.radio field="FU_bio_cat" value="{{ $key }}" :text="$val" :data="$register->FU_bio_cat"/>
                     @endforeach

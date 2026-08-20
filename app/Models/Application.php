@@ -81,13 +81,13 @@ class Application extends Model
         $this->reason = $data['reason'];
 
         $this->download_d_s = $download_d;
-        $this->download_d_e = Carbon::parse($download_d)->addDays(7)->format('Y-m-d'); // 다운로드 기간 종료일 => 다운로드 시작일 +7일
+        $this->download_d_e = Carbon::parse($download_d)->addDays($dataConfig['download_edate_plus'])->format('Y-m-d'); // 다운로드 기간 종료일 => 다운로드 시작일 +7일
 
         $this->data_scope = $data['data_scope'];
 
         // IBD Type 분류별 정의
         $is_data_scope_file = in_array($this->data_scope, $dataConfig['data_scope_file']);
-        $is_data_scope_row = in_array($this->data_scope, $dataConfig['data_scope_row']);
+        $is_data_scope_raw = in_array($this->data_scope, $dataConfig['data_scope_raw']);
 
         // FASTQ 파일 선택
         $this->fastq_file = $is_data_scope_file ? $data['fastq_file'] : null;
@@ -96,11 +96,11 @@ class Application extends Model
         foreach ($dataConfig['backup1_field'] as $key => $val) {
 
             if (empty($val['sub'])) {
-                $this->{$key} = $is_data_scope_row ? $data[$key] : 'N';
+                $this->{$key} = $is_data_scope_raw ? ($data[$key] ?? 'N') : 'N';
             } else {
 
                 foreach ($val['sub'] as $sub_key => $sub_val) {
-                    $this->{$sub_key} = $is_data_scope_row ? $data[$sub_key] : 'N';
+                    $this->{$sub_key} = $is_data_scope_raw ? ($data[$sub_key] ?? 'N') : 'N';
                 }
             }
         }
@@ -108,11 +108,11 @@ class Application extends Model
         foreach ($dataConfig['backup2_field'] as $key => $val) {
 
             if (empty($val['sub'])) {
-                $this->{$key} = $is_data_scope_row ? $data[$key] : 'N';
+                $this->{$key} = $is_data_scope_raw ? ($data[$key] ?? 'N') : 'N';
             } else {
 
                 foreach ($val['sub'] as $sub_key => $sub_val) {
-                    $this->{$sub_key} = $is_data_scope_row ? $data[$sub_key] : 'N';
+                    $this->{$sub_key} = $is_data_scope_raw ? ($data[$sub_key] ?? 'N') : 'N';
                 }
             }
         }
@@ -132,7 +132,7 @@ class Application extends Model
 
     public function getApplicationUserName()
     {
-        return $this->applicationUser->name_kr;
+        return $this->applicationUser->name_kr ?? '';
     }
 
     public function hospital() // 신청 기관
@@ -166,7 +166,7 @@ class Application extends Model
 
         return [
             'data_scope_file' => in_array($this->data_scope, $dataConfig['data_scope_file']),
-            'data_scope_row' => in_array($this->data_scope, $dataConfig['data_scope_row']),
+            'data_scope_raw' => in_array($this->data_scope, $dataConfig['data_scope_raw']),
         ];
     }
 
@@ -263,7 +263,7 @@ class Application extends Model
     {
         return $this->dataSearchDefaultQuery()
             ->withWhereHas('FASTQ', function ($q) {
-                $q->hasFile()->whereIn('sid', $this->fastq_file);
+                $q->hasFile()->whereIn('sid', $this->fastq_file ?? []);
             })->get();
     }
 }

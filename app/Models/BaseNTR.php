@@ -76,6 +76,7 @@ class BaseNTR extends Model
 
         // 영양 인자 설문
         $this->b_NTR_survey = $data['b_NTR_survey'];
+        $is_survey = ($this->b_NTR_survey == '1');
 
         $b_NTR_survey_d = "{$data['b_NTR_survey_d_y']}-{$data['b_NTR_survey_d_m']}-{$data['b_NTR_survey_d_d']}";
         $b_NTR_survey_d_replace = str_replace('-', '', $b_NTR_survey_d);
@@ -84,14 +85,16 @@ class BaseNTR extends Model
             $b_NTR_survey_d = '';
         }
 
-        $this->b_NTR_survey_d_uk = $data['b_NTR_survey_d_uk'];
-        $this->b_NTR_survey_d = (empty($this->b_NTR_survey_d_uk) ? $b_NTR_survey_d : null);
+        $this->b_NTR_survey_d_uk = ($is_survey) ? $data['b_NTR_survey_d_uk'] : null;
+        $this->b_NTR_survey_d = ($is_survey && empty($this->b_NTR_survey_d_uk) ? $b_NTR_survey_d : null);
 
-        $this->b_NTR_survey_k = $data['b_NTR_survey_k'];
+        $this->b_NTR_survey_k = $is_survey ? $data['b_NTR_survey_k'] : null;
 
         // 영양 치료
         $this->b_NTR_Tx = $data['b_NTR_Tx'];
-        $this->b_NTR_Tx_k = $data['b_NTR_Tx_k'];
+        $is_Tx = ($this->b_NTR_Tx == '1');
+
+        $this->b_NTR_Tx_k = $is_Tx ? $data['b_NTR_Tx_k'] : null;
 
         $is_Tx_k_etc = ($this->b_NTR_Tx_k == '4'); // 영양 치료 병행 방식 기타 식이요법 선택 유무
         $b_NTR_Tx_d = "{$data['b_NTR_Tx_d_y']}-{$data['b_NTR_Tx_d_m']}-{$data['b_NTR_Tx_d_d']}"; // 시행일자
@@ -101,13 +104,15 @@ class BaseNTR extends Model
             $b_NTR_Tx_d = '';
         }
 
-        $this->b_NTR_Tx_ow = ($is_Tx_k_etc) ? $data['b_NTR_Tx_ow'] : null;
-        $this->b_NTR_Tx_d_uk = ($is_Tx_k_etc) ? $data['b_NTR_Tx_d_uk'] : '';
-        $this->b_NTR_Tx_d = (empty($this->b_NTR_Tx_d_uk) ? $b_NTR_Tx_d : null);
+        $this->b_NTR_Tx_ow = ($is_Tx && $is_Tx_k_etc) ? $data['b_NTR_Tx_ow'] : null;
+        $this->b_NTR_Tx_d_uk = ($is_Tx && $is_Tx_k_etc) ? $data['b_NTR_Tx_d_uk'] : '';
+        $this->b_NTR_Tx_d = ($is_Tx && empty($this->b_NTR_Tx_d_uk) ? $b_NTR_Tx_d : null);
 
-        $this->b_NTR_Tx_stop = $data['b_NTR_Tx_stop'];
-        $this->b_NTR_Tx_stop_k = $data['b_NTR_Tx_stop_k'];
-        $this->b_NTR_Tx_stop_ow = ($this->b_NTR_Tx_stop_k != '3') ? null : $data['b_NTR_Tx_stop_ow'];
+        $this->b_NTR_Tx_stop = $is_Tx ? $data['b_NTR_Tx_stop'] : null;
+        $is_stop = ($this->b_NTR_Tx_stop == '1');
+
+        $this->b_NTR_Tx_stop_k = $is_stop ? $data['b_NTR_Tx_stop_k'] : null;
+        $this->b_NTR_Tx_stop_ow = ($is_stop && $this->b_NTR_Tx_stop_k != '3') ? null : $data['b_NTR_Tx_stop_ow'];
 
         // 식습관 조사
         $this->b_NTR_alc = $data['b_NTR_alc'];
@@ -120,6 +125,8 @@ class BaseNTR extends Model
 
     public function additionalData() // 노출 정보 추가 가공
     {
+        $this->is_survey = ($this->b_NTR_survey == '1');
+
         $b_NTR_survey_d = empty($this->b_NTR_survey_d) ? '' : explode('-', $this->b_NTR_survey_d);
         $this->is_survey_uk = (($this->b_NTR_survey_d_uk ?? '') == '1'); // 설문 작성일자 Unknown 체크여부
 
@@ -127,6 +134,7 @@ class BaseNTR extends Model
         $this->b_NTR_survey_d_m = $b_NTR_survey_d[1] ?? '';
         $this->b_NTR_survey_d_d = $b_NTR_survey_d[2] ?? '';
 
+        $this->is_Tx = ($this->b_NTR_Tx == '1');
         $this->is_Tx_k_etc = (($this->b_NTR_Tx_k ?? '') == '4'); // 영양 치료 병행 방식 기타 식이요법 선택
 
         $b_NTR_Tx_d = empty($this->b_NTR_Tx_d) ? '' : explode('-', $this->b_NTR_Tx_d);
@@ -136,6 +144,7 @@ class BaseNTR extends Model
         $this->b_NTR_Tx_d_m = $b_NTR_Tx_d[1] ?? '';
         $this->b_NTR_Tx_d_d = $b_NTR_Tx_d[2] ?? '';
 
+        $this->is_stop = ($this->b_NTR_Tx_stop == '1');
         $this->is_Tx_stop_k_etc = (($this->b_NTR_Tx_stop_k ?? '') == '3'); // 영양 치료 중단 사유 기타 선택
 
         return $this;

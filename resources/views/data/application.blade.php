@@ -107,11 +107,11 @@
                                     <th scope="row">데이터 다운로드 희망 날짜</th>
                                     <td colspan="3" class="text-left ESS-CHK">
                                         <div class="form-group date">
-                                            <x-input.text field="download_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
-                                            <x-input.text field="download_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
-                                            <x-input.text field="download_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
-                                            <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="download_d" data-mindate="{{ now()->format('Y-m-d') }}">
-                                            <span class="text ml-20">(다운로드 가능 일자: YYYY/MM/DD ~ YYYY/MM/DD)</span>
+                                            <x-input.text field="download_d_y" class="form-item line small text-center dateY date-calc" maxlength="4" onlynumber/> /
+                                            <x-input.text field="download_d_m" class="form-item line small text-center dateM date-calc" maxlength="2" onlynumber/> /
+                                            <x-input.text field="download_d_d" class="form-item line small text-center dateD date-calc" maxlength="2" onlynumber/>
+                                            <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker date-calc" data-target="download_d" data-mindate="{{ now()->format('Y-m-d') }}">
+                                            <span class="text ml-20">(다운로드 가능 일자: <span id="download_period">YYYY/MM/DD ~ YYYY/MM/DD</span>)</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -206,11 +206,45 @@
 
         const application_org_code = @json($search_params['application_org_code']);
         const data_scope_file = @json($dataConfig['data_scope_file']);
-        const data_scope_row = @json($dataConfig['data_scope_row']);
+        const data_scope_raw = @json($dataConfig['data_scope_raw']);
+        let download_period = 'YYYY/MM/DD ~ YYYY/MM/DD';
 
         $(function () {
             validateEssChk();
         });
+
+        function dateCalc() {
+            let calc = true;
+
+            $('input[type=text].date-calc').each(function (index, item) {
+                if (isEmpty($(item).val())) {
+                    calc = false;
+                    return false;
+                }
+            });
+
+            if (calc) {
+                const download_str   = $('#download_d_y').val() + "-" + $('#download_d_m').val() + '-' + $('#download_d_d').val();
+
+                // 엄격 모드 + 포맷 지정
+                const DOWNLOAD_S   = moment(download_str, 'YYYY-MM-DD', true);
+
+                // 유효성 체크
+                if (!DOWNLOAD_S.isValid()) {
+                    console.warn('날짜 형식 불일치');
+                    return;
+                }
+
+                // +7일
+                const DOWNLOAD_E = DOWNLOAD_S.clone().add({{ $dataConfig['download_edate_plus'] }}, 'days');
+
+                download_period = `${DOWNLOAD_S.format('YYYY/MM/DD')} ~ ${DOWNLOAD_E.format('YYYY/MM/DD')}`;
+            }
+
+            $(form).find('#download_period').html(download_period);
+
+            validateEssChk();
+        }
 
         // 데이터 신청 범위 변경
         $(document).on('change', `${form} input[name=data_scope]`, function () {
@@ -225,7 +259,7 @@
                 fastq_wrap.find('input[type=checkbox]').prop('checked', false);
             }
 
-            if (data_scope_row.includes(data_scope_val)) {
+            if (data_scope_raw.includes(data_scope_val)) {
                 row_data_wrap.show();
             } else {
                 row_data_wrap.hide();
@@ -274,7 +308,7 @@
                 }
             }
 
-            if (data_scope_row.includes(data_scope_val)) {
+            if (data_scope_raw.includes(data_scope_val)) {
                 const row_chk = $(form).find('.backup-chk');
                 if (!row_chk.is(':checked')) {
                     alert('Raw data 를 선택해주세요.');
@@ -290,5 +324,5 @@
             callMultiAjax(dataUrl, ajaxData);
         });
     </script>
-    @include('data.include.backup-tbl-script')
+    <script src="{{ asset('script/data-backup.js') }}"></script>
 @endsection

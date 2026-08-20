@@ -1,3 +1,30 @@
+$(function () {
+    // 	Baseline 체크 여부 확인
+    const backup1_BASE_length = $('#backup1-tbl').find('.backup1-BASE').length;
+    const backup1_BASE_checked_length = $('#backup1-tbl').find('.backup1-BASE:checked').length;
+    $('#backup1-tbl').find('#backup1_BASE').prop('checked', (backup1_BASE_length === backup1_BASE_checked_length));
+
+    // End of Study (Last F/U) 체크 여부 확인
+    const backup1_END_length = $('#backup1-tbl').find('.backup1-END').length;
+    const backup1_END_checked_length = $('#backup1-tbl').find('.backup1-END:checked').length;
+    $('#backup1-tbl').find('#backup1_END').prop('checked', (backup1_END_length === backup1_END_checked_length));
+
+    // Backup Table1 전체 체크 여부 확인
+    const backup1_length = $('#backup1-tbl').find('input[type=checkbox]').not('#backup1_all').length;
+    const backup1_checked_length = $('#backup1-tbl').find('input[type=checkbox]:checked').not('#backup1_all').length;
+    $('#backup1-tbl').find('#backup1_all').prop('checked', (backup1_length === backup1_checked_length));
+
+    // Follow-up 체크 여부 확인
+    const backup2_FU_length = $('#backup2-tbl').find('.backup2-FU').length;
+    const backup2_FU_checked_length = $('#backup2-tbl').find('.backup2-FU:checked').length;
+    $('#backup2-tbl').find('#backup2_FU').prop('checked', (backup2_FU_length === backup2_FU_checked_length));
+
+    // Backup Table2 전체 체크 여부 확인
+    const backup2_length = $('#backup2-tbl').find('input[type=checkbox]').not('#backup2_all').length;
+    const backup2_checked_length = $('#backup2-tbl').find('input[type=checkbox]:checked').not('#backup2_all').length;
+    $('#backup2-tbl').find('#backup2_all').prop('checked', (backup2_length === backup2_checked_length));
+});
+
 // FASTQ ALL DATA
 $(document).on('change', `#FASTQ_all`, function () {
     const checked = $(this).is(':checked');

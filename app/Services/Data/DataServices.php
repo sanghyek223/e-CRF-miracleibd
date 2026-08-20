@@ -138,6 +138,10 @@ class DataServices extends AppServices
 
     public function FASTQDownloadProcess($download_info)
     {
+        ini_set('max_execution_time', 0);
+        ini_set('max_input_time', -1);
+        ini_set('memory_limit', -1);
+        
         $filename = (new CommonServices())->filenameRegx($download_info['filename']);
         $uploadConfig = config('site.register.FASTQ.UPLOAD');
 

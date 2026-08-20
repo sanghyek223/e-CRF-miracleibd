@@ -43,10 +43,12 @@ class User extends Authenticatable
     public function setByAdminData($data)
     {
         if (empty($this->sid)) { /* 최초등록 */
+            $first_pw = 'miracleibd';
+
             $this->org_code = trim($data['org_code']);
             $this->uid = trim($data['uid']);
             $this->name_kr = trim($data['name_kr']);
-            $this->passwordChange($this->uid);
+            $this->passwordChange($first_pw);
         }
 
         $this->email = trim($data['email']);
