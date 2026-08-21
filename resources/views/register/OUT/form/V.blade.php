@@ -20,7 +20,7 @@
             <th scope="row">
                 ER/Admission 발생 유무
             </th>
-            <td colspan="3" class="text-left">
+            <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
                         <x-input.radio field="out_visit" value="{{ $key }}" :text="$val" :data="$register->out_visit"/>

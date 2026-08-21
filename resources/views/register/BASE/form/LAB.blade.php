@@ -128,7 +128,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($labConfig['b_lab_IgG_cat'] as $key => $val)
-                        <x-input.radio field="b_lab_IgG_cat" value="{{ $key }}" :text="$val" :data="$register->b_lab_IgG_cat"/>
+                        <x-input.radio field="b_lab_IgG_cat" value="{{ $key }}" :text="$val" :data="$register->b_lab_IgG_cat" onclick="return false;"/>
                     @endforeach
                 </div>
             </td>
@@ -137,7 +137,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($labConfig['b_lab_IgA_cat'] as $key => $val)
-                        <x-input.radio field="b_lab_IgA_cat" value="{{ $key }}" :text="$val" :data="$register->b_lab_IgA_cat"/>
+                        <x-input.radio field="b_lab_IgA_cat" value="{{ $key }}" :text="$val" :data="$register->b_lab_IgA_cat" onclick="return false;"/>
                     @endforeach
                 </div>
             </td>
@@ -149,14 +149,14 @@
                 <a href="javascript:void(0);" class="tooltip">
                     <img src="/assets/image/icon/ic_tooltip.png" alt="information">
                     <span class="tooltip-con" style="opacity: 1; display: none;">
-                        IgG, IgA 중 높은 값 채택 (단, 시스템 자동 선택 이후 사용자가 수동으로 값을 변경할 수 있음)
+                        IgG, IgA 중 높은 값 채택
                     </span>
                 </a>
             </th>
             <td colspan="3" class="text-left">
                 <div class="radio-wrap ESS-CHK">
                     @foreach($labConfig['b_lab_ASCA_total'] as $key => $val)
-                        <x-input.radio field="b_lab_ASCA_total" value="{{ $key }}" :text="$val" :data="$register->b_lab_ASCA_total"/>
+                        <x-input.radio field="b_lab_ASCA_total" value="{{ $key }}" :text="$val" :data="$register->b_lab_ASCA_total" onclick="return false;"/>
                     @endforeach
                 </div>
             </td>

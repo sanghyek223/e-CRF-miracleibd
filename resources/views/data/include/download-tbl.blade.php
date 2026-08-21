@@ -35,7 +35,7 @@
             <tr>
                 <td>
                     <div class="checkbox-wrap text-center">
-                        <x-input.checkbox3 id="FILE_KEY{{ $FASTQ_LOOP++ }}" field="FILE_KEY" value="{{ enCryptString($row->sid) }}" :disabled="$disabled" class="FASTQ-chk"/>
+                        <x-input.checkbox3 id="FILE_KEY{{ $FASTQ_LOOP++ }}" field="FILE_KEY" value="{{ $row->sid }}" :disabled="$disabled" class="FASTQ-chk"/>
                     </div>
                 </td>
                 <td>{{ $row->regist_num }}</td>

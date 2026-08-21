@@ -96,7 +96,7 @@ class OutMED extends Model
             $out_bio2_d = '';
         }
 
-        $this->out_bio2 = $data['out_bio2'];
+        $this->out_bio2 = $is_bio1_y ? $data['out_bio2'] : null;
         $is_bio2_y = ($this->out_bio2 == '1');
 
         $this->out_bio2_d = ($is_bio2_y) ? $out_bio2_d : null;
@@ -110,7 +110,7 @@ class OutMED extends Model
             $out_bio3_d = '';
         }
 
-        $this->out_bio3 = $data['out_bio3'];
+        $this->out_bio3 = $is_bio2_y ? $data['out_bio3'] : null;
         $is_bio3_y = ($this->out_bio3 == '1');
 
         $this->out_bio3_d = ($is_bio3_y) ? $out_bio3_d : null;
@@ -124,7 +124,7 @@ class OutMED extends Model
             $out_bio4_d = '';
         }
 
-        $this->out_bio4 = $data['out_bio4'];
+        $this->out_bio4 = $is_bio3_y ? $data['out_bio4'] : null;
         $is_bio4_y = ($this->out_bio4 == '1');
 
         $this->out_bio4_d = ($is_bio4_y) ? $out_bio4_d : null;

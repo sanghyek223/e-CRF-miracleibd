@@ -55,7 +55,7 @@
                             <th scope="row">Password</th>
                             <td class="text-left">
                                 @empty($user)
-                                    (아이디와 동일 자동생성)
+                                    (초기비밀번호 “miracleibd”)
                                 @else
                                     <a href="javascript:void(0);" class="btn btn-small btn-type1 color-type4 pwd-reset">
                                         비밀번호 초기화

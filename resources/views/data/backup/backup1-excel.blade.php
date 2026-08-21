@@ -243,7 +243,7 @@
     <tbody>
     @foreach($patients as $patient)
         <tr>
-            <td>{{ $patient->seq }}</td>
+            <td>{{ $loop->remaining + 1 }}</td>
 
             @foreach($Patient_field ?? [] as $key => $val /* 기본 정보 */)
                 <td>{{ $patient?->{$val} }}</td>

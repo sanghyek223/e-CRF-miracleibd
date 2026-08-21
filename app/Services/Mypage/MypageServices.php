@@ -51,13 +51,10 @@ class MypageServices extends AppServices
                 ], 403);
             }
 
-            $filename = (now()->format('YmdHis') . '.zip');
+            $filename = ("{$application->getApplicationHosName()}_FASTQ_" . now()->format('YmdHis'));
 
             if ($request->download_type !== 'all') {
-                $FILE_KEY = $request->FILE_KEY;
-                $decrypt_FILE_KEY = deCryptString($FILE_KEY);
-
-                $patientsFASTQ = $patientsFASTQ->where('sid', $decrypt_FILE_KEY)->values();
+                $patientsFASTQ = $patientsFASTQ->where('sid', $request->FILE_KEY)->values();
             }
 
             $download_info = [
@@ -76,7 +73,7 @@ class MypageServices extends AppServices
                 return redirect()->back()->with(['msg' => '다운로드 기간이 아닙니다.']);
             }
 
-            $fileName = now()->format('YmdHis');
+            $filename = ("{$application->getApplicationHosName()}_excel_" . now()->format('YmdHis'));
             $this->data['patients'] = $patients;
 
             $export = ($request->backup === 'backup1')

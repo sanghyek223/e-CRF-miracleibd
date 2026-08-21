@@ -86,6 +86,8 @@
                             </table>
                         </div>
 
+                        <input type="hidden" name="search" value="Y">
+
                         <div class="btn-wrap text-center mt-20">
                             <button type="submit" class="btn btn-type1 color-type3">검색</button>
                             <a href="{{ route('data') }}" class="btn btn-type1 btn-line color-type3">검색 초기화</a>
@@ -93,84 +95,86 @@
                     </fieldset>
                 </form>
 
-                <form id="application-frm" action="{{ route('data.application') }}" method="post">
-                    <fieldset>
-                        <legend class="hide">데이터 열람 / 신청</legend>
+                @if(!empty(request()->search))
+                    <form id="application-frm" action="{{ route('data.application') }}" method="post">
+                        <fieldset>
+                            <legend class="hide">데이터 열람 / 신청</legend>
 
-                        <div class="sub-tit-wrap">
-                            <h4 class="sub-contit">데이터 검색 결과</h4>
-                            <p class="data-result-text">총 <strong class="result-count">{{ number_format($data->count()) }}</strong>건의 데이터가 검색되었습니다.</p>
-                        </div>
+                            <div class="sub-tit-wrap">
+                                <h4 class="sub-contit">데이터 검색 결과</h4>
+                                <p class="data-result-text">총 <strong class="result-count">{{ number_format($data->count()) }}</strong>건의 데이터가 검색되었습니다.</p>
+                            </div>
 
-                        <ul class="data-sch-result">
-                            @foreach($hospitals as $row)
-                                @php
-                                    $groupCnt = $data[$row->org_code] ?? 0;
-                                    $noneData = ($groupCnt === 0);
-                                @endphp
-                                <li @class(['no-data' => $noneData, 'NONE-CLICK' => $noneData])>
-                                    <div class="name">
-                                        <div class="radio-wrap text-center">
-                                            <x-input.radio id="application_org_code_{{ $loop->iteration }}" field="application_org_code" value="{{ $row->org_code }}" :text="$row->org_name" class="application-org-code"/>
+                            <ul class="data-sch-result">
+                                @foreach($hospitals as $row)
+                                    @php
+                                        $groupCnt = $data[$row->org_code] ?? 0;
+                                        $noneData = ($groupCnt === 0);
+                                    @endphp
+                                    <li @class(['no-data' => $noneData, 'NONE-CLICK' => $noneData])>
+                                        <div class="name">
+                                            <div class="radio-wrap text-center">
+                                                <x-input.radio id="application_org_code_{{ $loop->iteration }}" field="application_org_code" value="{{ $row->org_code }}" :text="$row->org_name" class="application-org-code"/>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="result">
-                                        <strong>{{ number_format($groupCnt) }}</strong> 건
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                                        <div class="result">
+                                            <strong>{{ number_format($groupCnt) }}</strong> 건
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
 
-                        <div class="btn-wrap text-center mt-20">
-                            <button type="submit" class="btn btn-type1 color-type2">타 기관 데이터 신청</button>
-                        </div>
-                    </fieldset>
-                </form>
+                            <div class="btn-wrap text-center mt-20">
+                                <button type="submit" class="btn btn-type1 color-type2">타 기관 데이터 신청</button>
+                            </div>
+                        </fieldset>
+                    </form>
 
-                <form id="backup-frm" method="post">
-                    <fieldset>
-                        <legend class="hide">데이터 열람 / 신청</legend>
+                    <form id="backup-frm" method="post">
+                        <fieldset>
+                            <legend class="hide">데이터 열람 / 신청</legend>
 
-                        <div class="sub-tit-wrap">
-                            <h4 class="sub-contit">백업</h4>
-                        </div>
+                            <div class="sub-tit-wrap">
+                                <h4 class="sub-contit">백업</h4>
+                            </div>
 
-                        <div class="table-wrap">
-                            @include('data.include.backup1-tbl')
-                        </div>
+                            <div class="table-wrap">
+                                @include('data.include.backup1-tbl')
+                            </div>
 
-                        <div class="btn-wrap text-center mt-20">
-                            <a href="{{ route('data.download.excel', ['backup' => 'backup1']) }}" class="btn btn-type1 color-type4 excel-backup1">
-                                Excel 다운로드
-                            </a>
-                        </div>
+                            <div class="btn-wrap text-center mt-20">
+                                <a href="{{ route('data.download.excel', ['backup' => 'backup1']) }}" class="btn btn-type1 color-type4 excel-backup1">
+                                    Excel 다운로드
+                                </a>
+                            </div>
 
-                        <div class="table-wrap mt-80">
-                            @include('data.include.backup2-tbl')
-                        </div>
+                            <div class="table-wrap mt-80">
+                                @include('data.include.backup2-tbl')
+                            </div>
 
-                        <div class="btn-wrap text-center mt-20 mb-80">
-                            <a href="{{ route('data.download.excel', ['backup' => 'backup2']) }}" class="btn btn-type1 color-type4 excel-backup2">
-                                Excel 다운로드
-                            </a>
-                        </div>
-                    </fieldset>
-                </form>
+                            <div class="btn-wrap text-center mt-20 mb-80">
+                                <a href="{{ route('data.download.excel', ['backup' => 'backup2']) }}" class="btn btn-type1 color-type4 excel-backup2">
+                                    Excel 다운로드
+                                </a>
+                            </div>
+                        </fieldset>
+                    </form>
 
-                <form id="download-frm">
-                    <fieldset>
-                        <legend class="hide">데이터 열람 / 신청</legend>
+                    <form id="download-frm">
+                        <fieldset>
+                            <legend class="hide">데이터 열람 / 신청</legend>
 
-                        @include('data.include.download-tbl', ['patientsFASTQ' => $myPatientsFASTQ])
+                            @include('data.include.download-tbl', ['patientsFASTQ' => $myPatientsFASTQ])
 
-                        <div class="btn-wrap text-center">
-                            <a href="{{ route('data.download.FASTQ', ['download_type' => 'choice']) }}" class="btn btn-type1 btn-line color-type2 FASTQ-choice-download">선택 다운로드</a>
-                            <a href="{{ route('data.download.FASTQ', ['download_type' => 'all']) }}" class="btn btn-type1 color-type2 FASTQ-all-download">전체 다운로드</a>
-                            <a href="javascript:void(0);" class="btn btn-type1 color-type6 FASTQ-cancel-download">다운로드 취소</a>
-                        </div>
-                    </fieldset>
-                </form>
+                            <div class="btn-wrap text-center">
+                                <a href="{{ route('data.download.FASTQ', ['download_type' => 'choice']) }}" class="btn btn-type1 btn-line color-type2 FASTQ-choice-download">선택 다운로드</a>
+                                <a href="{{ route('data.download.FASTQ', ['download_type' => 'all']) }}" class="btn btn-type1 color-type2 FASTQ-all-download">전체 다운로드</a>
+                                <a href="javascript:void(0);" class="btn btn-type1 color-type6 FASTQ-cancel-download">다운로드 취소</a>
+                            </div>
+                        </fieldset>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

@@ -33,14 +33,10 @@ class DataServices extends AppServices
         $myPatientsFASTQ = $myQuery->withWhereHas('FASTQ', fn($q) => $q->hasFile())->get();
 
         if ($request->FASTQ_download) {
-
-            $filename = (now()->format('YmdHis') . '.zip');
+            $filename = ("FASTQ_" . now()->format('YmdHis') . '.zip');
 
             if ($request->download_type !== 'all') {
-                $FILE_KEY = $request->FILE_KEY;
-                $decrypt_FILE_KEY = deCryptString($FILE_KEY);
-
-                $myPatientsFASTQ = $myPatientsFASTQ->where('sid', $decrypt_FILE_KEY)->values();
+                $myPatientsFASTQ = $myPatientsFASTQ->where('sid', $request->FILE_KEY)->values();
             }
 
             $download_info = [
@@ -52,8 +48,7 @@ class DataServices extends AppServices
         }
 
         if ($request->excel) {
-
-            $filename = now()->format('YmdHis');
+            $filename = ("excel_" . now()->format('YmdHis'));
             $this->data['patients'] = $myPatients;
 
             $export = ($request->backup === 'backup1')
@@ -146,6 +141,7 @@ class DataServices extends AppServices
         $uploadConfig = config('site.register.FASTQ.UPLOAD');
 
         $zip = Zip::create($filename);
+
 
         foreach ($download_info['patients'] as $patient) {
             $FASTQ = $patient->FASTQ;

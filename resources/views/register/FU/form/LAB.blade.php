@@ -333,7 +333,7 @@
 
         <tr class="bio-tr" style="display: {{ $register->is_bio_y ? '' : 'none' }}">
             <th scope="row">
-                생물학제제 약제 종류
+                생물학적제제 약제 종류
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap n4">

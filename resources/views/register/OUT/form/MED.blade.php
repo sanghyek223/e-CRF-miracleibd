@@ -66,7 +66,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap bio2-box" style="display: {{ $register->is_bio1_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Outcome | Medication</caption>
         <colgroup>
@@ -126,7 +126,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap bio3-box" style="display: {{ $register->is_bio2_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Outcome | Medication</caption>
         <colgroup>
@@ -186,7 +186,7 @@
     </table>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap bio4-box" style="display: {{ $register->is_bio3_y ? '' : 'none' }}">
     <table class="cst-table">
         <caption class="hide">Outcome | Medication</caption>
         <colgroup>
@@ -265,13 +265,18 @@
         $(document).on('change', `${form} input[name=out_bio1]`, function () {
             const value = $(form).find('input[name=out_bio1]:checked').val() || '';
             const target = $(form).find('.bio1-tr');
+            const targetBox = $(form).find('.bio2-box');
 
             if (value == '1') {
                 target.show();
+                targetBox.show();
             } else {
                 target.hide();
                 target.find('input[type=text]').val('');
                 target.find('input[type=radio]').prop('checked', false);
+
+                targetBox.hide();
+                targetBox.find('input[type=radio]').prop('checked', false).trigger('change');
             }
 
             validateEssChk();
@@ -280,13 +285,18 @@
         $(document).on('change', `${form} input[name=out_bio2]`, function () {
             const value = $(form).find('input[name=out_bio2]:checked').val() || '';
             const target = $(form).find('.bio2-tr');
+            const targetBox = $(form).find('.bio3-box');
 
             if (value == '1') {
                 target.show();
+                targetBox.show();
             } else {
                 target.hide();
                 target.find('input[type=text]').val('');
                 target.find('input[type=radio]').prop('checked', false);
+
+                targetBox.hide();
+                targetBox.find('input[type=radio]').prop('checked', false).trigger('change');
             }
 
             validateEssChk();
@@ -295,13 +305,18 @@
         $(document).on('change', `${form} input[name=out_bio3]`, function () {
             const value = $(form).find('input[name=out_bio3]:checked').val() || '';
             const target = $(form).find('.bio3-tr');
+            const targetBox = $(form).find('.bio4-box');
 
             if (value == '1') {
                 target.show();
+                targetBox.show();
             } else {
                 target.hide();
                 target.find('input[type=text]').val('');
                 target.find('input[type=radio]').prop('checked', false);
+
+                targetBox.hide();
+                targetBox.find('input[type=radio]').prop('checked', false).trigger('change');
             }
 
             validateEssChk();

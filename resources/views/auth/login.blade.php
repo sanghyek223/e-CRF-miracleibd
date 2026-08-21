@@ -20,7 +20,7 @@
                     <legend class="hide">로그인</legend>
                     <div class="login-input-wrap">
                         <div class="login-input">
-                            <input type="text" name="uid" id="uid" class="form-item" placeholder="아이디를" noneSpace>
+                            <input type="text" name="uid" id="uid" class="form-item" placeholder="아이디" noneSpace>
                             <input type="password" name="password" id="password" class="form-item" placeholder="비밀번호" noneSpace>
                         </div>
 

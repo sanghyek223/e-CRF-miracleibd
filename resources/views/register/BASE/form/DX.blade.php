@@ -42,7 +42,7 @@
 
             <th scope="row">진단 시 나이</th>
             <td class="text-left ESS-CHK">
-                만 <x-input.text field="IBD_age" :data="$register->IBD_age" class="form-item small text-center" readonly/> 세
+                만 <x-input.text field="IBD_age" :data="$register->IBD_age" class="form-item small text-center" readonly style="background-color: #ffffff"/> 세
             </td>
         </tr>
 
@@ -72,7 +72,7 @@
         <tr>
             <th scope="row">BMI</th>
             <td colspan="3" class="text-left ESS-CHK">
-                <x-input.text field="b_BMI" :data="$register->b_BMI" class="form-item small text-center" readonly/> ㎏/㎡
+                <x-input.text field="b_BMI" :data="$register->b_BMI" class="form-item small text-center" readonly style="background-color: #ffffff"/> ㎏/㎡
             </td>
         </tr>
 

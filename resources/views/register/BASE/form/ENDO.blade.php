@@ -86,7 +86,7 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($endoConfig['b_endo_sev'] as $key => $val)
-                        <x-input.radio field="b_endo_sev" value="{{ $key }}" :text="$val" :data="$register->b_endo_sev"/>
+                        <x-input.radio field="b_endo_sev" value="{{ $key }}" :text="$val" :data="$register->b_endo_sev" onclick="return false;"/>
                     @endforeach
                 </div>
             </td>

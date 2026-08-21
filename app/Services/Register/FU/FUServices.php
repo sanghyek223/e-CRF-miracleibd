@@ -24,7 +24,7 @@ class FUServices extends AppServices
     public function indexService(Request $request)
     {
         $patient = $this->getPatient($request);
-        $query = $patient->FuLIST()->orderByDesc('FU_visit_d');
+        $query = $patient->FuLIST()->orderBy('FU_visit_d');
 
         $list = $query->paginate(20)->appends($request->query());
 
@@ -108,6 +108,10 @@ class FUServices extends AppServices
         $this->setJsonData('data', [
             $this->ajaxActionData('#Fu-frm',  'sid', enCryptString($Fu->sid)),
             $this->ajaxActionData('#Fu-frm',  'case', 'Fu-update'),
+        ]);
+
+        $this->setJsonData('attr', [
+            $this->ajaxActionAttr('#Fu-frm #IBD_type',  'disabled', true),
         ]);
 
         $this->setJsonData('html', [

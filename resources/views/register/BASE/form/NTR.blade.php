@@ -102,12 +102,12 @@
                                 ( <x-input.text field="b_NTR_Tx_ow" :data="$register->b_NTR_Tx_ow" :disabled="!$register->is_Tx_k_etc" class="form-item large"/> )
                             </div>
 
-                            <div class="form-group date target-box">
+                            <div class="form-group date Tx_d-box target-box">
                                 <span class="text">시행일자 :</span>
-                                <x-input.text field="b_NTR_Tx_d_y" :data="$register->b_NTR_Tx_d_y" :disabled="$register->is_Tx_d_uk" class="form-item line small text-center dateY chk-active" maxlength="4" onlynumber/> /
-                                <x-input.text field="b_NTR_Tx_d_m" :data="$register->b_NTR_Tx_d_m" :disabled="$register->is_Tx_d_uk" class="form-item line small text-center dateM chk-active" maxlength="2" onlynumber/> /
-                                <x-input.text field="b_NTR_Tx_d_d" :data="$register->b_NTR_Tx_d_d" :disabled="$register->is_Tx_d_uk" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/>
-                                <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_NTR_Tx_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_Tx_d_uk ? 'none' : '' }}">
+                                <x-input.text field="b_NTR_Tx_d_y" :data="$register->b_NTR_Tx_d_y" :disabled="$register->b_NTR_Tx_k == '0' || $register->is_Tx_d_uk" class="form-item line small text-center dateY chk-active" maxlength="4" onlynumber/> /
+                                <x-input.text field="b_NTR_Tx_d_m" :data="$register->b_NTR_Tx_d_m" :disabled="$register->b_NTR_Tx_k == '0' || $register->is_Tx_d_uk" class="form-item line small text-center dateM chk-active" maxlength="2" onlynumber/> /
+                                <x-input.text field="b_NTR_Tx_d_d" :data="$register->b_NTR_Tx_d_d" :disabled="$register->b_NTR_Tx_k == '0' || $register->is_Tx_d_uk" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/>
+                                <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_NTR_Tx_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ ($register->b_NTR_Tx_k == '0' || $register->is_Tx_d_uk) ? 'none' : '' }}">
 
                                 <div class="checkbox-wrap inline ml-10">
                                     <x-input.checkbox field="b_NTR_Tx_d_uk" value="1" text="Unknown" :data="$register->b_NTR_Tx_d_uk" :active2="true" class="target-box-active ESS-CHK-NONE"/>
@@ -292,6 +292,17 @@
         $(document).on('change', `${form} input[name=b_NTR_Tx_k]`, function () {
             const value = $(form).find('input[name=b_NTR_Tx_k]:checked').val() || '';
             const target_text = $(this).closest('td').find('#b_NTR_Tx_ow');
+            const target_date_box = $(form).find('.Tx_d-box');
+
+            if (value == '0') {
+                target_date_box.find('input[type=text]').val('').attr('disabled', true);
+                target_date_box.find('.target-replace-datepicker').hide();
+                target_date_box.find('input[type=checkbox]').addClass('NONE-CLICK');
+            } else {
+                target_date_box.find('input[type=text]').removeAttr('disabled');
+                target_date_box.find('.target-replace-datepicker').show();
+                target_date_box.find('input[type=checkbox]').removeClass('NONE-CLICK');
+            }
 
             if (value == '4') {
                 target_text.attr('disabled', false);
