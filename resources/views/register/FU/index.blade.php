@@ -13,31 +13,54 @@
 
         @include("register.FU.include.tab", ['tab' => $tab])
 
-        <div class="sch-wrap type2">
+        <div class="sch-wrap type2 has-textarea">
             <form id="Fu-frm" method="post" data-case="Fu-create">
                 <fieldset>
                     <legend class="hide"></legend>
 
-                    <div class="form-group">
-                        <span class="text">IBD Type :</span>
-                        <select name="IBD_type" id="IBD_type" class="form-item sch-cate">
-                            @foreach($registerConfig['BASE']['DX']['IBD_type'] as $key => $val)
-                                <option value="{{ $key }}">{{ $val }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group date">
-                        <div class="form-group date">
-                            <x-input.text field="FU_visit_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
-                            <x-input.text field="FU_visit_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
-                            <x-input.text field="FU_visit_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
-                            <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="FU_visit_d" data-maxdate="{{ now()->format('Y-m-d') }}">
+                    <div class="inner-wrap">
+                        <div class="form-group">
+                            <span class="text">IBD Type :</span>
+                            <select name="FU_ibd_type" id="FU_ibd_type" class="form-item sch-cate">
+                                @foreach($registerConfig['BASE']['DX']['IBD_type'] as $key => $val)
+                                    <option value="{{ $key }}" {{ $baseIBD == $key ? 'selected' : '' }}>{{ $val }}</option>
+                                @endforeach
+                            </select>
                         </div>
+
+                        <div class="form-group date">
+                            <div class="form-group date">
+                                <x-input.text field="FU_visit_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                                <x-input.text field="FU_visit_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                                <x-input.text field="FU_visit_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                                <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="FU_visit_d" data-maxdate="{{ now()->format('Y-m-d') }}">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn color-type2" id="Fu-submit-btn">추적 등록</button>
+                        <a href="javascript:location.reload();" class="btn color-type1">취소</a>
                     </div>
 
-                    <button type="submit" class="btn color-type2" id="Fu-submit-btn">추적 등록</button>
-                    <a href="javascript:location.reload();" class="btn color-type1">취소</a>
+                    <div class="table-wrap" style="display: none;">
+                        <table class="cst-table">
+                            <caption class="hide">기본 정보</caption>
+                            <colgroup>
+                                <col style="width:20%;">
+                                <col>
+                                <col style="width:20%;">
+                                <col>
+                            </colgroup>
+
+                            <tbody>
+                            <tr>
+                                <th scope="row">IBD type 변경 사유</th>
+                                <td colspan="3" class="text-left">
+                                    <textarea name="FU_ibd_cmt" id="FU_ibd_cmt" class="form-item"></textarea>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </fieldset>
             </form>
         </div>
@@ -72,7 +95,19 @@
                         <tbody>
                         @foreach($list as $row)
                             <tr data-sid="{{ enCryptString($row->sid) }}">
-                                <td>{{ $row->FU_visit_d ?? '' }}</td>
+                                <td>
+                                    {{ $row->FU_visit_d ?? '' }}
+                                    <a href="javascript:void(0);" class="tooltip ml-0">
+                                        ({{ $row->getIBDType() }})
+                                        @if(!empty($row->FU_ibd_cmt))
+                                            <span class="tooltip-con" style="opacity: 1; display: none;">
+                                                {{ $row->FU_ibd_cmt  }}
+                                                <br>
+                                                ({{ $row->created_at  }})
+                                            </span>
+                                        @endif
+                                    </a>
+                                </td>
 
                                 @foreach($FU_sub_tabs as $key => $val)
                                     <td>
@@ -83,7 +118,9 @@
 
                                 <td>
                                     <div class="btn-wrap">
-                                        <a href="javascript:void(0);" class="btn btn-modity" title="수정"><img src="/assets/image/icon/icon_edit.png" alt="수정"></a>
+                                        <a href="javascript:void(0);" class="btn btn-modify" title="수정">
+                                            <img src="/assets/image/icon/icon_edit.png" alt="수정">
+                                        </a>
                                         <a href="javascript:void(0);" class="btn btn-del btn-del-confirm" title="삭제"><img src="/assets/image/icon/ic_delete.png" alt="삭제"></a>
                                     </div>
                                 </td>
@@ -103,15 +140,27 @@
     <script>
         const form = '#Fu-frm';
         const dataUrl = @json(route('register.FU.data', ['tab' => $tab, 'regist_num' => $patient->regist_num]));
+        const baseIBD = '{{ $baseIBD }}';
 
         const getPK = (_this) => {
             return $(_this).closest('tr').data('sid');
         }
 
-        $(document).on('click', '.btn-modity', function () {
-            callAjax(dataUrl, {
+        $(document).on('click', '.btn-modify', function () {
+            const cmt_target = $(form).find('#FU_ibd_cmt').closest('.table-wrap');
+
+            callbackAjax(dataUrl, {
                 'case': 'Fu-upsert',
                 'sid': getPK(this),
+            }, function (data, error) {
+                if (error) {
+                    ajaxErrorData(error);
+                    return false;
+                }
+
+                ajaxSuccessData(data);
+                cmt_target.hide();
+                cmt_target.find('textarea').val('');
             });
         });
 
@@ -124,6 +173,18 @@
 
         $(document).on('submit', '#Fu-delete-frm', function () {
             callAjax(dataUrl, formSerialize(this));
+        });
+
+        $(document).on('change', `${form} #FU_ibd_type`, function () {
+            const value = $(this).val();
+            const target = $(form).find('#FU_ibd_cmt').closest('.table-wrap');
+
+            if (value == baseIBD) {
+                target.hide();
+                target.find('textarea').val('');
+            } else {
+                target.show();
+            }
         });
 
         $(document).on('submit', form, function () {
@@ -142,9 +203,16 @@
                 }
             }
 
-            const IBD_type = $(form).find('#IBD_type');
-            if (isEmpty(IBD_type.val())) {
+            const FU_ibd_type = $(form).find('#FU_ibd_type');
+            if (isEmpty(FU_ibd_type.val())) {
                 alert('IBD Type 을 선택해주세요.');
+                return false;
+            }
+
+            const FU_ibd_cmt = $(form).find('#FU_ibd_cmt');
+            if (FU_ibd_type.val() != baseIBD && isEmpty(FU_ibd_cmt.val())) {
+                alert('IBD Type 변경 사유를 입력해주세요.');
+                FU_ibd_cmt.focus();
                 return false;
             }
 

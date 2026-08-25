@@ -31,7 +31,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">신청자(신청 기관)</th>
-                                <th scope="col">신청일시</th>
+                                <th scope="col">신청일</th>
                                 <th scope="col">데이터 범위</th>
                                 <th scope="col">신청목록</th>
                                 <th scope="col">요청 기간</th>
@@ -88,6 +88,8 @@
                             </tbody>
                         </table>
                     </div>
+
+                    {{ $list->links('pagination::custom') }}
                 </div>
             </div>
         </div>

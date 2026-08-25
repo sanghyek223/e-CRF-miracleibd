@@ -105,8 +105,8 @@
                         <th scope="col">No.</th>
                         <th scope="col">신청 기관<br>(신청자)</th>
                         <th scope="col">제공 기관<br>(승인자)</th>
-                        <th scope="col">신청일시</th>
-                        <th scope="col">처리일시</th>
+                        <th scope="col">신청일</th>
+                        <th scope="col">처리일</th>
                         <th scope="col">데이터 범위<br>(다운로드 가능기간)</th>
                         <th scope="col">상태</th>
                         <th scope="col">다운로드 여부</th>

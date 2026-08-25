@@ -77,7 +77,7 @@
                         <th scope="col">Initial</th>
                         <th scope="col">기관</th>
                         <th scope="col">성별/나이</th>
-                        <th scope="col">IBD Type</th>
+                        <th scope="col">초기 IBD Type</th>
 
                         @foreach($registerConfig['type'] as $key => $val)
                             <th scope="col">{!! $val['thead'] !!}</th>

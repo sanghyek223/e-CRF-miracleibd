@@ -16,7 +16,7 @@
                 <th scope="col">등록 날짜</th>
                 <th scope="col">성별</th>
                 <th scope="col">진단시 나이</th>
-                <th scope="col">IBD Type</th>
+                <th scope="col">초기 IBD Type</th>
             </tr>
             </thead>
 

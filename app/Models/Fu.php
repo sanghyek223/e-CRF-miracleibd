@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use http\Env\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
@@ -74,6 +75,11 @@ class Fu extends Model
     
     public function setByData($data)
     {
+        if (empty($this->sid)) {
+            $this->FU_ibd_type = $data['FU_ibd_type'];
+            $this->FU_ibd_cmt = $data['FU_ibd_cmt'];
+        }
+
         $FU_visit_d = "{$data['FU_visit_d_y']}-{$data['FU_visit_d_m']}-{$data['FU_visit_d_d']}";
 
         $this->FU_visit_d = $FU_visit_d;
@@ -81,6 +87,9 @@ class Fu extends Model
 
     public function additionalData() // 노출 정보 추가 가공
     {
+        $this->is_uc = ($this->FU_ibd_type == '1');
+        $this->is_cd = ($this->FU_ibd_type == '2');
+
         $FU_visit_d = empty($this->FU_visit_d) ? '' : explode('-', $this->FU_visit_d);
 
         $this->FU_visit_d_y = $FU_visit_d[0] ?? '';
@@ -146,6 +155,12 @@ class Fu extends Model
         // Follow-up 전체 입력 상태값 업데이트
         $patient->status_FU = $status;
         $patient->saveQuietly();
+    }
+
+    public function getIBDType()
+    {
+        $registerConfig = $this->registerConfig();
+        return $registerConfig['BASE']['DX']['IBD_type'][$this->FU_ibd_type ?? ''] ?? '';
     }
 
     public function getRegStatus($tab)

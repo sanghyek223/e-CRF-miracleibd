@@ -47,11 +47,11 @@
         </tr>
 
         <tr>
-            <th scope="row">IBD Type</th>
+            <th scope="row">초기 IBD Type</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($dxConfig['IBD_type'] as $key => $val)
-                        <x-input.radio field="IBD_type" value="{{ $key }}" :text="$val" :data="$register->IBD_type"/>
+                        <x-input.radio field="IBD_type" value="{{ $key }}" :text="$val" :data="$register->IBD_type" class="{{ !empty($register->IBD_type) ? 'NONE-CLICK' : '' }}"/>
                     @endforeach
                 </div>
             </td>

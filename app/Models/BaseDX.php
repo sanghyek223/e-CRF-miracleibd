@@ -114,6 +114,7 @@ class BaseDX extends Model
         $this->b_CD_l = $is_cd ? $data['b_CD_l'] : null;
         $this->b_CD_L4 = $is_cd ? $data['b_CD_L4'] : null;
         $this->b_CD_sens = $is_cd ? $data['b_CD_sens'] : null;
+        $this->b_CD_behav = $is_cd ? $data['b_CD_behav'] : null;
         $this->b_CD_PA_modi = $is_cd ? $data['b_CD_PA_modi'] : null;
 
 
@@ -210,23 +211,6 @@ class BaseDX extends Model
 
             $endENDO->save();
         }
-
-        // FuLIST => FuBX
-        $patient->FuLIST()->with('FuBx')->get()
-            ->each(function ($Fu) {
-                $FuBx = $Fu->FuBx;
-
-                if ($FuBx && $FuBx->status !== 'N') {
-                    $FuBx->fill([
-                        'FU_MES' => null,
-                        'FU_UCEIS' => null,
-                        'FU_SES_CD' => null,
-                        'status' => 'I',
-                    ]);
-
-                    $FuBx->save();
-                }
-            });
     }
 
     public function patient()

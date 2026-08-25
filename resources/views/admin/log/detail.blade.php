@@ -53,7 +53,7 @@
                             </tr>
 
                             <tr>
-                                <th scope="row">신청일시</th>
+                                <th scope="row">신청일</th>
                                 <td colspan="3" class="text-left">{{ $application->created_at }}</td>
                             </tr>
 

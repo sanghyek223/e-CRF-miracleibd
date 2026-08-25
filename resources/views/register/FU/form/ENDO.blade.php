@@ -44,7 +44,6 @@
                     <img src="/assets/image/icon/ic_tooltip.png" alt="information">
                     <span class="tooltip-con" style="opacity: 1; display: none;">
                         MES : 0,1,2,3<br>
-                        UCEIS : 0~1, 2~4, 5~6, 7~8<br>
                         SES-CD : 0~2, 3~6, 7~9, 10~
                     </span>
                 </a>
@@ -53,7 +52,7 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($endoConfig['FU_endo_sev'] as $key => $val)
-                        <x-input.radio field="FU_endo_sev" value="{{ $key }}" :text="$val" :data="$register->FU_endo_sev"/>
+                        <x-input.radio field="FU_endo_sev" value="{{ $key }}" :text="$val" :data="$register->FU_endo_sev" class="NONE-CLICK"/>
                     @endforeach
                 </div>
             </td>

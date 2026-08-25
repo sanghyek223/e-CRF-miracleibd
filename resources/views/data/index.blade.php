@@ -73,7 +73,7 @@
                                 </tr>
 
                                 <tr>
-                                    <th scope="row">IBD Type</th>
+                                    <th scope="row">초기 IBD Type</th>
                                     <td colspan="3" class="text-left">
                                         <div class="checkbox-wrap">
                                             @foreach($registerConfig['BASE']['DX']['IBD_type'] as $key => $val)

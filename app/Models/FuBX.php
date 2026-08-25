@@ -38,7 +38,46 @@ class FuBX extends Model
         });
 
         static::saved(function ($FuBX) {
-            $Fu = $FuBX->Fu;
+            $Fu = $FuBX->Fu()->first();
+
+            // Follosw-up IBD Type 에 따라서 검체 정보 입력 값에 따라 업데이트
+            // UC 일떄
+            if ($Fu->FU_ibd_type == '1' && !is_null($FuBX->FU_MES)) {
+                $FU_endo_sev = $FuBX->FU_MES;
+            }
+
+            // CD 일떄
+            if ($Fu->FU_ibd_type == '2' && !is_null($FuBX->FU_SES_CD)) {
+                switch ($FuBX->FU_SES_CD) {
+                    case '0':
+                    case '1':
+                    case '2':
+                        $FU_endo_sev = 1;
+                        break;
+
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                        $FU_endo_sev = 2;
+                        break;
+
+                    case '7':
+                    case '8':
+                    case '9':
+                        $FU_endo_sev = 3;
+                        break;
+
+                    default:
+                        $FU_endo_sev = 4;
+                        break;
+                }
+            }
+
+            // 내시경 Severity 업데이트
+            $Fu->FuENDO->update([
+                'FU_endo_sev' => $FU_endo_sev ?? null,
+            ]);
 
             // saving 할때 하면 상태값 업데이트 반영안되서 저장 완료후
             $Fu->update([
@@ -86,10 +125,10 @@ class FuBX extends Model
     {
         $fuConfig = $this->fuConfig();
         $bxConfig = $fuConfig['BX'];
-        $BaseDX = $this->patient->BaseDX->additionalData(); // 진단 시점 정보
+        $Fu = $this->Fu->additionalData(); // Follow-up
 
-        $is_uc = $BaseDX->is_uc; // IBD Type UC
-        $is_cd = $BaseDX->is_cd; // IBD Type CD
+        $is_uc = $Fu->is_uc; // IBD Type UC
+        $is_cd = $Fu->is_cd; // IBD Type CD
 
         // 대변 검체 획득일
         $FU_feces_dt = "{$data['FU_feces_d_y']}-{$data['FU_feces_d_m']}-{$data['FU_feces_d_d']}";
@@ -200,10 +239,10 @@ class FuBX extends Model
 
     public function additionalData() // 노출 정보 추가 가공
     {
-        $BaseDX = $this->patient->BaseDX->additionalData(); // 진단 시점 정보
+        $Fu = $this->Fu->additionalData(); // Follow-up
 
-        $this->is_uc = $BaseDX->is_uc; // IBD Type UC
-        $this->is_cd = $BaseDX->is_cd; // IBD Type CD
+        $this->is_uc = $Fu->is_uc; // IBD Type UC
+        $this->is_cd = $Fu->is_cd; // IBD Type CD
 
         $FU_feces_dt = empty($this->FU_feces_dt) ? '' : explode('-', $this->FU_feces_dt);
 

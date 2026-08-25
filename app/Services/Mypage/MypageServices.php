@@ -24,7 +24,7 @@ class MypageServices extends AppServices
         $user = thisUser();
         $query = $user->applications();
 
-        $list = (clone $query)->paginate($paginate)->appends($request->query());
+        $list = (clone $query)->orderByDesc('created_at')->paginate($paginate)->appends($request->query());
         $confirm_counts = $query->selectRaw('confirm, count(*) as total')->groupBy('confirm')->pluck('total', 'confirm');
 
         $this->data['list'] = setListSeq($list);
@@ -87,7 +87,7 @@ class MypageServices extends AppServices
 
             // 다운로드 증가
             $application->increment('download');
-            return (new CommonServices())->excelDownload($export, $fileName);
+            return (new CommonServices())->excelDownload($export, $filename);
         }
 
         $this->data['application'] = $application;
@@ -110,7 +110,7 @@ class MypageServices extends AppServices
         $user = thisUser();
         $query = $user->approvals();
 
-        $list = (clone $query)->paginate($paginate)->appends($request->query());
+        $list = (clone $query)->orderByDesc('created_at')->paginate($paginate)->appends($request->query());
         $confirm_counts = $query->selectRaw('confirm, count(*) as total')->groupBy('confirm')->pluck('total', 'confirm');
 
         $this->data['list'] = setListSeq($list);

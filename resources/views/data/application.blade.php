@@ -80,7 +80,7 @@
 
                                 @if($search_params['IBD_type'])
                                     <tr>
-                                        <th scope="row">{{ $dataConfig['search_params']['IBD_type'] }}</th>
+                                        <th scope="row">초기 {{ $dataConfig['search_params']['IBD_type'] }}</th>
                                         <td colspan="3" class="text-left ESS-CHK">
                                             @foreach($search_params['IBD_type'] as $key => $val)
                                                 {{ $registerConfig['BASE']['DX']['IBD_type'][$val] }}@if(!$loop->last), @endif

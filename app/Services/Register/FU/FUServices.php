@@ -26,10 +26,13 @@ class FUServices extends AppServices
         $patient = $this->getPatient($request);
         $query = $patient->FuLIST()->orderBy('FU_visit_d');
 
-        $list = $query->paginate(20)->appends($request->query());
+        $list = (clone $query)->paginate(20)->appends($request->query());
 
         $this->data['patient'] = $patient;
         $this->data['list'] = setListSeq($list);
+        $this->data['baseIBD'] = count($list) > 0
+            ? $patient->FuLIST()->latest('FU_visit_d')->first()?->FU_ibd_type
+            : $patient?->BaseDX->IBD_type;
 
         return $this->data;
     }
@@ -111,7 +114,7 @@ class FUServices extends AppServices
         ]);
 
         $this->setJsonData('attr', [
-            $this->ajaxActionAttr('#Fu-frm #IBD_type',  'disabled', true),
+            $this->ajaxActionAttr('#Fu-frm #FU_ibd_type',  'disabled', true),
         ]);
 
         $this->setJsonData('html', [
@@ -119,6 +122,7 @@ class FUServices extends AppServices
         ]);
 
         $this->setJsonData('input', [
+            $this->ajaxActionInput('#FU_ibd_type',  $Fu->FU_ibd_type),
             $this->ajaxActionInput('#FU_visit_d_y',  $Fu->FU_visit_d_y),
             $this->ajaxActionInput('#FU_visit_d_m',  $Fu->FU_visit_d_m),
             $this->ajaxActionInput('#FU_visit_d_d',  $Fu->FU_visit_d_d),
@@ -203,11 +207,7 @@ class FUServices extends AppServices
 
             $this->dbCommit('Follow-up 삭제');
 
-            return $this->returnJsonData('alert', [
-                'case' => true,
-                'msg' => '삭제 되었습니다',
-                'location' => $this->ajaxActionLocation('reload'),
-            ]);
+            return $this->returnJsonData('location', $this->ajaxActionLocation('reload'));
         } catch (\Exception $e) {
             return $this->dbRollback($e);
         }

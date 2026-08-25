@@ -23,7 +23,7 @@
             <th scope="row">성별/나이</th>
             <td>{{ $patient->getSex() ?? '' }} / {{ $patient->getAge() }}</td>
 
-            <th scope="row">IBD Type</th>
+            <th scope="row">초기 IBD Type</th>
             <td>{{ $patient->getIBD() }}</td>
         </tr>
         </tbody>

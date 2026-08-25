@@ -825,6 +825,7 @@ textarea[disabled] {
 .sch-wrap.type2 .form-item {
     width: 60px;
 }
+
 .sch-wrap select.form-item { 
 	width: 130px;
 }
@@ -866,6 +867,50 @@ textarea[disabled] {
     margin-right: 3px;
     vertical-align: middle;
 }
+
+/* 26.08.21 추가 */
+.sch-wrap.has-textarea {
+	border: none;
+	background-color: #fff;
+	padding: 0;
+}
+.sch-wrap.has-textarea fieldset {
+	display: block;
+}
+.sch-wrap.has-textarea fieldset .inner-wrap {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 5px;
+    margin: 0;
+    background-color: #f5f5f5;
+    border: 3px solid #cfcfcf;
+    text-align: center;
+}
+.sch-wrap.has-textarea fieldset .inner-wrap > * {
+    flex-shrink: 0;
+    margin: 0 8px;
+}
+.sch-wrap.has-textarea .table-wrap {
+    margin: 20px 0 0;
+    width: auto;
+    border: 1px solid #b0bbcf;
+}
+.sch-wrap.has-textarea .cst-table th,
+.sch-wrap.has-textarea .cst-table td {
+    border: 0;
+}
+.sch-wrap.has-textarea .cst-table td {
+	background-color: #ebf2f9;
+}
+.sch-wrap.has-textarea textarea.form-item {
+    width: 100%;
+    min-height: 60px;
+    background-color: #fff;
+}
+
+
 
 /* paging */
 .paging-wrap {

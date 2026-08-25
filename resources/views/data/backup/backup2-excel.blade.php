@@ -60,14 +60,14 @@
         $Patient_field = (new \App\Models\Patient())->getExcelField();
 
         $Fu_count = $patients->sum('Fu_count');
-        $excel_count = 0;
+        $excel_count = 1;
     @endphp
 
     <thead>
     <tr>
         <th rowspan="2">No</th>
 
-        <th colspan="{{ count($Patient_field) }}" style="background-color: {{ $background_color1 }};">
+        <th colspan="{{ count($Patient_field) + 2 }}" style="background-color: {{ $background_color1 }};">
             {{ $backup1_field['backup1_DEFAULT']['name'] }}
         </th>
 
@@ -116,6 +116,8 @@
         @foreach($Patient_field ?? [] as $key => $val /* 기본 정보 */)
             <th style="background-color: {{ $background_color1 }};">{{ $val }}</th>
         @endforeach
+        <th style="background-color: {{ $background_color1 }};">FU_visit_d</th>
+        <th style="background-color: {{ $background_color1 }};">FU_ibd_type</th>
 
         @foreach($FuBX_field ?? [] as $key => $val /* 검체 정보 */)
             <th style="background-color: {{ $background_color2 }};">{{ $val }}</th>
@@ -143,11 +145,13 @@
 
         @foreach($FuLIST as $Fu)
             <tr>
-                <td>{{ $Fu_count - $excel_count++ }}</td>
+                <td>{{ $excel_count++ }}</td>
 
                 @foreach($Patient_field ?? [] as $key => $val /* 기본 정보 */)
                     <td>{{ $patient?->{$val} }}</td>
                 @endforeach
+                <td>{{ $Fu->FU_visit_d ?? '' }}</td>
+                <td>{{ $Fu->FU_ibd_type ?? '' }}</td>
 
                 @foreach($FuBX_field ?? [] as $key => $val /* 검체 정보 */)
                     <td>{{ $Fu->FuBX?->{$val} }}</td>

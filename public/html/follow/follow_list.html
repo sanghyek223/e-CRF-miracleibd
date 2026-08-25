@@ -83,7 +83,7 @@
                                 <td>
                                     남자 / 11
                                 </td>
-                                <th scope="row">IBD Type</th>
+                                <th scope="row">초기 IBD Type</th><!--// 26.08.21 -->
                                 <td>
                                     UC
                                 </td>
@@ -104,27 +104,53 @@
                     </div>
                 </div>
 
-                <div class="sch-wrap type2">
+                <div class="sch-wrap type2 has-textarea"><!--// 26.08.21 클래스 has-textarea 추가 -->
                     <form action="" method="">
                         <fieldset>
                             <legend class="hide"></legend>
 
-                            <div class="form-group">
-                                <span class="text">IBD Type :</span>
-                                <select name="" id="" class="form-item sch-cate">
-                                    <option value="" selected>CD</option><!--// 가장 최근 등록된 진단명을 기본값으로 노출(수정 가능) -->
-                                </select>
+                            <!-- 26.08.21 클래스 inner-wrap 추가 (그 외 요소 수정 없음) -->
+                            <div class="inner-wrap">
+                                <div class="form-group">
+                                    <span class="text">IBD Type :</span>
+                                    <select name="" id="" class="form-item sch-cate">
+                                        <option value="" selected>CD</option>
+                                    </select>
+                                </div>
+                                <div class="form-group date">
+                                    <input type="text" name="" id="" class="form-item line small text-center"> /
+                                    <input type="text" name="" id="" class="form-item line small text-center"> /
+                                    <input type="text" name="" id="" class="form-item line small text-center">
+                                    <img src="/assets/image/icon/ic_cal.png" alt="">
+                                </div>
+                                <button type="submit" class="btn color-type2">추적 등록</button>
+                                <button type="submit" class="btn color-type2">추적 수정</button>
+                                <button type="submit" class="btn color-type1">취소</button>
                             </div>
-                            <div class="form-group date">
-                                <input type="text" name="" id="" class="form-item line small text-center"> /
-                                <input type="text" name="" id="" class="form-item line small text-center"> /
-                                <input type="text" name="" id="" class="form-item line small text-center">
-                                <img src="/assets/image/icon/ic_cal.png" alt="">
+                            <!--// 26.08.21 클래스 inner-wrap 추가 -->
+
+                            <!-- 26.08.21 추가 : 추적등록 클릭 시 노출 -->
+                            <div class="table-wrap" style="display: block;">
+                                <table class="cst-table">
+                                    <caption class="hide">기본 정보</caption>
+                                    <colgroup>
+                                        <col style="width:20%;">
+                                        <col>
+                                        <col style="width:20%;">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">IBD type 변경 사유</th>
+                                            <td colspan="3" class="text-left">
+                                                <textarea name="" id="" class="form-item"></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <button type="submit" class="btn color-type2">추적 등록</button>
-                            <button type="submit" class="btn color-type2">추적 수정</button>
-                            <button type="submit" class="btn color-type1">취소</button>
-                            
+                            <!--// 26.08.21 -->
+
                         </fieldset>
                     </form>
                 </div>
@@ -148,7 +174,7 @@
                                         </colgroup>
                                         <thead>
                                             <tr>
-                                                <th scope="col">방문일</th>
+                                                <th scope="col">방문일 (IBD type)</th> <!--// 26.08.21 -->
                                                 <th scope="col">검체 정보</th>
                                                 <th scope="col">검체 획득 시점 Lab</th>
                                                 <th scope="col">검체 획득 시점 검사</th>
@@ -159,7 +185,15 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    YYYY-MM-DD
+                                                    YYYY-MM-DD 
+                                                    <!-- 26.08.21 -->
+                                                    <a href="#n" class="tooltip ml-0">
+                                                        (UC)
+                                                        <span class="tooltip-con" style="opacity: 1; display: none;">
+                                                            YYYY-MM-DD HH:MM:SS
+                                                        </span>
+                                                    </a>
+                                                    <!--// 26.08.21 -->
                                                 </td>
                                                 <td>
                                                     <a href="#n" class="btn btn-view" title="이동">VIEW</a>
@@ -186,7 +220,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    YYYY-MM-DD
+                                                    YYYY-MM-DD (CD) <!--// 26.08.21 -->
                                                 </td>
                                                 <td>
                                                     <a href="#n" class="btn btn-view" title="이동">VIEW</a>

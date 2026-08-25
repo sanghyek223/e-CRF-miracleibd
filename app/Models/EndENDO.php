@@ -101,10 +101,14 @@ class EndENDO extends Model
 
     public function additionalData() // 노출 정보 추가 가공
     {
-        $BaseDX = $this->patient->BaseDX->additionalData(); // 진단 시점 정보
+        $Fu = $this->patient->FuLIST()->latest('FU_visit_d')->first(); // Follow-up 가장 최근
 
-        $this->is_uc = $BaseDX->is_uc; // IBD Type UC
-        $this->is_cd = $BaseDX->is_cd; // IBD Type CD
+        if ($Fu) {
+            $Fu = $Fu->additionalData(); // 진단 시점 정보
+        }
+
+        $this->is_uc = empty($Fu->is_uc) ? false : $Fu->is_uc; // IBD Type UC
+        $this->is_cd = empty($Fu->is_cd) ? false : $Fu->is_cd; // IBD Type CD
 
         return $this;
     }

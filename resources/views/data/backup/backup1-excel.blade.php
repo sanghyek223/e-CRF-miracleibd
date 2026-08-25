@@ -63,6 +63,7 @@
         $background_color12 = '#dbd8e6';
 
         $backup1_field = $dataConfig['backup1_field'];
+        $excel_count = 1;
     @endphp
     <thead>
     <tr>
@@ -243,7 +244,7 @@
     <tbody>
     @foreach($patients as $patient)
         <tr>
-            <td>{{ $loop->remaining + 1 }}</td>
+            <td>{{ $excel_count++ }}</td>
 
             @foreach($Patient_field ?? [] as $key => $val /* 기본 정보 */)
                 <td>{{ $patient?->{$val} }}</td>

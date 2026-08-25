@@ -86,7 +86,7 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($endoConfig['b_endo_sev'] as $key => $val)
-                        <x-input.radio field="b_endo_sev" value="{{ $key }}" :text="$val" :data="$register->b_endo_sev" onclick="return false;"/>
+                        <x-input.radio field="b_endo_sev" value="{{ $key }}" :text="$val" :data="$register->b_endo_sev" class="NONE-CLICK"/>
                     @endforeach
                 </div>
             </td>
@@ -152,8 +152,6 @@
         $(document).on('change', '#b_SES_CD', function () {
             const value = $(this).val();
             const target = 'input[name=b_endo_sev]';
-
-            console.log(value);
 
             if (isEmpty(value)) {
                 $(form).find(`${target}`).prop('checked', false);

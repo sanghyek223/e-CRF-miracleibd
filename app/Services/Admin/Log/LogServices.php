@@ -15,7 +15,7 @@ class LogServices extends AppServices
     public function indexService(Request $request)
     {
         $paginate = 20;
-        $query = Application::query();
+        $query = Application::orderByDesc('created_at');
 
         if ($request->created_at_s) {
             $query->whereDate('created_at', '>=', $request->created_at_s);
