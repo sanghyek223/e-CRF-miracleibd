@@ -135,6 +135,7 @@
                 }
 
                 ajaxSuccessData(data);
+                callTargetReplaceDatePicker();
                 validateEssChk();
             });
         });

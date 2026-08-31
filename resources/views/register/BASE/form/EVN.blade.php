@@ -560,7 +560,7 @@
 
         <tr>
             <th scope="row" colspan="2" class="text-left">
-                2. 현재 주·야간 교대 근무를 하고 있습니까?
+                2. 진단 시점 이전 항생제 치료를 1주 이상 지속한 적이 있나요?
             </th>
             <td colspan="2" class="text-left ESS-CHK">
                 <div class="radio-wrap">

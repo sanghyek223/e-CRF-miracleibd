@@ -35,7 +35,7 @@
 
             <th scope="row">Hemoglobin</th>
             <td class="text-left ESS-CHK">
-                <x-input.text field="b_lab_Hb" :data="$register->b_lab_Hb" :disabled="$register->is_Hb_na" class="form-item small text-center chk-active" onlydecimal/> x10³/mm³
+                <x-input.text field="b_lab_Hb" :data="$register->b_lab_Hb" :disabled="$register->is_Hb_na" class="form-item small text-center chk-active" onlydecimal/> g/dL
 
                 <div class="radio-wrap inline ml-10">
                     <x-input.checkbox field="b_lab_Hb_na" value="1" text="N/A (획득되지 않음)" :data="$register->b_lab_Hb_na" :active="true" class="target-active ESS-CHK-NONE"/>

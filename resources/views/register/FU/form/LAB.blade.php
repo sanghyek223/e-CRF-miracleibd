@@ -57,7 +57,7 @@
                 ESR
             </th>
             <td class="text-left ESS-CHK">
-                <x-input.text field="FU_lab_ESR" :data="$register->FU_lab_ESR" :disabled="$register->is_ESR_na" class="form-item small text-center chk-active"/> g/dL
+                <x-input.text field="FU_lab_ESR" :data="$register->FU_lab_ESR" :disabled="$register->is_ESR_na" class="form-item small text-center chk-active"/> mm/hr
 
                 <div class="radio-wrap inline ml-10">
                     <x-input.checkbox field="FU_lab_ESR_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_ESR_na" :active="true" class="target-active ESS-CHK-NONE"/>
