@@ -135,7 +135,7 @@ return [
             'behavior' => [ // Behavior
                 '1' => 'B1',
                 '2' => 'B2 (stricturing)',
-                '31' => 'B3 (penetrating)',
+                '3' => 'B3 (penetrating)',
             ],
 
             'b_bio_max' => 4,
@@ -184,7 +184,7 @@ return [
             'b_fistula' => [ // Fistula
                 '1' => 'Perianal',
                 '2' => 'Enteroenteric',
-                '31' => 'Enterocolic',
+                '3' => 'Enterocolic',
             ],
 
             'b_stricture' => [ // Stricture
@@ -685,9 +685,9 @@ return [
             ],
 
             'FU_lab_IgA_cat2' => [
-                '0' => '0 ~ 4.9',
-                '1' => '5 ~ 14.9',
-                '2' => '15 ~',
+                '0' => '0 ~ 9.9',
+                '1' => '10 ~',
+//                '2' => '15 ~',
                 '9' => 'N/A (획득되지 않음)',
             ],
 
@@ -722,18 +722,18 @@ return [
             ],
 
             'FU_bio_cat' => [
-                '1' => 'inflixima',
+                '1' => 'infliximab',
                 '2' => 'vedolizumab',
                 '3' => 'Ustekinumab',
                 '4' => 'tofacitinib',
-                '5' => 'fiigotinib',
+                '5' => 'filgotinib',
                 '6' => 'Upadacitinib',
                 '7' => 'ozanimod',
                 '8' => 'adalimumab',
-                '9' => 'golimuma',
-                '10' => 'Risankizuma',
-                '11' => 'Vixarelimab',
-                '12' => 'mirikizuma',
+                '9' => 'golimumab',
+                '10' => 'risankizumab',
+                '11' => 'vixarelimab',
+                '12' => 'mirikizumab',
             ],
         ],
 

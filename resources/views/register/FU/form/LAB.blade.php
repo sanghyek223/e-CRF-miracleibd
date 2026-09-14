@@ -166,7 +166,7 @@
                 ASCA IgA 정량
             </th>
             <td class="text-left ESS-CHK">
-                <x-input.text field="FU_lab_IgG_QN" :data="$register->FU_lab_IgA_QN" :disabled="$register->is_IgA_QN_na" class="form-item small text-center chk-active"/> Units
+                <x-input.text field="FU_lab_IgA_QN" :data="$register->FU_lab_IgA_QN" :disabled="$register->is_IgA_QN_na" class="form-item small text-center chk-active"/> Units
 
                 <div class="radio-wrap inline ml-10">
                     <x-input.checkbox field="FU_lab_IgA_QN_na" value="1" text="N/A (획득되지 않음)" :data="$register->FU_lab_IgA_QN_na" :active="true" class="target-active ESS-CHK-NONE"/>

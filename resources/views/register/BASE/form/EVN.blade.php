@@ -275,7 +275,7 @@
             <td colspan="2" class="text-left ESS-CHK">
                 <div class="checkbox-wrap n4">
                     @foreach($evnConfig['b_EVN_P1q'] as $key => $val)
-                        @if($key != 'b_EVN_P1q6')
+                        @if($key != 'b_EVN_P1q_6')
                             <x-input.checkbox field="{{ $key }}" value="1" :text="$val" :data="$register->{$key}" class="P1q-chk"/>
                         @else
                             <div class="target-box">
@@ -323,7 +323,7 @@
             <td colspan="2" class="text-left ESS-CHK">
                 <div class="checkbox-wrap n4">
                     @foreach($evnConfig['b_EVN_P2q'] as $key => $val)
-                        @if($key != 'b_EVN_P2q6')
+                        @if($key != 'b_EVN_P2q_6')
                             <x-input.checkbox field="{{ $key }}" value="1" :text="$val" :data="$register->{$key}" class="P2q-chk"/>
                         @else
                             <div class="target-box">

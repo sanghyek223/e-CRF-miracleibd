@@ -105,7 +105,7 @@ class BaseNTR extends Model
         }
 
         $this->b_NTR_Tx_ow = ($is_Tx && $is_Tx_k_etc) ? $data['b_NTR_Tx_ow'] : null;
-        $this->b_NTR_Tx_d_uk = ($is_Tx && $is_Tx_k_etc) ? $data['b_NTR_Tx_d_uk'] : '';
+        $this->b_NTR_Tx_d_uk = ($is_Tx) ? $data['b_NTR_Tx_d_uk'] : '';
         $this->b_NTR_Tx_d = ($is_Tx && empty($this->b_NTR_Tx_d_uk) ? $b_NTR_Tx_d : null);
 
         $this->b_NTR_Tx_stop = $is_Tx ? $data['b_NTR_Tx_stop'] : null;

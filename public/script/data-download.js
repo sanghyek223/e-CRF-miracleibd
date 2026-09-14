@@ -49,6 +49,8 @@ $(document).on('click', '.FASTQ-one-download', function (e) {
 
 // 선택 다운로드
 $(document).on('click', '.FASTQ-choice-download', function (e) {
+    alert('SSL 설치 이후 선택 다운로드 기능 사용이 가능합니다.');
+    return false;
     e.preventDefault();
 
     // 전체 다운로드 중일 경우 차단

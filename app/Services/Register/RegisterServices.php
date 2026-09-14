@@ -58,7 +58,7 @@ class RegisterServices extends AppServices
         try {
             $sid = deCryptString($request->sid);
 
-            $patient = $this->getPatient($request)->findOrFail($sid);
+            $patient = $this->getPatient($request->regist_num)->findOrFail($sid);
             $patient->delete();
 
             $this->dbCommit('환자 삭제');

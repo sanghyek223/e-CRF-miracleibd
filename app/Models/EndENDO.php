@@ -73,7 +73,6 @@ class EndENDO extends Model
     {
         $endConfig = $this->endConfig();
         $endoConfig = $endConfig['ENDO'];
-        $BaseDX = $this->patient->BaseDX->additionalData(); // 진단 시점 정보
 
         $this->end_endo_year = $data['end_endo_year'];
         $this->end_endo_month = $data['end_endo_month'];
@@ -81,22 +80,16 @@ class EndENDO extends Model
         $this->end_asst_year = $data['end_asst_year'];
         $this->end_asst_month = $data['end_asst_month'];
 
-        $this->end_UC_l = ($BaseDX->is_uc ? $data['end_UC_l'] : null);
-        $this->end_UC_sens = ($BaseDX->is_uc ? $data['end_UC_sens'] : null);
+        $this->end_UC_l = $data['end_UC_l'];
+        $this->end_UC_sens = $data['end_UC_sens'];
 
-        $this->end_CD_l = ($BaseDX->is_cd ? $data['end_CD_l'] : null);
-        $this->end_CD_L4 = ($BaseDX->is_cd ? $data['end_CD_L4'] : null);
-        $this->end_CD_sens = ($BaseDX->is_cd ? $data['end_CD_sens'] : null);
-        $this->end_CD_behav = ($BaseDX->is_cd ? $data['end_CD_behav'] : null);
-        $this->end_CD_PA_modi = ($BaseDX->is_cd ? $data['end_CD_PA_modi'] : null);
+        $this->end_CD_l = $data['end_CD_l'];
+        $this->end_CD_L4 = $data['end_CD_L4'];
+        $this->end_CD_sens = $data['end_CD_sens'];
+        $this->end_CD_behav = $data['end_CD_behav'];
+        $this->end_CD_PA_modi = $data['end_CD_PA_modi'];
 
-        // 입력상태
-        if (!$BaseDX->is_uc && !$BaseDX->is_cd) {
-            // IBD Type 이 선택 안되어있으면 무조건 I
-            $this->status = 'I';
-        } else {
-            $this->status = empty($data['status']) ? 'I' : 'C';
-        }
+        $this->status = empty($data['status']) ? 'I' : 'C';
     }
 
     public function additionalData() // 노출 정보 추가 가공

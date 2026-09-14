@@ -90,9 +90,54 @@
 
 @push('register-script')
     <script>
+        const ibd = '{{ $register->ibd_type ?? '' }}';
+        const auto_endo_sev = '{{ $register->auto_endo_sev ?? '' }}';
+
         $(function () {
             validateEssChk();
+            autoSev();
         });
+
+        function autoSev() {
+
+            if (isEmpty(auto_endo_sev)) {
+                return;
+            }
+
+            const target = 'input[name=FU_endo_sev]';
+
+            if (ibd == '1') {
+                $(form).find(`${target}[value=${auto_endo_sev}]`).prop('checked', true);
+            } else {
+
+                switch (auto_endo_sev) {
+                    case '0':
+                    case '1':
+                    case '2':
+                        $(form).find(`${target}[value=0]`).prop('checked', true);
+                        break;
+
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                        $(form).find(`${target}[value=1]`).prop('checked', true);
+                        break;
+
+                    case '7':
+                    case '8':
+                    case '9':
+                        $(form).find(`${target}[value=2]`).prop('checked', true);
+                        break;
+
+                    default:
+                        $(form).find(`${target}[value=3]`).prop('checked', true);
+                        break;
+                }
+            }
+
+            validateEssChk();
+        }
 
         function submitAction(next = false) {
             let ajaxData = newFormData(form);

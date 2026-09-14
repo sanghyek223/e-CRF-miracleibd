@@ -33,7 +33,7 @@ class DataServices extends AppServices
         $myPatientsFASTQ = $myQuery->withWhereHas('FASTQ', fn($q) => $q->hasFile())->get();
 
         if ($request->FASTQ_download) {
-            $filename = ("FASTQ_" . now()->format('YmdHis') . '.zip');
+            $filename = ("FASTQ_" . now()->format('Ymd') . '.zip');
 
             if ($request->download_type !== 'all') {
                 $myPatientsFASTQ = $myPatientsFASTQ->where('sid', $request->FILE_KEY)->values();
@@ -48,7 +48,10 @@ class DataServices extends AppServices
         }
 
         if ($request->excel) {
-            $filename = ("excel_" . now()->format('YmdHis'));
+            $filename = ($request->backup === 'backup1')
+                ? ("Rawdata_" . now()->format('Ymd'))
+                : ("Followup_" . now()->format('Ymd'));
+
             $this->data['patients'] = $myPatients;
 
             $export = ($request->backup === 'backup1')
@@ -56,8 +59,8 @@ class DataServices extends AppServices
                 : new Backup2Excel($this->data);
 
             if (isDev()) {
-                $previewData = $export->getPreviewData();
-                return view($previewData['viewPage'], $previewData['exportData']);
+//                $previewData = $export->getPreviewData();
+//                return view($previewData['viewPage'], $previewData['exportData']);
             }
 
             return (new CommonServices())->excelDownload($export, $filename);

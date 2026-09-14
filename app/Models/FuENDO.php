@@ -108,6 +108,9 @@ class FuENDO extends Model
 
     public function additionalData() // 노출 정보 추가 가공
     {
+        $Fu = $this->Fu;
+        $FuBX = $Fu->FuBX;
+
         $FU_endo_d = empty($this->FU_endo_d) ? '' : explode('-', $this->FU_endo_d);
 
         $this->FU_endo_d_y = $FU_endo_d[0] ?? '';
@@ -119,6 +122,11 @@ class FuENDO extends Model
         $this->FU_entero_d_y = $FU_entero_d[0] ?? '';
         $this->FU_entero_d_m = $FU_entero_d[1] ?? '';
         $this->FU_entero_d_d = $FU_entero_d[2] ?? '';
+
+        $this->ibd_type = $Fu->FU_ibd_type;
+        $this->auto_endo_sev = ($this->ibd_type == '1')
+            ? $FuBX->FU_MES
+            : $FuBX->FU_SES_CD;
 
         return $this;
     }

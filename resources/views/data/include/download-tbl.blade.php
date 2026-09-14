@@ -42,9 +42,9 @@
                 <td>{!! implode('<br>', $row->FASTQ->getFileNameAll()) !!}</td>
                 <td>{{ formatBytes(array_sum($row->FASTQ->getFileSizeAll())) }}</td>
                 <td class="progress-state">
-                    <a href="{{ route('data.download.FASTQ', ['download_type' => 'choice']) }}" class="btn btn-type1 btn-line color-type3 FASTQ-one-download"><span class="icon mr-10">
+{{--                    <a href="{{ route('data.download.FASTQ', ['download_type' => 'choice']) }}" class="btn btn-type1 btn-line color-type3 FASTQ-one-download"><span class="icon mr-10">
                         <img src="/assets/image/icon/ic_download.png" alt=""></span>다운로드
-                    </a>
+                    </a>--}}
                 </td>
             </tr>
         @empty

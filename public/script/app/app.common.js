@@ -621,11 +621,8 @@ const ajaxErrorData = (obj) => {
         json.case = true;
         json.msg = isEmpty(obj.responseJSON.msg) ? (obj.status + ' ERROR') : obj.responseJSON.msg;
 
-        if (!isEmpty(obj.responseJSON.redirect)) {
-            json.location = {
-                'case': obj.responseJSON.redirect,
-                'url': obj.responseJSON.url,
-            }
+        if (!isEmpty(obj.responseJSON.location)) {
+            json.location = obj.responseJSON.location
         }
 
         actionAlert(json);

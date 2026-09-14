@@ -51,7 +51,7 @@ class MypageServices extends AppServices
                 ], 403);
             }
 
-            $filename = ("{$application->getApplicationHosName()}_FASTQ_" . now()->format('YmdHis'));
+            $filename = ("{$application->getApplicationHosName()}_FASTQ_" . now()->format('Ymd'));
 
             if ($request->download_type !== 'all') {
                 $patientsFASTQ = $patientsFASTQ->where('sid', $request->FILE_KEY)->values();
@@ -70,11 +70,14 @@ class MypageServices extends AppServices
         if ($request->excel) {
 
             if (!$application->isDownloadPeriod()) {
-                return redirect()->back()->with(['msg' => '다운로드 기간이 아닙니다.']);
+                return redirect()->back()->with(['msg' => '다운로드 기간이 종료되었습니다.']);
             }
 
-            $filename = ("{$application->getApplicationHosName()}_excel_" . now()->format('YmdHis'));
             $this->data['patients'] = $patients;
+
+            $filename = ($request->backup === 'backup1')
+                ? ("{$application->getApplicationHosName()}_Rawdata_" . now()->format('Ymd'))
+                : ("{$application->getApplicationHosName()}_Followup_" . now()->format('Ymd'));
 
             $export = ($request->backup === 'backup1')
                 ? new Backup1Excel($this->data)

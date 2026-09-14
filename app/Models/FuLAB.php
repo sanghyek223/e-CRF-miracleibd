@@ -101,12 +101,12 @@ class FuLAB extends Model
         $this->FU_lab_FC_cat = $data['FU_lab_FC_cat'];
 
         $this->FU_lab_IgG_QN_na = $data['FU_lab_IgG_QN_na'];
-        $this->FU_lab_IgG_QN = ($this->FU_lab_IgG_QN != '1') ? $data['FU_lab_IgG_QN'] : null;
+        $this->FU_lab_IgG_QN = ($this->FU_lab_IgG_QN_na != '1') ? $data['FU_lab_IgG_QN'] : null;
         $this->FU_lab_IgG_cat1 = $data['FU_lab_IgG_cat1'];
         $this->FU_lab_IgG_cat2 = $data['FU_lab_IgG_cat2'];
 
         $this->FU_lab_IgA_QN_na = $data['FU_lab_IgA_QN_na'];
-        $this->FU_lab_IgA_QN = ($this->FU_lab_IgA_QN != '1') ? $data['FU_lab_IgA_QN'] : null;
+        $this->FU_lab_IgA_QN = ($this->FU_lab_IgA_QN_na != '1') ? $data['FU_lab_IgA_QN'] : null;
         $this->FU_lab_IgA_cat1 = $data['FU_lab_IgA_cat1'];
         $this->FU_lab_IgA_cat2 = $data['FU_lab_IgA_cat2'];
 
