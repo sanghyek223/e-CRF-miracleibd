@@ -112,7 +112,7 @@ class BaseNTR extends Model
         $is_stop = ($this->b_NTR_Tx_stop == '1');
 
         $this->b_NTR_Tx_stop_k = $is_stop ? $data['b_NTR_Tx_stop_k'] : null;
-        $this->b_NTR_Tx_stop_ow = ($is_stop && $this->b_NTR_Tx_stop_k != '3') ? null : $data['b_NTR_Tx_stop_ow'];
+        $this->b_NTR_Tx_stop_ow = ($is_stop && $this->b_NTR_Tx_stop_k != '4') ? null : $data['b_NTR_Tx_stop_ow'];
 
         // 식습관 조사
         $this->b_NTR_alc = $data['b_NTR_alc'];
@@ -145,7 +145,7 @@ class BaseNTR extends Model
         $this->b_NTR_Tx_d_d = $b_NTR_Tx_d[2] ?? '';
 
         $this->is_stop = ($this->b_NTR_Tx_stop == '1');
-        $this->is_Tx_stop_k_etc = (($this->b_NTR_Tx_stop_k ?? '') == '3'); // 영양 치료 중단 사유 기타 선택
+        $this->is_Tx_stop_k_etc = (($this->b_NTR_Tx_stop_k ?? '') == '4'); // 영양 치료 중단 사유 기타 선택
 
         return $this;
     }

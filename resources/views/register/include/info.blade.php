@@ -17,7 +17,7 @@
             <th scope="row">Registration No.</th>
             <td>{{ $patient->regist_num }}</td>
 
-            <th scope="row">Initial</th>
+            <th scope="row">이름 Initial</th>
             <td>{{ $patient->initial ?? '' }}</td>
 
             <th scope="row">성별/나이</th>

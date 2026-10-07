@@ -74,7 +74,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Registration No.</th>
-                        <th scope="col">Initial</th>
+                        <th scope="col">이름 Initial</th>
                         <th scope="col">기관</th>
                         <th scope="col">성별/나이</th>
                         <th scope="col">초기 IBD Type</th>

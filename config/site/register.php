@@ -112,6 +112,7 @@ return [
             ],
 
             'uc_severity' => [ // Severity
+                '0' => 'remission',
                 '1' => 'mild',
                 '2' => 'moderate',
                 '3' => 'severe',
@@ -126,6 +127,7 @@ return [
             ],
 
             'cd_severity' => [ // Severity
+                '0' => 'remission',
                 '1' => 'mild',
                 '2' => 'moderate',
                 '3' => 'severe',
@@ -138,6 +140,23 @@ return [
                 '3' => 'B3 (penetrating)',
             ],
 
+            'b_bio_n' => [
+                '1' => 'Infliximab',
+                '2' => 'Adalimumab',
+                '3' => 'Golimumab',
+                '4' => 'Certolizumab pegol',
+                '5' => 'Vedolizumab',
+                '6' => 'Ustekinumab',
+                '7' => 'Risankizumab',
+                '8' => 'Mirikizumab',
+                '9' => 'Guselkumab',
+                '10' => 'Tofacitinib',
+                '11' => 'Upadacitinib',
+                '12' => 'Filgotinib',
+                '13' => 'Ozanimod',
+                '14' => 'Etrasimod',
+            ],
+
             'b_bio_max' => 4,
         ],
 
@@ -147,26 +166,49 @@ return [
             'b_SES_CD' => array_combine(range(0, 12), range(0, 12)), // SES-CD
 
             'b_endo_sev' => [ // 내시경 Severity
-                '0' => 'inactive (remission)',
-                '1' => 'mild',
-                '2' => 'moderate',
-                '3' => 'severe',
+                '0' => 'inactive',
+                '1' => 'remission',
+                '2' => 'mild',
+                '3' => 'moderate',
+                '4' => 'severe',
             ],
 
             'b_entero_sev' => [ // 소장내시경 Severity
-                '0' => 'inactive (remission)',
-                '1' => 'mild',
-                '2' => 'moderate',
-                '3' => 'severe',
+                '0' => 'inactive',
+                '1' => 'remission',
+                '2' => 'mild',
+                '3' => 'moderate',
+                '4' => 'severe',
+            ],
+
+            'b_endo_inv_seg' => [ // Involved segment
+                'b_endo_inv_seg1' => 'ileum',
+                'b_endo_inv_seg2' => 'terminal ileum',
+                'b_endo_inv_seg3' => 'IC valve',
+                'b_endo_inv_seg4' => 'Cecum',
+                'b_endo_inv_seg5' => 'A colon',
+                'b_endo_inv_seg6' => 'T colon',
+                'b_endo_inv_seg7' => 'D colon',
+                'b_endo_inv_seg8' => 'S colon',
+                'b_endo_inv_seg9' => 'Rectum',
             ],
         ],
 
         'IMG' => [
+            'b_img_k' => [ // 영상의학 검사 종류
+                '0' => 'CT',
+                '1' => 'MR',
+                '2' => 'IUS',
+                '3' => 'X-ray',
+                '9' => '기타',
+            ],
+
             'b_img_sev' => [ // Severity
                 '0' => 'No',
-                '1' => 'mild',
-                '2' => 'moderate',
-                '3' => 'severe',
+                '1' => 'remission',
+                '2' => 'mild',
+                '3' => 'moderate',
+                '4' => 'severe',
             ],
 
             'b_inv_seg' => [ // Involved segment (checkbox key => 필드명, value => 1 고정)
@@ -182,6 +224,7 @@ return [
             ],
 
             'b_fistula' => [ // Fistula
+                '0' => 'No',
                 '1' => 'Perianal',
                 '2' => 'Enteroenteric',
                 '3' => 'Enterocolic',
@@ -238,7 +281,13 @@ return [
                 '9' => 'N/A (획득되지 않음)',
             ],
 
-            'b_lab_Cdiff_toxin' => [ // C.difficile toxin
+            'b_lab_Cdiff_toxin_a' => [ // C.difficile toxin A
+                '0' => 'negative',
+                '1' => 'positive',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_Cdiff_toxin_b' => [ // C.difficile toxin B
                 '0' => 'negative',
                 '1' => 'positive',
                 '9' => 'N/A (획득되지 않음)',
@@ -250,7 +299,13 @@ return [
                 '9' => 'N/A (획득되지 않음)',
             ],
 
-            'b_lab_bi_toxin' => [ // binary toxin
+            'b_lab_bi_toxin_a' => [ // binary toxin A
+                '0' => 'not detected',
+                '1' => 'detected',
+                '9' => 'N/A (획득되지 않음)',
+            ],
+
+            'b_lab_bi_toxin_b' => [ // binary toxin B
                 '0' => 'not detected',
                 '1' => 'detected',
                 '9' => 'N/A (획득되지 않음)',
@@ -275,7 +330,8 @@ return [
             'b_NTR_Tx_stop_k' => [ // 영양 치료 중단 사유
                 '1' => '맛 거부감',
                 '2' => '위장 증상 악화',
-                '3' => '기타',
+                '3' => '약제 또는 IFX 투여 후 호전되어 EEN / CDED를 중단한 경우',
+                '4' => '기타',
             ],
 
             'b_NTR_PF' => [ // 가공식품 섭취
@@ -756,9 +812,10 @@ return [
         'IMG' => [
             'FU_img_sev' => [
                 '0' => 'No',
-                '1' => 'mild',
-                '2' => 'moderate',
-                '3' => 'severe',
+                '1' => 'remission',
+                '2' => 'mild',
+                '3' => 'moderate',
+                '4' => 'severe',
             ],
 
             'FU_inv_seg' => [ // Involved segment (checkbox key => 필드명, value => 1 고정)
@@ -774,6 +831,7 @@ return [
             ],
 
             'FU_fistula' => [
+                '0' => 'No',
                 '1' => 'Perianal',
                 '2' => 'Enteroenteric',
                 '3' => 'Enterocolic',

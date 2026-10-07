@@ -83,6 +83,8 @@ class BaseENDO extends Model
             $b_endo_d = '';
         }
 
+        $this->b_endo_d_NP = $data['b_endo_d_NP'];
+        $this->b_endo_d_NA = $data['b_endo_d_NA'];
         $this->b_endo_d_uk = $data['b_endo_d_uk'];
         $this->b_endo_d = (empty($this->b_endo_d_uk) ? $b_endo_d : null);
 
@@ -91,6 +93,26 @@ class BaseENDO extends Model
 
         $this->b_endo_sev = $data['b_endo_sev'];
 
+        $b_endo_remi_d = "{$data['b_endo_remi_d_y']}-{$data['b_endo_remi_d_m']}-{$data['b_endo_remi_d_d']}";
+        $b_endo_remi_d_replace = str_replace('-', '', $b_endo_remi_d);
+
+        if (empty($b_endo_remi_d_replace)) {
+            $b_endo_remi_d = '';
+        }
+
+        $this->b_endo_remi_d = ($this->b_endo_sev == '1') ? $b_endo_remi_d : null;
+        $this->b_endo_remi_sc = ($this->b_endo_sev == '1') ? $data['b_endo_remi_sc'] : null;
+
+        $this->b_endo_inv_seg1 = $data['b_endo_inv_seg1'];
+        $this->b_endo_inv_seg2 = $data['b_endo_inv_seg2'];
+        $this->b_endo_inv_seg3 = $data['b_endo_inv_seg3'];
+        $this->b_endo_inv_seg4 = $data['b_endo_inv_seg4'];
+        $this->b_endo_inv_seg5 = $data['b_endo_inv_seg5'];
+        $this->b_endo_inv_seg6 = $data['b_endo_inv_seg6'];
+        $this->b_endo_inv_seg7 = $data['b_endo_inv_seg7'];
+        $this->b_endo_inv_seg8 = $data['b_endo_inv_seg8'];
+        $this->b_endo_inv_seg9 = $data['b_endo_inv_seg9'];
+
         $b_entero_d = "{$data['b_entero_d_y']}-{$data['b_entero_d_m']}-{$data['b_entero_d_d']}";
         $b_entero_d_replace = str_replace('-', '', $b_entero_d);
 
@@ -98,6 +120,8 @@ class BaseENDO extends Model
             $b_entero_d = '';
         }
 
+        $this->b_entero_d_NP = $data['b_entero_d_NP'];
+        $this->b_entero_d_NA = $data['b_entero_d_NA'];
         $this->b_entero_d_uk = $data['b_entero_d_uk'];
         $this->b_entero_d = (empty($this->b_entero_d_uk) ? $b_entero_d : null);
 
@@ -126,6 +150,10 @@ class BaseENDO extends Model
         $this->b_endo_d_m = $b_endo_d[1] ?? '';
         $this->b_endo_d_d = $b_endo_d[2] ?? '';
 
+        $b_endo_remi_d = empty($this->b_endo_remi_d) ? '' : explode('-', $this->b_endo_remi_d);
+        $this->b_endo_remi_d_y = $b_endo_remi_d[0] ?? '';
+        $this->b_endo_remi_d_m = $b_endo_remi_d[1] ?? '';
+        $this->b_endo_remi_d_d = $b_endo_remi_d[2] ?? '';
 
         $b_entero_d = empty($this->b_entero_d) ? '' : explode('-', $this->b_entero_d);
         $this->is_entero_uk = (($this->b_entero_d_uk ?? '') == '1'); // 최초 소장내시경 검사일 Unknown 체크여부

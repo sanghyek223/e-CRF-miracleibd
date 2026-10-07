@@ -50,6 +50,21 @@
             </td>
         </tr>
 
+        <tr class="FU_img_remi_d-tr" style="display: {{ $register->FU_img_sev != '1' ? 'none' : '' }} ">
+            <th scope="row">
+                Remission 발생일
+            </th>
+
+            <td colspan="3" class="text-left ESS-CHK">
+                <div class="form-group date">
+                    <x-input.text field="FU_img_remi_d_y" :data="$register->FU_img_remi_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="FU_img_remi_d_m" :data="$register->FU_img_remi_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="FU_img_remi_d_d" :data="$register->FU_img_remi_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="FU_img_remi_d" data-maxdate="{{ now()->format('Y-m-d') }}">
+                </div>
+            </td>
+        </tr>
+
         <tr>
             <th scope="row">
                 Involved segment
@@ -120,5 +135,19 @@
 
             callMultiAjax(dataUrl, ajaxData);
         }
+
+        $(document).on('change', 'input[name=FU_img_sev]', function () {
+            const value = $(this).val();
+            const target = $(form).find('.FU_img_remi_d-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.hide();
+                target.find('input[type=text]').val('');
+            }
+
+            validateEssChk();
+        });
     </script>
 @endpush

@@ -19,7 +19,7 @@
             <th scope="row">Registration No.</th>
             <td class="text-left">{{ $patient->regist_num ?? '(자동 생성)' }}</td>
 
-            <th scope="row">Initial</th>
+            <th scope="row">이름 Initial</th>
             <td class="text-left">
                 <x-input.text field="initial" :data="$patient?->initial" class="form-item line text-center" enuppercase nonespace/>
             </td>

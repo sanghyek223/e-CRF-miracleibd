@@ -1506,17 +1506,17 @@ $(document).on("keyup", "input[EnUpperCase]", function () {
 $(document).on('dblclick', 'input[type="radio"], label:has(input[type="radio"])', function (e) {
     let $radio;
 
-    // NONE-CLICK 클래스가 있으면 제외
-    if ( $(this).hasClass('NONE-CLICK') || $radio.hasClass('NONE-CLICK') ) {
-        e.preventDefault();
-        return false;
-    }
-
     // label 클릭인지 radio 클릭인지 구분
     if ($(this).is('label')) {
         $radio = $(this).find('input[type=radio]');
     } else {
         $radio = $(this);
+    }
+
+    // NONE-CLICK 클래스가 있으면 제외
+    if ( $(this).hasClass('NONE-CLICK') || $radio.hasClass('NONE-CLICK') ) {
+        e.preventDefault();
+        return false;
     }
 
     if ($radio[0].checked) {

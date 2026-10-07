@@ -92,6 +92,15 @@ class FuIMG extends Model
 
         $this->FU_img_sev = $data['FU_img_sev'];
 
+        $FU_img_remi_d = "{$data['FU_img_remi_d_y']}-{$data['FU_img_remi_d_m']}-{$data['FU_img_remi_d_d']}";
+        $FU_img_remi_d_replace = str_replace('-', '', $FU_img_remi_d);
+
+        if (empty($FU_img_remi_d_replace)) {
+            $FU_img_remi_d = '';
+        }
+
+        $this->FU_img_remi_d = ($this->FU_img_sev == '1') ? $FU_img_remi_d : null;
+
         $this->FU_inv_seg1 = $data['FU_inv_seg1'];
         $this->FU_inv_seg2 = $data['FU_inv_seg2'];
         $this->FU_inv_seg3 = $data['FU_inv_seg3'];
@@ -117,6 +126,12 @@ class FuIMG extends Model
         $this->FU_img_d_y = $FU_img_d[0] ?? '';
         $this->FU_img_d_m = $FU_img_d[1] ?? '';
         $this->FU_img_d_d = $FU_img_d[2] ?? '';
+
+        $FU_img_remi_d = empty($this->FU_img_remi_d) ? '' : explode('-', $this->FU_img_remi_d);
+
+        $this->FU_img_remi_d_y = $FU_img_remi_d[0] ?? '';
+        $this->FU_img_remi_d_m = $FU_img_remi_d[1] ?? '';
+        $this->FU_img_remi_d_d = $FU_img_remi_d[2] ?? '';
 
         return $this;
     }

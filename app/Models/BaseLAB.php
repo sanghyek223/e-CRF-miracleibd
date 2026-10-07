@@ -114,9 +114,14 @@ class BaseLAB extends Model
         $this->b_lab_B12_na = $data['b_lab_B12_na'];
         $this->b_lab_B12 = empty($this->b_lab_B12_na) ? $data['b_lab_B12'] : null;
 
-        $this->b_lab_Cdiff_toxin = $data['b_lab_Cdiff_toxin'];
         $this->b_lab_Cdiff_CPR = $data['b_lab_Cdiff_CPR'];
-        $this->b_lab_bi_toxin = $data['b_lab_bi_toxin'];
+
+        $this->b_lab_Cdiff_Atoxin = $data['b_lab_Cdiff_Atoxin'];
+        $this->b_lab_Cdiff_Btoxin = $data['b_lab_Cdiff_Btoxin'];
+
+        $this->b_lab_bi_Atoxin = $data['b_lab_bi_Atoxin'];
+        $this->b_lab_bi_Btoxin = $data['b_lab_bi_Btoxin'];
+
         $this->b_lab_TcDc_del = $data['b_lab_TcDc_del'];
 
         // 입력상태

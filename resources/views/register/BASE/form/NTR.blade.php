@@ -135,7 +135,7 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap target-box">
                     @foreach($ntrConfig['b_NTR_Tx_stop_k'] as $key => $val)
-                        @if($key != '3')
+                        @if($key != '4')
                             <x-input.radio field="b_NTR_Tx_stop_k" value="{{ $key }}" :text="$val" :data="$register->b_NTR_Tx_stop_k" :active2="true" class="target-box-active"/>
                         @else
                             <div class="inWrap">

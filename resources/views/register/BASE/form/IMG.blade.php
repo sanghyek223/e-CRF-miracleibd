@@ -40,12 +40,47 @@
         </tr>
 
         <tr>
+            <th scope="row">
+                영상의학 검사 종류
+            </th>
+            <td colspan="3" class="text-left ESS-CHK">
+                <div class="radio-wrap">
+                    @foreach($imgConfig['b_img_k'] as $key => $val)
+                        @if($key != '9')
+                            <x-input.radio field="b_img_k" value="{{ $key }}" :text="$val" :data="$register->b_img_k"/>
+                        @else
+                            <div class="inWrap">
+                                <x-input.radio2 field="b_img_k" value="{{ $key }}" :text="$val" :data="$register->b_img_k"/>
+                                ( <x-input.text field="b_img_k_ow" :data="$register->b_img_k_ow" :disabled="!$register->is_img_k_etc" class="form-item large"/> )
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </td>
+        </tr>
+
+        <tr>
             <th scope="row">Severity</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($imgConfig['b_img_sev'] as $key => $val)
                         <x-input.radio field="b_img_sev" value="{{ $key }}" :text="$val" :data="$register->b_img_sev"/>
                     @endforeach
+                </div>
+            </td>
+        </tr>
+
+        <tr class="b_img_remi_d-tr" style="display: {{ $register->b_img_sev != '1' ? 'none' : '' }} ">
+            <th scope="row">
+                Remission 발생일
+            </th>
+
+            <td colspan="3" class="text-left ESS-CHK">
+                <div class="form-group date">
+                    <x-input.text field="b_img_remi_d_y" :data="$register->b_img_remi_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="b_img_remi_d_m" :data="$register->b_img_remi_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="b_img_remi_d_d" :data="$register->b_img_remi_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_img_remi_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
         </tr>
@@ -120,6 +155,34 @@
             checked
                 ? target.hide()
                 : target.show();
+        });
+
+        $(document).on('change', `${form} input[name=b_img_k]`, function () {
+            const value = $(form).find('input[name=b_img_k]:checked').val() || '';
+            const target_text = $(this).closest('td').find('#b_img_k_ow');
+
+            if (value == '9') {
+                target_text.attr('disabled', false);
+            } else {
+                target_text.val('');
+                target_text.attr('disabled', true);
+            }
+
+            validateEssChk();
+        });
+
+        $(document).on('change', 'input[name=b_img_sev]', function () {
+            const value = $(this).val();
+            const target = $(form).find('.b_img_remi_d-tr');
+
+            if (value == '1') {
+                target.show();
+            } else {
+                target.hide();
+                target.find('input[type=text]').val('');
+            }
+
+            validateEssChk();
         });
     </script>
 @endpush

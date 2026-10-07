@@ -212,17 +212,6 @@
                 </div>
             </td>
 
-            <th scope="row">C.difficile toxin</th>
-            <td class="text-left ESS-CHK">
-                <div class="radio-wrap">
-                    @foreach($labConfig['b_lab_Cdiff_toxin'] as $key => $val)
-                        <x-input.radio field="b_lab_Cdiff_toxin" value="{{ $key }}" :text="$val" :data="$register->b_lab_Cdiff_toxin"/>
-                    @endforeach
-                </div>
-            </td>
-        </tr>
-
-        <tr>
             <th scope="row">C.difficile PCR</th>
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -231,12 +220,43 @@
                     @endforeach
                 </div>
             </td>
+        </tr>
 
-            <th scope="row">binary toxin</th>
+        <tr>
+            <th scope="row">C.difficile toxin A</th>
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    @foreach($labConfig['b_lab_bi_toxin'] as $key => $val)
-                        <x-input.radio field="b_lab_bi_toxin" value="{{ $key }}" :text="$val" :data="$register->b_lab_bi_toxin"/>
+                    @foreach($labConfig['b_lab_Cdiff_toxin_a'] as $key => $val)
+                        <x-input.radio field="b_lab_Cdiff_Atoxin" value="{{ $key }}" :text="$val" :data="$register->b_lab_Cdiff_Atoxin"/>
+                    @endforeach
+                </div>
+            </td>
+
+            <th scope="row">C.difficile toxin B</th>
+            <td class="text-left ESS-CHK">
+                <div class="radio-wrap">
+                    @foreach($labConfig['b_lab_Cdiff_toxin_b'] as $key => $val)
+                        <x-input.radio field="b_lab_Cdiff_Btoxin" value="{{ $key }}" :text="$val" :data="$register->b_lab_Cdiff_Btoxin"/>
+                    @endforeach
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <th scope="row">Binary toxin A</th>
+            <td class="text-left ESS-CHK">
+                <div class="radio-wrap">
+                    @foreach($labConfig['b_lab_bi_toxin_a'] as $key => $val)
+                        <x-input.radio field="b_lab_bi_Atoxin" value="{{ $key }}" :text="$val" :data="$register->b_lab_bi_Atoxin"/>
+                    @endforeach
+                </div>
+            </td>
+
+            <th scope="row">Binary toxin B</th>
+            <td class="text-left ESS-CHK">
+                <div class="radio-wrap">
+                    @foreach($labConfig['b_lab_bi_toxin_b'] as $key => $val)
+                        <x-input.radio field="b_lab_bi_Btoxin" value="{{ $key }}" :text="$val" :data="$register->b_lab_bi_Btoxin"/>
                     @endforeach
                 </div>
             </td>

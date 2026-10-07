@@ -109,11 +109,11 @@ class BaseDX extends Model
         $is_cd = ($this->IBD_type == '2');
 
         $this->b_UC_l = $is_uc ? $data['b_UC_l'] : null;
-        $this->b_UC_sens = $is_uc ? $data['b_UC_sens'] : null;
+        $this->b_UC_sev = $is_uc ? $data['b_UC_sev'] : null;
 
         $this->b_CD_l = $is_cd ? $data['b_CD_l'] : null;
         $this->b_CD_L4 = $is_cd ? $data['b_CD_L4'] : null;
-        $this->b_CD_sens = $is_cd ? $data['b_CD_sens'] : null;
+        $this->b_CD_sev = $is_cd ? $data['b_CD_sev'] : null;
         $this->b_CD_behav = $is_cd ? $data['b_CD_behav'] : null;
         $this->b_CD_PA_modi = $is_cd ? $data['b_CD_PA_modi'] : null;
 
@@ -122,6 +122,11 @@ class BaseDX extends Model
         $is_med = ($this->b_med == '1'); // 약물 투약 여부 데이터 구분용
 
         $this->b_5ASA = $is_med ? $data['b_5ASA'] : null;
+        $is_b_5ASA = ($this->b_5ASA == '1'); // 5-ASA Yes
+
+        $this->b_5ASA_PO = $is_b_5ASA ? $data['b_5ASA_PO'] : null;
+        $this->b_5ASA_PR = $is_b_5ASA ? $data['b_5ASA_PR'] : null;
+
         $this->b_aza = $is_med ? $data['b_aza'] : null;
         $this->b_MTX = $is_med ? $data['b_MTX'] : null;
         $this->b_tofa = $is_med ? $data['b_tofa'] : null;
@@ -135,10 +140,14 @@ class BaseDX extends Model
 
         // 생물학적제제 상세 현황
         for ($i = 1; $i <= $dxConfig['b_bio_max']; $i++) {
-            $text_field = "b_bio{$i}_n";
+            $select_field = "b_bio{$i}_n";
             $date_field = "b_bio{$i}_d";
+            $date_end_field = "b_bio{$i}_end_d";
+            $text_load = "b_bio{$i}_load";
+            $text_freq = "b_bio{$i}_freq";
 
-            $b_bio_n = $data[$text_field] ?? '';
+            $b_bio_n = $data[$select_field] ?? '';
+
             $b_bio_d_y = $data["b_bio{$i}_d_y"] ?? '';
             $b_bio_d_m = $data["b_bio{$i}_d_m"] ?? '';
             $b_bio_d_d = $data["b_bio{$i}_d_d"] ?? '';
@@ -150,8 +159,25 @@ class BaseDX extends Model
                 $b_bio_d = '';
             }
 
-            $this->{$text_field} = $is_bio ? $b_bio_n : null;
+            $b_bio_end_d_y = $data["b_bio{$i}_end_d_y"] ?? '';
+            $b_bio_end_d_m = $data["b_bio{$i}_end_d_m"] ?? '';
+            $b_bio_end_d_d = $data["b_bio{$i}_end_d_d"] ?? '';
+
+            $b_bio_end_d = "{$b_bio_end_d_y}-{$b_bio_end_d_m}-{$b_bio_end_d_d}";
+            $b_bio_end_d_replace = str_replace('-', '', $b_bio_end_d);
+
+            if (empty($b_bio_end_d_replace)) {
+                $b_bio_end_d = '';
+            }
+
+            $b_bio_load = $data[$text_load] ?? '';
+            $b_bio_freq = $data[$text_freq] ?? '';
+
+            $this->{$select_field} = $is_bio ? $b_bio_n : null;
             $this->{$date_field} = $is_bio ? $b_bio_d : null;
+            $this->{$date_end_field} = $is_bio ? $b_bio_end_d : null;
+            $this->{$text_load} = $is_bio ? $b_bio_load : null;
+            $this->{$text_freq} = $is_bio ? $b_bio_freq : null;
         }
 
         // 입력상태
@@ -171,6 +197,7 @@ class BaseDX extends Model
         $this->is_uc = (($this->IBD_type ?? '') == '1');
         $this->is_cd = (($this->IBD_type ?? '') == '2');
         $this->is_med = (($this->b_med ?? '') == '1');
+        $this->is_b_5ASA = ($this->b_5ASA == '1');
         $this->is_bio = (($this->b_bio ?? '') == '1' && $this->is_med);
 
         return $this;

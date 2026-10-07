@@ -33,6 +33,8 @@
                     <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_endo_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_endo_uk ? 'none' : '' }}">
 
                     <div class="checkbox-wrap inline ml-10">
+                        <x-input.checkbox field="b_endo_d_NP" value="1" text="Not performed" :data="$register->b_endo_d_NP" :active="true" class="target-active ESS-CHK-NONE"/>
+                        <x-input.checkbox field="b_endo_d_NA" value="1" text="Not applicable" :data="$register->b_endo_d_NA" :active="true" class="target-active ESS-CHK-NONE"/>
                         <x-input.checkbox field="b_endo_d_uk" value="1" text="Unknown" :data="$register->b_endo_d_uk" :active="true" class="target-active ESS-CHK-NONE"/>
                     </div>
                 </div>
@@ -92,6 +94,37 @@
             </td>
         </tr>
 
+        <tr class="b_endo_remi-tr" style="display: {{ $register->b_endo_sev != '1' ? 'none' : '' }} ">
+            <th scope="row">
+                Remission 발생일 / 점수
+            </th>
+
+            <td colspan="3" class="text-left ESS-CHK">
+                <div class="form-group date">
+                    <x-input.text field="b_endo_remi_d_y" :data="$register->b_endo_remi_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="b_endo_remi_d_m" :data="$register->b_endo_remi_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="b_endo_remi_d_d" :data="$register->b_endo_remi_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_endo_remi_d" data-maxdate="{{ now()->format('Y-m-d') }}">
+
+                    <span class="text">점수 :</span>
+                    <x-input.text field="b_endo_remi_sc" :data="$register->b_endo_remi_sc" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/> 점
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <th scope="row">
+                Involved segment
+            </th>
+            <td colspan="3" class="text-left ESS-CHK">
+                <div class="checkbox-wrap">
+                    @foreach($endoConfig['b_endo_inv_seg'] as $key => $val)
+                        <x-input.checkbox field="{{ $key }}" value="1" :text="$val" :data="$register->{$key}"/>
+                    @endforeach
+                </div>
+            </td>
+        </tr>
+
         <tr>
             <th scope="row">최초 소장내시경 검사일</th>
             <td colspan="3" class="text-left ESS-CHK">
@@ -102,6 +135,8 @@
                     <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_entero_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_entero_uk ? 'none' : '' }}">
 
                     <div class="checkbox-wrap inline ml-10">
+                        <x-input.checkbox field="b_entero_d_NP" value="1" text="Not performed" :data="$register->b_entero_d_NP" :active="true" class="target-active ESS-CHK-NONE"/>
+                        <x-input.checkbox field="b_entero_d_NA" value="1" text="Not applicable" :data="$register->b_entero_d_NA" :active="true" class="target-active ESS-CHK-NONE"/>
                         <x-input.checkbox field="b_entero_d_uk" value="1" text="Unknown" :data="$register->b_entero_d_uk" :active="true" class="target-active ESS-CHK-NONE"/>
                     </div>
                 </div>
@@ -141,11 +176,19 @@
         $(document).on('change', '#b_MES', function () {
             const value = $(this).val();
             const target = 'input[name=b_endo_sev]';
+            const remi_target = $(form).find('.b_endo_remi-tr');
 
             (isEmpty(value))
                 ? $(form).find(`${target}`).prop('checked', false)
                 : $(form).find(`${target}[value=${value}]`).prop('checked', true);
 
+            if (value == '1') {
+                remi_target.show();
+            } else {
+                remi_target.hide();
+                remi_target.find('input[type=text]').val('');
+            }
+            
             validateEssChk();
         });
 

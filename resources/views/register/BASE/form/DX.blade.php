@@ -94,7 +94,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($dxConfig['uc_severity'] as $key => $val)
-                        <x-input.radio field="b_UC_sens" value="{{ $key }}" :text="$val" :data="$register->b_UC_sens"/>
+                        <x-input.radio field="b_UC_sev" value="{{ $key }}" :text="$val" :data="$register->b_UC_sev"/>
                     @endforeach
                 </div>
             </td>
@@ -129,7 +129,7 @@
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($dxConfig['cd_severity'] as $key => $val)
-                        <x-input.radio field="b_CD_sens" value="{{ $key }}" :text="$val" :data="$register->b_CD_sens"/>
+                        <x-input.radio field="b_CD_sev" value="{{ $key }}" :text="$val" :data="$register->b_CD_sev"/>
                     @endforeach
                 </div>
             </td>
@@ -177,6 +177,11 @@
                     @foreach($registerConfig['yn'] as $key => $val)
                         <x-input.radio field="b_5ASA" value="{{ $key }}" :text="$val" :data="$register->b_5ASA"/>
                     @endforeach
+                    @if(isDev())
+
+                    (<x-input.checkbox field="b_5ASA_PO" value="{{ $key }}" text="경구약" :data="$register->b_5ASA_PO" class="b_5ASA-check" :disabled="!$register->is_b_5ASA" :checked="!is_null($register->b_5ASA_PO)"/>
+                    <x-input.checkbox field="b_5ASA_PR" value="{{ $key }}" text="좌약" :data="$register->b_5ASA_PR"  class="b_5ASA-check" :disabled="!$register->is_b_5ASA" :checked="!is_null($register->b_5ASA_PR)"/>)
+                    @endif
                 </div>
             </td>
 
@@ -255,6 +260,9 @@
                         <col style="width: 12%;">
                         <col style="width: auto;">
                         <col style="width: 21%;">
+                        <col style="width: 21%;">
+                        <col style="width: 10%;">
+                        <col style="width: 10%;">
                     </colgroup>
 
                     <thead>
@@ -262,6 +270,9 @@
                         <th scope="col">차수</th>
                         <th scope="col">Name</th>
                         <th scope="col">투약 시작일</th>
+                        <th scope="col">투약 종료일</th>
+                        <th scope="col">용량</th>
+                        <th scope="col">투여주기</th>
                     </tr>
                     </thead>
 
@@ -403,6 +414,20 @@
             validateEssChk();
         });
 
+        $(document).on('change', `${form} input[name=b_5ASA]`, function () {
+            const value = $(form).find('input[name=b_5ASA]:checked').val() || '';
+            const target = $(form).find('.b_5ASA-check');
+
+            if (parseInt(value) === 1) {
+                target.removeAttr('disabled');
+            } else {
+                target.prop('checked', false);
+                target.attr('disabled', true);
+            }
+
+            validateEssChk();
+        });
+
         $(document).on('change', `${form} input[name=b_bio]`, function () {
             const value = $(form).find('input[name=b_bio]:checked').val() || '';
             const target = $(form).find('.bio-tr');
@@ -452,7 +477,7 @@
                     $(item).find('.bio-detail-eq').html(`${eq}차`)
 
                     const bio_n = `b_bio${eq}_n`;
-                    $(item).find('.bio-detail-text')
+                    $(item).find('.bio-detail-select')
                         .attr('name', bio_n)
                         .attr('id', bio_n);
 
@@ -470,6 +495,31 @@
                     $(item).find('.bio-detail-d')
                         .attr('name', bio_d)
                         .attr('id', bio_d);
+
+                    const bio_end_y = `b_bio${eq}_end_d_y`;
+                    $(item).find('.bio-detail-end-y')
+                        .attr('name', bio_end_y)
+                        .attr('id', bio_end_y);
+
+                    const bio_end_m = `b_bio${eq}_end_d_m`;
+                    $(item).find('.bio-detail-end-m')
+                        .attr('name', bio_end_m)
+                        .attr('id', bio_end_m);
+
+                    const bio_end_d = `b_bio${eq}_end_d_d`;
+                    $(item).find('.bio-detail-end-d')
+                        .attr('name', bio_end_d)
+                        .attr('id', bio_end_d);
+
+                    const bio_load = `b_bio${eq}_load`;
+                    $(item).find('.bio-detail-load')
+                        .attr('name', bio_load)
+                        .attr('id', bio_load);
+
+                    const bio_freq = `b_bio${eq}_freq`;
+                    $(item).find('.bio-detail-freq')
+                        .attr('name', bio_freq)
+                        .attr('id', bio_freq);
                 });
 
                 validateEssChk();
