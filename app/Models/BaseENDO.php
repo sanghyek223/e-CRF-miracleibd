@@ -100,8 +100,8 @@ class BaseENDO extends Model
             $b_endo_remi_d = '';
         }
 
-        $this->b_endo_remi_d = ($this->b_endo_sev == '1') ? $b_endo_remi_d : null;
-        $this->b_endo_remi_sc = ($this->b_endo_sev == '1') ? $data['b_endo_remi_sc'] : null;
+        $this->b_endo_remi_d = $b_endo_remi_d ?? null;
+        $this->b_endo_remi_sc = $data['b_endo_remi_sc'] ?? null;
 
         $this->b_endo_inv_seg1 = $data['b_endo_inv_seg1'];
         $this->b_endo_inv_seg2 = $data['b_endo_inv_seg2'];
@@ -123,7 +123,7 @@ class BaseENDO extends Model
         $this->b_entero_d_NP = $data['b_entero_d_NP'];
         $this->b_entero_d_NA = $data['b_entero_d_NA'];
         $this->b_entero_d_uk = $data['b_entero_d_uk'];
-        $this->b_entero_d = (empty($this->b_entero_d_uk) ? $b_entero_d : null);
+        $this->b_entero_d = $b_entero_d;
 
         $this->b_entero_sev = $data['b_entero_sev'];
 

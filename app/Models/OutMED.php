@@ -83,10 +83,9 @@ class OutMED extends Model
         }
 
         $this->out_bio1 = $data['out_bio1'];
-        $is_bio1_y = ($this->out_bio1 == '1');
 
-        $this->out_bio1_d = ($is_bio1_y) ? $out_bio1_d : null;
-        $this->out_bio1_cat = ($is_bio1_y) ? $data['out_bio1_cat'] : null;
+        $this->out_bio1_d = $out_bio1_d;
+        $this->out_bio1_cat = $data['out_bio1_cat'];
 
         // 추가 투약 - 생물학적제제 – 2차
         $out_bio2_d = "{$data['out_bio2_d_y']}-{$data['out_bio2_d_m']}-{$data['out_bio2_d_d']}";
@@ -96,11 +95,9 @@ class OutMED extends Model
             $out_bio2_d = '';
         }
 
-        $this->out_bio2 = $is_bio1_y ? $data['out_bio2'] : null;
-        $is_bio2_y = ($this->out_bio2 == '1');
-
-        $this->out_bio2_d = ($is_bio2_y) ? $out_bio2_d : null;
-        $this->out_bio2_cat = ($is_bio2_y) ? $data['out_bio2_cat'] : null;
+        $this->out_bio2 = $data['out_bio2'];
+        $this->out_bio2_d = $out_bio2_d;
+        $this->out_bio2_cat = $data['out_bio2_cat'];
 
         // 추가 투약 - 생물학적제제 – 3차
         $out_bio3_d = "{$data['out_bio3_d_y']}-{$data['out_bio3_d_m']}-{$data['out_bio3_d_d']}";
@@ -110,11 +107,9 @@ class OutMED extends Model
             $out_bio3_d = '';
         }
 
-        $this->out_bio3 = $is_bio2_y ? $data['out_bio3'] : null;
-        $is_bio3_y = ($this->out_bio3 == '1');
-
-        $this->out_bio3_d = ($is_bio3_y) ? $out_bio3_d : null;
-        $this->out_bio3_cat = ($is_bio3_y) ? $data['out_bio3_cat'] : null;
+        $this->out_bio3 = $data['out_bio3'];
+        $this->out_bio3_d = $out_bio3_d;
+        $this->out_bio3_cat = $data['out_bio3_cat'];
 
         // 추가 투약 - 생물학적제제 – 4차
         $out_bio4_d = "{$data['out_bio4_d_y']}-{$data['out_bio4_d_m']}-{$data['out_bio4_d_d']}";
@@ -124,11 +119,9 @@ class OutMED extends Model
             $out_bio4_d = '';
         }
 
-        $this->out_bio4 = $is_bio3_y ? $data['out_bio4'] : null;
-        $is_bio4_y = ($this->out_bio4 == '1');
-
-        $this->out_bio4_d = ($is_bio4_y) ? $out_bio4_d : null;
-        $this->out_bio4_cat = ($is_bio4_y) ? $data['out_bio4_cat'] : null;
+        $this->out_bio4 = $data['out_bio4'];
+        $this->out_bio4_d = $out_bio4_d;
+        $this->out_bio4_cat = $data['out_bio4_cat'];
 
         // 입력상태
         $this->status = empty($data['status']) ? 'I' : 'C';

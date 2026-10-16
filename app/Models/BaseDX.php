@@ -119,24 +119,20 @@ class BaseDX extends Model
 
 
         $this->b_med = $data['b_med'];
-        $is_med = ($this->b_med == '1'); // 약물 투약 여부 데이터 구분용
 
-        $this->b_5ASA = $is_med ? $data['b_5ASA'] : null;
-        $is_b_5ASA = ($this->b_5ASA == '1'); // 5-ASA Yes
+        $this->b_5ASA = $data['b_5ASA'] ?? null;
+        $this->b_5ASA_PO = $data['b_5ASA_PO'] ?? null;
+        $this->b_5ASA_PR = $data['b_5ASA_PR'] ?? null;
 
-        $this->b_5ASA_PO = $is_b_5ASA ? $data['b_5ASA_PO'] : null;
-        $this->b_5ASA_PR = $is_b_5ASA ? $data['b_5ASA_PR'] : null;
-
-        $this->b_aza = $is_med ? $data['b_aza'] : null;
-        $this->b_MTX = $is_med ? $data['b_MTX'] : null;
-        $this->b_tofa = $is_med ? $data['b_tofa'] : null;
-        $this->b_oza = $is_med ? $data['b_oza'] : null;
-        $this->b_st = $is_med ? $data['b_st'] : null;
+        $this->b_aza = $data['b_aza'] ?? null;
+        $this->b_MTX = $data['b_MTX'] ?? null;
+        $this->b_tofa = $data['b_tofa'] ?? null;
+        $this->b_oza = $data['b_oza'] ?? null;
+        $this->b_st = $data['b_st'] ?? null;
 
 
-        $this->b_bio = $is_med ? $data['b_bio'] : null;
-        $is_bio = ($this->b_bio == '1'); // 생물학적제제 투약 여부 데이터 구분용
-        $this->b_bio_cnt = $is_bio ? $data['b_bio_cnt'] : '0';
+        $this->b_bio = $data['b_bio'] ?? null;
+        $this->b_bio_cnt = $data['b_bio_cnt'] ?? '0';
 
         // 생물학적제제 상세 현황
         for ($i = 1; $i <= $dxConfig['b_bio_max']; $i++) {
@@ -173,11 +169,11 @@ class BaseDX extends Model
             $b_bio_load = $data[$text_load] ?? '';
             $b_bio_freq = $data[$text_freq] ?? '';
 
-            $this->{$select_field} = $is_bio ? $b_bio_n : null;
-            $this->{$date_field} = $is_bio ? $b_bio_d : null;
-            $this->{$date_end_field} = $is_bio ? $b_bio_end_d : null;
-            $this->{$text_load} = $is_bio ? $b_bio_load : null;
-            $this->{$text_freq} = $is_bio ? $b_bio_freq : null;
+            $this->{$select_field} = $b_bio_n ?? null;
+            $this->{$date_field} = $b_bio_d ?? null;
+            $this->{$date_end_field} = $b_bio_end_d ?? null;
+            $this->{$text_load} = $b_bio_load ?? null;
+            $this->{$text_freq} = $b_bio_freq ?? null;
         }
 
         // 입력상태

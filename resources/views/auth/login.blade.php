@@ -7,12 +7,12 @@
     <div class="wrap login">
         <div class="login-wrap">
             <h3 class="login-tit">
-                마이크로바이옴 레지스트리<br>
-                <span class="fz-small">Microbiome Registry</span>
+                {{ env('APP_NAME') }} 레지스트리<br>
+                <span class="fz-small">Korean Microbiome Research for Advancing Clinical <br>Linkages in Enteric diseases Registry</span>
             </h3>
 
             <p class="info-text">
-                본 사이트는 Microbiome Registry와 <br>해당기관만 접속하실 수 있습니다.
+                본 사이트는 {{ env('APP_NAME') }}와 <br>해당기관만 접속하실 수 있습니다.
             </p>
 
             <form id="login-frm" method="post">

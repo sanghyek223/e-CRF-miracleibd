@@ -29,19 +29,12 @@
             </th>
             <td class="text-left ESS-CHK">
                 <div class="form-group date">
-                    <select name="end_endo_year" id="end_endo_year" class="form-item w-20p">
-                        <option value="">년</option>
-                        @for ($i = $registerConfig['year_end']; $i >= $registerConfig['year_start']; $i--)
-                            <option value="{{ $i }}" {{ ($register->end_endo_year ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                        @endfor
-                    </select>
-
-                    <select name="end_endo_month" id="end_endo_month" class="form-item w-20p">
-                        <option value="">월</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" {{ ($register->end_endo_month ?? '') == $i ? 'selected' : '' }}>{{ $i }}월</option>
-                        @endfor
-                    </select>
+                    <div class="form-group date survey-date">
+                        <x-input.text field="end_endo_d_y" :data="$register->end_endo_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                        <x-input.text field="end_endo_d_m" :data="$register->end_endo_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                        <x-input.text field="end_endo_d_d" :data="$register->end_endo_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                        <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="end_endo_d" data-maxdate="{{ now()->format('Y-m-d') }}">
+                    </div>
                 </div>
             </td>
 
@@ -49,20 +42,11 @@
                 평가일
             </th>
             <td class="text-left ESS-CHK">
-                <div class="form-group date">
-                    <select name="end_asst_year" id="end_asst_year" class="form-item w-20p">
-                        <option value="">년</option>
-                        @for ($i = $registerConfig['year_end']; $i >= $registerConfig['year_start']; $i--)
-                            <option value="{{ $i }}" {{ ($register->end_asst_year ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                        @endfor
-                    </select>
-
-                    <select name="end_asst_month" id="end_asst_month" class="form-item w-20p">
-                        <option value="">월</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" {{ ($register->end_asst_month ?? '') == $i ? 'selected' : '' }}>{{ $i }}월</option>
-                        @endfor
-                    </select>
+                <div class="form-group date survey-date">
+                    <x-input.text field="end_asst_d_y" :data="$register->end_asst_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="end_asst_d_m" :data="$register->end_asst_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="end_asst_d_d" :data="$register->end_asst_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="end_asst_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
         </tr>
@@ -94,8 +78,8 @@
                     </th>
                     <td class="text-left ESS-CHK">
                         <div class="radio-wrap">
-                            @foreach($endoConfig['end_UC_sens'] as $key => $val)
-                                <x-input.radio field="end_UC_sens" value="{{ $key }}" :text="$val" :data="$register->end_UC_sens"/>
+                            @foreach($endoConfig['end_UC_sev'] as $key => $val)
+                                <x-input.radio field="end_UC_sev" value="{{ $key }}" :text="$val" :data="$register->end_UC_sev"/>
                             @endforeach
                         </div>
                     </td>
@@ -139,8 +123,8 @@
                     </th>
                     <td class="text-left ESS-CHK">
                         <div class="radio-wrap">
-                            @foreach($endoConfig['end_CD_sens'] as $key => $val)
-                                <x-input.radio field="end_CD_sens" value="{{ $key }}" :text="$val" :data="$register->end_CD_sens"/>
+                            @foreach($endoConfig['end_CD_sev'] as $key => $val)
+                                <x-input.radio field="end_CD_sev" value="{{ $key }}" :text="$val" :data="$register->end_CD_sev"/>
                             @endforeach
                         </div>
                     </td>

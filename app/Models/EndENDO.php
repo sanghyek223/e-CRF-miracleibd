@@ -74,18 +74,30 @@ class EndENDO extends Model
         $endConfig = $this->endConfig();
         $endoConfig = $endConfig['ENDO'];
 
-        $this->end_endo_year = $data['end_endo_year'];
-        $this->end_endo_month = $data['end_endo_month'];
+        $end_endo_d = "{$data['end_endo_d_y']}-{$data['end_endo_d_m']}-{$data['end_endo_d_d']}"; // 설문지 작성일자
+        $end_endo_d_replace = str_replace('-', '', $end_endo_d);
 
-        $this->end_asst_year = $data['end_asst_year'];
-        $this->end_asst_month = $data['end_asst_month'];
+        if (empty($end_endo_d_replace)) {
+            $end_endo_d = '';
+        }
+
+        $this->end_endo_d = $end_endo_d;
+
+        $end_asst_d = "{$data['end_asst_d_y']}-{$data['end_asst_d_m']}-{$data['end_asst_d_d']}"; // 설문지 작성일자
+        $end_asst_d_replace = str_replace('-', '', $end_asst_d);
+
+        if (empty($end_asst_d_replace)) {
+            $end_asst_d = '';
+        }
+
+        $this->end_asst_d = $end_asst_d;
 
         $this->end_UC_l = $data['end_UC_l'];
-        $this->end_UC_sens = $data['end_UC_sens'];
+        $this->end_UC_sev = $data['end_UC_sev'];
 
         $this->end_CD_l = $data['end_CD_l'];
         $this->end_CD_L4 = $data['end_CD_L4'];
-        $this->end_CD_sens = $data['end_CD_sens'];
+        $this->end_CD_sev = $data['end_CD_sev'];
         $this->end_CD_behav = $data['end_CD_behav'];
         $this->end_CD_PA_modi = $data['end_CD_PA_modi'];
 
@@ -99,6 +111,18 @@ class EndENDO extends Model
         if ($Fu) {
             $Fu = $Fu->additionalData(); // 진단 시점 정보
         }
+
+        $end_endo_d = empty($this->end_endo_d) ? '' : explode('-', $this->end_endo_d);
+
+        $this->end_endo_d_y = $end_endo_d[0] ?? '';
+        $this->end_endo_d_m = $end_endo_d[1] ?? '';
+        $this->end_endo_d_d = $end_endo_d[2] ?? '';
+
+        $end_asst_d = empty($this->end_asst_d) ? '' : explode('-', $this->end_asst_d);
+
+        $this->end_asst_d_y = $end_asst_d[0] ?? '';
+        $this->end_asst_d_m = $end_asst_d[1] ?? '';
+        $this->end_asst_d_d = $end_asst_d[2] ?? '';
 
         $this->is_uc = empty($Fu->is_uc) ? false : $Fu->is_uc; // IBD Type UC
         $this->is_cd = empty($Fu->is_cd) ? false : $Fu->is_cd; // IBD Type CD

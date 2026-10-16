@@ -81,11 +81,13 @@ class BaseIMG extends Model
             $b_img_d = '';
         }
 
+        $this->b_img_d_NP = $data['b_img_d_NP'];
+        $this->b_img_d_NA = $data['b_img_d_NA'];
         $this->b_img_d_uk = $data['b_img_d_uk'];
-        $this->b_img_d = (empty($this->b_img_d_uk) ? $b_img_d : null);
+        $this->b_img_d = $b_img_d;
 
         $this->b_img_k = $data['b_img_k'];
-        $this->b_img_k_ow = ($this->b_img_k == '9') ? $data['b_img_k_ow'] : null;
+        $this->b_img_k_ow = $data['b_img_k_ow'] ?? null;
 
         $this->b_img_sev = $data['b_img_sev'];
 
@@ -96,7 +98,7 @@ class BaseIMG extends Model
             $b_img_remi_d = '';
         }
 
-        $this->b_img_remi_d = ($this->b_img_sev == '1') ? $b_img_remi_d : null;
+        $this->b_img_remi_d = $b_img_remi_d;
 
         $this->b_inv_seg1 = $data['b_inv_seg1'];
         $this->b_inv_seg2 = $data['b_inv_seg2'];

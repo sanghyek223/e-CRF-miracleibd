@@ -174,55 +174,47 @@ class FuBX extends Model
         $this->FU_Bx_cecum = $data['FU_Bx_cecum'];
         $this->FU_Bx_Terminal = $data['FU_Bx_Terminal'];
 
-        $is_Rectum = ($this->FU_Bx_Rectum == '1'); // 조직 채취 부위 - Rectum
-        $is_Scolon = ($this->FU_Bx_Scolon == '1'); // 조직 채취 부위 - S colon
-        $is_Dcolon = ($this->FU_Bx_Dcolon == '1'); // 조직 채취 부위 - D colon
-        $is_Tcolon = ($this->FU_Bx_Tcolon == '1'); // 조직 채취 부위 - T colon
-        $is_Acolon = ($this->FU_Bx_Acolon == '1'); // 조직 채취 부위 - A colon
-        $is_cecum = ($this->FU_Bx_cecum == '1'); // 조직 채취 부위 - Cecum
-        $is_Terminal = ($this->FU_Bx_Terminal == '1'); // 조직 채취 부위 - Terminal ileum
+        $this->FU_Bx_rec = $data['FU_Bx_rec'] ?? null;
+        $this->FU_Bx_rec_r1 = $data['FU_Bx_rec_r1'] ?? null;
+        $this->FU_Bx_rec_r2 = $data['FU_Bx_rec_r2'] ?? null;
+        $this->FU_Bx_rec_r3 = $data['FU_Bx_rec_r3'] ?? null;
+        $this->FU_Bx_rec_r4 = $data['FU_Bx_rec_r4'] ?? null;
 
-        $this->FU_Bx_rec = $is_Rectum ? $data['FU_Bx_rec'] : null;
-        $this->FU_Bx_rec_r1 = $is_Rectum ? $data['FU_Bx_rec_r1'] : null;
-        $this->FU_Bx_rec_r2 = $is_Rectum ? $data['FU_Bx_rec_r2'] : null;
-        $this->FU_Bx_rec_r3 = $is_Rectum ? $data['FU_Bx_rec_r3'] : null;
-        $this->FU_Bx_rec_r4 = $is_Rectum ? $data['FU_Bx_rec_r4'] : null;
+        $this->FU_Bx_SC = $data['FU_Bx_SC'] ?? null;
+        $this->FU_Bx_SC_r1 = $data['FU_Bx_SC_r1'] ?? null;
+        $this->FU_Bx_SC_r2 = $data['FU_Bx_SC_r2'] ?? null;
+        $this->FU_Bx_SC_r3 = $data['FU_Bx_SC_r3'] ?? null;
+        $this->FU_Bx_SC_r4 = $data['FU_Bx_SC_r4'] ?? null;
 
-        $this->FU_Bx_SC = $is_Scolon ? $data['FU_Bx_SC'] : null;
-        $this->FU_Bx_SC_r1 = $is_Scolon ? $data['FU_Bx_SC_r1'] : null;
-        $this->FU_Bx_SC_r2 = $is_Scolon ? $data['FU_Bx_SC_r2'] : null;
-        $this->FU_Bx_SC_r3 = $is_Scolon ? $data['FU_Bx_SC_r3'] : null;
-        $this->FU_Bx_SC_r4 = $is_Scolon ? $data['FU_Bx_SC_r4'] : null;
+        $this->FU_Bx_DC = $data['FU_Bx_DC'] ?? null;
+        $this->FU_Bx_DC_r1 = $data['FU_Bx_DC_r1'] ?? null;
+        $this->FU_Bx_DC_r2 = $data['FU_Bx_DC_r2'] ?? null;
+        $this->FU_Bx_DC_r3 = $data['FU_Bx_DC_r3'] ?? null;
+        $this->FU_Bx_DC_r4 = $data['FU_Bx_DC_r4'] ?? null;
 
-        $this->FU_Bx_DC = $is_Dcolon ? $data['FU_Bx_DC'] : null;
-        $this->FU_Bx_DC_r1 = $is_Dcolon ? $data['FU_Bx_DC_r1'] : null;
-        $this->FU_Bx_DC_r2 = $is_Dcolon ? $data['FU_Bx_DC_r2'] : null;
-        $this->FU_Bx_DC_r3 = $is_Dcolon ? $data['FU_Bx_DC_r3'] : null;
-        $this->FU_Bx_DC_r4 = $is_Dcolon ? $data['FU_Bx_DC_r4'] : null;
+        $this->FU_Bx_TC = $data['FU_Bx_TC'] ?? null;
+        $this->FU_Bx_TC_r1 = $data['FU_Bx_TC_r1'] ?? null;
+        $this->FU_Bx_TC_r2 = $data['FU_Bx_TC_r2'] ?? null;
+        $this->FU_Bx_TC_r3 = $data['FU_Bx_TC_r3'] ?? null;
+        $this->FU_Bx_TC_r4 = $data['FU_Bx_TC_r4'] ?? null;
 
-        $this->FU_Bx_TC = $is_Tcolon ? $data['FU_Bx_TC'] : null;
-        $this->FU_Bx_TC_r1 = $is_Tcolon ? $data['FU_Bx_TC_r1'] : null;
-        $this->FU_Bx_TC_r2 = $is_Tcolon ? $data['FU_Bx_TC_r2'] : null;
-        $this->FU_Bx_TC_r3 = $is_Tcolon ? $data['FU_Bx_TC_r3'] : null;
-        $this->FU_Bx_TC_r4 = $is_Tcolon ? $data['FU_Bx_TC_r4'] : null;
+        $this->FU_Bx_AC = $data['FU_Bx_AC'] ?? null;
+        $this->FU_Bx_AC_r1 = $data['FU_Bx_AC_r1'] ?? null;
+        $this->FU_Bx_AC_r2 = $data['FU_Bx_AC_r2'] ?? null;
+        $this->FU_Bx_AC_r3 = $data['FU_Bx_AC_r3'] ?? null;
+        $this->FU_Bx_AC_r4 = $data['FU_Bx_AC_r4'] ?? null;
 
-        $this->FU_Bx_AC = $is_Acolon ? $data['FU_Bx_AC'] : null;
-        $this->FU_Bx_AC_r1 = $is_Acolon ? $data['FU_Bx_AC_r1'] : null;
-        $this->FU_Bx_AC_r2 = $is_Acolon ? $data['FU_Bx_AC_r2'] : null;
-        $this->FU_Bx_AC_r3 = $is_Acolon ? $data['FU_Bx_AC_r3'] : null;
-        $this->FU_Bx_AC_r4 = $is_Acolon ? $data['FU_Bx_AC_r4'] : null;
+        $this->FU_Bx_cec = $data['FU_Bx_cec'] ?? null;
+        $this->FU_Bx_cec_r1 = $data['FU_Bx_cec_r1'] ?? null;
+        $this->FU_Bx_cec_r2 = $data['FU_Bx_cec_r2'] ?? null;
+        $this->FU_Bx_cec_r3 = $data['FU_Bx_cec_r3'] ?? null;
+        $this->FU_Bx_cec_r4 = $data['FU_Bx_cec_r4'] ?? null;
 
-        $this->FU_Bx_cec = $is_cecum ? $data['FU_Bx_cec'] : null;
-        $this->FU_Bx_cec_r1 = $is_cecum ? $data['FU_Bx_cec_r1'] : null;
-        $this->FU_Bx_cec_r2 = $is_cecum ? $data['FU_Bx_cec_r2'] : null;
-        $this->FU_Bx_cec_r3 = $is_cecum ? $data['FU_Bx_cec_r3'] : null;
-        $this->FU_Bx_cec_r4 = $is_cecum ? $data['FU_Bx_cec_r4'] : null;
-
-        $this->FU_Bx_TI = $is_Terminal ? $data['FU_Bx_TI'] : null;
-        $this->FU_Bx_TI_r1 = $is_Terminal ? $data['FU_Bx_TI_r1'] : null;
-        $this->FU_Bx_TI_r2 = $is_Terminal ? $data['FU_Bx_TI_r2'] : null;
-        $this->FU_Bx_TI_r3 = $is_Terminal ? $data['FU_Bx_TI_r3'] : null;
-        $this->FU_Bx_TI_r4 = $is_Terminal ? $data['FU_Bx_TI_r4'] : null;
+        $this->FU_Bx_TI = $data['FU_Bx_TI'] ?? null;
+        $this->FU_Bx_TI_r1 = $data['FU_Bx_TI_r1'] ?? null;
+        $this->FU_Bx_TI_r2 = $data['FU_Bx_TI_r2'] ?? null;
+        $this->FU_Bx_TI_r3 = $data['FU_Bx_TI_r3'] ?? null;
+        $this->FU_Bx_TI_r4 = $data['FU_Bx_TI_r4'] ?? null;
 
         $this->FU_MES = ($is_uc) ? $data['FU_MES'] : null;
         $this->FU_UCEIS = ($is_uc) ? $data['FU_UCEIS'] : null;

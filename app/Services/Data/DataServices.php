@@ -67,8 +67,8 @@ class DataServices extends AppServices
         }
 
         // 본인 기관 제외 열람 신청 할 기관 및 데이터
-        $hospitals = Hospital::orderBy('org_name')->where('org_code', '!=', $my_org_code)->get();
-        $query = Patient::where('org_code', '!=', $my_org_code)->hasDataSearch($search_params);
+        $hospitals = Hospital::orderBy('org_name')->get();
+        $query = Patient::hasDataSearch($search_params);
 
         if (!empty($search_params['org_code'])) {
             $query->whereIn('org_code', $search_params['org_code']);
@@ -80,6 +80,7 @@ class DataServices extends AppServices
         $this->data['data'] = $data;
         $this->data['hospitals'] = $hospitals;
 
+        $this->data['my_org_code'] = $my_org_code;
         $this->data['myPatients'] = $myPatients;
         $this->data['myPatientsFASTQ'] = $myPatientsFASTQ;
 

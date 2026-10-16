@@ -33,13 +33,15 @@
                     <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_img_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $register->is_img_uk ? 'none' : '' }}">
 
                     <div class="checkbox-wrap inline ml-10">
+                        <x-input.checkbox field="b_img_d_NP" value="1" text="Not performed" :data="$register->b_img_d_NP" :active="true" class="target-active ESS-CHK-NONE"/>
+                        <x-input.checkbox field="b_img_d_NA" value="1" text="Not applicable" :data="$register->b_img_d_NA" :active="true" class="target-active ESS-CHK-NONE"/>
                         <x-input.checkbox field="b_img_d_uk" value="1" text="Unknown" :data="$register->b_img_d_uk" :active="true" class="target-active ESS-CHK-NONE"/>
                     </div>
                 </div>
             </td>
         </tr>
 
-        <tr>
+        <tr class="img-d-tr">
             <th scope="row">
                 영상의학 검사 종류
             </th>
@@ -59,7 +61,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="img-d-tr">
             <th scope="row">Severity</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -85,7 +87,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="img-d-tr">
             <th scope="row">Involved segment</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="checkbox-wrap n5">
@@ -96,7 +98,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="img-d-tr">
             <th scope="row">Fistula</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -107,7 +109,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="img-d-tr">
             <th scope="row">Stricture</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -118,7 +120,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr class="img-d-tr">
             <th scope="row">Abscess</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -136,7 +138,33 @@
     <script>
         $(function () {
             validateEssChk();
+            img_tr();
         });
+
+        function img_tr() {
+            const $form = $(form);
+            const is_b_img_d_NP = $form.find('#b_img_d_NP').is(':checked');
+            const is_b_img_d_NA = $form.find('#b_img_d_NA').is(':checked');
+            const is_b_img_d_uk = $form.find('#b_img_d_uk').is(':checked');
+
+            const target = $form.find('.img-d-tr');
+
+            if (is_b_img_d_NP || is_b_img_d_NA || is_b_img_d_uk) {
+                target.hide();
+
+                target.each(function (index, item) {
+                    const $detail = $(item);
+
+                    $detail.find('input[type=text]').val('');
+                    $detail.find('input[type=radio]').prop('checked', false).trigger('change');
+                    $detail.find('input[type=checkbox]').prop('checked', false).trigger('change');
+                });
+            } else {
+                target.show();
+            }
+
+            validateEssChk();
+        }
 
         function submitAction(next = false) {
             let ajaxData = newFormData(form);
@@ -147,6 +175,10 @@
 
             callMultiAjax(dataUrl, ajaxData);
         }
+
+        $(document).on('change', '#b_img_d_NP, #b_img_d_NA, #b_img_d_uk', function () {
+            img_tr();
+        });
 
         $(document).on('change', `${form} #b_img_d_uk`, function () {
             const checked = $(this).is(':checked');

@@ -19,7 +19,14 @@
             <th scope="row">Registration No.</th>
             <td class="text-left">{{ $patient->regist_num ?? '(자동 생성)' }}</td>
 
-            <th scope="row">이름 Initial</th>
+            <th scope="row">이름 Initial
+                <a href="javascript:void(0);" class="tooltip">
+                    <img src="/assets/image/icon/ic_tooltip.png" alt="information">
+                    <span class="tooltip-con" style="opacity: 1; display: none;">
+                        예시: 홍길동 -> HGD
+                    </span>
+                </a>
+            </th>
             <td class="text-left">
                 <x-input.text field="initial" :data="$patient?->initial" class="form-item line text-center" enuppercase nonespace/>
             </td>

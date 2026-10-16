@@ -20,7 +20,7 @@ return [
 
     'type' => [ // 등록 타입
         'BASE' => [
-            'name' => "Baseline",
+            'name' => "Baseline(기관 초진 당시 정보)",
             'thead' => "Baseline",
             'route' => 'register.BASE.upsert',
         ],
@@ -38,8 +38,8 @@ return [
         ],
 
         'END' => [
-            'name' => "End of Study (Last F/U)",
-            'thead' => "End of Study<br>(Last F/U)",
+            'name' => "Latest Study (Last F/U)",
+            'thead' => "Latest Study<br>(Last F/U)",
             'route' => 'register.END.upsert',
         ],
 
@@ -108,7 +108,7 @@ return [
                 '1' => 'E1 (proctitis)',
                 '2' => 'E2 (left-sided)',
                 '3' => 'E3 (extensive)',
-                '9' => 'Undeterminate',
+                '9' => 'Indeterminate',
             ],
 
             'uc_severity' => [ // Severity
@@ -116,14 +116,14 @@ return [
                 '1' => 'mild',
                 '2' => 'moderate',
                 '3' => 'severe',
-                '9' => 'Undeterminate',
+                '9' => 'Indeterminate',
             ],
 
             'cd_location' => [ // Location
                 '1' => 'L1 (ileal)',
                 '2' => 'L2 (colonic)',
                 '3' => 'L3 (ileocolonic)',
-                '9' => 'Undeterminate',
+                '9' => 'Indeterminate',
             ],
 
             'cd_severity' => [ // Severity
@@ -131,7 +131,7 @@ return [
                 '1' => 'mild',
                 '2' => 'moderate',
                 '3' => 'severe',
-                '9' => 'Undeterminate',
+                '9' => 'Indeterminate',
             ],
 
             'behavior' => [ // Behavior
@@ -166,19 +166,17 @@ return [
             'b_SES_CD' => array_combine(range(0, 12), range(0, 12)), // SES-CD
 
             'b_endo_sev' => [ // 내시경 Severity
-                '0' => 'inactive',
-                '1' => 'remission',
-                '2' => 'mild',
-                '3' => 'moderate',
-                '4' => 'severe',
+                '0' => 'inactive (remission)',
+                '1' => 'mild',
+                '2' => 'moderate',
+                '3' => 'severe',
             ],
 
             'b_entero_sev' => [ // 소장내시경 Severity
-                '0' => 'inactive',
-                '1' => 'remission',
-                '2' => 'mild',
-                '3' => 'moderate',
-                '4' => 'severe',
+                '0' => 'inactive (remission)',
+                '1' => 'mild',
+                '2' => 'moderate',
+                '3' => 'severe',
             ],
 
             'b_endo_inv_seg' => [ // Involved segment
@@ -245,86 +243,99 @@ return [
             'b_lab_IgG' => [ // ASCA IgG
                 '0' => 'negative (<10)',
                 '1' => 'positive',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_IgA' => [ // ASCA IgA
                 '0' => 'negative (<10)',
                 '1' => 'positive',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_IgG_cat' => [ // ASCA IgG 분류
                 '0' => '0~4.9',
                 '1' => '5~14.9',
                 '2' => '15~',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_IgA_cat' => [ // ASCA IgA 분류
                 '0' => '0~4.9',
                 '1' => '5~14.9',
                 '2' => '15~',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_ASCA_total' => [ // ASCA Total 분류
                 '0' => '0~4.9',
                 '1' => '5~14.9',
                 '2' => '15~',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_ANCA' => [ // ANCA
                 '0' => 'negative (<3.5)',
                 '1' => 'positive (>5)',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_Cdiff_toxin_a' => [ // C.difficile toxin A
                 '0' => 'negative',
                 '1' => 'positive',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_Cdiff_toxin_b' => [ // C.difficile toxin B
                 '0' => 'negative',
                 '1' => 'positive',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_Cdiff_CPR' => [ // C.difficile PCR
                 '0' => 'negative',
                 '1' => 'positive',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_bi_toxin_a' => [ // binary toxin A
                 '0' => 'not detected',
                 '1' => 'detected',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_bi_toxin_b' => [ // binary toxin B
                 '0' => 'not detected',
                 '1' => 'detected',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'b_lab_TcDc_del' => [ // TcDc deletion
                 '0' => 'not detected',
                 '1' => 'detected',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
         ],
 
         'NTR' => [
+            'b_NTR_survey_k' => [ // 설문지 종류
+                '1' => '식품섭취빈도조사',
+                '2' => '24시간 식사회상법',
+                '3' => '기타',
+            ],
+
             'b_NTR_Tx_k' => [ // 영양 치료 병행 방식
                 '0' => '없음 (일반식)',
                 '1' => 'EEN (6주 이상)',
                 '2' => 'CDED (phase 1 6주 완료 / 12주 완료)',
                 '3' => 'CDED + PEN',
                 '4' => '기타 식이요법',
+            ],
+
+            'b_NTR_Tx_PEN_w' => [ // CDED + PEN 기간
+                '1' => '6주',
+                '2' => '8주',
+                '3' => '12주',
+                '4' => '기타',
             ],
 
             'b_NTR_Tx_stop_k' => [ // 영양 치료 중단 사유
@@ -425,63 +436,71 @@ return [
     'OUT' => [
         'MED' => [
             'out_bio1_cat' => [ // 추가 투약 - 생물학적제제 – 1차 약제 종류
-                '1' => 'infliximab',
-                '2' => 'vedolizumab',
-                '3' => 'Ustekinumab',
-                '4' => 'tofacitinib',
-                '5' => 'filgotinib',
-                '6' => 'Upadacitinib',
-                '7' => 'ozanimod',
-                '8' => 'adalimumab',
-                '9' => 'Golimumab',
-                '10' => 'Risankizumab',
-                '11' => 'Vixarelimab',
-                '12' => 'mirikizumab',
+                '1' => 'Infliximab',
+                '2' => 'Adalimumab',
+                '3' => 'Golimumab',
+                '4' => 'Certolizumab pegol',
+                '5' => 'Vedolizumab',
+                '6' => 'Ustekinumab',
+                '7' => 'Risankizumab',
+                '8' => 'Mirikizumab',
+                '9' => 'Guselkumab',
+                '10' => 'Tofacitinib',
+                '11' => 'Upadacitinib',
+                '12' => 'Filgotinib',
+                '13' => 'Ozanimod',
+                '14' => 'Etrasimod',
             ],
 
             'out_bio2_cat' => [ // 추가 투약 - 생물학적제제 – 2차 약제 종류
-                '1' => 'infliximab',
-                '2' => 'vedolizumab',
-                '3' => 'Ustekinumab',
-                '4' => 'tofacitinib',
-                '5' => 'filgotinib',
-                '6' => 'Upadacitinib',
-                '7' => 'ozanimod',
-                '8' => 'adalimumab',
-                '9' => 'Golimumab',
-                '10' => 'Risankizumab',
-                '11' => 'Vixarelimab',
-                '12' => 'mirikizumab',
+                '1' => 'Infliximab',
+                '2' => 'Adalimumab',
+                '3' => 'Golimumab',
+                '4' => 'Certolizumab pegol',
+                '5' => 'Vedolizumab',
+                '6' => 'Ustekinumab',
+                '7' => 'Risankizumab',
+                '8' => 'Mirikizumab',
+                '9' => 'Guselkumab',
+                '10' => 'Tofacitinib',
+                '11' => 'Upadacitinib',
+                '12' => 'Filgotinib',
+                '13' => 'Ozanimod',
+                '14' => 'Etrasimod',
             ],
 
             'out_bio3_cat' => [ // 추가 투약 - 생물학적제제 – 3차 약제 종류
-                '1' => 'infliximab',
-                '2' => 'vedolizumab',
-                '3' => 'Ustekinumab',
-                '4' => 'tofacitinib',
-                '5' => 'filgotinib',
-                '6' => 'Upadacitinib',
-                '7' => 'ozanimod',
-                '8' => 'adalimumab',
-                '9' => 'Golimumab',
-                '10' => 'Risankizumab',
-                '11' => 'Vixarelimab',
-                '12' => 'mirikizumab',
+                '1' => 'Infliximab',
+                '2' => 'Adalimumab',
+                '3' => 'Golimumab',
+                '4' => 'Certolizumab pegol',
+                '5' => 'Vedolizumab',
+                '6' => 'Ustekinumab',
+                '7' => 'Risankizumab',
+                '8' => 'Mirikizumab',
+                '9' => 'Guselkumab',
+                '10' => 'Tofacitinib',
+                '11' => 'Upadacitinib',
+                '12' => 'Filgotinib',
+                '13' => 'Ozanimod',
+                '14' => 'Etrasimod',
             ],
 
             'out_bio4_cat' => [ // 추가 투약 - 생물학적제제 – 4차 약제 종류
-                '1' => 'infliximab',
-                '2' => 'vedolizumab',
-                '3' => 'Ustekinumab',
-                '4' => 'tofacitinib',
-                '5' => 'filgotinib',
-                '6' => 'Upadacitinib',
-                '7' => 'ozanimod',
-                '8' => 'adalimumab',
-                '9' => 'Golimumab',
-                '10' => 'Risankizumab',
-                '11' => 'Vixarelimab',
-                '12' => 'mirikizumab',
+                '1' => 'Infliximab',
+                '2' => 'Adalimumab',
+                '3' => 'Golimumab',
+                '4' => 'Certolizumab pegol',
+                '5' => 'Vedolizumab',
+                '6' => 'Ustekinumab',
+                '7' => 'Risankizumab',
+                '8' => 'Mirikizumab',
+                '9' => 'Guselkumab',
+                '10' => 'Tofacitinib',
+                '11' => 'Upadacitinib',
+                '12' => 'Filgotinib',
+                '13' => 'Ozanimod',
+                '14' => 'Etrasimod',
             ],
         ],
 
@@ -710,91 +729,105 @@ return [
                 '0' => '< 0.1',
                 '1' => '0.1 ~ 0.49',
                 '2' => '0.5 ~',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'FU_lab_FC_cat' => [
                 '0' => '< 100',
                 '1' => '100 ~ 249',
                 '2' => '>= 250',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'FU_lab_IgG_cat1' => [
                 '0' => '0 ~ 4.9',
                 '1' => '5 ~ 14.9',
                 '2' => '15 ~',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'FU_lab_IgG_cat2' => [
                 '0' => '0 ~ 9.9',
                 '1' => '10 ~',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'FU_lab_IgA_cat1' => [
                 '0' => '0 ~ 4.9',
                 '1' => '5 ~ 14.9',
                 '2' => '15 ~',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'FU_lab_IgA_cat2' => [
                 '0' => '0 ~ 9.9',
                 '1' => '10 ~',
 //                '2' => '15 ~',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'FU_lab_ANCA' => [
                 '0' => '< 3.5, negative',
                 '1' => '> 5, positive',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'FU_lab_Cdiff_total' => [
                 '0' => 'negative',
                 '1' => 'positive',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'FU_lab_Cdiff_toxinA' => [
                 '0' => 'negative',
                 '1' => 'positive',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'FU_lab_Cdiff_toxinB' => [
                 '0' => 'negative',
                 '1' => 'positive',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
             ],
 
             'FU_lab_Cdiff_PCR' => [
                 '0' => 'negative',
                 '1' => 'positive',
-                '9' => 'N/A (획득되지 않음)',
+                '9' => '획득되지 않음',
+            ],
+
+            'FU_lab_bi_Atoxin' => [
+                '0' => 'negative',
+                '1' => 'positive',
+                '9' => '획득되지 않음',
+            ],
+
+            'FU_lab_bi_Btoxin' => [
+                '0' => 'negative',
+                '1' => 'positive',
+                '9' => '획득되지 않음',
             ],
 
             'FU_bio_cat' => [
-                '1' => 'infliximab',
-                '2' => 'vedolizumab',
-                '3' => 'Ustekinumab',
-                '4' => 'tofacitinib',
-                '5' => 'filgotinib',
-                '6' => 'Upadacitinib',
-                '7' => 'ozanimod',
-                '8' => 'adalimumab',
-                '9' => 'golimumab',
-                '10' => 'risankizumab',
-                '11' => 'vixarelimab',
-                '12' => 'mirikizumab',
+                '1' => 'Infliximab',
+                '2' => 'Adalimumab',
+                '3' => 'Golimumab',
+                '4' => 'Certolizumab pegol',
+                '5' => 'Vedolizumab',
+                '6' => 'Ustekinumab',
+                '7' => 'Risankizumab',
+                '8' => 'Mirikizumab',
+                '9' => 'Guselkumab',
+                '10' => 'Tofacitinib',
+                '11' => 'Upadacitinib',
+                '12' => 'Filgotinib',
+                '13' => 'Ozanimod',
+                '14' => 'Etrasimod',
             ],
         ],
 
         'ENDO' => [
-            'FU_endo_sev' => [
+            'FU_colon_sev' => [
                 '0' => 'inactive (remission)',
                 '1' => 'mild',
                 '2' => 'moderate',
@@ -802,6 +835,13 @@ return [
             ],
 
             'FU_entero_sev' => [
+                '0' => 'inactive (remission)',
+                '1' => 'mild',
+                '2' => 'moderate',
+                '3' => 'severe',
+            ],
+
+            'FU_gastro_sev' => [
                 '0' => 'inactive (remission)',
                 '1' => 'mild',
                 '2' => 'moderate',
@@ -855,28 +895,30 @@ return [
                 '1' => 'E1 (proctitis)',
                 '2' => 'E2 (left-sided)',
                 '3' => 'E3 (extensive)',
-                '9' => 'Undeterminate',
+                '9' => 'Indeterminate',
             ],
 
-            'end_UC_sens' => [ // UC - Severity
-                '1' => 'mild',
-                '2' => 'moderate',
-                '3' => 'severe',
-                '9' => 'Undeterminate',
+            'end_UC_sev' => [ // UC - Severity
+                '0' => 'inactive',
+                '1' => 'remission',
+                '2' => 'mild',
+                '3' => 'moderate',
+                '4' => 'severe',
             ],
 
             'end_CD_l' => [ // CD - Location
                 '1' => 'L1 (ileal)',
                 '2' => 'L2 (colonic)',
                 '3' => 'L3 (ileocolonic)',
-                '9' => 'Undeterminate',
+                '9' => 'Indeterminate',
             ],
 
-            'end_CD_sens' => [ // CD - Severity
-                '1' => 'mild',
-                '2' => 'moderate',
-                '3' => 'severe',
-                '9' => 'Undeterminate',
+            'end_CD_sev' => [ // CD - Severity
+                '0' => 'inactive',
+                '1' => 'remission',
+                '2' => 'mild',
+                '3' => 'moderate',
+                '4' => 'severe',
             ],
 
             'end_CD_behav' => [ // CD - Behavior
@@ -888,18 +930,20 @@ return [
 
         'MED' => [
             'end_bio_cat' => [ // 생물학제제 약제 종류
-                '1' => 'infliximab',
-                '2' => 'vedolizumab',
-                '3' => 'Ustekinumab',
-                '4' => 'tofacitinib',
-                '5' => 'filgotinib',
-                '6' => 'Upadacitinib',
-                '7' => 'ozanimod',
-                '8' => 'adalimumab',
-                '9' => 'Golimumab',
-                '10' => 'Risankizumab',
-                '11' => 'Vixarelimab',
-                '12' => 'mirikizumab',
+                '1' => 'Infliximab',
+                '2' => 'Adalimumab',
+                '3' => 'Golimumab',
+                '4' => 'Certolizumab pegol',
+                '5' => 'Vedolizumab',
+                '6' => 'Ustekinumab',
+                '7' => 'Risankizumab',
+                '8' => 'Mirikizumab',
+                '9' => 'Guselkumab',
+                '10' => 'Tofacitinib',
+                '11' => 'Upadacitinib',
+                '12' => 'Filgotinib',
+                '13' => 'Ozanimod',
+                '14' => 'Etrasimod',
             ],
         ],
     ],

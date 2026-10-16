@@ -25,7 +25,7 @@
                     <div class="filebox">
                         <x-input.text field="{{ $key }}_name" class="upload-name form-item" placeholder="선택된 파일 없음" readonly/>
                         <label for="{{ $key }}" class="">파일 선택</label>
-                        <x-input.file field="{{ $key }}" class="file-upload" accept=".jpg, .jpeg, .png, .gif"/>
+                        <x-input.file field="{{ $key }}" class="file-upload" accept=".fastq, .fq, .fastq.gz, .fq.gz" data-accept="fastq|fq|fastq.gz|fq.gz"/>
 
                         @if (!empty($register->{$val['upload_name']}))
                             <div class="attach-file">

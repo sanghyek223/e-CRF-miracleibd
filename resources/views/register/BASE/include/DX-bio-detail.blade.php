@@ -1,4 +1,5 @@
 @php
+    $dxConfig = $registerConfig['BASE']['DX'];
     $common_field = "b_bio{$eq}";
 
     $b_bio_select = $register->{$common_field . '_n'} ?? '';

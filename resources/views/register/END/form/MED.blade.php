@@ -110,7 +110,7 @@
 
         <tr>
             <th scope="row">
-                생물학적제제 투약 여부
+                상급치료제(advanced therapy) 투약 여부
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -123,7 +123,7 @@
 
         <tr class="bio-tr" style="display: {{ $register->is_bio_y ? '' : 'none' }}">
             <th scope="row">
-                생물학적제제 약제 종류
+                상급치료제(advanced therapy) 약제 종류
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap n4">
@@ -139,20 +139,11 @@
                 마지막 외래 방문일
             </th>
             <td colspan="3" class="text-left ESS-CHK">
-                <div class="form-group date">
-                    <select name="end_out_v_year" id="end_out_v_year" class="form-item w-20p">
-                        <option value="">년</option>
-                        @for ($i = $registerConfig['year_end']; $i >= $registerConfig['year_start']; $i--)
-                            <option value="{{ $i }}" {{ ($register->end_out_v_year ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                        @endfor
-                    </select>
-
-                    <select name="end_out_v_month" id="end_out_v_month" class="form-item w-20p">
-                        <option value="">월</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" {{ ($register->end_out_v_month ?? '') == $i ? 'selected' : '' }}>{{ $i }}월</option>
-                        @endfor
-                    </select>
+                <div class="form-group date survey-date">
+                    <x-input.text field="end_out_v_d_y" :data="$register->end_out_v_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="end_out_v_d_m" :data="$register->end_out_v_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="end_out_v_d_d" :data="$register->end_out_v_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="end_out_v_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
         </tr>
@@ -175,20 +166,11 @@
                 최초 입원 또는 응급실 방문 날짜
             </th>
             <td colspan="3" class="text-left ESS-CHK">
-                <div class="form-group date">
-                    <select name="end_ER_adm_year" id="end_ER_adm_year" class="form-item w-20p">
-                        <option value="">년</option>
-                        @for ($i = $registerConfig['year_end']; $i >= $registerConfig['year_start']; $i--)
-                            <option value="{{ $i }}" {{ ($register->end_ER_adm_year ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                        @endfor
-                    </select>
-
-                    <select name="end_ER_adm_month" id="end_ER_adm_month" class="form-item w-20p">
-                        <option value="">월</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" {{ ($register->end_ER_adm_month ?? '') == $i ? 'selected' : '' }}>{{ $i }}월</option>
-                        @endfor
-                    </select>
+                <div class="form-group date survey-date">
+                    <x-input.text field="end_ER_adm_d_y" :data="$register->end_ER_adm_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="end_ER_adm_d_m" :data="$register->end_ER_adm_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="end_ER_adm_d_d" :data="$register->end_ER_adm_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="end_ER_adm_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
         </tr>
@@ -247,7 +229,7 @@
             if (value == '1') {
                 target.show();
             } else {
-                target.find('select').val('');
+                target.find('input[type=text]').val('');
                 target.hide();
             }
 

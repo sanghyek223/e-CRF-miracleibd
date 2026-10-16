@@ -29,6 +29,7 @@
                                     <td colspan="3" class="text-left">
                                         <div class="checkbox-wrap">
                                             @foreach($hospitals as $row)
+                                                @continue($row->org_code === $my_org_code)
                                                 <x-input.checkbox3 id="org_code_{{ $row->sid }}" field="org_code" value="{{ $row->org_code }}" :text="$row->org_name" :checked="in_array($row->org_code, request()->input('org_code', []))"/>
                                             @endforeach
                                         </div>
@@ -39,12 +40,12 @@
                                     <th scope="row">등록 날짜</th>
                                     <td colspan="3" class="text-left">
                                         <div class="form-group date">
-                                            <x-input.text field="created_at_s" :data="request()->input('created_at_s', '')" class="form-item line short text-center" readonly/>
+                                            <x-input.text field="created_at_s" :data="request()->input('created_at_s', '')" class="form-item line short text-center" readonly style="background-color: #FFFFFF;"/>
                                             <img src="/assets/image/icon/ic_cal.png" alt="" class="target-datepicker" data-target="created_at_s">
 
                                             <span>~</span>
 
-                                            <x-input.text field="created_at_e" :data="request()->input('created_at_e', '')" class="form-item line short text-center" readonly/>
+                                            <x-input.text field="created_at_e" :data="request()->input('created_at_e', '')" class="form-item line short text-center" readonly style="background-color: #FFFFFF;"/>
                                             <img src="/assets/image/icon/ic_cal.png" alt="" class="target-datepicker" data-target="created_at_e">
                                         </div>
                                     </td>
@@ -114,7 +115,7 @@
                                     <li @class(['no-data' => $noneData, 'NONE-CLICK' => $noneData])>
                                         <div class="name">
                                             <div class="radio-wrap text-center">
-                                                <x-input.radio id="application_org_code_{{ $loop->iteration }}" field="application_org_code" value="{{ $row->org_code }}" :text="$row->org_name" class="application-org-code"/>
+                                                <x-input.radio id="application_org_code_{{ $loop->iteration }}" field="application_org_code" value="{{ $row->org_code }}" :text="$row->org_name" :disabled="$row->org_code === $my_org_code" class="application-org-code"/>
                                             </div>
                                         </div>
 

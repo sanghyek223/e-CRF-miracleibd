@@ -75,8 +75,7 @@ class OutV extends Model
         $vConfig = $outConfig['V'];
 
         $this->out_visit = $data['out_visit'];
-        $is_visit_y = ($this->out_visit == '1'); // ER/Admission 데이터 구분용
-        $this->out_visit_cnt = ($is_visit_y) ? $data['out_visit_cnt'] : '0';
+        $this->out_visit_cnt = $data['out_visit_cnt'] ?? '0';
 
         // ER/Admission 리스트
         for ($i = 1; $i <= $vConfig['v_list_max']; $i++) {

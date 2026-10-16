@@ -58,14 +58,30 @@
         </tr>
 
         <tr>
-            <th scope="row">키</th>
+            <th scope="row">
+                키
+                <a href="javascript:void(0);" class="tooltip"><!-- 26.10.07 -->
+                    <img src="/assets/image/icon/ic_tooltip.png" alt="information">
+                    <span class="tooltip-con" style="opacity: 1; display: none;">
+                        예시: 163cm – 소수점 첫째 자리에서 반올림하여 정수로 입력
+                    </span>
+                </a>
+            </th>
             <td class="text-left ESS-CHK">
-                <x-input.text field="b_HT" :data="$register->b_HT" class="form-item small text-center" onlydecimal/> cm
+                <x-input.text field="b_HT" :data="$register->b_HT" class="form-item small text-center" onlynumber/> cm
             </td>
 
-            <th scope="row">체중</th>
+            <th scope="row">
+                체중
+                <a href="javascript:void(0);" class="tooltip"><!-- 26.10.07 -->
+                    <img src="/assets/image/icon/ic_tooltip.png" alt="information">
+                    <span class="tooltip-con" style="opacity: 1; display: none;">
+                        예시: 53kg – 소수점 첫째 자리에서 반올림하여 정수로 입력
+                    </span>
+                </a>
+            </th>
             <td class="text-left ESS-CHK">
-                <x-input.text field="b_WT" :data="$register->b_WT" class="form-item small text-center" onlydecimal/> kg
+                <x-input.text field="b_WT" :data="$register->b_WT" class="form-item small text-center" onlynumber/> kg
             </td>
         </tr>
 
@@ -205,26 +221,6 @@
                 </div>
             </td>
 
-            <th scope="row">Tofacitinib</th>
-            <td class="text-left ESS-CHK">
-                <div class="radio-wrap">
-                    @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_tofa" value="{{ $key }}" :text="$val" :data="$register->b_tofa"/>
-                    @endforeach
-                </div>
-            </td>
-        </tr>
-
-        <tr class="med-tr" style="display: {{ $med_display }}">
-            <th scope="row">Ozanimod</th>
-            <td class="text-left ESS-CHK">
-                <div class="radio-wrap">
-                    @foreach($registerConfig['yn'] as $key => $val)
-                        <x-input.radio field="b_oza" value="{{ $key }}" :text="$val" :data="$register->b_oza"/>
-                    @endforeach
-                </div>
-            </td>
-
             <th scope="row">Steroid</th>
             <td class="text-left ESS-CHK">
                 <div class="radio-wrap">
@@ -236,7 +232,7 @@
         </tr>
 
         <tr class="med-tr" style="display: {{ $med_display }}">
-            <th scope="row">생물학적제제 투약 여부</th>
+            <th scope="row">상급치료제(advanced therapy) 투약 여부</th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
                     @foreach($registerConfig['yn'] as $key => $val)
@@ -248,7 +244,7 @@
 
         <tr class="bio-tr" style="display: {{ $bio_display }}">
             <th colspan="4" class="active has-btn nbdb">
-                생물학적제제 상세 현황
+                상급치료제(advanced therapy) 상세 현황
                 <a href="javascript:void(0);"  class="btn btn-small color-type3 bio-detail-add" title="추가">Biologics 추가</a>
             </th>
         </tr>

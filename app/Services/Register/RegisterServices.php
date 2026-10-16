@@ -32,7 +32,7 @@ class RegisterServices extends AppServices
             $query->where('regist_num', 'like', "%{$regist_num}%");
         }
 
-        $list = $query->orderByDesc('orgPnum')->paginate(20)->appends($request->query());
+        $list = $query->orderByDesc('created_at')->paginate(20)->appends($request->query());
 
         $this->data['list'] = setListSeq($list);
         $this->data['hospitals'] = (new \App\Services\Hospital\HospitalServices())->whenHospitals();

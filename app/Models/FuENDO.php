@@ -81,15 +81,15 @@ class FuENDO extends Model
         $endoConfig = $fuConfig['ENDO'];
 
         // 내시경 검사일
-        $FU_endo_d = "{$data['FU_endo_d_y']}-{$data['FU_endo_d_m']}-{$data['FU_endo_d_d']}";
-        $FU_endo_d_replace = str_replace('-', '', $FU_endo_d);
+        $FU_colon_d = "{$data['FU_colon_d_y']}-{$data['FU_colon_d_m']}-{$data['FU_colon_d_d']}";
+        $FU_colon_d_replace = str_replace('-', '', $FU_colon_d);
 
-        if (empty($FU_endo_d_replace)) {
-            $FU_endo_d = '';
+        if (empty($FU_colon_d_replace)) {
+            $FU_colon_d = '';
         }
 
-        $this->FU_endo_d = $FU_endo_d;
-        $this->FU_endo_sev = $data['FU_endo_sev'];
+        $this->FU_colon_d = $FU_colon_d;
+        $this->FU_colon_sev = $data['FU_colon_sev'];
 
         // 소장내시경 검사일
         $FU_entero_d = "{$data['FU_entero_d_y']}-{$data['FU_entero_d_m']}-{$data['FU_entero_d_d']}";
@@ -102,6 +102,17 @@ class FuENDO extends Model
         $this->FU_entero_d = $FU_entero_d;
         $this->FU_entero_sev = $data['FU_entero_sev'];
 
+        // 위내시경 검사일
+        $FU_gastro_d = "{$data['FU_gastro_d_y']}-{$data['FU_gastro_d_m']}-{$data['FU_gastro_d_d']}";
+        $FU_gastro_d_replace = str_replace('-', '', $FU_gastro_d);
+
+        if (empty($FU_gastro_d_replace)) {
+            $FU_gastro_d = '';
+        }
+
+        $this->FU_gastro_d = $FU_gastro_d;
+        $this->FU_gastro_sev = $data['FU_gastro_sev'];
+
         // 입력상태
         $this->status = empty($data['status']) ? 'I' : 'C';
     }
@@ -111,17 +122,23 @@ class FuENDO extends Model
         $Fu = $this->Fu;
         $FuBX = $Fu->FuBX;
 
-        $FU_endo_d = empty($this->FU_endo_d) ? '' : explode('-', $this->FU_endo_d);
+        $FU_colon_d = empty($this->FU_colon_d) ? '' : explode('-', $this->FU_colon_d);
 
-        $this->FU_endo_d_y = $FU_endo_d[0] ?? '';
-        $this->FU_endo_d_m = $FU_endo_d[1] ?? '';
-        $this->FU_endo_d_d = $FU_endo_d[2] ?? '';
+        $this->FU_colon_d_y = $FU_colon_d[0] ?? '';
+        $this->FU_colon_d_m = $FU_colon_d[1] ?? '';
+        $this->FU_colon_d_d = $FU_colon_d[2] ?? '';
 
         $FU_entero_d = empty($this->FU_entero_d) ? '' : explode('-', $this->FU_entero_d);
 
         $this->FU_entero_d_y = $FU_entero_d[0] ?? '';
         $this->FU_entero_d_m = $FU_entero_d[1] ?? '';
         $this->FU_entero_d_d = $FU_entero_d[2] ?? '';
+
+        $FU_gastro_d = empty($this->FU_gastro_d) ? '' : explode('-', $this->FU_gastro_d);
+
+        $this->FU_gastro_d_y = $FU_gastro_d[0] ?? '';
+        $this->FU_gastro_d_m = $FU_gastro_d[1] ?? '';
+        $this->FU_gastro_d_d = $FU_gastro_d[2] ?? '';
 
         $this->ibd_type = $Fu->FU_ibd_type;
         $this->auto_endo_sev = ($this->ibd_type == '1')

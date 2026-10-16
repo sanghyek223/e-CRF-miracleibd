@@ -81,60 +81,62 @@ class FuLAB extends Model
         $labConfig = $fuConfig['LAB'];
 
         $this->FU_lab_WBC_na = $data['FU_lab_WBC_na'];
-        $this->FU_lab_WBC = ($this->FU_lab_WBC != '1') ? $data['FU_lab_WBC'] : null;
+        $this->FU_lab_WBC = $data['FU_lab_WBC'] ?? null;
 
         $this->FU_lab_Hb_na = $data['FU_lab_Hb_na'];
-        $this->FU_lab_Hb = ($this->FU_lab_Hb != '1') ? $data['FU_lab_Hb'] : null;
+        $this->FU_lab_Hb = $data['FU_lab_Hb'] ?? null;
 
         $this->FU_lab_ESR_na = $data['FU_lab_ESR_na'];
-        $this->FU_lab_ESR = ($this->FU_lab_ESR != '1') ? $data['FU_lab_ESR'] : null;
+        $this->FU_lab_ESR = $data['FU_lab_ESR'] ?? null;
 
         $this->FU_lab_CRP_na = $data['FU_lab_CRP_na'];
-        $this->FU_lab_CRP = ($this->FU_lab_CRP != '1') ? $data['FU_lab_CRP'] : null;
+        $this->FU_lab_CRP = $data['FU_lab_CRP'] ?? null;
         $this->FU_lab_CRP_cat = $data['FU_lab_CRP_cat'];
 
         $this->FU_lab_alb_na = $data['FU_lab_alb_na'];
-        $this->FU_lab_alb = ($this->FU_lab_alb != '1') ? $data['FU_lab_alb'] : null;
+        $this->FU_lab_alb = $data['FU_lab_alb'] ?? null;
 
         $this->FU_lab_FC_na = $data['FU_lab_FC_na'];
-        $this->FU_lab_FC = ($this->FU_lab_FC != '1') ? $data['FU_lab_FC'] : null;
+        $this->FU_lab_FC = $data['FU_lab_FC'] ?? null;
         $this->FU_lab_FC_cat = $data['FU_lab_FC_cat'];
 
         $this->FU_lab_IgG_QN_na = $data['FU_lab_IgG_QN_na'];
-        $this->FU_lab_IgG_QN = ($this->FU_lab_IgG_QN_na != '1') ? $data['FU_lab_IgG_QN'] : null;
+        $this->FU_lab_IgG_QN = $data['FU_lab_IgG_QN'] ?? null;
         $this->FU_lab_IgG_cat1 = $data['FU_lab_IgG_cat1'];
         $this->FU_lab_IgG_cat2 = $data['FU_lab_IgG_cat2'];
 
         $this->FU_lab_IgA_QN_na = $data['FU_lab_IgA_QN_na'];
-        $this->FU_lab_IgA_QN = ($this->FU_lab_IgA_QN_na != '1') ? $data['FU_lab_IgA_QN'] : null;
+        $this->FU_lab_IgA_QN = $data['FU_lab_IgA_QN'] ?? null;
         $this->FU_lab_IgA_cat1 = $data['FU_lab_IgA_cat1'];
         $this->FU_lab_IgA_cat2 = $data['FU_lab_IgA_cat2'];
 
         $this->FU_lab_ANCA = $data['FU_lab_ANCA'];
 
         $this->FU_lab_ANCA_total_na = $data['FU_lab_ANCA_total_na'];
-        $this->FU_lab_ANCA_total = ($this->FU_lab_ANCA_total != '1') ? $data['FU_lab_ANCA_total'] : null;
+        $this->FU_lab_ANCA_total = $data['FU_lab_ANCA_total'] ?? null;
 
         $this->FU_lab_PR3_QN_na = $data['FU_lab_PR3_QN_na'];
-        $this->FU_lab_PR3_QN = ($this->FU_lab_PR3_QN != '1') ? $data['FU_lab_PR3_QN'] : null;
+        $this->FU_lab_PR3_QN = $data['FU_lab_PR3_QN'] ?? null;
 
         $this->FU_lab_MPO_QN_na = $data['FU_lab_MPO_QN_na'];
-        $this->FU_lab_MPO_QN = ($this->FU_lab_MPO_QN != '1') ? $data['FU_lab_MPO_QN'] : null;
+        $this->FU_lab_MPO_QN = $data['FU_lab_MPO_QN'] ?? null;
 
         $this->FU_lab_Cdiff_total = $data['FU_lab_Cdiff_total'];
 
         $this->FU_lab_Cdiff_toxinA = $data['FU_lab_Cdiff_toxinA'];
         $this->FU_lab_Cdiff_toxinA_QN_na = $data['FU_lab_Cdiff_toxinA_QN_na'];
-        $this->FU_lab_Cdiff_toxinA_QN = ($this->FU_lab_Cdiff_toxinA_QN != '1') ? $data['FU_lab_Cdiff_toxinA_QN'] : null;
+        $this->FU_lab_Cdiff_toxinA_QN = $data['FU_lab_Cdiff_toxinA_QN'] ?? null;
 
         $this->FU_lab_Cdiff_toxinB = $data['FU_lab_Cdiff_toxinB'];
         $this->FU_lab_Cdiff_toxinB_QN_na = $data['FU_lab_Cdiff_toxinB_QN_na'];
-        $this->FU_lab_Cdiff_toxinB_QN = ($this->FU_lab_Cdiff_toxinB_QN != '1') ? $data['FU_lab_Cdiff_toxinB_QN'] : null;
+        $this->FU_lab_Cdiff_toxinB_QN = $data['FU_lab_Cdiff_toxinB_QN'] ?? null;
 
         $this->FU_lab_Cdiff_PCR = $data['FU_lab_Cdiff_PCR'];
+        $this->FU_lab_bi_Atoxin = $data['FU_lab_bi_Atoxin'];
+        $this->FU_lab_bi_Btoxin = $data['FU_lab_bi_Btoxin'];
 
         $this->FU_bio = $data['FU_bio'];
-        $this->FU_bio_cat = ($this->FU_bio == '1') ? $data['FU_bio_cat'] : null;
+        $this->FU_bio_cat = $data['FU_bio_cat'] ?? null;
 
         // 입력상태
         $this->status = empty($data['status']) ? 'I' : 'C';

@@ -74,6 +74,8 @@ class FASTQ extends Model
     {
         $fastqConfig = $this->fastqConfig();
         $uploadConfig = $fastqConfig['UPLOAD'];
+        $patient = $this->patient;
+        $file_index = 1;
 
         foreach ($uploadConfig['file'] as $key => $val) {
             $file = $data->file($key) ?? null; // 첨부파일
@@ -100,10 +102,15 @@ class FASTQ extends Model
                 $directory = $uploadConfig['directory'];
                 $uploadFile = (new CommonServices())->fileUploadService2($file, $directory);
 
+                $ext = pathinfo($uploadFile['origin_name'], PATHINFO_EXTENSION);
+                $origin_name = "{$patient->regist_num}_FASTQ_{$file_index}.{$ext}";
+
                 $this->{$fileSize} = $uploadFile['file_size'];
                 $this->{$uploadName} = $uploadFile['upload_name'];
-                $this->{$originName} = $uploadFile['origin_name'];
+                $this->{$originName} = $origin_name;
             }
+
+            $file_index++;
         }
 
         $file1 = $this->FASTQ_f1_name_real;

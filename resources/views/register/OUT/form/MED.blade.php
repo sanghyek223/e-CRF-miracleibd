@@ -18,7 +18,7 @@
 
         <thead>
         <tr>
-            <th scope="col" colspan="4">추가 투약 - 생물학적제제 – 1차</th>
+            <th scope="col" colspan="4">추가 투약 - 상급치료제(advanced therapy) – 1차</th>
         </tr>
         </thead>
 
@@ -57,6 +57,30 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap n4">
                     @foreach($medConfig['out_bio1_cat'] as $key => $val)
+                        @break($key == '7')
+                        <x-input.radio field="out_bio1_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio1_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio1_cat'] as $key => $val)
+                        @continue($key < '7')
+                        @break($key == '10')
+                        <x-input.radio field="out_bio1_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio1_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio1_cat'] as $key => $val)
+                        @continue($key < '10')
+                        @break($key == '13')
+                        <x-input.radio field="out_bio1_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio1_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio1_cat'] as $key => $val)
+                        @continue($key < '13')
                         <x-input.radio field="out_bio1_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio1_cat"/>
                     @endforeach
                 </div>
@@ -78,7 +102,7 @@
 
         <thead>
         <tr>
-            <th scope="col" colspan="4">추가 투약 - 생물학적제제 – 2차</th>
+            <th scope="col" colspan="4">추가 투약 - 상급치료제(advanced therapy) – 2차</th>
         </tr>
         </thead>
 
@@ -117,6 +141,30 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap n4">
                     @foreach($medConfig['out_bio2_cat'] as $key => $val)
+                        @break($key == '7')
+                        <x-input.radio field="out_bio2_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio2_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio2_cat'] as $key => $val)
+                        @continue($key < '7')
+                        @break($key == '10')
+                        <x-input.radio field="out_bio2_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio2_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio2_cat'] as $key => $val)
+                        @continue($key < '10')
+                        @break($key == '13')
+                        <x-input.radio field="out_bio2_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio2_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio2_cat'] as $key => $val)
+                        @continue($key < '13')
                         <x-input.radio field="out_bio2_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio2_cat"/>
                     @endforeach
                 </div>
@@ -138,7 +186,7 @@
 
         <thead>
         <tr>
-            <th scope="col" colspan="4">추가 투약 - 생물학적제제 – 3차</th>
+            <th scope="col" colspan="4">추가 투약 - 상급치료제(advanced therapy) – 3차</th>
         </tr>
         </thead>
 
@@ -177,6 +225,30 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap n4">
                     @foreach($medConfig['out_bio3_cat'] as $key => $val)
+                        @break($key == '7')
+                        <x-input.radio field="out_bio3_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio3_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio3_cat'] as $key => $val)
+                        @continue($key < '7')
+                        @break($key == '10')
+                        <x-input.radio field="out_bio3_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio3_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio3_cat'] as $key => $val)
+                        @continue($key < '10')
+                        @break($key == '13')
+                        <x-input.radio field="out_bio3_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio3_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio3_cat'] as $key => $val)
+                        @continue($key < '13')
                         <x-input.radio field="out_bio3_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio3_cat"/>
                     @endforeach
                 </div>
@@ -198,7 +270,7 @@
 
         <thead>
         <tr>
-            <th scope="col" colspan="4">추가 투약 - 생물학적제제 – 4차</th>
+            <th scope="col" colspan="4">추가 투약 - 상급치료제(advanced therapy) – 4차</th>
         </tr>
         </thead>
 
@@ -237,6 +309,30 @@
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap n4">
                     @foreach($medConfig['out_bio4_cat'] as $key => $val)
+                        @break($key == '7')
+                        <x-input.radio field="out_bio4_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio4_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio4_cat'] as $key => $val)
+                        @continue($key < '7')
+                        @break($key == '10')
+                        <x-input.radio field="out_bio4_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio4_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio4_cat'] as $key => $val)
+                        @continue($key < '10')
+                        @break($key == '13')
+                        <x-input.radio field="out_bio4_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio4_cat"/>
+                    @endforeach
+                </div>
+
+                <div class="radio-wrap n4">
+                    @foreach($medConfig['out_bio4_cat'] as $key => $val)
+                        @continue($key < '13')
                         <x-input.radio field="out_bio4_cat" value="{{ $key }}" :text="$val" :data="$register->out_bio4_cat"/>
                     @endforeach
                 </div>

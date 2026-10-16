@@ -79,8 +79,10 @@
                 <a href="javascript:void(0);" class="tooltip">
                     <img src="/assets/image/icon/ic_tooltip.png" alt="information">
                     <span class="tooltip-con" style="opacity: 1; display: none;">
-                        UC MES : 0,1,2,3 <br>
-                        SES-CD : 0~2, 3~6, 7~9, 10~
+                        UC MES 0, 1, 2, 3  <br>
+                        UCEIS : 0~1, 2~4, 5~6, 7~8 <br>
+                        SES-CD : 0~2, 3~6, 7~9, 10~12  <br>
+                        CDEIS : 0~2, 3~8, 9~11, 12~
                     </span>
                 </a>
             </th>
@@ -161,7 +163,46 @@
     <script>
         $(function () {
             validateEssChk();
+            mes_ses();
+            entro_sev();
         });
+
+        function mes_ses() {
+            const $form = $(form);
+            const is_b_endo_d_NP = $form.find('#b_endo_d_NP').is(':checked');
+            const is_b_endo_d_NA = $form.find('#b_endo_d_NA').is(':checked');
+            const is_b_endo_d_uk = $form.find('#b_endo_d_uk').is(':checked');
+
+            const b_MES = $form.find('#b_MES');
+            const b_endo_sev = $form.find('input[name=b_endo_sev]');
+
+            if (is_b_endo_d_NP || is_b_endo_d_NA || is_b_endo_d_uk) {
+                b_MES.attr('disabled', true).val('').change();
+                b_endo_sev.attr('disabled', true).val('');
+            } else {
+                b_MES.removeAttr('disabled');
+                b_endo_sev.removeAttr('disabled');
+            }
+
+            validateEssChk();
+        }
+
+        function entro_sev() {
+            const $form = $(form);
+            const is_b_entero_d_NP = $form.find('#b_entero_d_NP').is(':checked');
+            const is_b_entero_d_NA = $form.find('#b_entero_d_NA').is(':checked');
+            const is_b_entero_d_uk = $form.find('#b_entero_d_uk').is(':checked');
+
+            const b_entero_sev = $form.find('input[name=b_entero_sev]');
+
+            if (is_b_entero_d_NP || is_b_entero_d_NA || is_b_entero_d_uk) {
+                b_entero_sev.attr('disabled', true).val('');
+            } else {
+                b_entero_sev.removeAttr('disabled');
+            }
+
+            validateEssChk();
+        }
 
         function submitAction(next = false) {
             let ajaxData = newFormData(form);
@@ -172,6 +213,15 @@
 
             callMultiAjax(dataUrl, ajaxData);
         }
+
+
+        $(document).on('change', '#b_endo_d_NP, #b_endo_d_NA, #b_endo_d_uk', function () {
+            mes_ses();
+        });
+        
+        $(document).on('change', '#b_entero_d_NP, #b_entero_d_NA, #b_entero_d_uk', function () {
+            entro_sev();
+        });
 
         $(document).on('change', '#b_MES', function () {
             const value = $(this).val();
@@ -188,7 +238,7 @@
                 remi_target.hide();
                 remi_target.find('input[type=text]').val('');
             }
-            
+
             validateEssChk();
         });
 

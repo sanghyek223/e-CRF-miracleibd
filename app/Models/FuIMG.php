@@ -99,7 +99,7 @@ class FuIMG extends Model
             $FU_img_remi_d = '';
         }
 
-        $this->FU_img_remi_d = ($this->FU_img_sev == '1') ? $FU_img_remi_d : null;
+        $this->FU_img_remi_d = $FU_img_remi_d;
 
         $this->FU_inv_seg1 = $data['FU_inv_seg1'];
         $this->FU_inv_seg2 = $data['FU_inv_seg2'];

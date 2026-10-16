@@ -75,8 +75,7 @@ class OutOP extends Model
         $opConfig = $outConfig['OP'];
 
         $this->out_OP = $data['out_OP'];
-        $is_OP_y = ($this->out_OP == '1'); // 수술력 데이터 구분용
-        $this->out_OP_cnt = ($is_OP_y) ? $data['out_OP_cnt'] : '0';
+        $this->out_OP_cnt = $data['out_OP_cnt'] ?? '0';
 
         // 수술 리스트
         for ($i = 1; $i <= $opConfig['op_list_max']; $i++) {

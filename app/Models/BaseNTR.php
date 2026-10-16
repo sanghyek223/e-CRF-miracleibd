@@ -76,7 +76,6 @@ class BaseNTR extends Model
 
         // 영양 인자 설문
         $this->b_NTR_survey = $data['b_NTR_survey'];
-        $is_survey = ($this->b_NTR_survey == '1');
 
         $b_NTR_survey_d = "{$data['b_NTR_survey_d_y']}-{$data['b_NTR_survey_d_m']}-{$data['b_NTR_survey_d_d']}";
         $b_NTR_survey_d_replace = str_replace('-', '', $b_NTR_survey_d);
@@ -85,18 +84,19 @@ class BaseNTR extends Model
             $b_NTR_survey_d = '';
         }
 
-        $this->b_NTR_survey_d_uk = ($is_survey) ? $data['b_NTR_survey_d_uk'] : null;
-        $this->b_NTR_survey_d = ($is_survey && empty($this->b_NTR_survey_d_uk) ? $b_NTR_survey_d : null);
+        $this->b_NTR_survey_d_uk = $data['b_NTR_survey_d_uk'] ?? null;
+        $this->b_NTR_survey_d = $b_NTR_survey_d;
 
-        $this->b_NTR_survey_k = $is_survey ? $data['b_NTR_survey_k'] : null;
+        $this->b_NTR_survey_k = $data['b_NTR_survey_k'] ?? null;
+        $this->b_NTR_survey_k_ow = $data['b_NTR_survey_k_ow'] ?? null;
 
         // 영양 치료
         $this->b_NTR_Tx = $data['b_NTR_Tx'];
-        $is_Tx = ($this->b_NTR_Tx == '1');
 
-        $this->b_NTR_Tx_k = $is_Tx ? $data['b_NTR_Tx_k'] : null;
+        $this->b_NTR_Tx_k = $data['b_NTR_Tx_k'] ?? null;
+        $this->b_NTR_Tx_PEN_w = $data['b_NTR_Tx_PEN_w'] ?? null;
+        $this->b_NTR_Tx_PEN_ow = $data['b_NTR_Tx_PEN_ow'] ?? null;
 
-        $is_Tx_k_etc = ($this->b_NTR_Tx_k == '4'); // 영양 치료 병행 방식 기타 식이요법 선택 유무
         $b_NTR_Tx_d = "{$data['b_NTR_Tx_d_y']}-{$data['b_NTR_Tx_d_m']}-{$data['b_NTR_Tx_d_d']}"; // 시행일자
         $b_NTR_Tx_d_replace = str_replace('-', '', $b_NTR_Tx_d);
 
@@ -104,19 +104,26 @@ class BaseNTR extends Model
             $b_NTR_Tx_d = '';
         }
 
-        $this->b_NTR_Tx_ow = ($is_Tx && $is_Tx_k_etc) ? $data['b_NTR_Tx_ow'] : null;
-        $this->b_NTR_Tx_d_uk = ($is_Tx) ? $data['b_NTR_Tx_d_uk'] : '';
-        $this->b_NTR_Tx_d = ($is_Tx && empty($this->b_NTR_Tx_d_uk) ? $b_NTR_Tx_d : null);
+        $this->b_NTR_Tx_ow = $data['b_NTR_Tx_ow'] ?? null;
+        $this->b_NTR_Tx_d_uk = $data['b_NTR_Tx_d_uk'] ?? null;
+        $this->b_NTR_Tx_d = $b_NTR_Tx_d;
 
-        $this->b_NTR_Tx_stop = $is_Tx ? $data['b_NTR_Tx_stop'] : null;
-        $is_stop = ($this->b_NTR_Tx_stop == '1');
-
-        $this->b_NTR_Tx_stop_k = $is_stop ? $data['b_NTR_Tx_stop_k'] : null;
-        $this->b_NTR_Tx_stop_ow = ($is_stop && $this->b_NTR_Tx_stop_k != '4') ? null : $data['b_NTR_Tx_stop_ow'];
+        $this->b_NTR_Tx_stop = $data['b_NTR_Tx_stop'] ?? null;
+        $this->b_NTR_Tx_stop_k = $data['b_NTR_Tx_stop_k'] ?? null;
+        $this->b_NTR_Tx_stop_ow = $data['b_NTR_Tx_stop_ow'] ?? null;
 
         // 식습관 조사
         $this->b_NTR_alc = $data['b_NTR_alc'];
+        $this->b_NTR_alc_k = $data['b_NTR_alc_k'] ?? null;
+        $this->b_NTR_alc_qn = $data['b_NTR_alc_qn'] ?? null;
+        $this->b_NTR_alc_freq_m = $data['b_NTR_alc_freq_m'] ?? null;
+
         $this->b_NTR_S = $data['b_NTR_S'];
+        $this->b_NTR_S_freq_d = $data['b_NTR_S_freq_d'] ?? null;
+
+        $this->b_NTR_S_yr = $data['b_NTR_S_yr'] ?? null;
+        $this->b_NTR_S_no_yr = $data['b_NTR_S_no_yr'] ?? null;
+
         $this->b_NTR_PF = $data['b_NTR_PF'];
 
         // 입력상태
@@ -134,8 +141,12 @@ class BaseNTR extends Model
         $this->b_NTR_survey_d_m = $b_NTR_survey_d[1] ?? '';
         $this->b_NTR_survey_d_d = $b_NTR_survey_d[2] ?? '';
 
+        $this->is_survey_k_etc = (($this->b_NTR_survey_k ?? '') == '3'); // 설문지 종류 기타
+
         $this->is_Tx = ($this->b_NTR_Tx == '1');
         $this->is_Tx_k_etc = (($this->b_NTR_Tx_k ?? '') == '4'); // 영양 치료 병행 방식 기타 식이요법 선택
+
+        $this->is_Tx_PEN_w_etc = (($this->b_NTR_Tx_PEN_w ?? '') == '4'); // 영양 치료 병행 방식 기타 식이요법 선택
 
         $b_NTR_Tx_d = empty($this->b_NTR_Tx_d) ? '' : explode('-', $this->b_NTR_Tx_d);
         $this->is_Tx_d_uk = (($this->b_NTR_Tx_d_uk ?? '') == '1'); // 영양 치료 병행 방식 기타 시행일자 Unknown 선택여부
@@ -146,6 +157,9 @@ class BaseNTR extends Model
 
         $this->is_stop = ($this->b_NTR_Tx_stop == '1');
         $this->is_Tx_stop_k_etc = (($this->b_NTR_Tx_stop_k ?? '') == '4'); // 영양 치료 중단 사유 기타 선택
+
+        $this->is_b_NTR_alc = (($this->b_NTR_alc ?? '') == '1'); // 음주 여부
+        $this->is_b_NTR_S = (($this->b_NTR_S ?? '') == '1'); // 흡연 여부
 
         return $this;
     }

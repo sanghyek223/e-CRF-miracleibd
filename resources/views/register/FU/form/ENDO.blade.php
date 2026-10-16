@@ -25,34 +25,36 @@
         <tbody>
         <tr>
             <th scope="row">
-                내시경 검사일
+                대장내시경 검사일
             </th>
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="form-group date">
-                    <x-input.text field="FU_endo_d_y" :data="$register->FU_endo_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
-                    <x-input.text field="FU_endo_d_m" :data="$register->FU_endo_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
-                    <x-input.text field="FU_endo_d_d" :data="$register->FU_endo_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
-                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="FU_endo_d" data-maxdate="{{ now()->format('Y-m-d') }}">
+                    <x-input.text field="FU_colon_d_y" :data="$register->FU_colon_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="FU_colon_d_m" :data="$register->FU_colon_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="FU_colon_d_d" :data="$register->FU_colon_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="FU_colon_d" data-maxdate="{{ now()->format('Y-m-d') }}">
                 </div>
             </td>
         </tr>
 
         <tr>
             <th scope="row">
-                내시경 Severity
+                대장내시경 Severity
                 <a href="javascript:void(0);" class="tooltip">
                     <img src="/assets/image/icon/ic_tooltip.png" alt="information">
                     <span class="tooltip-con" style="opacity: 1; display: none;">
-                        MES : 0,1,2,3<br>
-                        SES-CD : 0~2, 3~6, 7~9, 10~
+                        UC MES 0, 1, 2, 3  <br>
+                        UCEIS : 0~1, 2~4, 5~6, 7~8 <br>
+                        SES-CD : 0~2, 3~6, 7~9, 10~12  <br>
+                        CDEIS : 0~2, 3~8, 9~11, 12~
                     </span>
                 </a>
             </th>
 
             <td colspan="3" class="text-left ESS-CHK">
                 <div class="radio-wrap">
-                    @foreach($endoConfig['FU_endo_sev'] as $key => $val)
-                        <x-input.radio field="FU_endo_sev" value="{{ $key }}" :text="$val" :data="$register->FU_endo_sev" class="NONE-CLICK"/>
+                    @foreach($endoConfig['FU_colon_sev'] as $key => $val)
+                        <x-input.radio field="FU_colon_sev" value="{{ $key }}" :text="$val" :data="$register->FU_colon_sev" class="NONE-CLICK"/>
                     @endforeach
                 </div>
             </td>
@@ -80,6 +82,33 @@
                 <div class="radio-wrap">
                     @foreach($endoConfig['FU_entero_sev'] as $key => $val)
                         <x-input.radio field="FU_entero_sev" value="{{ $key }}" :text="$val" :data="$register->FU_entero_sev"/>
+                    @endforeach
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <th scope="row">
+                위내시경 검사일
+            </th>
+            <td colspan="3" class="text-left ESS-CHK">
+                <div class="form-group date">
+                    <x-input.text field="FU_gastro_d_y" :data="$register->FU_gastro_d_y" class="form-item line small text-center dateY" maxlength="4" onlynumber/> /
+                    <x-input.text field="FU_gastro_d_m" :data="$register->FU_gastro_d_m" class="form-item line small text-center dateM" maxlength="2" onlynumber/> /
+                    <x-input.text field="FU_gastro_d_d" :data="$register->FU_gastro_d_d" class="form-item line small text-center dateD" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="FU_gastro_d" data-maxdate="{{ now()->format('Y-m-d') }}">
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <th scope="row">
+                위내시경 Severity
+            </th>
+            <td colspan="3" class="text-left ESS-CHK">
+                <div class="radio-wrap">
+                    @foreach($endoConfig['FU_gastro_sev'] as $key => $val)
+                        <x-input.radio field="FU_gastro_sev" value="{{ $key }}" :text="$val" :data="$register->FU_gastro_sev"/>
                     @endforeach
                 </div>
             </td>

@@ -281,6 +281,17 @@
     line-height: 1;
 }
 
+.bg-box.type-subject {
+    margin-top: 5px;
+    border: 1px solid #ebf2f9;
+    background-color: #f9fcff;
+}
+.bg-box.type-subject + p {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
 
 /* window popup */
 .win-popup-wrap {

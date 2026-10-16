@@ -3,6 +3,7 @@
 
     $register = $register->additionalData(); // 데이터 가공 & 추가
     $disabled_survey_d = (!$register->is_survey_y || $register->is_survey_uk); // 설문지 작성일자 text box disabled 유무
+    $disabled_C1q_1_d = (!$register->is_C1q_y || $register->is_C1q_1_uk); // 1-1. COVID 19 확진일 text box disabled 유무
 @endphp
 
 @include('register.include.status')
@@ -683,20 +684,11 @@
                 1-1. COVID 19에 감염되었다면 감염이 확인된 일자는 언제인가요? (확진일 기준)
             </th>
             <td colspan="2" class="text-left ESS-CHK">
-                <div class="form-group date">
-                    <select name="b_EVN_C1q_1_year" id="b_EVN_C1q_1_year" class="form-item w-10p chk-active" @if($register->is_C1q_1_uk) disabled @endif>
-                        <option value="">년</option>
-                        @for ($i = $registerConfig['year_end']; $i >= $registerConfig['year_start']; $i--)
-                            <option value="{{ $i }}" {{ ($register->b_EVN_C1q_1_year ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                        @endfor
-                    </select>
-
-                    <select name="b_EVN_C1q_1_month" id="b_EVN_C1q_1_month" class="form-item w-10p chk-active" @if($register->is_C1q_1_uk) disabled @endif>
-                        <option value="">월</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" {{ ($register->b_EVN_C1q_1_month ?? '') == $i ? 'selected' : '' }}>{{ $i }}월</option>
-                        @endfor
-                    </select>
+                <div class="form-group date survey-date">
+                    <x-input.text field="b_EVN_C1q_1_d_y" :data="$register->b_EVN_C1q_1_d_y" :disabled="$disabled_C1q_1_d" class="form-item line small text-center dateY chk-active" maxlength="4" onlynumber/> /
+                    <x-input.text field="b_EVN_C1q_1_d_m" :data="$register->b_EVN_C1q_1_d_m" :disabled="$disabled_C1q_1_d" class="form-item line small text-center dateM chk-active" maxlength="2" onlynumber/> /
+                    <x-input.text field="b_EVN_C1q_1_d_d" :data="$register->b_EVN_C1q_1_d_d" :disabled="$disabled_C1q_1_d" class="form-item line small text-center dateD chk-active" maxlength="2" onlynumber/>
+                    <img src="/assets/image/icon/ic_cal.png" alt="" class="target-replace-datepicker" data-target="b_EVN_C1q_1_d" data-maxdate="{{ now()->format('Y-m-d') }}" style="display: {{ $disabled_C1q_1_d ? 'none' : '' }}">
 
                     <div class="checkbox-wrap inline ml-10">
                         <x-input.checkbox field="b_EVN_C1q_1_uk" value="1" text="Unknown" :data="$register->b_EVN_C1q_1_uk" :active="true" class="target-active ESS-CHK-NONE"/>
